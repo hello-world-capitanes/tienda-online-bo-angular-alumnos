@@ -1,6 +1,25 @@
 <ng-container class="añadirCategoria">
+  <form [formGroup] = "categoryForm" class = "form-category">
 
+    <div class = "titule">
+      <span> Añadir nueva: Categoria</span>
+    </div>
 
+    <mat-divider></mat-divider>
+
+    <div class = "form">
+
+      <span> Nombre:</span>
+      <input mat-input  formControlName = "nombre">
+      <br>
+      <span> Categoria: </span>
+      <input mat-input  formControlName = "descripcion">
+      <br>
+      <button mat-raised-button (click) = "addLista()"> Enviar </button>
+
+    </div>
+
+  </form>
 </ng-container>
 
 
