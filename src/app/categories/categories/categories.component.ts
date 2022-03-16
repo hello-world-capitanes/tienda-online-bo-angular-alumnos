@@ -49,7 +49,7 @@ export class CategoriesComponent implements OnInit {
                 elemento.cambiarEstado();
               }
             }
-
+//dgsagdsak
         } else {
 
           this.errorDatoExistente = true;
