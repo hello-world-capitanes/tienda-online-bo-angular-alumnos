@@ -1,1 +1,14 @@
-<p>shops-create works!</p>
+<form [formGroup]="formGroupShop" class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Text..." formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Value</mat-label>
+    <input matInput placeholder="Text..." formControlName="value">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="anadirShop()">Añadir</button>
+
+</form>

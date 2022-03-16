@@ -1,9 +1,10 @@
 <div>
-  <app-shops-create></app-shops-create>
+  <app-shops-create (anadirOutPut)="anadirElementoLista($event)"></app-shops-create>
+
   <mat-divider></mat-divider>
   <div *ngFor="let shop of shops">
     <p>{{shop.name}}, {{shop.value}}</p>
-    <button (click)="deleteShop(shop)"></button>
+    <button (click)="deleteShop(shop)"> Borrar </button>
     <mat-divider></mat-divider>
   </div>
 </div>

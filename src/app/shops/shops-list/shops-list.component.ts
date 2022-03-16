@@ -25,4 +25,9 @@ export class ShopsListComponent implements OnInit {
     this.shops.splice(this.shops.indexOf(shop),1);
   }
 
+  anadirElementoLista(elementoLista : any){
+    this.shops.push(elementoLista);
+
+  }
+
 }

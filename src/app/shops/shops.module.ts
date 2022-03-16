@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { ShopsCreateComponent } from './shops-create/shops-create.component';
 import { ShopsListComponent } from './shops-list/shops-list.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 
 
 
@@ -14,6 +19,10 @@ import { ShopsListComponent } from './shops-list/shops-list.component';
   imports: [
     CommonModule,
     MatDividerModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule
+
   ],
   exports:[
     ShopsListComponent,
