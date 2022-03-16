@@ -21,6 +21,7 @@
 
   </form>
 </ng-container>
+
 <ng-container class="listaCategoria" *ngFor="let categorie of categories">
   <div class="categoriaItem" *ngIf="categorie.getEstado()">
     <span>{{ categorie.getNombre() }}</span>
