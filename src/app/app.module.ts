@@ -1,3 +1,4 @@
+import { ShopsModule } from './shops/shops.module';
 import { NgModule } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +18,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserAnimationsModule,
     SharedModule,
     MatSidenavModule,
+    ShopsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
