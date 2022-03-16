@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { ShopsCreateComponent } from './shops-create/shops-create.component';
 import { ShopsListComponent } from './shops-list/shops-list.component';
 import {MatInputModule} from '@angular/material/input';
@@ -26,7 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   exports:[
     ShopsListComponent,
-    ShopsCreateComponent
+    ShopsCreateComponent,
   ]
 })
 export class ShopsModule { }

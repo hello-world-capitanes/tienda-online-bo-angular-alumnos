@@ -24,6 +24,9 @@ export class ShopsListComponent implements OnInit {
   deleteShop(shop:shopElement){
     this.shops.splice(this.shops.indexOf(shop),1);
   }
+  updateList(name:string,value:string){
+
+  }
 
   anadirElementoLista(elementoLista : any){
     this.shops.push(elementoLista);
