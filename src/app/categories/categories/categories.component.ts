@@ -1,3 +1,4 @@
+import { Categoria } from './models/categoria.models';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
 
-  categories = [{ nombre: "Fruta", estado: true}];
+  categories: Categoria[] = [];
 
   constructor() { }
 
