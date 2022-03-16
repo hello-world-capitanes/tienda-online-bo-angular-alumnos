@@ -12,6 +12,13 @@ export class CategoriesComponent implements OnInit {
   categories: Categoria[] = [];
   categoryForm !: FormGroup;
 
+/*   categories: Categoria[] = [
+    new Categoria("Fruta", true, "Descripción", "color"),
+    new Categoria("Cereales", true, "Descripción", "color"),
+    new Categoria("Verdura", false, "Descripción", "color"),
+    new Categoria("Drogería", true, "Descripción", "color"),
+  ]; */
+
   constructor(private formulario: FormBuilder) { }
 
   ngOnInit(): void {
@@ -33,4 +40,13 @@ export class CategoriesComponent implements OnInit {
 
   }
 
+  remove(categoriaRef: Categoria)
+  {
+    this.categories.forEach(categorie => {
+      if(categorie === categoriaRef)
+      {
+        categorie.cambiarEstado();
+      }
+    });
+  }
 }

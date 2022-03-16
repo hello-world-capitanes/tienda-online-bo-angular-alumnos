@@ -21,8 +21,9 @@
 
   </form>
 </ng-container>
-
-
-<ng-container class="listaCategoria">
-
+<ng-container class="listaCategoria" *ngFor="let categorie of categories">
+  <div class="categoriaItem" *ngIf="categorie.getEstado()">
+    <span>{{ categorie.getNombre() }}</span>
+    <button (click)="this.remove(categorie)"><mat-icon>remove</mat-icon></button>
+  </div>
 </ng-container>
