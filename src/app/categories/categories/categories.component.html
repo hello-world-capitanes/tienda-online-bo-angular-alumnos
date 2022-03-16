@@ -9,22 +9,44 @@
 
     <div class = "form">
 
+      <br>
       <span> Nombre:</span>
-      <input mat-input  formControlName = "nombre">
-      <br>
-      <span> Categoria: </span>
-      <input mat-input  formControlName = "descripcion">
-      <br>
-      <button mat-raised-button (click) = "addLista()"> Enviar </button>
+      <input matInput appareance = "fill"  formControlName = "nombre">
+      <div *ngIf = "categoryForm.get('nombre')?.hasError('required') && buttonPressed" class = "error">
+        Introduce tu nombre
+      </div>
 
+      <br>
+      <br>
+      <span> Descripcion: </span>
+      <input matInput  formControlName = "descripcion">
+
+      <div *ngIf = "categoryForm.get('descripcion')?.hasError('required') && buttonPressed" class = "error">
+        Introduce tu descripcion
+      </div>
+
+      <br>
+      <br>
+      <button mat-raised-button (click) = "addLista()"> <mat-icon> add </mat-icon> </button>
+
+      <div *ngIf = "errorDatoExistente" class = "error">
+        <br>
+        EL DATO QUE QUIERES METER YA EXISTE
+      </div>
     </div>
 
   </form>
 </ng-container>
 
+<br>
+<mat-divider></mat-divider>
+<br>
+
 <ng-container class="listaCategoria" *ngFor="let categorie of categories">
+
   <div class="categoriaItem" *ngIf="categorie.getEstado()">
-    <span>{{ categorie.getNombre() }}</span>
-    <button (click)="this.remove(categorie)"><mat-icon>remove</mat-icon></button>
+    <span> {{ categorie.getNombre() }} </span>
+    <button (click) = "this.remove(categorie)"> <mat-icon>remove</mat-icon></button>
   </div>
+
 </ng-container>

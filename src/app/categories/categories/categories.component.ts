@@ -9,15 +9,17 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class CategoriesComponent implements OnInit {
 
-  categories: Categoria[] = [];
+  //categories: Categoria[] = [];
   categoryForm !: FormGroup;
+  buttonPressed: boolean = false;
+  errorDatoExistente: boolean = false;
 
-/*   categories: Categoria[] = [
+  categories: Categoria[] = [
     new Categoria("Fruta", true, "Descripción", "color"),
     new Categoria("Cereales", true, "Descripción", "color"),
     new Categoria("Verdura", false, "Descripción", "color"),
     new Categoria("Drogería", true, "Descripción", "color"),
-  ]; */
+  ];
 
   constructor(private formulario: FormBuilder) { }
 
@@ -25,19 +27,39 @@ export class CategoriesComponent implements OnInit {
 
     this.categoryForm = this.formulario.group({
 
-      name: new FormControl('', [Validators.required]),
+      nombre: new FormControl('', [Validators.required]),
 
       descripcion: new FormControl('', [Validators.required]),
 
-      color: new FormControl('', [Validators.required])
+      //color: new FormControl('', [Validators.required])
     })
   }
 
   addLista(){
 
-    /* this.categories.push(new Categoria(
-          this.categoryForm.get("name")?.value,)); */
+    this.buttonPressed = true;
+    console.log(this.categoryForm.valid);
+    if (this.categoryForm.valid){
 
+      if (this.categories.some( (elemento) => elemento.getNombre() == this.categoryForm.get("nombre")?.value)){
+        if (this.categories.some( (elemento) => (elemento.getNombre() == this.categoryForm.get("nombre")?.value) && elemento.getEstado() == false)){
+            for (let elemento of this.categories){
+              if ((elemento.getNombre() == this.categoryForm.get("nombre")?.value) && elemento.getEstado() == false){
+
+                elemento.cambiarEstado();
+              }
+            }
+
+        } else {
+
+          this.errorDatoExistente = true;
+        }
+
+      } else {
+        this.errorDatoExistente = false;
+        this.categories.push(new Categoria(this.categoryForm.get("nombre")?.value, true, this.categoryForm.get("descripcion")?.value, 'hola'));
+      }
+    }
   }
 
   remove(categoriaRef: Categoria)
