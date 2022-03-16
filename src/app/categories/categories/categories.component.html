@@ -3,8 +3,8 @@
 
 </ng-container>
 <ng-container class="listaCategoria" *ngFor="let categorie of categories">
-  <div class="categoriaItem" *ngIf="categorie.estado">
-    <span>{{ categorie.nombre }}</span>
-    <button><mat-icon>remove</mat-icon></button>
+  <div class="categoriaItem" *ngIf="categorie.getEstado()">
+    <span>{{ categorie.getNombre() }}</span>
+    <button (click)="this.remove(categorie)"><mat-icon>remove</mat-icon></button>
   </div>
 </ng-container>
