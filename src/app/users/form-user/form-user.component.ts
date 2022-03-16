@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { userBackOffice } from '../list-user/modals/user';
 
 @Component({
   selector: 'app-form-user',
@@ -9,6 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class FormUserComponent implements OnInit {
 
   formCrear: FormGroup;
+  nuevoUser:userBackOffice = new userBackOffice("Hola","","","");
 
   constructor(public formulario:FormBuilder) {
     this.formCrear = this.formulario.group({
@@ -60,8 +62,13 @@ export class FormUserComponent implements OnInit {
   }
 
   aceptar():void{
-
-
+    if(this.formCrear.valid){
+      this.nuevoUser = new userBackOffice(this.formCrear.get("nameFormControl")?.value,
+                                          this.formCrear.get("surnameFormControl")?.value,
+                                          this.formCrear.get("emailFormControl")?.value,
+                                          this.formCrear.get("passFormControl")?.value,
+      );
+    }
   }
 
   }

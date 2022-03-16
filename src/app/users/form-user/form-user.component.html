@@ -29,6 +29,8 @@
         <mat-error>{{errorMessagePass}}</mat-error>
       </mat-form-field>
 
-      <button class="margin" mat-raised-button color="primary">+</button>
+      <button class="margin" mat-raised-button color="primary" (click)="aceptar()">+</button>
     </form>
 </div>
+<app-list-user [nuevoUser]="nuevoUser"></app-list-user>
+

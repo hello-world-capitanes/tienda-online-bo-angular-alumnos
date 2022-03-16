@@ -4,9 +4,17 @@
       Lista de usuarios
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <mat-list role="list">
-    <mat-list-item role="listitem">User 1</mat-list-item>
-    <mat-list-item role="listitem">User 2</mat-list-item>
-    <mat-list-item role="listitem">User 3</mat-list-item>
+  <mat-list role="list" *ngFor="let user of users; let i = index">
+    <mat-divider></mat-divider>
+        <div class="module-list-item">
+          <div mat-line style="display: flex; justify-content: space-between;">
+            <div><mat-icon mat-list-icon>people</mat-icon>
+              {{ user.name + " " + user.surname + "    |    " + user.email}}
+            </div>
+            <button mat-mini-fab color="primary">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
   </mat-list>
 </mat-expansion-panel>
