@@ -8,33 +8,26 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class FormUserComponent implements OnInit {
 
-  constructor(public formulario:FormBuilder) { }
+  formCrear: FormGroup;
 
-  formCrear!:FormGroup;
-
-  ngOnInit(): void {
-
-      this.formCrear=this.formulario.group({
-
+  constructor(public formulario:FormBuilder) {
+    this.formCrear = this.formulario.group({
       nameFormControl : new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
       surnameFormControl : new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
       emailFormControl : new FormControl('', [Validators.required, Validators.email]),
       passFormControl : new FormControl('', [Validators.required, Validators.minLength(8)]),
-
     })
   }
 
-  get form(){
-
-    return this.formCrear;
-
+  ngOnInit(): void {
   }
 
+
   get errorMessageEmail(): string {
-    const form: FormControl = (this.formCrear.get('emailFormControl') as FormControl);
-    return form.hasError('required') ?
+    const form = this.formCrear.get('emailFormControl');
+    return form?.hasError('required') ?
       'Introduce una correo' :
-      form.hasError('email') ?
+      form?.hasError('email') ?
       'Introduce un correo válido':'';
   }
 
@@ -49,7 +42,7 @@ export class FormUserComponent implements OnInit {
   get errorMessageName(): string {
     const form: FormControl = (this.formCrear.get('nameFormControl') as FormControl);
     return form.hasError('required') ?
-      'Introduce una contraseña' :
+      'Introduce un nombre' :
       form.hasError('minlength') ?
       'Introduce un nombre de mínimo 3 carácteres':
       form.hasError('maxlength') ?
@@ -59,7 +52,7 @@ export class FormUserComponent implements OnInit {
   get errorMessageSurname(): string {
     const form: FormControl = (this.formCrear.get('surnameFormControl') as FormControl);
     return form.hasError('required') ?
-      'Introduce una contraseña' :
+      'Introduce apellidos' :
       form.hasError('minlength') ?
       'Introduce apellidos de mínimo 3 carácteres':
       form.hasError('maxlength') ?
@@ -69,7 +62,7 @@ export class FormUserComponent implements OnInit {
   aceptar():void{
 
 
-    }
+  }
 
   }
 
