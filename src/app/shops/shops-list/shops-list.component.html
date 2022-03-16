@@ -2,9 +2,16 @@
   <app-shops-create></app-shops-create>
   <mat-divider></mat-divider>
   <div *ngFor="let shop of shops">
-    <p>{{shop.name}}, {{shop.value}}</p>
-    <button (click)="deleteShop(shop)"></button>
+    <div class="shops-container">
+      <div class="shops-container">
+        <mat-icon>shop</mat-icon>
+        <h2>{{shop.name}}</h2>
+      </div>
+      <h2>{{shop.value}}</h2>
+      <button mat-raised-button color="warn" (click)="deleteShop(shop)">-</button>
+    </div>
     <mat-divider></mat-divider>
   </div>
+
 </div>
 

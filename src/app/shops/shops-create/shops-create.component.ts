@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output} from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-shops-create',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopsCreateComponent implements OnInit {
 
+  name:string="";
+  value:string="";
+
+  @Output() updateList = new EventEmitter<string[]>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  sendValues(){
+    this.updateList.emit([this.name,this.value]);
   }
 
 }
