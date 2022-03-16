@@ -10,6 +10,9 @@ import { ProductComponent } from './product/product.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    ProductComponent,
   ]
 })
 export class CoreModule { }
