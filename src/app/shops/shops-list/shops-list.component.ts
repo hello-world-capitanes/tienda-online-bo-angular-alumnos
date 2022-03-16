@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 export interface shopElement{
-  name: String;
+  name: string;
+  value: number;
 }
 @Component({
   selector: 'app-shops-list',
@@ -11,13 +12,17 @@ export interface shopElement{
 export class ShopsListComponent implements OnInit {
 
   shops: shopElement[] = [
-    {name:"Shop1"},
-    {name:"Shop2"},
-    {name:"Shop3"},
+    {name:"Shop1", value:1},
+    {name:"Shop2", value:2},
+    {name:"Shop3", value:3},
   ]
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  deleteShop(shop:shopElement){
+    this.shops.splice(this.shops.indexOf(shop),1);
   }
 
 }

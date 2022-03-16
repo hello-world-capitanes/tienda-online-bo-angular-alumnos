@@ -1,7 +1,10 @@
 <div>
   <app-shops-create></app-shops-create>
+  <mat-divider></mat-divider>
   <div *ngFor="let shop of shops">
-    <p>{{shop.name}}</p>
+    <p>{{shop.name}}, {{shop.value}}</p>
+    <button (click)="deleteShop(shop)"></button>
+    <mat-divider></mat-divider>
   </div>
 </div>
 

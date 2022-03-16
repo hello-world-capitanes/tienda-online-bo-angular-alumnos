@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShopsListComponent } from './shops-list/shops-list.component';
+import { NgModule } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
 import { ShopsCreateComponent } from './shops-create/shops-create.component';
+import { ShopsListComponent } from './shops-list/shops-list.component';
 
 
 
@@ -11,7 +12,8 @@ import { ShopsCreateComponent } from './shops-create/shops-create.component';
     ShopsCreateComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatDividerModule,
   ],
   exports:[
     ShopsListComponent,
