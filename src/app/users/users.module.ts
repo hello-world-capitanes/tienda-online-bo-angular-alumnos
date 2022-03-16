@@ -12,6 +12,10 @@ import { ListUserComponent } from './list-user/list-user.component';
   ],
   imports: [
     CommonModule
+  ], exports:[
+
+    FormUserComponent,
+    ListUserComponent
   ]
 })
 export class UsersModule { }

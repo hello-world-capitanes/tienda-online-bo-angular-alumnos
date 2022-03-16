@@ -1,1 +1,19 @@
-<p>form-user works!</p>
+<div class="contenedor">
+    <form class="margin" [formGroup]="formLogin">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="emailFormControl" placeholder="Ex. raul@gmail.com">
+        <mat-error>{{errorMessageEmail}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" *ngIf="isCorrectEmail">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput formControlName="passFormControl" placeholder="********">
+        <mat-error>{{errorMessagePass}}</mat-error>
+      </mat-form-field>
+
+      <button class="margin" mat-raised-button color="primary">+</button>
+    </form>
+  </div>
+</div>
