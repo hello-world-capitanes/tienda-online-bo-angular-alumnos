@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
@@ -12,9 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import {MatListModule} from '@angular/material/list';
 import { UsersModule } from './users/users.module';
-import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
