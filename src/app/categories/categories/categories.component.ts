@@ -38,13 +38,14 @@ export class CategoriesComponent implements OnInit {
 
       if (this.categories.some( (elemento) => elemento.getNombre() == this.categoryForm.get("nombre")?.value)){
         if (this.categories.some( (elemento) => (elemento.getNombre() == this.categoryForm.get("nombre")?.value) && elemento.getEstado() == false)){
+
             for (let elemento of this.categories){
               if ((elemento.getNombre() == this.categoryForm.get("nombre")?.value) && elemento.getEstado() == false){
 
                 elemento.cambiarEstado();
               }
             }
-//dgsagdsak
+
         } else {
 
           this.errorDatoExistente = true;
