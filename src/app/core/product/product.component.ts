@@ -14,8 +14,6 @@ export class ProductComponent implements OnInit {
   /* @Input("productList") product!= Product; */
   panelOpenState = false;
 
-  panelOpenState = false;
-
   productForm !: FormGroup;
 
   categories: String[] = [
