@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-product',
@@ -11,6 +12,8 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class ProductComponent implements OnInit {
   /* @Input("productList") product!= Product; */
+
+  panelOpenState = false;
 
   productForm !: FormGroup;
 
@@ -67,7 +70,7 @@ export class ProductComponent implements OnInit {
     this.products.push(prod);
   }
 
-  deleteProduct(prodName: string){
+  deleteProduct(prodName?: string){
     for(let i = 0; i < this.products.length; i++){
       if(prodName === this.products[i].name){
         this.products.splice(i, 1);
@@ -75,7 +78,7 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  seeInfo(prodName: string){
+  seeInfo(prodName?: string){
 
   }
 

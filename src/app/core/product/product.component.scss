@@ -50,3 +50,28 @@ mat-form-field{
 .segundaCol{
   text-align: center;
 }
+
+.containerProd{
+  display: flex;
+  flex-direction: column;
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+}
+
+.botonProd{
+  margin: 1em;
+}
+
+.infoOculta{
+  display: flex;
+  margin-left: 3em;
+  flex-direction: row;
+}
+
+.primeraColOculta, .segundaColOculta{
+  margin-left: 5%;
+  width: 25%;
+}
