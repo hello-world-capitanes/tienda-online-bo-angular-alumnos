@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import {CategoriesModule} from './categories/categories.module';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+
 import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
@@ -19,8 +21,9 @@ import { RouterModule } from '@angular/router';
     MatSidenavModule,
     CategoriesModule,
     RouterModule
+    NgxMatColorPickerModule
   ],
-  providers: [],
+  providers: [MAT_COLOR_FORMATS, NGX_MAT_COLOR_FORMATS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

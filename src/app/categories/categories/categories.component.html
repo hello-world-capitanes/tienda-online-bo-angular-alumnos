@@ -33,6 +33,10 @@
         <br>
           La categoría ya existe
       </div>
+
+<!--       <input matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr" [disabled]="disabled">
+      <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #picker [touchUi]="touchUi" [color]="color"></ngx-mat-color-picker> -->
     </div>
 
   </form>
@@ -50,7 +54,7 @@
       <span> {{ categorie.getNombre() }} </span>
     </div>
     <div class="flexElement">
-      <span class="descripcion" *ngIf="details"> {{ categorie.getDescripcion() }}</span>
+      <span class="descripcion"s> {{ categorie.getDescripcion() }}</span>
     </div>
     <div class="flexElement">
       <button (click) = "this.remove(categorie)"> <mat-icon>remove</mat-icon></button>
