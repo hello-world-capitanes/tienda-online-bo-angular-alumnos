@@ -8,7 +8,6 @@ import { Product } from './models/product-models';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  /* @Input("productList") product!= Product; */
   panelOpenState = false;
 
   productForm !: FormGroup;
