@@ -4,8 +4,13 @@
     <mat-list-item *ngFor="let module of modules; let i = index">
         <mat-divider></mat-divider>
         <div class="module-list-item">
-            <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
-            <div mat-line>{{ module.name }}</div>
+          <button>
+            <a mat-icon-button routerLink="/users">
+            <mat-icon>{{module.icon}}</mat-icon>
+          </a>
+        </button>
+        <div mat-line>{{ module.name }}</div>
+
         </div>
     </mat-list-item>
 </mat-list>

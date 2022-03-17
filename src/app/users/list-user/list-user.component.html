@@ -6,7 +6,7 @@
   </mat-expansion-panel-header>
   <mat-list role="list" *ngFor="let user of users; let i = index">
     <mat-divider></mat-divider>
-        <div class="module-list-item">
+        <div style="display: flex; flex-wrap: nowrap;">
           <div mat-line style="display: flex; justify-content: space-between;">
             <div ><mat-icon mat-list-icon>people</mat-icon>
               {{ user.name + " " + user.surname + "    |    " + user.email}}

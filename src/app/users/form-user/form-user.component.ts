@@ -34,11 +34,13 @@ export class FormUserComponent implements AfterViewInit {
     if (!this.formCrear.valid) {
       return;
     }
+    else{
+      this.nuevoUser = new userBackOffice(this.formCrear.get("nameFormControl")?.value,
+      this.formCrear.get("surnameFormControl")?.value,this.formCrear.get("emailFormControl")?.value,
+      this.formCrear.get("passFormControl")?.value);
+      this.listaUser?.addUser(this.nuevoUser);
+    }
 
-    this.nuevoUser = new userBackOffice(this.formCrear.get("nameFormControl")?.value,
-    this.formCrear.get("surnameFormControl")?.value,this.formCrear.get("emailFormControl")?.value,
-    this.formCrear.get("passFormControl")?.value)
-    this.listaUser?.addUser(this.nuevoUser);
   }
 
 
