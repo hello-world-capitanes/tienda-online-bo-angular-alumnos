@@ -1,43 +1,50 @@
-<h1 class="titulo">ADD PRODUCT</h1>
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        ADD PRODUCT
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form novalidate [formGroup]="productForm" class="form">
+      <div class="container">
+        <div class="primeraCol">
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput class="input" formControlName="name">
+          </mat-form-field>
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Price</mat-label>
+            <input matInput class="input" formControlName="price">
+          </mat-form-field>
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Categories</mat-label>
+            <mat-select class="input" formControlName="category">
+              <mat-option *ngFor="let cat of categories" value="product.category">
+                {{ cat }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="segundaCol">
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+          </mat-form-field>
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Characteristics</mat-label>
+            <input class="input" matInput formControlName="characteristics">
+          </mat-form-field>
+          <div class="formBtn">
+            <button mat-raised-button class="botonAnadir" type="submit" (click)="newProduct()">
+              <mat-icon> add_box </mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
 
-<form novalidate [formGroup]="productForm" class="form">
-  <div class="container">
-    <div class="primeraCol">
-      <mat-form-field class="formContainer" appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput class="input" formControlName="name" />
-      </mat-form-field>
-      <mat-form-field class="formContainer" appearance="fill">
-        <mat-label>Price</mat-label>
-        <input matInput class="input" formControlName="price" />
-      </mat-form-field>
-      <mat-form-field class="formContainer" appearance="fill">
-        <mat-label>Categories</mat-label>
-        <mat-select class="input" formControlName="category">
-          <mat-option *ngFor="let cat of categories" value="{{ cat }}">
-            {{ cat }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="segundaCol">
-      <mat-form-field class="formContainer" appearance="fill">
-        <mat-label>Description</mat-label>
-        <textarea
-          matInput
-          placeholder="Description"
-          class="input"
-          formControlName="description"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field class="formContainer" appearance="fill">
-        <mat-label>Characteristics</mat-label>
-        <input class="input" matInput formControlName="characteristics" />
-      </mat-form-field>
-      <div class="formBtn">
-        <button
-          mat-raised-button
-          class="botonAnadir"
           type="submit"
           (click)="newProduct()"
         >
@@ -109,4 +116,4 @@
     </div>
     <mat-divider></mat-divider>
   </ng-container>
-</mat-list>
+</mat-list> -->
