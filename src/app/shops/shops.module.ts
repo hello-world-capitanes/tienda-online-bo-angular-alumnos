@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ShopsCreateComponent } from './shops-create/shops-create.component';
 import { ShopsListComponent } from './shops-list/shops-list.component';
+import {MatCardModule} from '@angular/material/card';
+
 
 
 
@@ -24,6 +26,7 @@ import { ShopsListComponent } from './shops-list/shops-list.component';
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatCardModule
 
   ],
   exports:[
