@@ -11,10 +11,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-<<<<<<< HEAD
-=======
-  /* @Input("productList") product!= Product; */
->>>>>>> origin/feature/product-module
   panelOpenState = false;
 
   productForm !: FormGroup;
