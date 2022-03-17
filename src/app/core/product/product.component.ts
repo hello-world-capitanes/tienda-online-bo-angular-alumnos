@@ -11,11 +11,12 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class ProductComponent implements OnInit {
   /* @Input("productList") product!= Product; */
+  panelOpenState = false;
 
   productForm !: FormGroup;
 
   categories: String[] = [
-    "lacteos", "panaderia", "carniceria", "pescaderia", "fruteria", "bebidas", "limpieza"
+    "Lacteos", "Panaderia", "Carniceria", "Pescaderia", "Fruteria", "Bebidas", "Limpieza"
   ]
 
   products: Product[] = [
