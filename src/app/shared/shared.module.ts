@@ -20,6 +20,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     MatIconModule,
     MatListModule,
     MatDividerModule,
+    RouterModule,
     RouterModule
   ],
   exports: [
