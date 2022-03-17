@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-shops-create',
@@ -15,17 +15,20 @@ export class ShopsCreateComponent implements OnInit {
   }
 
   formGroupShop = new FormGroup({
-    name: new FormControl(''),
-    value: new FormControl(''),
+    name: new FormControl('',Validators.required),
+    value: new FormControl('',Validators.required),
   });
 
   anadirShop(){
-    let name = this.formGroupShop.controls["name"].value;
-    let value = this.formGroupShop.controls["value"].value;
+    if(this.formGroupShop.valid){
+      let name = this.formGroupShop.controls["name"].value;
+      let value = this.formGroupShop.controls["value"].value;
 
-    let objCreado = {name: name, value: value};
+      let objCreado = {name: name, value: value};
 
-    this.anadirOutPut.emit(objCreado);
+      this.anadirOutPut.emit(objCreado);
+    }
+
 
   }
 }
