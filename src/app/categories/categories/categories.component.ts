@@ -19,17 +19,11 @@ export class CategoriesComponent implements OnInit {
   };
   selectedColor: string = 'color1';
 
-  //categories: Categoria[] = [];
   categoryForm !: FormGroup;
   buttonPressed: boolean = false;
   errorDatoExistente: boolean = false;
 
-  categories: Categoria[] = [
-    new Categoria("Fruta", true, "Descripción", "color"),
-    new Categoria("Cereales", true, "Descripción", "color"),
-    new Categoria("Verdura", false, "Descripción", "color"),
-    new Categoria("Drogería", true, "Descripción", "color"),
-  ];
+  categories: Categoria[] = [];
 
   constructor(private formulario: FormBuilder) { }
 
@@ -46,6 +40,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   addLista(){
+
     this.buttonPressed = true;
     console.log(this.categoryForm.valid);
     if (this.categoryForm.valid){
