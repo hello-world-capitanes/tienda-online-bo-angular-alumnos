@@ -18,8 +18,8 @@
           </mat-form-field>
           <mat-form-field class="formContainer" appearance="fill">
             <mat-label>Categories</mat-label>
-            <mat-select class="input" formControlName="category">
-              <mat-option *ngFor="let cat of categories" value="product.category">
+            <mat-select class="input" formControlName="category" [(value)]="category">
+              <mat-option *ngFor="let cat of categories" [value]="cat">
                 {{ cat }}
               </mat-option>
             </mat-select>
@@ -46,6 +46,7 @@
 </mat-accordion>
 
 <mat-list role="list">
+<mat-list role="list" class="listaProductos">
   <mat-divider></mat-divider>
   <ng-container *ngFor="let product of products">
     <div class="containerProd">

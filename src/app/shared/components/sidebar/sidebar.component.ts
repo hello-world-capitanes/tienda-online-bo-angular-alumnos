@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface Module {
-  icon: string;
-  name: string;
-}
+import { Module } from '../../models/module.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,6 +7,7 @@ export interface Module {
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
   modules: Module[] = [
     { icon: "people", name: "Users" },
     { icon: "tag", name: "Categories" },
