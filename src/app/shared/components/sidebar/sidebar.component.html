@@ -4,7 +4,9 @@
     <mat-list-item *ngFor="let module of modules; let i = index">
         <mat-divider></mat-divider>
         <div class="module-list-item">
-            <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
+          <button mat-icon-button class="color">
+            <mat-icon>{{module.icon}}</mat-icon>
+          </button>
             <div mat-line>{{ module.name }}</div>
         </div>
     </mat-list-item>
