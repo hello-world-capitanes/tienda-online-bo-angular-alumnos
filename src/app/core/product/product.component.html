@@ -1,54 +1,57 @@
 <h1>ADD PRODUCT</h1>
 <mat-icon> keyboard_arrow_down </mat-icon>
 
+
 <form novalidate [formGroup]="productForm" class="form">
-  <table class="formContainer" cellspacing="0"><tr>
-  <td><mat-form-field class="formContainer" appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field></td>
-  <td><mat-form-field class="formContainer" appearance="fill">
-    <mat-label>Description</mat-label>
-    <textarea matInput placeholder="Description" formControlName="description"></textarea>
-  </mat-form-field></td>
-  </tr></table>
-
-  <table class="formContainer" cellspacing="0"><tr>
-  <td><mat-form-field class="formContainer" appearance="fill">
-    <mat-label>Price</mat-label>
-    <input matInput formControlName="price">
-  </mat-form-field></td>
-  <td><mat-form-field class="formContainer" appearance="fill">
-    <mat-label>Categories</mat-label>
-    <input matInput formControlName="categories">
-  </mat-form-field></td>
-  </tr></table>
-
-  <p>
-    <mat-form-field class="formContainer" appearance="fill">
-      <mat-label>Characteristics</mat-label>
-      <input matInput formControlName="characteristics">
-    </mat-form-field>
-  </p>
-
-  <div class="FormBtn">
-    <button mat-raised-button type="submit"><b>+</b></button>
+  <div class="container">
+    <div class="primeraCol">
+      <mat-form-field class="formContainer" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput class="input" formControlName="name">
+      </mat-form-field>
+      <mat-form-field class="formContainer" appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput class="input" formControlName="price">
+      </mat-form-field>
+      <mat-form-field class="formContainer" appearance="fill">
+        <mat-label>Categories</mat-label>
+        <mat-select class="input" formControlName="category">
+          <mat-option *ngFor="let cat of categories" value="product.category">
+            {{ cat }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="segundaCol">
+      <mat-form-field class="formContainer" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field class="formContainer" appearance="fill">
+        <mat-label>Characteristics</mat-label>
+        <input class="input" matInput formControlName="characteristics">
+      </mat-form-field>
+      <div class="formBtn">
+        <button mat-raised-button class="botonAnadir" type="submit" (click)="newProduct()"><mat-icon> add_box </mat-icon></button>
+      </div>
+    </div>
   </div>
-
-  <p>
+  <!--<p>
   Form value: {{productForm.value | json}}
   <br>
   Form value: {{productForm.status | json}}
-  </p>
+  </p>-->
 </form>
 
-<h1>LIST OF PRODUCTS</h1>
+<h1 class="titulo">LIST OF PRODUCTS</h1>
 <mat-list role="list">
   <mat-divider></mat-divider>
-  <mat-list-item role="listitem">productForm.name</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item role="listitem">productForm.name</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item role="listitem">productForm.name</mat-list-item>
-  <mat-divider></mat-divider>
+  <ng-container *ngFor="let product of products">
+    <div class="container">
+      <mat-list-item role="listitem" class="product">{{ product.name }}</mat-list-item>
+      <button mat-raised-button class="botonProd" (click)="deleteProduct([product.name])"><mat-icon> keyboard_arrow_down </mat-icon></button>
+      <button mat-raised-button class="botonProd" ><mat-icon> delete_forever </mat-icon></button>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
 </mat-list>
