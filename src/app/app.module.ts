@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
+
 import { MatExpansionModule } from '@angular/material/expansion';
+=======
+import { MatDividerModule } from '@angular/material/divider';
+
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,14 +20,17 @@ import { UsersModule } from './users/users.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+
+    AppRoutingModule,
+
     SharedModule,
+
     MatSidenavModule,
     MatExpansionModule,
     MatListModule,
     UsersModule,
-
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

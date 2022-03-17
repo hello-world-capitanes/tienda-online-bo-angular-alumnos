@@ -1,11 +1,12 @@
 <app-header></app-header>
-<mat-drawer-container class="example-container" autosize>
+<mat-divider></mat-divider>
+<mat-drawer-container class="sidebar-container" autosize>
 
-  <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="true">
-    <app-sidebar></app-sidebar>
+  <mat-drawer #drawer class="sidebar" mode="side" [opened]="true">
+    <app-sidebar (onToggleMenu)="onClickMenuButton()"></app-sidebar>
   </mat-drawer>
 
-  <mat-drawer-content class="example-site">
+  <mat-drawer-content class="sidebar-content">
     <router-outlet></router-outlet>
     <app-form-user></app-form-user>
   </mat-drawer-content>
