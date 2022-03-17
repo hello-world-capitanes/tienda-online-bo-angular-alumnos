@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import {CategoriesModule} from './categories/categories.module';
-
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent
@@ -17,7 +17,8 @@ import {CategoriesModule} from './categories/categories.module';
     BrowserAnimationsModule,
     SharedModule,
     MatSidenavModule,
-    CategoriesModule
+    CategoriesModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
