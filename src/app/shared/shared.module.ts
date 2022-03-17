@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
@@ -19,6 +20,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     MatIconModule,
     MatListModule,
     MatDividerModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent,

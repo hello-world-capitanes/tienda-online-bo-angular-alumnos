@@ -1,9 +1,6 @@
-import { Product } from './models/product-models';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import {MatIconModule} from '@angular/material/icon';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Product } from './models/product-models';
 
 @Component({
   selector: 'app-product',
@@ -15,8 +12,6 @@ export class ProductComponent implements OnInit {
   panelOpenState = false;
 
   productForm !: FormGroup;
-
-  category!: string;
 
   categories: String[] = [
     "Lacteos", "Panaderia", "Carniceria", "Pescaderia", "Fruteria", "Bebidas", "Limpieza"
@@ -62,7 +57,7 @@ export class ProductComponent implements OnInit {
     let characteristics = this.productForm.value.characteristics;
     let price = this.productForm.value.price;
     let description = this.productForm.value.description;
-    let category = this.category;
+    let category = this.productForm.value.categories;
     let prod1 = new Product(name, characteristics, price, description, category);
     this.addProduct(prod1);
   }

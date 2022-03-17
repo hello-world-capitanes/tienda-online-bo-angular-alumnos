@@ -11,7 +11,7 @@ export class SidebarComponent implements OnInit {
   modules: Module[] = [
     { icon: "people", name: "Users" },
     { icon: "tag", name: "Categories" },
-    { icon: "backup", name: "Products" },
+    { icon: "backup", name: "Products", url: '/products' },
     { icon: "shop", name: "Shops" },
   ]
 

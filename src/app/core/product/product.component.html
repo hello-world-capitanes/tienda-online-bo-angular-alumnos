@@ -18,7 +18,7 @@
           </mat-form-field>
           <mat-form-field class="formContainer" appearance="fill">
             <mat-label>Categories</mat-label>
-            <mat-select class="input" formControlName="category" [(value)]="category" required>
+            <mat-select class="input" formControlName="categories" required>
               <mat-option *ngFor="let cat of categories" [value]="cat">
                 {{ cat }}
               </mat-option>
@@ -56,11 +56,6 @@
         >
           <mat-expansion-panel-header>
             <div class="info">
-              <mat-panel-title>
-                <mat-list-item role="listitem" class="product">{{
-                  product.name
-                }}</mat-list-item>
-              </mat-panel-title>
               <button
                 mat-raised-button
                 class="botonProd"
@@ -68,6 +63,12 @@
               >
                 <mat-icon> delete_forever </mat-icon>
               </button>
+              <mat-panel-title>
+                <mat-list-item role="listitem" class="product">{{
+                  product.name
+                }}</mat-list-item>
+              </mat-panel-title>
+
             </div>
           </mat-expansion-panel-header>
           <div class="infoOculta" id="{{ product.name }}">
