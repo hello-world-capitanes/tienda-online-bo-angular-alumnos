@@ -12,14 +12,23 @@ export class ListUserComponent implements OnInit {
 
   users:userBackOffice[] = [
     new userBackOffice("Raúl","Pradanas Martín","rp@gmail.com","hola"),
-    new userBackOffice("Raúl","Pradanas Martín","rp@gmail.com","hola"),
-    new userBackOffice("Raúl","Pradanas Martín","rp@gmail.com","hola"),
+    new userBackOffice("Raúl","Bravo","rb@gmail.com","hola"),
+    new userBackOffice("Fernando","Te queremos","helloworld@gmail.com","hola"),
   ]
 
   constructor() { }
 
   ngOnInit(): void {
     this.users.push(this.nuevoUser);
+  }
+
+  addUser(){
+    this.users.push(this.nuevoUser);
+  }
+
+  deleteUser(index:number):void{
+    alert(index);
+    this.users.splice(index,1);
   }
 
 }

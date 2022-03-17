@@ -8,10 +8,10 @@
     <mat-divider></mat-divider>
         <div class="module-list-item">
           <div mat-line style="display: flex; justify-content: space-between;">
-            <div><mat-icon mat-list-icon>people</mat-icon>
+            <div ><mat-icon mat-list-icon>people</mat-icon>
               {{ user.name + " " + user.surname + "    |    " + user.email}}
             </div>
-            <button mat-mini-fab color="primary">
+            <button value="i" mat-mini-fab color="primary" (click)="deleteUser(i)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>

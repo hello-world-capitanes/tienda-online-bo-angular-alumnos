@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ListUserComponent } from './../list-user/list-user.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { userBackOffice } from '../list-user/modals/user';
 
@@ -9,8 +10,12 @@ import { userBackOffice } from '../list-user/modals/user';
 })
 export class FormUserComponent implements OnInit {
 
+  @ViewChild(ListUserComponent)
+  listaUser!: ListUserComponent;
+
+  nuevoUser:userBackOffice = new userBackOffice("","","","");
+
   formCrear: FormGroup;
-  nuevoUser:userBackOffice = new userBackOffice("Hola","","","");
 
   constructor(public formulario:FormBuilder) {
     this.formCrear = this.formulario.group({
@@ -60,18 +65,7 @@ export class FormUserComponent implements OnInit {
       form.hasError('maxlength') ?
       'Introduce apellidos de máximo 3 carácteres' :'';
   }
-
-  aceptar():void{
-    if(this.formCrear.valid){
-      this.nuevoUser = new userBackOffice(this.formCrear.get("nameFormControl")?.value,
-                                          this.formCrear.get("surnameFormControl")?.value,
-                                          this.formCrear.get("emailFormControl")?.value,
-                                          this.formCrear.get("passFormControl")?.value,
-      );
-    }
-  }
-
-  }
+}
 
 
 
