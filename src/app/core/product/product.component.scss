@@ -59,10 +59,13 @@ mat-form-field{
 .info{
   display: flex;
   flex-direction: row;
+  justify-content: right;
 }
 
 .botonProd{
   margin: 1em;
+  margin-left: 0 auto;
+  flex: 1 1 auto;
 }
 
 .infoOculta{
