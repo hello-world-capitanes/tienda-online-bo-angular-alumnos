@@ -31,7 +31,7 @@
 
       <div *ngIf = "errorDatoExistente" class = "error">
         <br>
-        EL DATO QUE QUIERES METER YA EXISTE
+          La categoría ya existe
       </div>
     </div>
 
@@ -42,11 +42,19 @@
 <mat-divider></mat-divider>
 <br>
 
+<h2>Categorías creadas</h2>
 <ng-container class="listaCategoria" *ngFor="let categorie of categories">
 
   <div class="categoriaItem" *ngIf="categorie.getEstado()">
-    <span> {{ categorie.getNombre() }} </span>
-    <button (click) = "this.remove(categorie)"> <mat-icon>remove</mat-icon></button>
+    <div class="flexElement">
+      <span> {{ categorie.getNombre() }} </span>
+    </div>
+    <div class="flexElement">
+      <span class="descripcion" *ngIf="details"> {{ categorie.getDescripcion() }}</span>
+    </div>
+    <div class="flexElement">
+      <button (click) = "this.remove(categorie)"> <mat-icon>remove</mat-icon></button>
+    </div>
   </div>
 
 </ng-container>

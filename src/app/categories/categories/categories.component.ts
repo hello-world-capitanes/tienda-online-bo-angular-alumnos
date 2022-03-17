@@ -9,17 +9,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class CategoriesComponent implements OnInit {
 
-  //categories: Categoria[] = [];
   categoryForm !: FormGroup;
   buttonPressed: boolean = false;
   errorDatoExistente: boolean = false;
+  details: boolean = true;
 
-  categories: Categoria[] = [
-    new Categoria("Fruta", true, "Descripción", "color"),
-    new Categoria("Cereales", true, "Descripción", "color"),
-    new Categoria("Verdura", false, "Descripción", "color"),
-    new Categoria("Drogería", true, "Descripción", "color"),
-  ];
+  categories: Categoria[] = [];
 
   constructor(private formulario: FormBuilder) { }
 
