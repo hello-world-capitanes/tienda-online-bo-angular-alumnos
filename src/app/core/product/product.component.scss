@@ -1,8 +1,26 @@
 .form{
   min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-  padding: 10px;
+  width: 90%;
+  padding: 20px;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+}
+
+.primeraCol, .segundaCol{
+  width: 45%;
+  margin-right: 5%
+}
+
+.titulo{
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
+.product{
+  margin-left: 2em;
 }
 
 .formContainer {
@@ -12,4 +30,23 @@
 
 .formBtn{
   padding: 10px;
+  margin-left: 2em;
+}
+
+.input{
+  margin: 0.7em;
+}
+
+mat-form-field{
+  margin-right: 2em;
+  margin-left: 2em;
+}
+
+.botonAnadir{
+  width: 30%;
+  padding: 0.7em;
+}
+
+.segundaCol{
+  text-align: center;
 }
