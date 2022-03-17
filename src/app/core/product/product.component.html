@@ -57,18 +57,18 @@
         >
           <mat-expansion-panel-header>
             <div class="info">
+              <button
+              mat-raised-button
+              class="botonProd"
+              (click)="deleteProduct(product.name)"
+            >
+              <mat-icon> delete_forever </mat-icon>
+            </button>
               <mat-panel-title>
                 <mat-list-item role="listitem" class="product">{{
                   product.name
                 }}</mat-list-item>
               </mat-panel-title>
-              <button
-                mat-raised-button
-                class="botonProd"
-                (click)="deleteProduct(product.name)"
-              >
-                <mat-icon> delete_forever </mat-icon>
-              </button>
             </div>
           </mat-expansion-panel-header>
           <div class="infoOculta" id="{{ product.name }}">
