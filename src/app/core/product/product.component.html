@@ -45,21 +45,6 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-          type="submit"
-          (click)="newProduct()"
-        >
-          <mat-icon> add_box </mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-  <!--<p>
-  Form value: {{productForm.value | json}}
-  <br>
-  Form value: {{productForm.status | json}}
-  </p>-->
-</form>
-
 <mat-list role="list">
   <mat-divider></mat-divider>
   <ng-container *ngFor="let product of products">
@@ -116,4 +101,4 @@
     </div>
     <mat-divider></mat-divider>
   </ng-container>
-</mat-list> -->
+</mat-list>
