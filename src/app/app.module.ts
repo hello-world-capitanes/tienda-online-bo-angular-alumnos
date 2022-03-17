@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import {CategoriesModule} from './categories/categories.module';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,10 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     SharedModule,
     MatSidenavModule,
     CategoriesModule,
-    NgxMatColorPickerModule
+    NgxMatColorPickerModule,
+    ColorPickerModule
   ],
-  providers: [MAT_COLOR_FORMATS, NGX_MAT_COLOR_FORMATS],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
