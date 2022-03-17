@@ -5,7 +5,7 @@
         <mat-divider></mat-divider>
         <div class="module-list-item">
             <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
-            <div mat-line>{{ module.name }}</div>
+            <a routerLink="/{{ module.name }}"><button mat-button>{{ module.name }}</button></a>
         </div>
     </mat-list-item>
 </mat-list>
