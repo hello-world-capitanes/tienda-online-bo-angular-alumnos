@@ -79,8 +79,4 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  seeInfo(prodName?: string){
-
-  }
-
 }
