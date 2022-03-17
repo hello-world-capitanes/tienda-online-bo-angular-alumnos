@@ -1,19 +1,19 @@
-import { ListUserComponent } from './../list-user/list-user.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { userBackOffice } from '../list-user/modals/user';
+import { ListUserComponent } from './../list-user/list-user.component';
 
 @Component({
   selector: 'app-form-user',
   templateUrl: './form-user.component.html',
   styleUrls: ['./form-user.component.scss']
 })
-export class FormUserComponent implements OnInit {
+export class FormUserComponent implements AfterViewInit {
 
   @ViewChild(ListUserComponent)
   listaUser!: ListUserComponent;
 
-  nuevoUser:userBackOffice = new userBackOffice("","","","");
+  nuevoUser: userBackOffice = new userBackOffice("","","","");
 
   formCrear: FormGroup;
 
@@ -26,7 +26,19 @@ export class FormUserComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+
+  }
+
+  addUser() {
+    if (!this.formCrear.valid) {
+      return;
+    }
+
+    this.nuevoUser = new userBackOffice(this.formCrear.get("nameFormControl")?.value,
+    this.formCrear.get("surnameFormControl")?.value,this.formCrear.get("emailFormControl")?.value,
+    this.formCrear.get("passFormControl")?.value)
+    this.listaUser?.addUser(this.nuevoUser);
   }
 
 
