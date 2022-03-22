@@ -15,10 +15,11 @@ import { ProductComponent } from './product/product.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule,
-    FormsModule,
     MatListModule,
     MatSelectModule,
     MatIconModule,

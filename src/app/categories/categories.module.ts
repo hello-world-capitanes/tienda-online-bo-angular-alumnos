@@ -5,8 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 import { CategoriesComponent } from './categories/categories.component';
-import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -14,14 +14,17 @@ import {MatTableModule} from '@angular/material/table';
   ],
   imports: [
     CommonModule,
-    MatDividerModule,
     ReactiveFormsModule,
+
+    MatDividerModule,
     MatIconModule,
     MatButtonModule,
     MatInputModule,
     MatDividerModule,
-    MatTableModule
-
+    MatTableModule,
+  ],
+  exports: [
+    CategoriesComponent
   ]
 })
-export class CategoriesModule { }
+export class CategoriesModule {}
