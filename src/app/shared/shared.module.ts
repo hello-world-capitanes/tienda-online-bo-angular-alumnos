@@ -17,12 +17,13 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
   ],
   imports: [
     CommonModule,
+    RouterModule
+    
     MatToolbarModule,
     MatIconModule,
     MatListModule,
     MatDividerModule,
     MatButtonModule,
-    RouterModule,
   ],
   exports: [
     HeaderComponent,
