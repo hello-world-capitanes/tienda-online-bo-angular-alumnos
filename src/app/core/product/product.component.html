@@ -1,0 +1,106 @@
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        ADD PRODUCT
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form novalidate [formGroup]="productForm" class="form">
+      <div class="container">
+        <div class="primeraCol">
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput class="input" formControlName="name">
+          </mat-form-field>
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Price</mat-label>
+            <input matInput class="input" formControlName="price">
+          </mat-form-field>
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Categories</mat-label>
+            <mat-select class="input" formControlName="categories" required>
+              <mat-option *ngFor="let cat of categories" [value]="cat">
+                {{ cat }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="segundaCol">
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+          </mat-form-field>
+          <mat-form-field class="formContainer" appearance="fill">
+            <mat-label>Characteristics</mat-label>
+            <input class="input" matInput formControlName="characteristics">
+          </mat-form-field>
+          <div class="formBtn">
+            <button mat-raised-button class="botonAnadir" type="submit" (click)="newProduct()">
+              <mat-icon> add_box </mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-list role="list">
+<mat-list role="list" class="listaProductos">
+  <mat-divider></mat-divider>
+  <ng-container *ngFor="let product of products">
+    <div class="containerProd">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <div class="info">
+              <button
+                mat-raised-button
+                class="botonProd"
+                (click)="deleteProduct(product.name)"
+              >
+                <mat-icon> delete_forever </mat-icon>
+              </button>
+              <mat-panel-title>
+                <mat-list-item role="listitem" class="product">{{
+                  product.name
+                }}</mat-list-item>
+              </mat-panel-title>
+
+            </div>
+          </mat-expansion-panel-header>
+          <div class="infoOculta" id="{{ product.name }}">
+            <div class="primeraColOculta">
+              <mat-list role="list">
+                <mat-list-item role="listitem">{{
+                  product.price | currency: "EUR":true
+                }}</mat-list-item>
+              </mat-list>
+              <mat-list role="list">
+                <mat-list-item role="listitem">{{
+                  product.categories
+                }}</mat-list-item>
+              </mat-list>
+            </div>
+            <div class="segundaColOculta">
+              <mat-list role="list">
+                <mat-list-item role="listitem">{{
+                  product.characteristics
+                }}</mat-list-item>
+              </mat-list>
+              <mat-list role="list">
+                <mat-list-item role="listitem">{{
+                  product.description
+                }}</mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>

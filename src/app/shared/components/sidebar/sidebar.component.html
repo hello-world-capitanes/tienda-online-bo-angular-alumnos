@@ -1,0 +1,12 @@
+<mat-list>
+    <div mat-subheader>Modules</div>
+    <mat-divider></mat-divider>
+    <mat-list-item *ngFor="let module of modules; let i = index">
+      <mat-divider></mat-divider>
+      <a [routerLink]="module?.url" class="module-list-item">
+        <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
+        <div mat-line>{{ module.name }}</div>
+      </a>
+
+    </mat-list-item>
+</mat-list>

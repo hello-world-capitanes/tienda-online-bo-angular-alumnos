@@ -1,0 +1,38 @@
+<div class="user-container">
+  <div>
+    <h1>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">people</mat-icon>
+      Añadir usuario
+    </h1>
+      <form [formGroup]="formCrear">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput formControlName="nameFormControl" placeholder="Raúl">
+          <mat-error>{{errorMessageName}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Apellidos</mat-label>
+          <input type="text" matInput formControlName="surnameFormControl" placeholder="Bravo Pradanas">
+          <mat-error>{{errorMessageSurname}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="emailFormControl" placeholder="Ex. raul@gmail.com">
+          <mat-error>{{errorMessageEmail}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput formControlName="passFormControl" placeholder="********">
+          <mat-error>{{errorMessagePass}}</mat-error>
+        </mat-form-field>
+
+        <button class="margin" mat-raised-button color="primary" (click)="addUser()">+</button>
+      </form>
+  </div>
+  <app-list-user></app-list-user>
+
+</div>

@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { CategoriesComponent } from './categories/categories/categories.component';
+import { ProductComponent } from './core/product/product.component';
+import { ShopsListComponent } from './shops/shops-list/shops-list.component';
+import { FormUserComponent } from './users/form-user/form-user.component';
+
 const routes: Routes = [
-  // { path: "",
-  //   component: AppComponent,
-  //   children: [
-  //     {
-  //       path: 'categories', // child route path
-  //       component: CategoriesComponent, // child route component that the router renders
-  //     }
-  //   ],
-  // },
-  { path: "categories", component: CategoriesComponent}
+  { path: 'shops', component: ShopsListComponent },
+  { path: 'users', component: FormUserComponent },
+  { path: 'products', component: ProductComponent },
+  { path: "categories", component: CategoriesComponent }
 ];
 
 @NgModule({

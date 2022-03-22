@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'tienda-online-bo-angular-alumnos';
+
+  @ViewChild('drawer') drawer!: MatDrawer;
+
+  onClickMenuButton(): void {
+    this.drawer?.toggle();
+  }
+
 }

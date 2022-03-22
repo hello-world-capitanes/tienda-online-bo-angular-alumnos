@@ -1,31 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { MatSelectModule } from '@angular/material/select';
-import { ProductComponent } from './product/product.component';
+import { FormUserComponent } from './form-user/form-user.component';
+import { ListUserComponent } from './list-user/list-user.component';
+
+
+
+
 
 @NgModule({
   declarations: [
-    ProductComponent
+    FormUserComponent,
+    ListUserComponent
   ],
   imports: [
     CommonModule,
+    MatExpansionModule,
+    MatListModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatListModule,
-    MatSelectModule,
     MatIconModule,
-    MatExpansionModule
+    ReactiveFormsModule,
+    MatButtonModule,
+
   ],
   exports: [
-    ProductComponent,
-  ]
+    FormUserComponent,
+    ListUserComponent
+  ],
 })
-export class CoreModule { }
+export class UsersModule { }
