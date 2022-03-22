@@ -1,0 +1,61 @@
+<ng-container class="añadirCategoria">
+  <form [formGroup] = "categoryForm" class = "form-category">
+
+    <div class = "titule">
+      <span> Añadir nueva: Categoria</span>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class = "form">
+
+      <br>
+      <span> Nombre:</span>
+      <input matInput appareance = "fill"  formControlName = "nombre">
+      <div *ngIf = "categoryForm.get('nombre')?.hasError('required') && buttonPressed" class = "error">
+        Introduce tu nombre
+      </div>
+
+      <br>
+      <br>
+      <span> Descripcion: </span>
+      <input matInput  formControlName = "descripcion">
+
+      <div *ngIf = "categoryForm.get('descripcion')?.hasError('required') && buttonPressed" class = "error">
+        Introduce tu descripcion
+      </div>
+
+      <br>
+      <br>
+      <button mat-raised-button (click) = "addLista()"> <mat-icon> add </mat-icon> </button>
+
+      <div *ngIf = "errorDatoExistente" class = "error">
+        <br>
+          La categoría ya existe
+      </div>
+    </div>
+
+  </form>
+</ng-container>
+
+<br>
+<mat-divider></mat-divider>
+<br>
+
+<h2>Categorías creadas</h2>
+<ng-container class="listaCategoria" *ngFor="let categorie of categories">
+
+  <div class="categoriaItem" *ngIf="categorie.getEstado()">
+    <div class="flexElement">
+      <span> {{ categorie.getNombre() }} </span>
+    </div>
+    <div class="flexElement">
+      <span class="descripcion"> {{ categorie.getDescripcion() }}</span>
+    </div>
+    <div class="flexElement">
+      <button (click) = "this.remove(categorie)"> <mat-icon>remove</mat-icon></button>
+    </div>
+  </div>
+
+</ng-container>
+
