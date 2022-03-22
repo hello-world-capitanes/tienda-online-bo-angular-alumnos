@@ -1,3 +1,4 @@
+import { ShopsModule } from './shops/shops.module';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
@@ -21,17 +22,17 @@ import { UsersModule } from './users/users.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-
+    
     AppRoutingModule,
-    BrowserAnimationsModule,
+    
+    CoreModule,
     SharedModule,
+    UsersModule,
+    ShopsModule,
 
     MatSidenavModule,
-
     MatExpansionModule,
     MatListModule,
-    UsersModule,
-    CoreModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatListModule,

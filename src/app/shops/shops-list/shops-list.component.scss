@@ -1,0 +1,22 @@
+.shops-container{
+  display:flex;
+  justify-content:space-around;
+  flex-direction: row;
+}
+.shops-container > div{
+  display:flex;
+  justify-content:space-around;
+  flex-direction: row;
+}
+.shops-container-shadow{
+  background-color: rgb(221, 221, 221);
+}
+.shops-container-tittle{
+  display:flex;
+  justify-content:space-around;
+  flex-direction: row;
+  background-color: rgb(221, 221, 221);
+}
+table{
+  width:100%;
+}

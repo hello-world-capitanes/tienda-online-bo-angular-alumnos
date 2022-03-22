@@ -1,0 +1,24 @@
+<div class="title-shop">
+  <mat-card-title>Shops</mat-card-title>
+</div>
+
+<form [formGroup]="formGroupShop" class="example-form">
+
+  <div class="inputs-shop">
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Text..." formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Value</mat-label>
+      <input matInput placeholder="Text..." formControlName="value">
+    </mat-form-field>
+
+  </div>
+  <div class="addShopBtn">
+      <button mat-raised-button color="primary" (click)="anadirShop()">Añadir</button>
+  </div>
+
+</form>
