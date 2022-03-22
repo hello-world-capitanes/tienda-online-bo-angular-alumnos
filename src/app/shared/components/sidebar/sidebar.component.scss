@@ -3,4 +3,13 @@
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
+    color: black;
+    text-decoration: none;
+    mat-icon {
+        padding-right: 8px;
+    }
+}
+
+.mat-list-item:hover {
+    background-color: rgb(0, 0, 0, 0.05);
 }

@@ -2,20 +2,11 @@
     <div mat-subheader>Modules</div>
     <mat-divider></mat-divider>
     <mat-list-item *ngFor="let module of modules; let i = index">
-        <mat-divider></mat-divider>
-        <div class="module-list-item">
-          <button>
-            <a mat-icon-button routerLink="/users">
-            <mat-icon>{{module.icon}}</mat-icon>
-          </a>
-        </button>
+      <mat-divider></mat-divider>
+      <a [routerLink]="module?.url" class="module-list-item">
+        <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
         <div mat-line>{{ module.name }}</div>
-
-        </div>
-        <a [routerLink]="module?.url" class="module-list-item">
-            <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
-            <span>{{ module.name }}</span>
-        </a>
+      </a>
 
     </mat-list-item>
 </mat-list>

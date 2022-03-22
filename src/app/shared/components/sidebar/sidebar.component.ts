@@ -9,10 +9,10 @@ import { Module } from '../../models/module.model';
 export class SidebarComponent implements OnInit {
 
   modules: Module[] = [
-    { icon: "people", name: "Users" },
+    { icon: "people", name: "Users", url: '/users' },
     { icon: "tag", name: "Categories" },
     { icon: "backup", name: "Products", url: '/products' },
-    { icon: "shop", name: "Shops" },
+    { icon: "shop", name: "Shops", url: '/shops' },
   ]
 
   constructor() { }
