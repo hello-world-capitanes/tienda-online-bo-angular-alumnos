@@ -1,5 +1,3 @@
-
-
 export class Categoria {
 
   private _nombre: string;

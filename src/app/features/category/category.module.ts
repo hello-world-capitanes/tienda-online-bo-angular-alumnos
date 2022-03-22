@@ -5,33 +5,27 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ShopsCreateComponent } from './shops-create/shops-create.component';
-import { ShopsListComponent } from './shops-list/shops-list.component';
-import {MatCardModule} from '@angular/material/card';
-
-
-
-
+import { MatTableModule } from '@angular/material/table';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 
 @NgModule({
   declarations: [
-    ShopsListComponent,
-    ShopsCreateComponent
+    CategoriesComponent
   ],
   imports: [
     CommonModule,
-    MatDividerModule,
-    MatInputModule,
-    MatButtonModule,
     ReactiveFormsModule,
-    MatIconModule,
-    MatCardModule
 
+    MatDividerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDividerModule,
+    MatTableModule,
   ],
-  exports:[
-    ShopsListComponent,
-    ShopsCreateComponent,
+  exports: [
+    CategoriesComponent
   ]
 })
-export class ShopsModule { }
+export class CategoriesModule {}

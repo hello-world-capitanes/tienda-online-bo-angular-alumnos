@@ -10,11 +10,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CategoriesModule } from './categories/categories.module';
 import { CoreModule } from './core/core.module';
+import { CategoriesModule } from './features/category/category.module';
+import { ProductModule } from './features/product/product.module';
+import { ShopsModule } from './features/shop/shops.module';
+import { UsersModule } from './features/user/users.module';
 import { SharedModule } from './shared/shared.module';
-import { ShopsModule } from './shops/shops.module';
-import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     ShopsModule,
     CategoriesModule,
+    ProductModule,
 
     MatSidenavModule,
     MatExpansionModule,

@@ -13,7 +13,7 @@ export class SidebarComponent implements OnInit {
     { icon: "tag", name: "Categories", url: '/categories' },
     { icon: "backup", name: "Products", url: '/products' },
     { icon: "shop", name: "Shops", url: '/shops' },
-  ]
+  ];
 
   constructor() { }
 

@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoriesComponent } from './categories/categories/categories.component';
-import { ProductComponent } from './core/product/product.component';
-import { ShopsListComponent } from './shops/shops-list/shops-list.component';
-import { FormUserComponent } from './users/form-user/form-user.component';
+import { CategoriesComponent } from './features/category/components/categories/categories.component';
+import { HomePageComponent } from './features/home/components/home-page/home-page.component';
+import { ProductComponent } from './features/product/components/product/product.component';
+import { ShopsListComponent } from './features/shop/components/shops-list/shops-list.component';
+import { FormUserComponent } from './features/user/components/form-user/form-user.component';
 
 const routes: Routes = [
+  { path: '', component: HomePageComponent },
   { path: 'shops', component: ShopsListComponent },
   { path: 'users', component: FormUserComponent },
   { path: 'products', component: ProductComponent },

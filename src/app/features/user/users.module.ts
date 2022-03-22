@@ -7,11 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { FormUserComponent } from './form-user/form-user.component';
-import { ListUserComponent } from './list-user/list-user.component';
-
-
-
+import { FormUserComponent } from './components/form-user/form-user.component';
+import { ListUserComponent } from './components/list-user/list-user.component';
 
 
 @NgModule({

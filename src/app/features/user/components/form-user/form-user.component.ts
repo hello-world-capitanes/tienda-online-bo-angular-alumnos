@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { userBackOffice } from '../list-user/modals/user';
+import { User } from '../../models/user.model';
 import { ListUserComponent } from './../list-user/list-user.component';
 
 @Component({
@@ -13,7 +13,7 @@ export class FormUserComponent implements AfterViewInit {
   @ViewChild(ListUserComponent)
   listaUser!: ListUserComponent;
 
-  nuevoUser: userBackOffice = new userBackOffice("","","","");
+  nuevoUser: User = new User("","","","");
 
   formCrear: FormGroup;
 
@@ -35,7 +35,7 @@ export class FormUserComponent implements AfterViewInit {
       return;
     }
     else{
-      this.nuevoUser = new userBackOffice(this.formCrear.get("nameFormControl")?.value,
+      this.nuevoUser = new User(this.formCrear.get("nameFormControl")?.value,
       this.formCrear.get("surnameFormControl")?.value,this.formCrear.get("emailFormControl")?.value,
       this.formCrear.get("passFormControl")?.value);
       this.listaUser?.addUser(this.nuevoUser);

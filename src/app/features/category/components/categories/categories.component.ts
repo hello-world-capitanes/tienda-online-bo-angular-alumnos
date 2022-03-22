@@ -1,6 +1,6 @@
-import { Categoria } from './models/categoria.models';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Categoria } from '../../models/category.model';
 
 @Component({
   selector: 'app-categories',

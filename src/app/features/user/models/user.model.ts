@@ -1,4 +1,4 @@
-export class userBackOffice{
+export class User {
 
   private _name:string;
   private _surname:string;
@@ -23,4 +23,5 @@ export class userBackOffice{
   get email():string{
     return this._email;
   }
+  
 }

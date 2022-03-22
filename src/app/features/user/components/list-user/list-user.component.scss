@@ -1,0 +1,20 @@
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    > div {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        mat-icon {
+            padding-right: 8px;
+        }
+    }
+}
+
+mat-divider {
+    margin: 0;
+    padding: 0;
+}
