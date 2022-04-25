@@ -1,8 +1,6 @@
-import { CategoryService } from 'src/app/features/category/services/category-service.service';
-import { BoundElementProperty } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { elementAt } from 'rxjs';
+import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Category } from '../../models/category.model';
 
 @Component({
@@ -17,42 +15,40 @@ export class CategoriesComponent implements OnInit {
     public categoryService: CategoryService) {
     this.categoryForm = this.form.group({
       name: new FormControl
-      (null,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(20),
-        ]
-      ),
+        (null,
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(20),
+          ]
+        ),
       description: new FormControl
-      (null,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ]
-      ),
+        (null,
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(100),
+          ]
+        ),
       active: new FormControl
-      (null,
-        [
-          Validators.required,
-        ]
-      ),
+        (null,
+          [
+            Validators.required,
+          ]
+        ),
     });
-   }
-
-  ngOnInit(): void {
-
   }
+
+  ngOnInit(): void { }
 
   get errorMessageName(): string {
     const form: FormControl = (this.categoryForm.get('name') as FormControl);
     return form.hasError('required') ?
       'Introduce un nombre para la categoría' :
       form.hasError('minlength') ?
-      'El nombre debe tener mínimo x carácteres':
-      form.hasError('maxlength') ?
-      'El nombre debe tener máximo x carácteres' :'';
+        'El nombre debe tener mínimo x carácteres' :
+        form.hasError('maxlength') ?
+          'El nombre debe tener máximo x carácteres' : '';
   }
 
   get errorMessageDescription(): string {
@@ -60,50 +56,63 @@ export class CategoriesComponent implements OnInit {
     return form.hasError('required') ?
       'Introduce una descripción para la categoría' :
       form.hasError('minlength') ?
-      'Introduce una buena descripción':
-      form.hasError('maxlength') ?
-      'Introduce una descripción mas corta' :'';
+        'Introduce una buena descripción' :
+        form.hasError('maxlength') ?
+          'Introduce una descripción mas corta' : '';
   }
 
   get errorMessageActive(): string {
     const form: FormControl = (this.categoryForm.get('active') as FormControl);
     return form.hasError('required') ?
-      'Introduce un estado para la categoría' :'';
+      'Introduce un estado para la categoría' : '';
   }
 
-  addCategory(){
-
+  addCategory() {
     let bool: boolean;
-    if(!this.categoryForm.valid){
-
+    if (!this.categoryForm.valid) {
       return;
-
     }
 
-
-
-    if(this.categoryForm.get('active')?.value==="Activo"){
-      bool=true;
-    } else{
-      bool=false
+    if (this.categoryForm.get('active')?.value === "Activo") {
+      bool = true;
+    } else {
+      bool = false
     }
 
-    let category=new Category(this.categoryForm.get('name')?.value,
+    let category = new Category(this.categoryForm.get('name')?.value,
+      this.categoryForm.get('description')?.value,
+      bool)
+
+    this.categoryService.addCategory(category)
+  }
+
+  removeCategory(){
+    let bool: boolean;
+    if (!this.categoryForm.valid){
+      return;
+    }
+
+    if(this.categoryForm.get('inactive')?.value === "Inactivo"){
+      bool = false;
+    }else{
+      bool = true;
+    }
+
+    let category = new Category(this.categoryForm.get('name')?.value,
     this.categoryForm.get('description')?.value,
     bool)
 
-    this.categoryService.addCategory(category)
+    this.categoryService.removeCategory(category);
+  }
 
-    }
 
-
- /* remove(categoriaRef: Category)
-  {
-    this.categories?.forEach(categorie => {
-      if(categorie === categoriaRef)
-      {
-        categorie.setActive(false);
-      }
-    });
-  }*/
+  /* remove(categoriaRef: Category)
+   {
+     this.categories?.forEach(categorie => {
+       if(categorie === categoriaRef)
+       {
+         categorie.setActive(false);
+       }
+     });
+   }*/
 }
