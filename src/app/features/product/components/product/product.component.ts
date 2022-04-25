@@ -53,6 +53,7 @@ export class ProductComponent implements OnInit {
   newProduct() {
     if (!this.productForm.valid) {
       alert('Campos introducidos no válidos');
+      return false;
     } else {
       let id = this.generateId();
       let prod1 = new Product(
@@ -80,6 +81,7 @@ export class ProductComponent implements OnInit {
       }
 
       this.addProduct(prod1);
+      return true;
     }
   }
 
