@@ -16,10 +16,14 @@ export class ShopsCreateComponent implements OnInit {
 
   formGroupShop = new FormGroup({
     name: new FormControl('',Validators.required),
-    value: new FormControl('',Validators.required),
+    country: new FormControl('', Validators.required),
+    province: new FormControl('', Validators.required),
+    location: new FormControl('', Validators.required),
+    street: new FormControl('', Validators.required),
+    cp: new FormControl('', Validators.required),
   });
 
-  anadirShop(){
+  addShop(){
     if(this.formGroupShop.valid){
       let name = this.formGroupShop.controls["name"].value;
       let value = this.formGroupShop.controls["value"].value;
