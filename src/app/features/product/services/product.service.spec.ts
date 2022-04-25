@@ -10,7 +10,7 @@ describe('ProductService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ProductService);
 
-    let product = new Product("Test", "Test", "Test", "Test", "Test");
+    let product = new Product("Test", "Test", "Test", 0, "Test","Test","Test",true);
     service.addProduct(product);
 
     expect(service.productList.some( element => element.name == product.name)).toBe(true);
@@ -20,7 +20,7 @@ describe('ProductService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ProductService);
 
-    let product = new Product("Test", "Test", "Test", "Test", "Test");
+    let product = new Product("Test", "Test", "Test", 0, "Test","Test","Test",true);
     service.addProduct(product);
     service.deleteProduct(product);
 
