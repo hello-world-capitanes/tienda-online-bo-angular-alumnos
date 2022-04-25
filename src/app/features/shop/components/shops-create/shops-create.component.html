@@ -3,22 +3,38 @@
 </div>
 
 <form [formGroup]="formGroupShop" class="example-form">
-
   <div class="inputs-shop">
-
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Text..." formControlName="name">
+      <input matInput placeholder="Nombre" formControlName="name">
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Value</mat-label>
-      <input matInput placeholder="Text..." formControlName="value">
+      <mat-label>País</mat-label>
+      <input matInput placeholder="País" formControlName="country">
     </mat-form-field>
 
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Provincia</mat-label>
+      <input matInput placeholder="Provincia" formControlName="province">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Dirección</mat-label>
+      <input matInput placeholder="Localidad" formControlName="street">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Calle</mat-label>
+      <input matInput placeholder="Dirección" formControlName="location">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>CP</mat-label>
+      <input matInput placeholder="CP" type="number" formControlName="cp">
+    </mat-form-field>
   </div>
   <div class="addShopBtn">
-      <button mat-raised-button color="primary" (click)="anadirShop()">Añadir</button>
+      <button mat-raised-button color="primary" (click)="addShop()">Añadir</button>
   </div>
-
 </form>

@@ -4,12 +4,14 @@ export class Address{
   private _province: string;
   private _location: string;
   private _cp: number;
+  private _street: string;
 
-  constructor(country: string, province: string, location: string, cp: number){
+  constructor(country: string, province: string, location: string, cp: number, street: string){
     this._country = country;
     this._province = province;
     this._location = location;
     this._cp = cp;
+    this._street = street;
   }
 
   public get country(): string {
@@ -38,6 +40,13 @@ export class Address{
   }
   public set cp(value: number) {
     this._cp = value;
+  }
+
+  public get street(): string {
+    return this._street;
+  }
+  public set street(value: string) {
+    this._street = value;
   }
 
 }
