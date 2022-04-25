@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { ShopsCreateComponent } from './components/shops-create/shops-create.component';
 import { ShopsListComponent } from './components/shops-list/shops-list.component';
 import { ShopsModifyComponent } from './components/shops-modify/shops-modify.component';
@@ -24,7 +25,8 @@ import { ShopsModifyComponent } from './components/shops-modify/shops-modify.com
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
 
   ],
   exports:[
