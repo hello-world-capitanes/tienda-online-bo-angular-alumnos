@@ -1,3 +1,4 @@
+import { AuthenticationModule } from './features/authentication/authentication.module';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
@@ -16,10 +17,13 @@ import { ProductModule } from './features/product/product.module';
 import { ShopsModule } from './features/shop/shops.module';
 import { UsersModule } from './features/user/users.module';
 import { SharedModule } from './shared/shared.module';
+import { AuthService } from './features/authentication/services/auth.service';
+
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     ShopsModule,
     CategoriesModule,
     ProductModule,
+    AuthenticationModule,
 
     MatSidenavModule,
     MatExpansionModule,
@@ -45,7 +50,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     MatExpansionModule,
     MatDividerModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
