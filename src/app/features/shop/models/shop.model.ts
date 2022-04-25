@@ -5,17 +5,18 @@ export class Shop{
   private _id: string;
   private _name: string;
   private _address: Address;
-  private _cp: number[];
+  //private _cp: number[];
   private _active: boolean;
   private _products: ProductStock[];
 
-  constructor(id: string, name: string, addres: Address, cp: number[], active: boolean, products: ProductStock[]){
-    this._id = id;
+  //TODO -> La tienda ahora solo reparte en direcciones de la misma ciudad.
+  //Queda pendiente crear servicio que calcule a que CP reparte la tienda
+  constructor(name: string, addres: Address){
+    this._id = '0';
     this._name = name;
     this._address = addres;
-    this._cp = cp;
-    this._active = active;
-    this._products = products;
+    this._active = true;
+    this._products = []
   }
 
   public get id(): string {
@@ -37,13 +38,6 @@ export class Shop{
   }
   public set address(value: Address) {
     this._address = value;
-  }
-
-  public get cp(): number[] {
-    return this._cp;
-  }
-  public set cp(value: number[]) {
-    this._cp = value;
   }
 
   public get active(): boolean {

@@ -19,6 +19,7 @@ import { UsersModule } from './features/user/users.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './features/authentication/services/auth.service';
 
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { AuthService } from './features/authentication/services/auth.service';
     RouterModule,
 
     AppRoutingModule,
+    AngularFirestoreModule,
 
     CoreModule,
     SharedModule,

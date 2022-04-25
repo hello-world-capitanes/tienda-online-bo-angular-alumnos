@@ -22,4 +22,32 @@ describe('ProductComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Test de la funcion añadir producto', () =>{
+    component.productForm.setValue(
+      {
+        id: '',
+        name: 'Sal',
+        characteristics: 'Un poco de sal',
+        price: 10.00,
+        description: 'Un poco de sal',
+        categories: 'Lacteos',
+      });
+
+      expect(component.newProduct()).toBe(true);
+  });
+
+  it('Test de la funcion añadir producto con valores no validos', () =>{
+    component.productForm.setValue(
+      {
+        id: '',
+        name: 'Sal',
+        characteristics: 'Un poco de sal',
+        price: 'aaa',
+        description: '',
+        categories: 'Lacteos',
+      });
+
+      expect(component.newProduct()).toBe(false);
+  });
 });
