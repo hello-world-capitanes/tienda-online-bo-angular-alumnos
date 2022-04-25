@@ -20,6 +20,7 @@ export class ProductService {
         '',
         true
       ),
+
       new Product(
         '2',
         'Casón histórico',
@@ -59,12 +60,12 @@ export class ProductService {
 
   public deleteProduct(value: Product){
 
-    if (this._productList.some( element = > element.id == value.id)){
-
+    if (this._productList.some( element => element.id == value.id)){
       this.productList.splice(this._productList.indexOf(value), 1);
 
     } else {
       return;
+
     }
   }
 

@@ -25,9 +25,9 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
-    
+
     AppRoutingModule,
-    
+
     CoreModule,
     SharedModule,
     UsersModule,
