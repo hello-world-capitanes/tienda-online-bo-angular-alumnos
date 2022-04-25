@@ -13,8 +13,8 @@
             <input matInput class="input" formControlName="name">
           </mat-form-field>
           <mat-form-field class="formContainer" appearance="fill">
-            <mat-label> Price </mat-label>
-            <input matInput class="input" formControlName="price">
+            <mat-label>Price</mat-label>
+            <input matInput class="input" formControlName="price" type="number">
           </mat-form-field>
           <mat-form-field class="formContainer" appearance="fill">
             <mat-label> Categories </mat-label>
@@ -60,7 +60,7 @@
               <button
                 mat-raised-button
                 class="botonProd"
-                (click)="deleteProduct(product.name)"
+                (click)="deleteProduct(product.id)"
               >
                 <mat-icon> delete_forever </mat-icon>
               </button>
