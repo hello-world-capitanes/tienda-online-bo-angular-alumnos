@@ -1,13 +1,13 @@
 export class Category {
 
   private _name: string;
-  //private _ID: number;
+  private _ID: number;
   private _active: boolean;
   private _description: string;
   private static contadorId: number= 0;
 
   constructor(name:string, description:string, active:boolean){
-    //this._ID = Categoria.contadorId;
+    this._ID = Category.contadorId++;
     this._description = description;
     this._active = active;
     this._name = name;
@@ -21,9 +21,9 @@ export class Category {
     this._name=name;
   }
 
- /*  getID(){
+  getID(){
     return this._ID;
-  }*/
+  }
 
   getActive(){
     return this._active;
