@@ -8,9 +8,9 @@ export class Category {
 
   constructor(name:string, description:string, active:boolean){
     this._ID = Category.contadorId++;
+    this._name = name;
     this._description = description;
     this._active = active;
-    this._name = name;
   }
 
   getName(){
