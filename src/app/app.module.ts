@@ -16,7 +16,7 @@ import { ProductModule } from './features/product/product.module';
 import { ShopsModule } from './features/shop/shops.module';
 import { UsersModule } from './features/user/users.module';
 import { SharedModule } from './shared/shared.module';
-
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 @NgModule({
   declarations: [
     AppComponent
@@ -25,9 +25,10 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
-    
+
     AppRoutingModule,
-    
+    AngularFirestoreModule,
+
     CoreModule,
     SharedModule,
     UsersModule,
