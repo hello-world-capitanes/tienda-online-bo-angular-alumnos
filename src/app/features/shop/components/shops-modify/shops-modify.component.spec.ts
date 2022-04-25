@@ -30,5 +30,8 @@ describe('ShopsModifyComponent', () => {
   it('Decrease stock', () => {
     expect(component).toBeTruthy();
   });
+  it('Find product', () => {
+    expect(component).toBeTruthy();
+  });
 
 });
