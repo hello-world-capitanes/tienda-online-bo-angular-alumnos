@@ -1,6 +1,8 @@
+import { BoundElementProperty } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Categoria } from '../../models/category.model';
+import { elementAt } from 'rxjs';
+import { Category } from '../../models/category.model';
 
 @Component({
   selector: 'app-categories',
@@ -8,55 +10,109 @@ import { Categoria } from '../../models/category.model';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  categoryForm!: FormGroup;
-  buttonPressed: boolean = false;
-  errorDatoExistente: boolean = false;
+  categoryForm: FormGroup;
 
-  categories: Categoria[] = [];
+  categories?: Category[]=[];
 
-  constructor(private formulario: FormBuilder) { }
+  constructor(private form: FormBuilder) {
+    this.categoryForm = this.form.group({
+      name: new FormControl
+      (null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+        ]
+      ),
+      description: new FormControl
+      (null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+        ]
+      ),
+      active: new FormControl
+      (null,
+        [
+          Validators.required,
+        ]
+      ),
+    });
+   }
 
   ngOnInit(): void {
-    this.categoryForm = this.formulario.group({
-      nombre: new FormControl('', [Validators.required]),
-      descripcion: new FormControl('', [Validators.required]),
-    })
+
   }
 
-  addLista(){
+  get errorMessageName(): string {
+    const form: FormControl = (this.categoryForm.get('name') as FormControl);
+    return form.hasError('required') ?
+      'Introduce un nombre para la categoría' :
+      form.hasError('minlength') ?
+      'El nombre debe tener mínimo x carácteres':
+      form.hasError('maxlength') ?
+      'El nombre debe tener máximo x carácteres' :'';
+  }
 
-    this.buttonPressed = true;
-    console.log(this.categoryForm.valid);
-    if (this.categoryForm.valid){
+  get errorMessageDescription(): string {
+    const form: FormControl = (this.categoryForm.get('description') as FormControl);
+    return form.hasError('required') ?
+      'Introduce una descripción para la categoría' :
+      form.hasError('minlength') ?
+      'Introduce una buena descripción':
+      form.hasError('maxlength') ?
+      'Introduce una descripción mas corta' :'';
+  }
 
-      if (this.categories.some( (elemento) => elemento.getNombre() == this.categoryForm.get("nombre")?.value)){
-        if (this.categories.some( (elemento) => (elemento.getNombre() == this.categoryForm.get("nombre")?.value) && elemento.getEstado() == false)){
+  get errorMessageActive(): string {
+    const form: FormControl = (this.categoryForm.get('active') as FormControl);
+    return form.hasError('required') ?
+      'Introduce un estado para la categoría' :'';
+  }
 
-            for (let elemento of this.categories){
-              if ((elemento.getNombre() == this.categoryForm.get("nombre")?.value) && elemento.getEstado() == false){
+  addCategory(){
 
-                elemento.cambiarEstado();
-              }
-            }
 
-        } else {
+    if(!this.categoryForm.valid){
 
-          this.errorDatoExistente = true;
-        }
+      return;
 
-      } else {
-        this.errorDatoExistente = false;
-        this.categories.push(new Categoria(this.categoryForm.get("nombre")?.value, true, this.categoryForm.get("descripcion")?.value, 'hola'));
-      }
     }
-  }
 
-  remove(categoriaRef: Categoria)
+    if(this.categories?.some((element)=>element.getName() === this.categoryForm.get('name')?.value
+    && element.getActive()===false)){
+
+      for(let element of this.categories){
+
+        element.setActive(true);
+
+      }
+
+    } else if(this.categories?.some((element)=>element.getName() === this.categoryForm.get('name')?.value
+    && element.getActive()===true)){
+
+      return;
+
+    }else{
+
+      this.categories?.push(new Category(
+        this.categoryForm.get("name")?.value,
+        this.categoryForm.get("description")?.value,
+        this.categoryForm.get("active")?.value
+        ));
+
+    }
+
+    }
+
+
+  remove(categoriaRef: Category)
   {
-    this.categories.forEach(categorie => {
+    this.categories?.forEach(categorie => {
       if(categorie === categoriaRef)
       {
-        categorie.cambiarEstado();
+        categorie.setActive(false);
       }
     });
   }

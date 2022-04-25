@@ -6,7 +6,7 @@ export class Category {
   private _description: string;
   private static contadorId: number= 0;
 
-  constructor(name:string, active:boolean, description:string){
+  constructor(name:string, description:string, active:boolean){
     //this._ID = Categoria.contadorId;
     this._description = description;
     this._active = active;
@@ -21,9 +21,9 @@ export class Category {
     this._name=name;
   }
 
-  getID(){
+ /*  getID(){
     return this._ID;
-  }
+  }*/
 
   getActive(){
     return this._active;
