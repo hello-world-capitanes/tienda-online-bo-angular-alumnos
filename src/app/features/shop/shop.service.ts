@@ -7,7 +7,7 @@ import { Shop } from './models/shop.model';
 })
 export class ShopService {
   private spainShops: Shop[] = [
-    new Shop("test1", "test1", new Address("test1", "test1", "test1", 0, "test1"), true),
+    new Shop("test1", new Address("test1", "test1", "test1", 0, "test1")),
   ];
 
   constructor() { }
@@ -15,7 +15,7 @@ export class ShopService {
   getAllShops(): Shop[]{
     return this.spainShops;
   }
-  
+
 
   deleteShop(shopRef: Shop) {
     this.spainShops.splice(this.spainShops.findIndex((shop) => {

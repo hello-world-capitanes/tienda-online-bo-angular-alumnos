@@ -13,9 +13,9 @@ describe('ShopService', () => {
   });
 
   it('Delete shop', () => {
-    expect(service.deleteShop(new Shop("", "", new Address("", "", "", 0, ""), true))).toBeFalse();
-    service.addShop(new Shop("test", "test", new Address("test", "test", "test", 0, "test"), true));
-    service.deleteShop(new Shop("test", "test", new Address("test", "test", "test", 0, "test"), true))
-    expect(service.shopExists(new Shop("test", "test", new Address("test", "test", "test", 0, "test"), true))).toBeFalse();
+    expect(service.deleteShop(new Shop("", new Address("", "", "", 0, "0")))).toBeFalse();
+    service.addShop(new Shop("test", new Address("test", "test", "test", 0, "test")));
+    service.deleteShop(new Shop("test", new Address("test", "test", "test", 0, "test")))
+    expect(service.shopExists(new Shop("test", new Address("test", "test", "test", 0, "test")))).toBeFalse();
   });
 });
