@@ -1,16 +1,28 @@
 export class Product {
   private _name: string;
   private _characteristics: string;
-  private _price: string;
+  private _price: number;
   private _description: string;
   private _categories: string;
+  private _image: string;
+  private _active: boolean;
 
-  constructor(name: string, characteristics: string, price: string, description: string, categories: string) {
+  constructor(
+    name: string,
+    characteristics: string,
+    price: number,
+    description: string,
+    categories: string,
+    image: string,
+    active: boolean
+  ) {
     this._name = name;
     this._characteristics = characteristics;
     this._price = price;
     this._description = description;
     this._categories = categories;
+    this._image = image;
+    this._active = active;
   }
 
   public get name() {
@@ -33,7 +45,7 @@ export class Product {
     return this._price;
   }
 
-  public set price(price: string) {
+  public set price(price: number) {
     this._price = price;
   }
 
@@ -51,5 +63,21 @@ export class Product {
 
   public set categories(categories: string) {
     this._categories = categories;
+  }
+
+  public get image() {
+    return this._image;
+  }
+
+  public set image(image: string) {
+    this._image = image;
+  }
+
+  public get active() {
+    return this._active;
+  }
+
+  public set active(active: boolean) {
+    this._active = active;
   }
 }

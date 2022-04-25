@@ -17,10 +17,10 @@ export class ProductComponent implements OnInit {
   ]
 
   products: Product[] = [
-    new Product("Steinburg", "Pack de 24 latas", "2.48", "Cerveza lagger de calidad suprema", "bebida"),
-    new Product("Casón histórico", "1L de vino", "0.70", "Vino tinto para calimocho", "bebida"),
-    new Product("Donuts", "Pack de 6 unidades", "4", "Donuts original glaseados", "comida"),
-    new Product("Doritos", "Bolsa de 300g", "1.30", "Doritos picantes bolsa grande", "comida"),
+    new Product("Steinburg", "Pack de 24 latas", 2.48, "Cerveza lagger de calidad suprema", "bebida","",true),
+    new Product("Casón histórico", "1L de vino", 0.70, "Vino tinto para calimocho", "bebida","",true),
+    new Product("Donuts", "Pack de 6 unidades", 4, "Donuts original glaseados", "comida","",true),
+    new Product("Doritos", "Bolsa de 300g", 1.30, "Doritos picantes bolsa grande", "comida","",true),
   ]
 
   constructor() {
@@ -57,7 +57,7 @@ export class ProductComponent implements OnInit {
     let price = this.productForm.value.price;
     let description = this.productForm.value.description;
     let category = this.productForm.value.categories;
-    let prod1 = new Product(name, characteristics, price, description, category);
+    let prod1 = new Product(name, characteristics, price, description, category,"",true);
     this.addProduct(prod1);
   }
 
