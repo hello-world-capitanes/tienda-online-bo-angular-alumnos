@@ -14,3 +14,15 @@
   margin-top: 40px;
   margin-left: 40px;
 }
+
+.shop-form{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  width: 100%;
+}
+
+.shop-form mat-form-field{
+  margin: 1em;
+  margin-right: 3em;
+  margin-left: 2em;
+}

@@ -2,8 +2,7 @@
   <mat-card-title>Shops</mat-card-title>
 </div>
 
-<form [formGroup]="formGroupShop" class="example-form">
-  <div class="inputs-shop">
+<form [formGroup]="formGroupShop" class="shop-form">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Name</mat-label>
       <input matInput placeholder="Nombre" formControlName="name" required>
@@ -74,8 +73,10 @@
         {{ SHOP_ERRORS.cp.invalid }}
       </mat-error>
     </mat-form-field>
-  </div>
-  <div class="addShopBtn">
-      <button mat-raised-button color="primary" (click)="addShop()">Añadir</button>
-  </div>
+    <div>
+
+    </div>
+    <div class="addShopBtn">
+        <button mat-raised-button color="primary" (click)="addShop()">Añadir</button>
+    </div>
 </form>
