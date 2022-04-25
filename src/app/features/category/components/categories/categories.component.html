@@ -34,14 +34,14 @@
   </div>
 
   <h2>Categorías creadas</h2>
-<ng-container class="listaCategoria" *ngFor="let categorie of categories">
+<ng-container *ngFor="let categorie of this.categoryService.getAllCategories()">
 
   <div *ngIf="categorie.getActive()===true">
 
   <p>{{categorie.getName()}}</p>
   <p>{{categorie.getDescription()}}</p>
 
-    <button mat-raised-button color="primary" (click) ="remove(categorie)"> <mat-icon>remove</mat-icon></button>
+    <!-- <button mat-raised-button color="primary" (click) ="remove(categorie)"> <mat-icon>remove</mat-icon></button> -->
 
   </div>
 

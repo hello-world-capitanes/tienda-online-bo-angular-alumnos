@@ -1,3 +1,4 @@
+import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { BoundElementProperty } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -12,9 +13,8 @@ import { Category } from '../../models/category.model';
 export class CategoriesComponent implements OnInit {
   categoryForm: FormGroup;
 
-  categories?: Category[]=[];
-
-  constructor(private form: FormBuilder) {
+  constructor(private form: FormBuilder,
+    public categoryService: CategoryService) {
     this.categoryForm = this.form.group({
       name: new FormControl
       (null,
@@ -73,41 +73,31 @@ export class CategoriesComponent implements OnInit {
 
   addCategory(){
 
-
+    let bool: boolean;
     if(!this.categoryForm.valid){
 
       return;
 
     }
 
-    if(this.categories?.some((element)=>element.getName() === this.categoryForm.get('name')?.value
-    && element.getActive()===false)){
 
-      for(let element of this.categories){
 
-        element.setActive(true);
-
-      }
-
-    } else if(this.categories?.some((element)=>element.getName() === this.categoryForm.get('name')?.value
-    && element.getActive()===true)){
-
-      return;
-
-    }else{
-
-      this.categories?.push(new Category(
-        this.categoryForm.get("name")?.value,
-        this.categoryForm.get("description")?.value,
-        this.categoryForm.get("active")?.value
-        ));
-
+    if(this.categoryForm.get('active')?.value==="Activo"){
+      bool=true;
+    } else{
+      bool=false
     }
+
+    let category=new Category(this.categoryForm.get('name')?.value,
+    this.categoryForm.get('description')?.value,
+    bool)
+
+    this.categoryService.addCategory(category)
 
     }
 
 
-  remove(categoriaRef: Category)
+ /* remove(categoriaRef: Category)
   {
     this.categories?.forEach(categorie => {
       if(categorie === categoriaRef)
@@ -115,5 +105,5 @@ export class CategoriesComponent implements OnInit {
         categorie.setActive(false);
       }
     });
-  }
+  }*/
 }

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryServiceService {
+export class CategoryService {
 
   private _categoryList:Category[];
 
@@ -18,12 +19,31 @@ export class CategoryServiceService {
     new Category("Pescado","Pescados",false),
 
     ]
-
   }
 
   addCategory(category:Category){
-    if(category.getActive())
-    this._categoryList.push(category)
+    if(this._categoryList?.some((element)=>element.getName() === category.getName()
+    && !element.getActive())){
+
+      for(let category of this._categoryList){
+
+        if(this._categoryList?.some((element)=>element.getName() === category.getName())){
+          category.setActive(true);
+        }
+
+      }
+
+    } else if(this._categoryList?.some((element)=>element.getName() === category.getName()
+    && element.getActive())){
+
+      return ;
+
+
+    } else{
+
+      this._categoryList.push(category)
+
+    }
   };
 
   getAllCategories(): Category[]{
