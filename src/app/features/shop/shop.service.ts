@@ -10,14 +10,12 @@ export class ShopService {
     new Shop("test1", "test1", new Address("test1", "test1", "test1", 0, "test1"), true),
   ];
 
-  constructor() {}
-  addShop(newShop: Shop){
-    this.spainShops.push(newShop);
-  }
+  constructor() { }
 
-  getAllShops(): Shop[] {
+  getAllShops(): Shop[]{
     return this.spainShops;
   }
+  
 
   deleteShop(shopRef: Shop) {
     this.spainShops.splice(this.spainShops.findIndex((shop) => {
@@ -32,4 +30,9 @@ export class ShopService {
       return shop === shopRef;
     });
   }
+
+  addShop(newShop: Shop){
+    this.spainShops.push(newShop);
+  }
+
 }

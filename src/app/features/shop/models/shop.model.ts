@@ -11,11 +11,11 @@ export class Shop{
 
   //TODO -> La tienda ahora solo reparte en direcciones de la misma ciudad.
   //Queda pendiente crear servicio que calcule a que CP reparte la tienda
-  constructor(id: string, name: string, addres: Address, active: boolean){
-    this._id = id;
+  constructor(name: string, addres: Address){
+    this._id = '0';
     this._name = name;
     this._address = addres;
-    this._active = active;
+    this._active = true;
     this._products = []
   }
 
