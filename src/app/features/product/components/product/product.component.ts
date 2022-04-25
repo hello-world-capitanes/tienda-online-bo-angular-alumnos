@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../models/product-models';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -23,7 +24,8 @@ export class ProductComponent implements OnInit {
     new Product("Doritos", "Bolsa de 300g", 1.30, "Doritos picantes bolsa grande", "comida","",true),
   ]
 
-  constructor() {
+  constructor(private productService: ProductService) {
+    this.products = productService.productList;
   }
 
   createForm(){
