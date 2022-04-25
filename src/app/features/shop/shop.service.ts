@@ -23,4 +23,8 @@ export class ShopService {
     this.spainShops.push(newShop);
   }
 
+  getProducts(){
+
+  }
+
 }
