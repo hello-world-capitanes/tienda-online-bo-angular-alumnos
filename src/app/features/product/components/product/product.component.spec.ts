@@ -22,4 +22,15 @@ describe('ProductComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Test de la funcion añadir producto', () =>{
+    component.productForm.setValue(
+      {
+        name: "Sal",
+        characteristics: "Un poco de sal",
+        price: 10.00,
+        description: "Un poco de sal"
+      }
+    );
+  })
 });

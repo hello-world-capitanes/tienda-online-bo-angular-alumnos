@@ -1,4 +1,5 @@
 export class Product {
+  private _id: string;
   private _name: string;
   private _characteristics: string;
   private _price: number;
@@ -8,6 +9,7 @@ export class Product {
   private _active: boolean;
 
   constructor(
+    id:string,
     name: string,
     characteristics: string,
     price: number,
@@ -16,6 +18,7 @@ export class Product {
     image: string,
     active: boolean
   ) {
+    this._id = id;
     this._name = name;
     this._characteristics = characteristics;
     this._price = price;
@@ -23,6 +26,14 @@ export class Product {
     this._categories = categories;
     this._image = image;
     this._active = active;
+  }
+
+  public get id() {
+    return this._id;
+  }
+
+  public set id(id: string) {
+    this._id = id;
   }
 
   public get name() {
