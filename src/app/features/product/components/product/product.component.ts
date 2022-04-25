@@ -39,7 +39,7 @@ export class ProductComponent implements OnInit {
       characteristics: new FormControl('', [Validators.required]),
       price: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*$"),
+        Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),
       ]),
       description: new FormControl('', [Validators.required]),
       categories: new FormControl('', [Validators.required]),
@@ -105,14 +105,18 @@ export class ProductComponent implements OnInit {
   }
 
   addProduct(prod: Product) {
-    this.products.push(prod);
+    this.productService.addProduct(prod);
   }
 
   deleteProduct(prodId: string) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (prodId === this.products[i].id) {
-        this.products.splice(i, 1);
-      }
+    let prod = this.productService.findById(prodId);
+    if (!!prod) {
+      let index = this.productService.productList.indexOf(prod);
+      this.productService.deleteProduct(index);
+      return true;
+    } else {
+      alert('Error en el borrado');
+      return false;
     }
   }
 }
