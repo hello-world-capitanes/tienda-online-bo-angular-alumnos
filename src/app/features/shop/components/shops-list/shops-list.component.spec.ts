@@ -5,8 +5,6 @@ import { Shop } from '../../models/shop.model';
 import { ShopsListComponent } from './shops-list.component';
 
 describe('ShopsListComponent', () => {
-  let component: ShopsListComponent;
-  let fixture: ComponentFixture<ShopsListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
