@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { elementAt } from 'rxjs';
 import { Product } from '../models/product-models';
 
 @Injectable({
@@ -7,7 +8,6 @@ import { Product } from '../models/product-models';
 export class ProductService {
 
   private _productList: Product[];
-
 
   constructor() {
 
@@ -19,9 +19,25 @@ export class ProductService {
     ]
   }
 
+  public addProduct(value: Product){
+    this._productList.push(value);
+  }
+
+  public deleteProduct(value: Product){
+
+    if (this._productList.some( element = > element.id == value.id)){
+
+      this.productList.splice(this._productList.indexOf(value), 1);
+
+    } else {
+      return;
+    }
+  }
+
   public get productList(): Product[] {
     return this._productList;
   }
+
   public set productList(value: Product[]) {
     this._productList = value;
   }

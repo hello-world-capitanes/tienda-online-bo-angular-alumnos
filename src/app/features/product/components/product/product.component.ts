@@ -58,16 +58,12 @@ export class ProductComponent implements OnInit {
     this.addProduct(prod1);
   }
 
-  addProduct(prod: Product){
-    this.products.push(prod);
+  addProduct(product: Product){
+    this.productService.addProduct(product);
   }
 
-  deleteProduct(prodName?: string){
-    for(let i = 0; i < this.products.length; i++){
-      if(prodName === this.products[i].name){
-        this.products.splice(i, 1);
-      }
-    }
+  deleteProduct(product: Product){
+    this.productService.deleteProduct(product);
   }
 
 }
