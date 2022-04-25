@@ -1,25 +1,10 @@
+import { ShopService } from './../../shop.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Address } from 'src/app/core/models/address.model';
+import { Shop } from '../../models/shop.model';
 
 import { ShopsListComponent } from './shops-list.component';
 
 describe('ShopsListComponent', () => {
-  let component: ShopsListComponent;
-  let fixture: ComponentFixture<ShopsListComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ShopsListComponent ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ShopsListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });
