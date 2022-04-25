@@ -46,6 +46,14 @@ export class CategoryService {
     }
   };
 
+  categoryExists(category:Category){
+    if(this._categoryList.includes(category)){
+      return true;
+    }else{
+      return false;
+    };
+  }
+
   getAllCategories(): Category[]{
     return this._categoryList;
   }

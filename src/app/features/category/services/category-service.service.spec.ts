@@ -1,16 +1,19 @@
 import { TestBed } from '@angular/core/testing';
+import { Category } from '../models/category.model';
 
-import { CategoryServiceService } from './category-service.service';
+import { CategoryService } from './category-service.service';
 
 describe('CategoryServiceService', () => {
-  let service: CategoryServiceService;
+  let service: CategoryService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CategoryServiceService);
+    service = TestBed.inject(CategoryService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('Crear categoría', () => {
+    let category=new Category("123","Productos Lácteos",true)
+    service.addCategory(category)
+    expect(service.categoryExists(category)).toBe(true);
   });
 });
