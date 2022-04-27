@@ -21,7 +21,6 @@ export class ShopService {
     this.spainShops.splice(this.spainShops.findIndex((shop) => {
       return shop === shopRef;
     }), 0);
-
     return this.shopExists(shopRef);
   }
 

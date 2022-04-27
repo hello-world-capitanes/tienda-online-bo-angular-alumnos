@@ -10,6 +10,7 @@ import { Category } from '../../models/category.model';
 })
 export class CategoriesComponent implements OnInit {
   categoryForm: FormGroup;
+  categories!: Category[];
 
   constructor(private form: FormBuilder,
     public categoryService: CategoryService) {
@@ -39,7 +40,9 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.categories = this.categoryService.getAllCategories();
+  }
 
   get errorMessageName(): string {
     const form: FormControl = (this.categoryForm.get('name') as FormControl);
@@ -86,33 +89,8 @@ export class CategoriesComponent implements OnInit {
     this.categoryService.addCategory(category)
   }
 
-  removeCategory(){
-    let bool: boolean;
-    if (!this.categoryForm.valid){
-      return;
-    }
-
-    if(this.categoryForm.get('inactive')?.value === "Inactivo"){
-      bool = false;
-    }else{
-      bool = true;
-    }
-
-    let category = new Category(this.categoryForm.get('name')?.value,
-    this.categoryForm.get('description')?.value,
-    bool)
-
-    this.categoryService.removeCategory(category);
+  deleteCategory(category: Category){
+    this.categoryService.deleteCategory(category);
   }
 
-
-  /* remove(categoriaRef: Category)
-   {
-     this.categories?.forEach(categorie => {
-       if(categorie === categoriaRef)
-       {
-         categorie.setActive(false);
-       }
-     });
-   }*/
 }
