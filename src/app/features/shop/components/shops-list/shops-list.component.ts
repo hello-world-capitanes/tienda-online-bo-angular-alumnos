@@ -29,7 +29,6 @@ export class ShopsListComponent implements OnInit {
 
   anadirElementoLista(elementoLista : any){
     this.shops.push(elementoLista);
-
   }
 
 }
