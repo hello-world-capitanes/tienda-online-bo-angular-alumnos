@@ -1,20 +1,45 @@
-.list-item {
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  > div {
     display: flex;
+    flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    padding: 5px;
-    > div {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        align-items: center;
-        mat-icon {
-            padding-right: 8px;
-        }
+    mat-icon {
+      padding-right: 8px;
     }
+  }
 }
 
 mat-divider {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.listUser {
+  margin: 2em;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.expansionContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonUser {
+  margin: 1em;
+  margin-left: 0 auto;
+  flex: 1 1 auto;
+}
+
+.user {
+  font-weight: bold;
 }
