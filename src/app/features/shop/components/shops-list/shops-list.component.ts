@@ -16,6 +16,7 @@ export interface shopElement{
 })
 export class ShopsListComponent implements OnInit {
   shops!: Shop[];
+  panelOpenState=false;
 
   private _productStockList! : ProductStock[];
 

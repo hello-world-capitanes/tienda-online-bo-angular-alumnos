@@ -1,81 +1,86 @@
-<div class="title-shop">
-  <mat-card-title>Shops</mat-card-title>
-</div>
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Añadir tienda
+        <mat-icon aria-hidden="false" aria-label="Example home icon">shopping_basket</mat-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="formGroupShop" class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Nombre" formControlName="name" required>
+          <mat-error *ngIf="formGroupShop.get('name')?.errors && formGroupShop.get('name')?.hasError('required')">
+            {{ SHOP_ERRORS.name.notProvided }}
+          </mat-error>
+        </mat-form-field>
 
-<form [formGroup]="formGroupShop" class="example-form">
-  <div class="inputs-shop">
-    <mat-form-field class="example-full-width" >
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Nombre" formControlName="name" required>
-      <mat-error *ngIf="formGroupShop.get('name')?.errors && formGroupShop.get('name')?.hasError('required')">
-        {{ SHOP_ERRORS.name.notProvided }}
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>País</mat-label>
+          <mat-select formControlName="country" required>
+            <mat-option *ngFor="let country of COUNTRIES" [value]="country.name">
+              {{ country.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formGroupShop.get('country')?.errors && formGroupShop.get('country')?.hasError('required')">
+            {{ SHOP_ERRORS.name.notProvided }}
+          </mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-full-width" >
-      <mat-label>País</mat-label>
-      <mat-select formControlName="country" required>
-        <mat-option *ngFor="let country of COUNTRIES" [value]="country.name">
-          {{ country.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="formGroupShop.get('country')?.errors && formGroupShop.get('country')?.hasError('required')">
-        {{ SHOP_ERRORS.name.notProvided }}
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field>
+          <mat-label>Provincia</mat-label>
+          <div *ngIf="formGroupShop.get('country')?.value === 'España'; then spanishProv else otherProv"></div>
+          <ng-template #spanishProv>
+            <mat-select #spanish formControlName="province" required>
+              <mat-option *ngFor="let prov of PROVINCES" [value]="prov.name">
+                {{ prov.name }}
+              </mat-option>
+            </mat-select>
+          </ng-template>
+          <ng-template #otherProv>
+            <input matInput placeholder="Provincia" formControlName="province" required>
+          </ng-template>
+          <mat-error
+            *ngIf="formGroupShop.get('province')?.errors && formGroupShop.get('province')?.hasError('required')">
+            {{ SHOP_ERRORS.province.notProvided }}
+          </mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-full-width" >
-      <mat-label>Provincia</mat-label>
-      <div *ngIf="formGroupShop.get('country')?.value === 'España'; then spanishProv else otherProv"></div>
-      <ng-template #spanishProv>
-        <mat-select #spanish formControlName="province" required>
-          <mat-option *ngFor="let prov of PROVINCES" [value]="prov.name">
-            {{ prov.name }}
-          </mat-option>
-        </mat-select>
-      </ng-template>
-      <ng-template #otherProv>
-        <input matInput placeholder="Provincia" formControlName="province" required>
-      </ng-template>
-      <mat-error *ngIf="formGroupShop.get('province')?.errors && formGroupShop.get('province')?.hasError('required')">
-        {{ SHOP_ERRORS.province.notProvided }}
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field>
+          <mat-label>Dirección</mat-label>
+          <input matInput placeholder="Localidad" formControlName="street" required>
+          <mat-error
+            *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('required')">
+            {{ SHOP_ERRORS.location.notProvided }}
+          </mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-full-width" >
-      <mat-label>Dirección</mat-label>
-      <input matInput placeholder="Localidad" formControlName="street" required>
-      <mat-error *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('required')">
-        {{ SHOP_ERRORS.location.notProvided }}
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field>
+          <mat-label>Calle</mat-label>
+          <input matInput placeholder="Dirección" formControlName="location" required>
+          <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('required')">
+            {{ SHOP_ERRORS.street.notProvided }}
+          </mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-full-width" >
-      <mat-label>Calle</mat-label>
-      <input matInput placeholder="Dirección" formControlName="location" required>
-      <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('required')">
-        {{ SHOP_ERRORS.street.notProvided }}
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width" >
-      <mat-label>CP</mat-label>
-      <div *ngIf="formGroupShop.get('country')?.value === 'España'; then spanishCp else otherCp"></div>
-      <ng-template #spanishCp>
-        <input matInput placeholder="CP" type="number" formControlName="cp" pattern="^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$" required>
-      </ng-template>
-      <ng-template #otherCp>
-        <input matInput placeholder="CP" type="number" formControlName="cp" required>
-      </ng-template>
-      <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('required')">
-        {{ SHOP_ERRORS.cp.notProvided }}
-      </mat-error>
-      <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('pattern')">
-        {{ SHOP_ERRORS.cp.invalid }}
-      </mat-error>
-    </mat-form-field>
-  </div>
-  <div class="addShopBtn">
-      <button mat-raised-button color="primary" (click)="addShop()">Añadir</button>
-  </div>
-</form>
+        <mat-form-field>
+          <mat-label>CP</mat-label>
+          <div *ngIf="formGroupShop.get('country')?.value === 'España'; then spanishCp else otherCp"></div>
+          <ng-template #spanishCp>
+            <input matInput placeholder="CP" type="number" formControlName="cp"
+              pattern="^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$" required>
+          </ng-template>
+          <ng-template #otherCp>
+            <input matInput placeholder="CP" type="number" formControlName="cp" required>
+          </ng-template>
+          <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('required')">
+            {{ SHOP_ERRORS.cp.notProvided }}
+          </mat-error>
+          <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('pattern')">
+            {{ SHOP_ERRORS.cp.invalid }}
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="addShop()">Añadir</button>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
