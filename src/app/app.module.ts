@@ -29,10 +29,8 @@ import { AuthenticationModule } from './features/authentication/authentication.m
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
-
     AppRoutingModule,
     AngularFirestoreModule,
-
     CoreModule,
     SharedModule,
     UsersModule,

@@ -25,6 +25,4 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app.title).toEqual('tienda-online-bo-angular-alumnos');
   });
-
-
 });

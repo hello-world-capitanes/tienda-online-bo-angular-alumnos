@@ -47,12 +47,4 @@ describe('ProductComponent', () => {
 
     expect(component.newProduct()).toBe(false);
   });
-
-  it('Test de la funcion eliminar producto', () => {
-    expect(component.deleteProduct('2')).toBe(true);
-  });
-
-  it('Test de la funcion eliminar producto con una id que no existe', () => {
-    expect(component.deleteProduct('300')).toBe(false);
-  });
 });
