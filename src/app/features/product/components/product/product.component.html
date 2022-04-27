@@ -8,15 +8,15 @@
     <form novalidate [formGroup] = "productForm" class="form">
       <div class="container">
         <div class="primeraCol">
-          <mat-form-field class="formContainer" appearance="fill">
+          <mat-form-field class="formContainer" >
             <mat-label> Name </mat-label>
             <input matInput class="input" formControlName="name">
           </mat-form-field>
-          <mat-form-field class="formContainer" appearance="fill">
+          <mat-form-field class="formContainer" >
             <mat-label>Price</mat-label>
             <input matInput class="input" formControlName="price" type="number">
           </mat-form-field>
-          <mat-form-field class="formContainer" appearance="fill">
+          <mat-form-field class="formContainer" >
             <mat-label> Categories </mat-label>
             <mat-select class = "input" formControlName = "categories" required>
               <mat-option *ngFor="let cat of categories" [value]="cat">
@@ -26,11 +26,11 @@
           </mat-form-field>
         </div>
         <div class = "segundaCol">
-          <mat-form-field class="formContainer" appearance="fill">
+          <mat-form-field class="formContainer" >
             <mat-label> Description </mat-label>
             <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
           </mat-form-field>
-          <mat-form-field class="formContainer" appearance="fill">
+          <mat-form-field class="formContainer" >
             <mat-label> Characteristics </mat-label>
             <input class="input" matInput formControlName="characteristics">
           </mat-form-field>

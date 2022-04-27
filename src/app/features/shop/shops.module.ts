@@ -11,7 +11,6 @@ import { ShopsCreateComponent } from './components/shops-create/shops-create.com
 import { ShopsListComponent } from './components/shops-list/shops-list.component';
 import { ShopsModifyComponent } from './components/shops-modify/shops-modify.component';
 
-
 @NgModule({
   declarations: [
     ShopsListComponent,

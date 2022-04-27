@@ -1,3 +1,4 @@
+import { ShopsModifyComponent } from './features/shop/components/shops-modify/shops-modify.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './features/authentication/components/dashboard/dashboard.component';
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'users', component: FormUserComponent },
   { path: 'products', component: ProductComponent },
   { path: 'categories', component: CategoriesComponent },
-
+  { path: 'shop', component: ShopsModifyComponent },
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: '', component: SignInComponent },
   { path: 'dashboard', component: DashboardComponent },

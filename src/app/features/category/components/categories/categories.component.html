@@ -4,47 +4,44 @@
       <mat-icon aria-hidden="false" aria-label="Example home icon">category</mat-icon>
       Añadir categoría
     </h1>
-      <form [formGroup]="categoryForm">
+    <form [formGroup]="categoryForm">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput formControlName="name" placeholder="Lácteos">
+        <mat-error>{{errorMessageName}}</mat-error>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre</mat-label>
-          <input type="text" matInput formControlName="name" placeholder="Lácteos">
-          <mat-error>{{errorMessageName}}</mat-error>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label>Descripción</mat-label>
+        <input type="text" matInput formControlName="description" placeholder="Productos lácteos">
+        <mat-error>{{errorMessageDescription}}</mat-error>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Descripción</mat-label>
-          <input type="text" matInput formControlName="description" placeholder="Productos lácteos">
-          <mat-error>{{errorMessageDescription}}</mat-error>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label>Estado</mat-label>
+        <mat-select matNativeControl formControlName="active">
+          <mat-option value="Activo">Activo</mat-option>
+          <mat-option value="Inactivo">Inactivo</mat-option>
+        </mat-select>
+        <mat-error>{{errorMessageActive}}</mat-error>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Estado</mat-label>
-          <mat-select matNativeControl formControlName="active">
-            <mat-option value="Activo">Activo</mat-option>
-            <mat-option value="Inactivo">Inactivo</mat-option>
-          </mat-select>
-          <mat-error>{{errorMessageActive}}</mat-error>
-        </mat-form-field>
-
-
-
-        <button mat-raised-button color="primary" [disabled]="this.categoryForm.invalid" (click)="addCategory()">+</button>
-      </form>
+      <button mat-raised-button color="primary" [disabled]="this.categoryForm.invalid"
+        (click)="addCategory()">+</button>
+    </form>
   </div>
 
   <h2>Categorías creadas</h2>
-<ng-container *ngFor="let categorie of this.categoryService.getAllCategories()">
+  <ng-container *ngFor="let categorie of this.categoryService.getAllCategories()">
 
-  <div *ngIf="categorie.getActive()===true">
+    <div *ngIf="categorie.active===true">
+      <table *ngFor="let category of categories">
+        <p>{{categorie.name}}</p>
+        <p>{{categorie.description}}</p>
+        <button mat-button color="warn" (click)="deleteCategory(category)"> Borrar </button>
+      </table>
+    </div>
 
-  <p>{{categorie.getName()}}</p>
-  <p>{{categorie.getDescription()}}</p>
-
-    <!-- <button mat-raised-button color="primary" (click) ="remove(categorie)"> <mat-icon>remove</mat-icon></button> -->
-
-  </div>
-
-</ng-container>
+  </ng-container>
 
 </div>
