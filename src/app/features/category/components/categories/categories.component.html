@@ -1,23 +1,37 @@
 <mat-accordion>
-  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
     <mat-expansion-panel-header>
       <mat-panel-title>
         Añadir categoría
-        <mat-icon aria-hidden="false" aria-label="Example home icon">category</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Example home icon"
+          >category</mat-icon
+        >
       </mat-panel-title>
     </mat-expansion-panel-header>
     <form [formGroup]="categoryForm">
-
       <mat-form-field>
         <mat-label>Nombre</mat-label>
-        <input type="text" matInput formControlName="name" placeholder="Lácteos">
-        <mat-error>{{errorMessageName}}</mat-error>
+        <input
+          type="text"
+          matInput
+          formControlName="name"
+          placeholder="Lácteos"
+        />
+        <mat-error>{{ errorMessageName }}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Descripción</mat-label>
-        <input type="text" matInput formControlName="description" placeholder="Productos lácteos">
-        <mat-error>{{errorMessageDescription}}</mat-error>
+        <input
+          type="text"
+          matInput
+          formControlName="description"
+          placeholder="Productos lácteos"
+        />
+        <mat-error>{{ errorMessageDescription }}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -26,33 +40,59 @@
           <mat-option value="Activo">Activo</mat-option>
           <mat-option value="Inactivo">Inactivo</mat-option>
         </mat-select>
-        <mat-error>{{errorMessageActive}}</mat-error>
+        <mat-error>{{ errorMessageActive }}</mat-error>
       </mat-form-field>
 
-
-
-      <button mat-raised-button color="primary" [disabled]="this.categoryForm.invalid"
-        (click)="addCategory()">+</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="this.categoryForm.invalid"
+        (click)="addCategory()"
+      >
+        +
+      </button>
     </form>
   </mat-expansion-panel>
 </mat-accordion>
 
-<mat-divider></mat-divider>
-<ng-container *ngFor="let categorie of this.categoryService.getAllCategories()">
-  <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header *ngIf="categorie.getActive()===true">
-        <div class="info">
-          <button mat-raised-button class="botonProd">
-            <mat-icon> delete_forever </mat-icon>
-          </button>
-          <mat-panel-title>
-            <mat-list-item role="listitem" class="categorie">{{categorie.getName()}}</mat-list-item>
-          </mat-panel-title>
-        </div>
-      </mat-expansion-panel-header>
-      <p>{{categorie.getName()}}</p>
-      <p>{{categorie.getDescription()}}</p>
-    </mat-expansion-panel>
-  </mat-accordion>
+<mat-list role="list" class="listCategory">
   <mat-divider></mat-divider>
+  <ng-container
+    *ngFor="let category of this.categoryService.getAllCategories()"
+  >
+    <div class="containerProd">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header *ngIf="category.getActive()===true" class="category">
+            <div class="info">
+              <button mat-raised-button class="botonProd">
+                <mat-icon> delete_forever </mat-icon>
+              </button>
+              <mat-panel-title>
+                <mat-list-item role="listitem">{{
+                  category.getName()
+                }}</mat-list-item>
+              </mat-panel-title>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="hiddenIfo" id="{{ category.getName() }}">
+            <div class="firstColumnHidden">
+              <mat-list role="list">
+                <mat-list-item role="listitem">
+                  <div class="expansionContent">
+                    <span> Nombre: {{ category.getName() }} </span>
+                    <span> Descripcion: {{ category.getDescription() }} </span>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
