@@ -1,44 +1,47 @@
 export class Category {
 
   private _name: string;
-  private _ID: number;
-  private _active: boolean;
+  private _ID: string;
   private _description: string;
-  private static contadorId: number= 0;
+  private _active: boolean;
+  /* private static contadorId: number = 0; */
 
-  constructor(name:string, description:string, active:boolean){
-    this._ID = Category.contadorId++;
+  constructor(name: string, id: string, description: string, active: boolean) {
+    this._ID = id;
     this._name = name;
     this._description = description;
     this._active = active;
   }
 
-  getName(){
+  public get name() {
     return this._name;
   }
 
-  setName(name:string){
-    this._name=name;
+  public set name(name: string) {
+    this._name = name;
   }
 
-  getID(){
+  public get id() {
     return this._ID;
   }
 
-  getActive(){
-    return this._active;
+  public set id(id: string) {
+    this._ID = id;
   }
 
-  setActive(active:boolean){
-    this._active=active;
-  }
-
-  getDescription(){
+  public get description() {
     return this._description;
   }
 
-  setDescription(description:string){
-    this._description=description;
+  public set description(description: string) {
+    this._description = description;
   }
 
+  public get active() {
+    return this._active;
+  }
+
+  public set active(active: boolean) {
+    this._active = active;
+  }
 }
