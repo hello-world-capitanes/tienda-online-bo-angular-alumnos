@@ -19,4 +19,5 @@ describe('CategoriesComponent', () => {
     fixture.detectChanges();
   });
 
+
 });

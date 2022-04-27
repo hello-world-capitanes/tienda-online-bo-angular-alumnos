@@ -1,11 +1,11 @@
-import { ProductStock } from './../product/models/product-stock.model';
-import { Product } from './../product/models/product-models';
-import { Address } from './../../core/models/address.model';
 import { Injectable } from '@angular/core';
+import { Address } from './../../core/models/address.model';
+import { Product } from './../product/models/product-models';
+import { ProductStock } from './../product/models/product-stock.model';
 import { Shop } from './models/shop.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShopService {
   private spainShops!: Shop[];
@@ -74,9 +74,18 @@ export class ShopService {
     return this.spainShops;
   }
 
-  deleteShop(shopRef: Shop){
-    return !!this.spainShops.find((shop) =>{
-      return shop == shopRef;
+
+  deleteShop(shopRef: Shop) {
+    this.spainShops.splice(this.spainShops.findIndex((shop) => {
+      return shop === shopRef;
+    }), 0);
+
+    return this.shopExists(shopRef);
+  }
+
+  shopExists(shopRef: Shop): boolean{
+    return !!this.spainShops.find((shop) => {
+      return shop === shopRef;
     });
   }
 

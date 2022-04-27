@@ -4,7 +4,7 @@
 
 <form [formGroup]="formGroupShop" class="example-form">
   <div class="inputs-shop">
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width" >
       <mat-label>Name</mat-label>
       <input matInput placeholder="Nombre" formControlName="name" required>
       <mat-error *ngIf="formGroupShop.get('name')?.errors && formGroupShop.get('name')?.hasError('required')">
@@ -12,7 +12,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width" >
       <mat-label>País</mat-label>
       <mat-select formControlName="country" required>
         <mat-option *ngFor="let country of COUNTRIES" [value]="country.name">
@@ -24,7 +24,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width" >
       <mat-label>Provincia</mat-label>
       <div *ngIf="formGroupShop.get('country')?.value === 'España'; then spanishProv else otherProv"></div>
       <ng-template #spanishProv>
@@ -42,7 +42,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width" >
       <mat-label>Dirección</mat-label>
       <input matInput placeholder="Localidad" formControlName="street" required>
       <mat-error *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('required')">
@@ -50,7 +50,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width" >
       <mat-label>Calle</mat-label>
       <input matInput placeholder="Dirección" formControlName="location" required>
       <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('required')">
@@ -58,7 +58,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width" >
       <mat-label>CP</mat-label>
       <div *ngIf="formGroupShop.get('country')?.value === 'España'; then spanishCp else otherCp"></div>
       <ng-template #spanishCp>

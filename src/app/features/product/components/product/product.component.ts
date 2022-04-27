@@ -39,7 +39,7 @@ export class ProductComponent implements OnInit {
       characteristics: new FormControl('', [Validators.required]),
       price: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*$"),
+        Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),
       ]),
       description: new FormControl('', [Validators.required]),
       categories: new FormControl('', [Validators.required]),
@@ -68,7 +68,7 @@ export class ProductComponent implements OnInit {
       );
 
       while (this.existId(id)) {
-        let prod1 = new Product(
+        prod1 = new Product(
           this.generateId(),
           this.productForm.value.name,
           this.productForm.value.characteristics,
@@ -83,6 +83,14 @@ export class ProductComponent implements OnInit {
       this.addProduct(prod1);
       return true;
     }
+  }
+
+  addProduct(product: Product){
+    this.productService.addProduct(product);
+  }
+
+  deleteProduct(product: Product){
+    this.productService.deleteProduct(product);
   }
 
   existId(id: string): boolean {
@@ -104,15 +112,4 @@ export class ProductComponent implements OnInit {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
-  addProduct(prod: Product) {
-    this.products.push(prod);
-  }
-
-  deleteProduct(prodId: string) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (prodId === this.products[i].id) {
-        this.products.splice(i, 1);
-      }
-    }
-  }
 }
