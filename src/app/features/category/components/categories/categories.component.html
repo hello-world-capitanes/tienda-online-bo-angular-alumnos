@@ -6,19 +6,19 @@
     </h1>
       <form [formGroup]="categoryForm">
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
           <mat-label>Nombre</mat-label>
           <input type="text" matInput formControlName="name" placeholder="Lácteos">
           <mat-error>{{errorMessageName}}</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
           <mat-label>Descripción</mat-label>
           <input type="text" matInput formControlName="description" placeholder="Productos lácteos">
           <mat-error>{{errorMessageDescription}}</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
           <mat-label>Estado</mat-label>
           <mat-select matNativeControl formControlName="active">
             <mat-option value="Activo">Activo</mat-option>
