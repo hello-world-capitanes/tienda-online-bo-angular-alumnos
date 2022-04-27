@@ -6,10 +6,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { CategoriesComponent } from './components/categories/categories.component';
 import {MatSelectModule} from '@angular/material/select';
-
-
+import { CategoriesComponent } from './components/categories/categories.component';
 
 @NgModule({
   declarations: [

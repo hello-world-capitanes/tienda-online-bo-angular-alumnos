@@ -76,11 +76,12 @@ export class ShopService {
 
 
   deleteShop(shopRef: Shop) {
-    this.spainShops.splice(this.spainShops.findIndex((shop) => {
-      return shop === shopRef;
-    }), 0);
+    let index = this.spainShops.findIndex((shop) => {
+      return shop.id === shopRef.id;
+    });
+    this.spainShops.splice(index, 1);
 
-    return this.shopExists(shopRef);
+    return !this.shopExists(shopRef);
   }
 
   shopExists(shopRef: Shop): boolean{
@@ -119,4 +120,8 @@ export class ShopService {
       }
     })
   }
+  getProductsStock(){
+    return this._productStockList;
+  }
+
 }
