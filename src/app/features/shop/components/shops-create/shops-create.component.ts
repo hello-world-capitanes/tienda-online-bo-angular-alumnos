@@ -1,11 +1,11 @@
-import { ShopService } from './../../shop.service';
-import { Shop } from './../../models/shop.model';
 import { Address } from './../../../../core/models/address.model';
 import { PROVINCES } from './../../../../core/utils/lists/provinces.list';
 import { COUNTRIES } from './../../../../core/utils/lists/countries.list';
 import { SHOP_ERRORS } from '../../../../core/utils/errors/shop.erros';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ShopService } from '../../shop.service';
+import { Shop } from '../../models/shop.model';
 
 @Component({
   selector: 'app-shops-create',
@@ -47,9 +47,9 @@ export class ShopsCreateComponent implements OnInit {
       let street = this.formGroupShop.controls["street"].value;
       let cp = this.formGroupShop.controls["cp"].value;
 
-      let addres = new Address(country, province, location, cp, street);
+      let address = new Address(country, province, location, cp, street);
 
-      let newShop = new Shop(name, addres);
+      let newShop = new Shop("9887465",name, address, true, []);
 
       this.shopService.addShop(newShop);
     }

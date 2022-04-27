@@ -1,6 +1,9 @@
-import { ShopService } from './../../shop.service';
 import { Component, OnInit } from '@angular/core';
 import { Shop } from '../../models/shop.model';
+
+import { ShopService } from '../../shop.service';
+
+import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 
 export interface shopElement{
   name: string;
@@ -14,6 +17,8 @@ export interface shopElement{
 export class ShopsListComponent implements OnInit {
   shops!: Shop[];
   panelOpenState=false;
+
+  private _productStockList! : ProductStock[];
 
   constructor(private shopService: ShopService) { }
 
@@ -31,6 +36,10 @@ export class ShopsListComponent implements OnInit {
   anadirElementoLista(elementoLista : any){
     this.shops.push(elementoLista);
 
+  }
+
+  getProductList(){
+    return this._productStockList;
   }
 
 }

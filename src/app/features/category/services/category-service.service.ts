@@ -1,76 +1,78 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-
-  private _categoryList:Category[];
+  private _categoryList: Category[];
 
   constructor() {
-
-    this._categoryList=[
-
-    new Category("Lácteos","Productos lácteos",true),
-    new Category("Aceite","Aceites",false),
-    new Category("Carne","Productos cárnicos",true),
-    new Category("Pescado","Pescados",false),
-
+    this._categoryList = [
+      new Category("Lácteos", "1", "Productos lácteos", true),
+      new Category("Aceite", "2", "Aceites", false),
+      new Category("Carne", "3", "Productos cárnicos", true),
+      new Category("Pescado", "4", "Pescados", false),
     ]
   }
 
-  addCategory(category:Category){
-
-    if(this._categoryList?.some((element)=>element.getName() === category.getName()) && !category.getActive()){
-
+  addCategory(category: Category) {
+    if (this._categoryList?.some((element) => element.name === category.name) && !category.active) {
       return;
-
-    } else if(this._categoryList?.some((element)=>element.getName() === category.getName()) && category.getActive()){
-
-      if(this._categoryList?.some((element)=>element.getName() === category.getName()
-      && !element.getActive())){
-
-        for(let i=0;i<this._categoryList.length;i++){
-
-          if(this._categoryList[i].getName() === category.getName()){
-            this._categoryList[i].setActive(true);
-            this._categoryList[i].setDescription(category.getDescription());
-
+    } else if (this._categoryList?.some((element) => element.name === category.name) && category.active) {
+      if (this._categoryList?.some((element) => element.name === category.name
+        && !element.active)) {
+        for (let i = 0; i < this._categoryList.length; i++) {
+          if (this._categoryList[i].name === category.name) {
+            this._categoryList[i].active;
+            this._categoryList[i].description;
           }
         }
-
-      } else if(this._categoryList?.some((element)=>element.getName() === category.getName()
-      && element.getActive())){
-
+      } else if (this._categoryList?.some((element) => element.name === category.name
+        && element.active)) {
         return;
-
       }
-
-    }  else{
-
+    } else {
       this._categoryList.push(category)
-
     }
-
     console.log
 
   };
 
-  categoryExists(category:Category){
-
-    if (this._categoryList?.some((element)=>element.getName() === category.getName())){
+  categoryExists(category: Category) {
+    if (this._categoryList?.some((element) => element.name === category.name)) {
       return true;
-    } else{
+    } else {
       return false;
     };
   }
 
-  getAllCategories(): Category[]{
+  getAllCategories(): Category[] {
     return this._categoryList;
   }
 
-  removeCategory(category:Category){
-  };
+  deleteCategory(value: Category) {
+    if (this._categoryList.some(element => element.id == value.id)) {
+      this._categoryList.splice(this._categoryList.indexOf(value), 1);
+    } else {
+      return;
+    }
+  }
+
+  public get cateogoryList(): Category[] {
+    return this._categoryList;
+  }
+
+  public set categoryList(value: Category[]) {
+    this._categoryList = value;
+  }
+
+  findById(id: string) {
+    return this._categoryList.find((category) => {
+      if (category.id === id) {
+        return category;
+      }
+      return null;
+    });
+  }
 }

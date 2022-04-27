@@ -76,7 +76,7 @@ export class ProductService {
     this._productList = value;
   }
 
-  findById(prodId: string) {
+  findById(prodId: string): Product | undefined {
     return this._productList.find((product) => {
       if (product.id === prodId) {
         return product;

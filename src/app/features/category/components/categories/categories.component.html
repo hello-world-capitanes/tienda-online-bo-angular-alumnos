@@ -30,7 +30,7 @@
           matInput
           formControlName="description"
           placeholder="Productos lácteos"
-        />
+        /> 
         <mat-error>{{ errorMessageDescription }}</mat-error>
       </mat-form-field>
 
@@ -58,33 +58,34 @@
 <mat-list role="list" class="listCategory">
   <mat-divider></mat-divider>
   <ng-container
-    *ngFor="let category of this.categoryService.getAllCategories()"
+    *ngFor="let category of categories"
   >
     <div class="containerProd">
       <mat-accordion>
         <mat-expansion-panel
           (opened)="panelOpenState = true"
           (closed)="panelOpenState = false"
+
         >
-          <mat-expansion-panel-header *ngIf="category.getActive()===true" class="category">
+          <mat-expansion-panel-header *ngIf="category.active===true" class="category">
             <div class="info">
-              <button mat-raised-button class="botonProd">
+              <button mat-raised-button class="botonProd" (click)="deleteCategory(category)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
                 <mat-list-item role="listitem">{{
-                  category.getName()
+                  category.name
                 }}</mat-list-item>
               </mat-panel-title>
             </div>
           </mat-expansion-panel-header>
-          <div class="hiddenIfo" id="{{ category.getName() }}">
+          <div class="hiddenIfo">
             <div class="firstColumnHidden">
               <mat-list role="list">
                 <mat-list-item role="listitem">
                   <div class="expansionContent">
-                    <span> Nombre: {{ category.getName() }} </span>
-                    <span> Descripcion: {{ category.getDescription() }} </span>
+                    <span> Nombre: {{ category.name }} </span>
+                    <span> Descripcion: {{ category.description }} </span>
                   </div>
                 </mat-list-item>
               </mat-list>

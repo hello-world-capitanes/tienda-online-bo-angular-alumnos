@@ -1,3 +1,4 @@
+import { ProductStock } from './../product/models/product-stock.model';
 import { TestBed } from '@angular/core/testing';
 import { Address } from 'src/app/core/models/address.model';
 import { Shop } from './models/shop.model';
@@ -13,9 +14,10 @@ describe('ShopService', () => {
   });
 
   it('Delete shop', () => {
-    expect(service.deleteShop(new Shop("", new Address("", "", "", 0, "0")))).toBeFalse();
-    service.addShop(new Shop("test", new Address("test", "test", "test", 0, "test")));
-    service.deleteShop(new Shop("test", new Address("test", "test", "test", 0, "test")))
-    expect(service.shopExists(new Shop("test", new Address("test", "test", "test", 0, "test")))).toBeFalse();
+    const products = service.getProductsStock();
+    expect(service.deleteShop(new Shop("", "", new Address("", "", "", 0, "0"), true, products))).toBeFalse();
+    service.addShop(new Shop("id", "nombre", new Address("test", "test", "test", 0, "test"), true, products));
+    service.deleteShop(new Shop("id", "nombre", new Address("test", "test", "test", 0, "test"), true, products));
+    expect(service.shopExists).toBeFalse();
   });
 });
