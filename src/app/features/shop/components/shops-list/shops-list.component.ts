@@ -1,6 +1,6 @@
-import { ShopService } from './../../shop.service';
 import { Component, OnInit } from '@angular/core';
 import { Shop } from '../../models/shop.model';
+import { ShopService } from '../../shop.service';
 
 export interface shopElement{
   name: string;
