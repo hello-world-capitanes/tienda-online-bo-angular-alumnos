@@ -101,4 +101,8 @@ export class ShopService {
     })
   }
 
+  getProductsStock(){
+    return this._productStockList;
+  }
+
 }
