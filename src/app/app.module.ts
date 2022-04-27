@@ -29,10 +29,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
-
     AppRoutingModule,
     AngularFirestoreModule,
-
     CoreModule,
     SharedModule,
     UsersModule,

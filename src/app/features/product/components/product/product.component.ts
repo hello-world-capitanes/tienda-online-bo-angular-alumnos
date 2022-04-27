@@ -68,7 +68,7 @@ export class ProductComponent implements OnInit {
       );
 
       while (this.existId(id)) {
-        let prod1 = new Product(
+        prod1 = new Product(
           this.generateId(),
           this.productForm.value.name,
           this.productForm.value.characteristics,
@@ -83,6 +83,14 @@ export class ProductComponent implements OnInit {
       this.addProduct(prod1);
       return true;
     }
+  }
+
+  addProduct(product: Product){
+    this.productService.addProduct(product);
+  }
+
+  deleteProduct(product: Product){
+    this.productService.deleteProduct(product);
   }
 
   existId(id: string): boolean {
@@ -104,19 +112,4 @@ export class ProductComponent implements OnInit {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
-  addProduct(prod: Product) {
-    this.productService.addProduct(prod);
-  }
-
-  deleteProduct(prodId: string) {
-    let prod = this.productService.findById(prodId);
-    if (!!prod) {
-      let index = this.productService.productList.indexOf(prod);
-      this.productService.deleteProduct(index);
-      return true;
-    } else {
-      alert('Error en el borrado');
-      return false;
-    }
-  }
 }
