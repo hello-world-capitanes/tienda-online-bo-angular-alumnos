@@ -100,4 +100,15 @@ export class ShopService {
     })
   }
 
+  addProduct(product:ProductStock){
+    this._productStockList.push(product);
+  }
+
+  increaseStockProduct(product:ProductStock){
+    this._productStockList.find(productFind =>{
+      if(productFind.product.id === product.product.id){
+        productFind.stock = product.stock;
+      }
+    })
+  }
 }

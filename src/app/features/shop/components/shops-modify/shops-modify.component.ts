@@ -41,7 +41,8 @@ export class ShopsModifyComponent implements OnInit {
     else{
       this._products.find(productFind =>{
         if(productFind.product.id === product.id){
-          productFind.stock += addedStock;
+          productFind.stock += addedStock
+          this.shopService.increaseStockProduct(productFind);
         }
       })
     }
@@ -70,14 +71,13 @@ export class ShopsModifyComponent implements OnInit {
       })
     }
     return false;
-
   }
   private addProduct(product:ProductStock){
     this.products?.push(product);
+    this.shopService.addProduct(product);
   }
+
   get products():ProductStock[]|undefined{
     return this._products;
   }
-
-
 }
