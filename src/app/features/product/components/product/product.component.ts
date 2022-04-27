@@ -1,50 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../models/product-models';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
   panelOpenState = false;
 
-  productForm !: FormGroup;
+  productForm!: FormGroup;
+  products!: Product[];
 
   categories: String[] = [
-    "Lacteos", "Panaderia", "Carniceria", "Pescaderia", "Fruteria", "Bebidas", "Limpieza"
-  ]
+    'Lacteos',
+    'Panaderia',
+    'Carniceria',
+    'Pescaderia',
+    'Fruteria',
+    'Bebidas',
+    'Limpieza',
+  ];
 
-  products: Product[] = [
-    new Product("Steinburg", "Pack de 24 latas", "2.48", "Cerveza lagger de calidad suprema", "bebida"),
-    new Product("Casón histórico", "1L de vino", "0.70", "Vino tinto para calimocho", "bebida"),
-    new Product("Donuts", "Pack de 6 unidades", "4", "Donuts original glaseados", "comida"),
-    new Product("Doritos", "Bolsa de 300g", "1.30", "Doritos picantes bolsa grande", "comida"),
-  ]
-
-  constructor() {
+  constructor(private productService: ProductService) {
+    this.products = productService.productList;
   }
 
-  createForm(){
+  createForm() {
     this.productForm = new FormGroup({
-      id: new FormControl('',),
-      name: new FormControl('',[
+      id: new FormControl(''),
+      name: new FormControl('', [
         Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30),
       ]),
-      characteristics: new FormControl('',[
+      characteristics: new FormControl('', [Validators.required]),
+      price: new FormControl('', [
         Validators.required,
+        Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),
       ]),
-      price: new FormControl('',[
-        Validators.required,
-      ]),
-      description: new FormControl('',[
-        Validators.required,
-      ]),
-      categories: new FormControl('',[
-        Validators.required,
-      ])
-    })
+      description: new FormControl('', [Validators.required]),
+      categories: new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnInit(): void {
@@ -52,25 +51,65 @@ export class ProductComponent implements OnInit {
   }
 
   newProduct() {
-    let name = this.productForm.value.name;
-    let characteristics = this.productForm.value.characteristics;
-    let price = this.productForm.value.price;
-    let description = this.productForm.value.description;
-    let category = this.productForm.value.categories;
-    let prod1 = new Product(name, characteristics, price, description, category);
-    this.addProduct(prod1);
-  }
+    if (!this.productForm.valid) {
+      alert('Campos introducidos no válidos');
+      return false;
+    } else {
+      let id = this.generateId();
+      let prod1 = new Product(
+        id,
+        this.productForm.value.name,
+        this.productForm.value.characteristics,
+        this.productForm.value.price,
+        this.productForm.value.description,
+        this.productForm.value.categories,
+        '',
+        true
+      );
 
-  addProduct(prod: Product){
-    this.products.push(prod);
-  }
-
-  deleteProduct(prodName?: string){
-    for(let i = 0; i < this.products.length; i++){
-      if(prodName === this.products[i].name){
-        this.products.splice(i, 1);
+      while (this.existId(id)) {
+        prod1 = new Product(
+          this.generateId(),
+          this.productForm.value.name,
+          this.productForm.value.characteristics,
+          this.productForm.value.price,
+          this.productForm.value.description,
+          this.productForm.value.categories,
+          '',
+          true
+        );
       }
+
+      this.addProduct(prod1);
+      return true;
     }
+  }
+
+  addProduct(product: Product){
+    this.productService.addProduct(product);
+  }
+
+  deleteProduct(product: Product){
+    this.productService.deleteProduct(product);
+  }
+
+  existId(id: string): boolean {
+    if (
+      this.productService.productList.find((product) => {
+        product.id === id;
+      })
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  generateId(): string {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return '_' + Math.random().toString(36).substr(2, 9);
   }
 
 }
