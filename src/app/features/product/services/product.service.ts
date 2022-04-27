@@ -14,10 +14,10 @@ export class ProductService {
         '1',
         'Steinburg',
         'Pack de 24 latas',
-        2.48,
+         2.48,
         'Cerveza lagger de calidad suprema',
         'bebida',
-        '',
+        'https://a1.soysuper.com/4d20a10aab11ff0e321b129feac2401e.1500.0.0.0.wmark.8d2b900a.jpg',
         true
       ),
 
@@ -25,30 +25,30 @@ export class ProductService {
         '2',
         'Casón histórico',
         '1L de vino',
-        0.7,
+         0.7,
         'Vino tinto para calimocho',
         'bebida',
-        '',
+        'https://mailenmarket.com/wp-content/uploads/2020/07/6c371039587b41d08078d3d78de1d835.jpg',
         true
       ),
       new Product(
         '3',
         'Donuts',
         'Pack de 6 unidades',
-        4,
+         4,
         'Donuts original glaseados',
         'comida',
-        '',
+        'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
         true
       ),
       new Product(
         '4',
         'Doritos',
         'Bolsa de 300g',
-        1.3,
+         1.3,
         'Doritos picantes bolsa grande',
         'comida',
-        '',
+        'https://agustomarket.com/wp-content/uploads/2021/12/doritos-bolsaza-300x300.jpg',
         true
       ),
     ];
@@ -65,7 +65,6 @@ export class ProductService {
 
     } else {
       return;
-
     }
   }
 

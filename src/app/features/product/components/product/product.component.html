@@ -73,28 +73,41 @@
             </div>
           </mat-expansion-panel-header>
           <div class="infoOculta" id="{{ product.name }}">
+
+            <img src = "{{ product.image }}" alt = "https://www.med.unc.edu/webguide/wp-content/uploads/sites/419/2019/10/broken_link_AdobeStock_121742806.jpg">
+
             <div class="primeraColOculta">
               <mat-list role="list">
-                <mat-list-item role="listitem">{{
-                  product.price | currency: "EUR":true
-                }}</mat-list-item>
+                <mat-list-item role="listitem">
+                  <span> Precio: </span>
+                  <span>
+                    {{ product.price | currency: "EUR":true }}
+                  </span>
+                </mat-list-item>
               </mat-list>
               <mat-list role="list">
-                <mat-list-item role="listitem">{{
-                  product.categories
-                }}</mat-list-item>
+                <mat-list-item role="listitem">
+                  <span> Categorias: </span>
+                  <span>
+                    {{ product.categories}}
+                  </span>
+                </mat-list-item>
               </mat-list>
             </div>
             <div class="segundaColOculta">
               <mat-list role="list">
-                <mat-list-item role="listitem">{{
-                  product.characteristics
-                }}</mat-list-item>
+                <mat-list-item role="listitem">
+                  <span> Características: </span>
+                  <span>
+                    {{ product.characteristics }}
+                  </span></mat-list-item>
               </mat-list>
               <mat-list role="list">
-                <mat-list-item role="listitem">{{
-                  product.description
-                }}</mat-list-item>
+                <mat-list-item role="listitem">
+                  <span> Descripción: </span>
+                  <span>
+                    {{ product.description}}
+                  </span></mat-list-item>
               </mat-list>
             </div>
           </div>
