@@ -1,19 +1,39 @@
-<mat-expansion-panel (opened)="true" hideToggle>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      Lista de usuarios
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <mat-list role="list" *ngFor="let user of users; let i = index">
-    <mat-divider></mat-divider>
-    <div mat-line class="list-item">
-      <div>
-        <mat-icon mat-list-icon>people</mat-icon>
-        <span>{{ user.name + " " + user.surname + "    |    " + user.email}}</span>
-      </div>
-      <button value="i" mat-mini-fab color="primary" (click)="deleteUser(i)">
-        <mat-icon>delete</mat-icon>
-      </button>
+<mat-list role="list" class="listUser">
+  <mat-divider></mat-divider>
+  <ng-container *ngFor="let user of users">
+    <div class="containerProd">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <div class="info">
+              <button mat-raised-button class="buttonUser">
+                <mat-icon> delete_forever </mat-icon>
+              </button>
+              <mat-panel-title>
+                <mat-list-item role="listItem" class="user">{{
+                  user.name
+                }}</mat-list-item>
+              </mat-panel-title>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="hiddenInfo" id="{{ user.name }}">
+            <div class="primeraColOculta">
+              <mat-list role="list">
+                <mat-list-item role="listitem">
+                  <div class="expansionContent">
+                    <span> Nombre: {{ user.name }} {{ user.surname }} </span>
+                    <span> Correo electronico: {{ user.email }} </span>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
-  </mat-list>
-</mat-expansion-panel>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
