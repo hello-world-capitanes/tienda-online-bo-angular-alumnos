@@ -9,27 +9,27 @@ export class CategoryService {
 
   constructor() {
     this._categoryList = [
-      new Category("Lácteos", "Productos lácteos", true),
-      new Category("Aceite", "Aceites", false),
-      new Category("Carne", "Productos cárnicos", true),
-      new Category("Pescado", "Pescados", false),
+      new Category("Lácteos", "1", "Productos lácteos", true),
+      new Category("Aceite", "2", "Aceites", false),
+      new Category("Carne", "3", "Productos cárnicos", true),
+      new Category("Pescado", "4", "Pescados", false),
     ]
   }
 
   addCategory(category: Category) {
-    if (this._categoryList?.some((element) => element.getName() === category.getName()) && !category.getActive()) {
+    if (this._categoryList?.some((element) => element.name === category.name) && !category.active) {
       return;
-    } else if (this._categoryList?.some((element) => element.getName() === category.getName()) && category.getActive()) {
-      if (this._categoryList?.some((element) => element.getName() === category.getName()
-        && !element.getActive())) {
+    } else if (this._categoryList?.some((element) => element.name === category.name) && category.active) {
+      if (this._categoryList?.some((element) => element.name === category.name
+        && !element.active)) {
         for (let i = 0; i < this._categoryList.length; i++) {
-          if (this._categoryList[i].getName() === category.getName()) {
-            this._categoryList[i].setActive(true);
-            this._categoryList[i].setDescription(category.getDescription());
+          if (this._categoryList[i].name === category.name) {
+            this._categoryList[i].active;
+            this._categoryList[i].description;
           }
         }
-      } else if (this._categoryList?.some((element) => element.getName() === category.getName()
-        && element.getActive())) {
+      } else if (this._categoryList?.some((element) => element.name === category.name
+        && element.active)) {
         return;
       }
     } else {
@@ -40,7 +40,7 @@ export class CategoryService {
   };
 
   categoryExists(category: Category) {
-    if (this._categoryList?.some((element) => element.getName() === category.getName())) {
+    if (this._categoryList?.some((element) => element.name === category.name)) {
       return true;
     } else {
       return false;
@@ -51,10 +51,28 @@ export class CategoryService {
     return this._categoryList;
   }
 
-  deleteCategory(categoryRef: Category) {
-    this._categoryList.splice(this._categoryList.findIndex((category) => {
-      return category === categoryRef;
-    }), 0);
-    return this.categoryExists(categoryRef);
+  deleteCategory(value: Category) {
+    if (this._categoryList.some(element => element.id == value.id)) {
+      this._categoryList.splice(this._categoryList.indexOf(value), 1);
+    } else {
+      return;
+    }
+  }
+
+  public get cateogoryList(): Category[] {
+    return this._categoryList;
+  }
+
+  public set categoryList(value: Category[]) {
+    this._categoryList = value;
+  }
+
+  findById(id: string) {
+    return this._categoryList.find((category) => {
+      if (category.id === id) {
+        return category;
+      }
+      return null;
+    });
   }
 }

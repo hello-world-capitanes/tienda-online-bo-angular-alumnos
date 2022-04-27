@@ -76,21 +76,41 @@ export class CategoriesComponent implements OnInit {
       return;
     }
 
-    if(this.categoryForm.get('active')?.value==="Activo"){
-      bool=true;
-    } else{
-      bool=false
+    if (this.categoryForm.get('active')?.value === "Activo") {
+      bool = true;
+    } else {
+      bool = false
     }
 
     let category = new Category(this.categoryForm.get('name')?.value,
+      this.categoryForm.get('id')?.value,
       this.categoryForm.get('description')?.value,
       bool)
 
     this.categoryService.addCategory(category)
   }
 
-  deleteCategory(category: Category){
+  deleteCategory(category: Category) {
     this.categoryService.deleteCategory(category);
+  }
+
+  existId(id: string): boolean {
+    if (
+      this.categoryService.categoryList.find((category) => {
+        category.id === id;
+      })
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  generateId(): string {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return '_' + Math.random().toString(36).substr(2, 9);
   }
 
 }

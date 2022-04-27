@@ -34,10 +34,10 @@
   <h2>Categorías creadas</h2>
   <ng-container *ngFor="let categorie of this.categoryService.getAllCategories()">
 
-    <div *ngIf="categorie.getActive()===true">
+    <div *ngIf="categorie.active===true">
       <table *ngFor="let category of categories">
-        <p>{{categorie.getName()}}</p>
-        <p>{{categorie.getDescription()}}</p>
+        <p>{{categorie.name}}</p>
+        <p>{{categorie.description}}</p>
         <button mat-button color="warn" (click)="deleteCategory(category)"> Borrar </button>
       </table>
     </div>
