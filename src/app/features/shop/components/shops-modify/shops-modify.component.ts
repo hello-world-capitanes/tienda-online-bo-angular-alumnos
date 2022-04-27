@@ -1,3 +1,5 @@
+import { Shop } from './../../models/shop.model';
+import { ShopService } from './../../shop.service';
 import { ProductStock } from './../../../product/models/product-stock.model';
 import { Product } from './../../../product/models/product-models';
 import { Component, OnInit } from '@angular/core';
@@ -9,37 +11,71 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopsModifyComponent implements OnInit {
 
-  _products:ProductStock[];
-  constructor() {
-    this._products = [];
+  private _shop: Shop|undefined;
+  private _products: ProductStock[]|undefined;
+  private newProduct = new Product(
+    '4',
+    'Doritos',
+    'Bolsa de 300g',
+    1.3,
+    'Doritos picantes bolsa grande',
+    'comida',
+    '',
+    true
+  )
+
+  constructor(private shopService:ShopService) {
+    this._shop = this.shopService.getShop("1234");
+    this._products = this._shop?.products;
    }
 
   ngOnInit(): void {
+    this.increaseStock(5,this.newProduct);
   }
 
   increaseStock(addedStock: number,product:Product){
-    if(!this.hasProduct(product)){
+    if(!this.hasProduct(product) || this._products ===undefined){
       this.addProduct(new ProductStock(product,addedStock));
+
     }
     else{
-      this.products.find(productFind =>{
-        productFind.product.id === product.id;
-        productFind.stock += addedStock;
+      this._products.find(productFind =>{
+        if(productFind.product.id === product.id){
+          productFind.stock += addedStock;
+        }
+      })
+    }
+
+  }
+  decreaseStock(addedStock: number,product:Product){
+    if(!this.hasProduct(product )|| this._products ===undefined){
+      throw new Error("Cannot find specific product in shop.");
+    }
+    else{
+      this._products.find(productFind =>{
+        if(productFind.product.id === product.id){
+          productFind.stock -= addedStock;
+          if(productFind.stock < 0){
+            productFind.stock = 0;
+          }
+        }
       })
     }
   }
-  decreaseStock(addedStock: number){
-    return;
-  }
   private hasProduct(product:Product):boolean{
-    return this.products.some(productFind => {
-      productFind.product.id === product.id;
-    })
+    if(this._products !=undefined){
+      return this._products?.some(productFind => {
+        productFind.product.id === product.id;
+        return true;
+      })
+    }
+    return false;
+
   }
   private addProduct(product:ProductStock){
-    this.products.push(product);
+    this.products?.push(product);
   }
-  get products():ProductStock[]{
+  get products():ProductStock[]|undefined{
     return this._products;
   }
 

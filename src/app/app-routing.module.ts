@@ -1,3 +1,4 @@
+import { ShopsModifyComponent } from './features/shop/components/shops-modify/shops-modify.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoriesComponent } from './features/category/components/categories/categories.component';
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'shops', component: ShopsListComponent },
   { path: 'users', component: FormUserComponent },
   { path: 'products', component: ProductComponent },
-  { path: 'categories', component: CategoriesComponent }
+  { path: 'categories', component: CategoriesComponent },
+  { path: 'shop', component: ShopsModifyComponent }
 ];
 
 @NgModule({
