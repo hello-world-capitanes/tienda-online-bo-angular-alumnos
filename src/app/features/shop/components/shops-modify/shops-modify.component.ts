@@ -30,7 +30,6 @@ export class ShopsModifyComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.increaseStock(5,this.newProduct);
   }
 
   increaseStock(addedStock: number,product:Product){
@@ -56,6 +55,7 @@ export class ShopsModifyComponent implements OnInit {
       this._products.find(productFind =>{
         if(productFind.product.id === product.id){
           productFind.stock -= addedStock;
+          this.shopService.decreaseStockProduct(productFind);
           if(productFind.stock < 0){
             productFind.stock = 0;
           }

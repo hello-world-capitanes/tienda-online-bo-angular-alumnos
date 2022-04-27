@@ -111,4 +111,12 @@ export class ShopService {
       }
     })
   }
+
+  decreaseStockProduct(product:ProductStock){
+    this._productStockList.find(productFind =>{
+      if(productFind.product.id === product.product.id){
+        productFind.stock = product.stock;
+      }
+    })
+  }
 }
