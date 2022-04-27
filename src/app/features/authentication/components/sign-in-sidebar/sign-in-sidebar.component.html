@@ -1,0 +1,25 @@
+<div *ngIf="sesionIniciada()">
+  <button
+    mat-raised-button
+    color="primary"
+    class="sign-in-button"
+    aria-label="Go to user"
+    (click)="signIn()"
+  >
+    Iniciar sesión
+  </button>
+</div>
+
+<div *ngIf="!sesionIniciada()">
+  <span>{{ user.name }}</span>
+  <br>
+  <button
+    mat-raised-button
+    class="sign-in-button"
+    aria-label="Go to user"
+    color="primary"
+    (click)="signOut()"
+  >
+    Cerrar sesión
+  </button>
+</div>

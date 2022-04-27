@@ -1,3 +1,4 @@
+import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SignInSidebarComponent } from './components/sign-in-sidebar/sign-in-sidebar.component';
 
 
 
@@ -20,6 +22,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     DashboardComponent,
     SignInComponent,
     VerifyEmailComponent,
+    SignInSidebarComponent,
     SignUpComponent,
     ForgotPasswordComponent
   ],
@@ -32,9 +35,11 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+
+    MatButtonModule
   ],
   exports: [
-
+    SignInSidebarComponent
   ]
 })
 export class AuthenticationModule { }
