@@ -2,7 +2,8 @@
   <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        ADD PRODUCT
+        Añadir producto
+        <mat-icon aria-hidden="false">attach_file</mat-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <form novalidate [formGroup] = "productForm" class="form">
@@ -45,7 +46,7 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<mat-list role="list">
+
 <mat-list role="list" class="listaProductos">
   <mat-divider></mat-divider>
   <ng-container *ngFor="let product of products">

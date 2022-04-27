@@ -12,6 +12,7 @@ import { Category } from '../../models/category.model';
 })
 export class CategoriesComponent implements OnInit {
   categoryForm: FormGroup;
+  panelOpenState=false;
 
   constructor(private form: FormBuilder,
     public categoryService: CategoryService) {

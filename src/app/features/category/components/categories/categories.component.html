@@ -1,50 +1,58 @@
-<div class="user-container">
-  <div>
-    <h1>
-      <mat-icon aria-hidden="false" aria-label="Example home icon">category</mat-icon>
-      Añadir categoría
-    </h1>
-      <form [formGroup]="categoryForm">
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Añadir categoría
+        <mat-icon aria-hidden="false" aria-label="Example home icon">category</mat-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="categoryForm">
 
-        <mat-form-field>
-          <mat-label>Nombre</mat-label>
-          <input type="text" matInput formControlName="name" placeholder="Lácteos">
-          <mat-error>{{errorMessageName}}</mat-error>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput formControlName="name" placeholder="Lácteos">
+        <mat-error>{{errorMessageName}}</mat-error>
+      </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Descripción</mat-label>
-          <input type="text" matInput formControlName="description" placeholder="Productos lácteos">
-          <mat-error>{{errorMessageDescription}}</mat-error>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label>Descripción</mat-label>
+        <input type="text" matInput formControlName="description" placeholder="Productos lácteos">
+        <mat-error>{{errorMessageDescription}}</mat-error>
+      </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Estado</mat-label>
-          <mat-select matNativeControl formControlName="active">
-            <mat-option value="Activo">Activo</mat-option>
-            <mat-option value="Inactivo">Inactivo</mat-option>
-          </mat-select>
-          <mat-error>{{errorMessageActive}}</mat-error>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label>Estado</mat-label>
+        <mat-select matNativeControl formControlName="active">
+          <mat-option value="Activo">Activo</mat-option>
+          <mat-option value="Inactivo">Inactivo</mat-option>
+        </mat-select>
+        <mat-error>{{errorMessageActive}}</mat-error>
+      </mat-form-field>
 
 
 
-        <button mat-raised-button color="primary" [disabled]="this.categoryForm.invalid" (click)="addCategory()">+</button>
-      </form>
-  </div>
+      <button mat-raised-button color="primary" [disabled]="this.categoryForm.invalid"
+        (click)="addCategory()">+</button>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
 
-  <h2>Categorías creadas</h2>
+<mat-divider></mat-divider>
 <ng-container *ngFor="let categorie of this.categoryService.getAllCategories()">
-
-  <div *ngIf="categorie.getActive()===true">
-
-  <p>{{categorie.getName()}}</p>
-  <p>{{categorie.getDescription()}}</p>
-
-    <!-- <button mat-raised-button color="primary" (click) ="remove(categorie)"> <mat-icon>remove</mat-icon></button> -->
-
-  </div>
-
-</ng-container>
-
-</div>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header *ngIf="categorie.getActive()===true">
+        <div class="info">
+          <button mat-raised-button class="botonProd">
+            <mat-icon> delete_forever </mat-icon>
+          </button>
+          <mat-panel-title>
+            <mat-list-item role="listitem" class="categorie">{{categorie.getName()}}</mat-list-item>
+          </mat-panel-title>
+        </div>
+      </mat-expansion-panel-header>
+      <p>{{categorie.getName()}}</p>
+      <p>{{categorie.getDescription()}}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-divider></mat-divider>
