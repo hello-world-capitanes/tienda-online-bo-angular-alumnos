@@ -46,9 +46,9 @@ export class ShopsCreateComponent implements OnInit {
       let street = this.formGroupShop.controls["street"].value;
       let cp = this.formGroupShop.controls["cp"].value;
 
-      let addres = new Address(country, province, location, cp, street);
+      let address = new Address(country, province, location, cp, street);
 
-      let newShop = new Shop(name, addres);
+      let newShop = new Shop("9887465",name, address, true, []);
 
       this.shopService.addShop(newShop);
     }
