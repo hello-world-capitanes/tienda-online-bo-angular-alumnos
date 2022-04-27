@@ -13,7 +13,6 @@ export class CategoriesComponent implements OnInit {
   panelOpenState=false;
   categories!: Category[];
 
-
   constructor(private form: FormBuilder,
     public categoryService: CategoryService) {
     this.categoryForm = this.form.group({
