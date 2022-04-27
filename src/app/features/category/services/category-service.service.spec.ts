@@ -12,7 +12,7 @@ describe('CategoryServiceService', () => {
   });
 
   it('Crear categoría', () => {
-    let category=new Category("123","Productos Lácteos",true)
+    let category=new Category("Aceites","Aceites",false)
     service.addCategory(category)
     expect(service.categoryExists(category)).toBe(true);
   });

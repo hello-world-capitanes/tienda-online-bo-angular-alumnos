@@ -76,10 +76,10 @@ export class CategoriesComponent implements OnInit {
       return;
     }
 
-    if (this.categoryForm.get('active')?.value === "Activo") {
-      bool = true;
-    } else {
-      bool = false
+    if(this.categoryForm.get('active')?.value==="Activo"){
+      bool=true;
+    } else{
+      bool=false
     }
 
     let category = new Category(this.categoryForm.get('name')?.value,

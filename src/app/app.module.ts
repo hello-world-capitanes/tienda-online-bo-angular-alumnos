@@ -1,4 +1,3 @@
-import { AuthenticationModule } from './features/authentication/authentication.module';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './features/authentication/services/auth.service';
 
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AuthenticationModule } from './features/authentication/authentication.module';
 @NgModule({
   declarations: [
     AppComponent,
