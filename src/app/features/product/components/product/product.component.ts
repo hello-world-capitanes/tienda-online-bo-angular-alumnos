@@ -39,7 +39,7 @@ export class ProductComponent implements OnInit {
       characteristics: new FormControl('', [Validators.required]),
       price: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*$"),
+        Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),
       ]),
       description: new FormControl('', [Validators.required]),
       categories: new FormControl('', [Validators.required]),
@@ -111,4 +111,5 @@ export class ProductComponent implements OnInit {
     // after the decimal.
     return '_' + Math.random().toString(36).substr(2, 9);
   }
+
 }

@@ -75,4 +75,13 @@ export class ProductService {
   public set productList(value: Product[]) {
     this._productList = value;
   }
+
+  findById(prodId: string) {
+    return this._productList.find((product) => {
+      if (product.id === prodId) {
+        return product;
+      }
+      return null;
+    });
+  }
 }
