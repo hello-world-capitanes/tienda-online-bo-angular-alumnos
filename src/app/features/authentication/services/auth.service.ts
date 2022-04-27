@@ -14,6 +14,7 @@ import { UserAdmin } from 'src/app/core/models/userAdmin';
 export class AuthService {
 
   userData: any; // Save logged in user data
+
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -47,6 +48,7 @@ export class AuthService {
         window.alert(error.message);
       });
   }
+
   // Sign up with email/password
   SignUp(email: string, password: string) {
     return this.afAuth
@@ -61,6 +63,7 @@ export class AuthService {
         window.alert(error.message);
       });
   }
+
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
     return this.afAuth.currentUser
@@ -69,6 +72,7 @@ export class AuthService {
         this.router.navigate(['verify-email-address']);
       });
   }
+
   // Reset Forggot password
   ForgotPassword(passwordResetEmail: string) {
     return this.afAuth
@@ -85,14 +89,7 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
   }
-  // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      if (res) {
-        this.router.navigate(['dashboard']);
-      }
-    });
-  }
+
   // Auth logic to run auth providers
   AuthLogin(provider: any) {
     return this.afAuth
