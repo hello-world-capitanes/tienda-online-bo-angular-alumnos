@@ -80,8 +80,6 @@ export class CategoriesComponent implements OnInit {
 
     }
 
-
-
     if(this.categoryForm.get('active')?.value==="Activo"){
       bool=true;
     } else{

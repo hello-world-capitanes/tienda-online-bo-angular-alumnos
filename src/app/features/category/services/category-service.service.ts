@@ -14,7 +14,7 @@ export class CategoryService {
     this._categoryList=[
 
     new Category("Lácteos","Productos lácteos",true),
-    new Category("Aceite","Aceites",true),
+    new Category("Aceite","Aceites",false),
     new Category("Carne","Productos cárnicos",true),
     new Category("Pescado","Pescados",false),
 
@@ -22,34 +22,47 @@ export class CategoryService {
   }
 
   addCategory(category:Category){
-    if(this._categoryList?.some((element)=>element.getName() === category.getName()
-    && !element.getActive())){
 
-      for(let category of this._categoryList){
+    if(this._categoryList?.some((element)=>element.getName() === category.getName()) && !category.getActive()){
 
-        if(this._categoryList?.some((element)=>element.getName() === category.getName())){
-          category.setActive(true);
+      return;
+
+    } else if(this._categoryList?.some((element)=>element.getName() === category.getName()) && category.getActive()){
+
+      if(this._categoryList?.some((element)=>element.getName() === category.getName()
+      && !element.getActive())){
+
+        for(let i=0;i<this._categoryList.length;i++){
+
+          if(this._categoryList[i].getName() === category.getName()){
+            this._categoryList[i].setActive(true);
+            this._categoryList[i].setDescription(category.getDescription());
+
+          }
         }
+
+      } else if(this._categoryList?.some((element)=>element.getName() === category.getName()
+      && element.getActive())){
+
+        return;
 
       }
 
-    } else if(this._categoryList?.some((element)=>element.getName() === category.getName()
-    && element.getActive())){
-
-      return ;
-
-
-    } else{
+    }  else{
 
       this._categoryList.push(category)
 
     }
+
+    console.log
+
   };
 
   categoryExists(category:Category){
-    if(this._categoryList.includes(category)){
+
+    if (this._categoryList?.some((element)=>element.getName() === category.getName())){
       return true;
-    }else{
+    } else{
       return false;
     };
   }
