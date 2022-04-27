@@ -13,6 +13,7 @@ export interface shopElement{
 })
 export class ShopsListComponent implements OnInit {
   shops!: Shop[];
+  panelOpenState=false;
 
   constructor(private shopService: ShopService) { }
 

@@ -11,6 +11,8 @@ import { ShopsCreateComponent } from './components/shops-create/shops-create.com
 import { ShopsListComponent } from './components/shops-list/shops-list.component';
 import { ShopsModifyComponent } from './components/shops-modify/shops-modify.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatIconModule,
     MatCardModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatListModule
 
   ],
   exports:[
