@@ -10,17 +10,18 @@ import { ProductComponent } from './features/product/components/product/product.
 import { ShopsListComponent } from './features/shop/components/shops-list/shops-list.component';
 import { FormUserComponent } from './features/user/components/form-user/form-user.component';
 import { ForgotPasswordComponent } from './features/authentication/components/forgot-password/forgot-password.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'shops', component: ShopsListComponent },
-  { path: 'users', component: FormUserComponent },
-  { path: 'products', component: ProductComponent },
-  { path: 'categories', component: CategoriesComponent },
+  { path: 'shops', component: ShopsListComponent, canActivate: [AuthGuard]},
+  { path: 'users', component: FormUserComponent, canActivate: [AuthGuard]},
+  { path: 'products', component: ProductComponent, canActivate: [AuthGuard]},
+  { path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard]},
 
   { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard]},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
 ];

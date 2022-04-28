@@ -25,6 +25,8 @@ export class AuthService {
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((user) => {
       if (user) {
+        console.log("Const");
+
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
@@ -35,14 +37,15 @@ export class AuthService {
     });
   }
   // Sign in with email/password
-  SignIn(email: string, password: string) {
+  signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
+          console.log("sign in promise");
           this.router.navigate(['dashboard']);
         });
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -50,14 +53,14 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  signUp(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
-        this.SendVerificationMail();
-        this.SetUserData(result.user);
+        this.sendVerificationMail();
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -65,7 +68,7 @@ export class AuthService {
   }
 
   // Send email verfificaiton when new user sign up
-  SendVerificationMail() {
+  sendVerificationMail() {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
@@ -74,7 +77,7 @@ export class AuthService {
   }
 
   // Reset Forggot password
-  ForgotPassword(passwordResetEmail: string) {
+  forgotPassword(passwordResetEmail: string) {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
@@ -87,18 +90,20 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    console.log(user);
+
+    return user !== null === true ? true : false;
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider: any) {
+  authLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error);
@@ -107,7 +112,7 @@ export class AuthService {
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: any) {
+  setUserData(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -116,14 +121,13 @@ export class AuthService {
       _email: user.email,
       _displayName: user.displayName,
       _photoURL: user.photoURL,
-      _emailVerified: user.emailVerified,
     } as unknown as UserAdmin;
     return userRef.set(userData, {
       merge: true,
     });
   }
   // Sign out
-  SignOut() {
+  signOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
