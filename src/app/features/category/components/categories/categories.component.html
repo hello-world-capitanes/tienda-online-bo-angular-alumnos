@@ -30,17 +30,8 @@
           matInput
           formControlName="description"
           placeholder="Productos lácteos"
-        /> 
+        />
         <mat-error>{{ errorMessageDescription }}</mat-error>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Estado</mat-label>
-        <mat-select matNativeControl formControlName="active">
-          <mat-option value="Activo">Activo</mat-option>
-          <mat-option value="Inactivo">Inactivo</mat-option>
-        </mat-select>
-        <mat-error>{{ errorMessageActive }}</mat-error>
       </mat-form-field>
 
       <button

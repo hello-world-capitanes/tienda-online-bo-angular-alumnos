@@ -11,7 +11,7 @@ import { ShopsListComponent } from './features/shop/components/shops-list/shops-
 import { FormUserComponent } from './features/user/components/form-user/form-user.component';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent },
+  { path: '', component: FormUserComponent },
   { path: 'shops', component: ShopsListComponent },
   { path: 'users', component: FormUserComponent },
   { path: 'products', component: ProductComponent },
