@@ -35,8 +35,7 @@
         <mat-expansion-panel
           (opened)="panelOpenState = true"
           (closed)="panelOpenState = false"
-        >
-          <mat-expansion-panel-header>
+        ><mat-expansion-panel-header>
             <div class="info">
               <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
                 <mat-icon> delete_forever </mat-icon>
@@ -51,12 +50,15 @@
           <div class="hiddenIfo">
             <div class="firstColumnHidden">
               <mat-list role="list">
+                <br>
                 <mat-list-item role="listitem">
                   <div class="expansionContent">
                     <span> Nombre: {{ shop.name }} </span>
                     <span> Direccion: {{ shop.address.street }} </span>
+                    <button mat-raised-button color = "accent" (click) = "openProductList(shop.name)">Ver productos</button>
                   </div>
                 </mat-list-item>
+                <br>
               </mat-list>
             </div>
           </div>

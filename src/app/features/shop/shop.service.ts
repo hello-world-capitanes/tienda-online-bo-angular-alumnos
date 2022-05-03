@@ -12,7 +12,7 @@ export class ShopService {
   private _newAddress = new Address("España","Madrid","Alcala", 28890,"Calle Cervantes 10");
   private _productList : Product[];
   private _productStockList : ProductStock[];
-
+  private _selectedShopSeeProducts!: string;
 
   constructor() {
     this._productList = [
@@ -57,12 +57,14 @@ export class ShopService {
         true
       ),
     ];
+
     this._productStockList = [
       new ProductStock(this._productList[0],5),
       new ProductStock(this._productList[1],14),
       new ProductStock(this._productList[2],2),
       new ProductStock(this._productList[3],7),
     ];
+
     this.spainShops = [
       new Shop("1234","Mercadona",this._newAddress,true,this._productStockList),
       new Shop("4561","Lidl",this._newAddress,true,this._productStockList),
@@ -122,6 +124,13 @@ export class ShopService {
   }
   getProductsStock(){
     return this._productStockList;
+  }
+
+  public get selectedShopSeeProducts(): string {
+    return this._selectedShopSeeProducts;
+  }
+  public set selectedShopSeeProducts(value: string) {
+    this._selectedShopSeeProducts = value;
   }
 
 }
