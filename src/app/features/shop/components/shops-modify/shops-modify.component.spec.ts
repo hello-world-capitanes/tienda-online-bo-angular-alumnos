@@ -40,7 +40,7 @@ describe('ShopsModifyComponent', () => {
       '',
       true
     )
-    products = [
+    component.products = [
       new ProductStock(new Product(
         '1',
         'Steinburg',
@@ -88,19 +88,23 @@ describe('ShopsModifyComponent', () => {
   it('Increase stock', () => {
 
     component.increaseStock(6, newProduct);
-    expect(products[3].stock).toBe(13);
-    component.increaseStock(10, newProduct);
-    expect(products[3].stock).toBe(23);
-
+    let product = !!component?.products ? component.products[3] : null;
+    if (!!product){
+      expect(product.stock).toBe(13);
+      component.increaseStock(10, newProduct);
+      expect(product.stock).toBe(23);
+    }
   });
 
   it('Decrease stock', () => {
 
-    component.increaseStock(3, newProduct);
-    expect(products[3].stock).toBe(4);
-    component.increaseStock(10, newProduct);
-    expect(products[3].stock).toBe(0);
-
+    component.decreaseStock(6, newProduct);
+    let product = !!component?.products ? component.products[3] : null;
+    if (!!product){
+      expect(product.stock).toBe(1);
+      component.decreaseStock(10, newProduct);
+      expect(product.stock).toBe(0);
+    }
   });
 
 

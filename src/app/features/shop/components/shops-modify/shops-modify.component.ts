@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class ShopsModifyComponent implements OnInit {
 
   private _shop: Shop|undefined;
-  private _products: ProductStock[]|undefined;
+  products: ProductStock[]|undefined;
   private newProduct = new Product(
     '4',
     'Doritos',
@@ -26,19 +26,19 @@ export class ShopsModifyComponent implements OnInit {
 
   constructor(private shopService:ShopService) {
     this._shop = this.shopService.getShop("1234");
-    this._products = this._shop?.products;
+    this.products = this._shop?.products;
    }
 
   ngOnInit(): void {
   }
 
   increaseStock(addedStock: number,product:Product){
-    if(!this.hasProduct(product) || this._products ===undefined){
+    if(!this.hasProduct(product) || this.products ===undefined){
       this.addProduct(new ProductStock(product,addedStock));
 
     }
     else{
-      this._products.find(productFind =>{
+      this.products.find(productFind =>{
         if(productFind.product.id === product.id){
           productFind.stock += addedStock
           this.shopService.increaseStockProduct(productFind);
@@ -48,11 +48,11 @@ export class ShopsModifyComponent implements OnInit {
 
   }
   decreaseStock(addedStock: number,product:Product){
-    if(!this.hasProduct(product )|| this._products ===undefined){
+    if(!this.hasProduct(product )|| this.products ===undefined){
       throw new Error("Cannot find specific product in shop.");
     }
     else{
-      this._products.find(productFind =>{
+      this.products.find(productFind =>{
         if(productFind.product.id === product.id){
           productFind.stock -= addedStock;
           this.shopService.decreaseStockProduct(productFind);
@@ -64,8 +64,8 @@ export class ShopsModifyComponent implements OnInit {
     }
   }
   private hasProduct(product:Product):boolean{
-    if(this._products !=undefined){
-      return this._products?.some(productFind => {
+    if(this.products !=undefined){
+      return this.products?.some(productFind => {
         productFind.product.id === product.id;
         return true;
       })
@@ -77,7 +77,4 @@ export class ShopsModifyComponent implements OnInit {
     this.shopService.addProduct(product);
   }
 
-  get products():ProductStock[]|undefined{
-    return this._products;
-  }
 }
