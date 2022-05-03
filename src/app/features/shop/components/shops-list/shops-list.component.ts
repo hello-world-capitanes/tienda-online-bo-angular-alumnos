@@ -1,6 +1,11 @@
-import { ShopService } from './../../shop.service';
 import { Component, OnInit } from '@angular/core';
 import { Shop } from '../../models/shop.model';
+
+import { ShopService } from '../../shop.service';
+
+import { ProductStock } from 'src/app/features/product/models/product-stock.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductsListShopComponent } from '../products-list-shop/products-list-shop.component';
 
 export interface shopElement{
   name: string;
@@ -13,8 +18,12 @@ export interface shopElement{
 })
 export class ShopsListComponent implements OnInit {
   shops!: Shop[];
+  panelOpenState=false;
 
-  constructor(private shopService: ShopService) { }
+  private _productStockList! : ProductStock[];
+
+  constructor(private shopService: ShopService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.shops = this.shopService.getAllShops();
@@ -23,13 +32,27 @@ export class ShopsListComponent implements OnInit {
   deleteShop(shop: Shop){
     this.shopService.deleteShop(shop);
   }
-  updateList(name:string,value:string){
 
+  updateList(name: string,value: string){
+
+  }
+
+  openProductList(name: string){
+    this.shopService.selectedShopSeeProducts = name;
+    const dialogRef = this.dialog.open(ProductsListShopComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   anadirElementoLista(elementoLista : any){
     this.shops.push(elementoLista);
 
+  }
+
+  getProductList(){
+    return this._productStockList;
   }
 
 }

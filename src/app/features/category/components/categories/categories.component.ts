@@ -1,6 +1,7 @@
+import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Categoria } from '../../models/category.model';
+import { Category } from '../../models/category.model';
 
 @Component({
   selector: 'app-categories',
@@ -8,56 +9,91 @@ import { Categoria } from '../../models/category.model';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  categoryForm!: FormGroup;
-  buttonPressed: boolean = false;
-  errorDatoExistente: boolean = false;
+  categoryForm: FormGroup;
+  panelOpenState=false;
+  categories!: Category[];
 
-  categories: Categoria[] = [];
-
-  constructor(private formulario: FormBuilder) { }
-
-  ngOnInit(): void {
-    this.categoryForm = this.formulario.group({
-      nombre: new FormControl('', [Validators.required]),
-      descripcion: new FormControl('', [Validators.required]),
-    })
+  constructor(private form: FormBuilder,
+    public categoryService: CategoryService) {
+    this.categoryForm = this.form.group({
+      name: new FormControl
+        (null,
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(20),
+          ]
+        ),
+      description: new FormControl
+        (null,
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(100),
+          ]
+        ),
+    });
   }
 
-  addLista(){
+  ngOnInit(): void {
+    this.categories = this.categoryService.getAllCategories();
+  }
 
-    this.buttonPressed = true;
-    console.log(this.categoryForm.valid);
-    if (this.categoryForm.valid){
+  get errorMessageName(): string {
+    const form: FormControl = (this.categoryForm.get('name') as FormControl);
+    return form.hasError('required') ?
+      'Introduce un nombre para la categoría' :
+      form.hasError('minlength') ?
+        'El nombre debe tener mínimo x carácteres' :
+        form.hasError('maxlength') ?
+          'El nombre debe tener máximo x carácteres' : '';
+  }
 
-      if (this.categories.some( (elemento) => elemento.getNombre() == this.categoryForm.get("nombre")?.value)){
-        if (this.categories.some( (elemento) => (elemento.getNombre() == this.categoryForm.get("nombre")?.value) && elemento.getEstado() == false)){
+  get errorMessageDescription(): string {
+    const form: FormControl = (this.categoryForm.get('description') as FormControl);
+    return form.hasError('required') ?
+      'Introduce una descripción para la categoría' :
+      form.hasError('minlength') ?
+        'Introduce una buena descripción' :
+        form.hasError('maxlength') ?
+          'Introduce una descripción mas corta' : '';
+  }
 
-            for (let elemento of this.categories){
-              if ((elemento.getNombre() == this.categoryForm.get("nombre")?.value) && elemento.getEstado() == false){
+  addCategory() {
+    let bool: boolean;
+    if (!this.categoryForm.valid) {
+      return;
+    }
 
-                elemento.cambiarEstado();
-              }
-            }
+    let category = new Category(this.categoryForm.get('name')?.value,
+      this.categoryForm.get('id')?.value,
+      this.categoryForm.get('description')?.value,
+      true)
 
-        } else {
+    this.categoryService.addCategory(category)
+  }
 
-          this.errorDatoExistente = true;
-        }
+  deleteCategory(category: Category) {
+    this.categoryService.deleteCategory(category);
+  }
 
-      } else {
-        this.errorDatoExistente = false;
-        this.categories.push(new Categoria(this.categoryForm.get("nombre")?.value, true, this.categoryForm.get("descripcion")?.value, 'hola'));
-      }
+  existId(id: string): boolean {
+    if (
+      this.categoryService.categoryList.find((category) => {
+        category.id === id;
+      })
+    ) {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  remove(categoriaRef: Categoria)
-  {
-    this.categories.forEach(categorie => {
-      if(categorie === categoriaRef)
-      {
-        categorie.cambiarEstado();
-      }
-    });
+  generateId(): string {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return '_' + Math.random().toString(36).substr(2, 9);
   }
+
 }

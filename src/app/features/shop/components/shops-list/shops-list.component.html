@@ -1,25 +1,78 @@
-<div>
+<!-- <div>
   <app-shops-create (anadirOutPut)="anadirElementoLista($event)"></app-shops-create>
 
   <mat-divider></mat-divider>
   <div class="shops-container-tittle">
-    <th mat-header-cell>Name</th>
-    <th mat-header-cell>Value</th>
-    <th mat-header-cell>Delete</th>
-
+    <th mat-header-cell>Nombre</th>
+    <th mat-header-cell>País</th>
+    <th mat-header-cell>Provincia</th>
+    <th mat-header-cell>Localidad</th>
+    <th mat-header-cell>Código postal</th>
+    <th mat-header-cell>Calle</th>
+    <th mat-header-cell>Modificar</th>
+    <th mat-header-cell>Eliminar</th>
   </div>
   <mat-divider></mat-divider>
-  <table *ngFor="let shop of shops">
+  <table *ngFor="let shop of shops" class="table-shops">
     <div class="shops-container">
-      <div>
-        <mat-icon>shop</mat-icon>
-        <td mat-cell>{{shop.name}}</td>
-      </div>
-      <td>{{shop.address.street}}</td>
-      <button mat-button color="warn" (click)="deleteShop(shop)"> Borrar </button>
+      <td mat-cell>{{shop.name}}</td>
+      <td mat-cell>{{shop.address.country}}</td>
+      <td mat-cell>{{shop.address.province}}</td>
+      <td mat-cell>{{shop.address.location}}</td>
+      <td mat-cell>{{shop.address.cp}}</td>
+      <td mat-cell>{{shop.address.street}}</td>
+      <td mat-cell><button mat-button color="warn" >Modificar</button></td>
+      <td mat-cell><button mat-button color="warn" (click)="deleteShop(shop)">Eliminar</button></td>
     </div>
     <mat-divider></mat-divider>
   </table>
 
-</div>
+</div> -->
+
+<app-shops-create (anadirOutPut)="anadirElementoLista($event)"></app-shops-create>
+
+<mat-list role="list" class="listShop">
+  <mat-divider></mat-divider>
+  <ng-container
+    *ngFor="let shop of shops"
+  >
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        ><mat-expansion-panel-header>
+            <div class="info">
+              <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
+                <mat-icon> delete_forever </mat-icon>
+              </button>
+              <mat-panel-title>
+                <mat-list-item role="listitem" class="shop">{{
+                  shop.name
+                }}</mat-list-item>
+              </mat-panel-title>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="hiddenIfo">
+            <div class="firstColumnHidden">
+              <mat-list role="list">
+                <br>
+                <mat-list-item role="listitem">
+                  <div class="expansionContent">
+                    <span> Nombre: {{ shop.name }} </span>
+                    <span> Direccion: {{ shop.address.street }} </span>
+                    <button mat-raised-button color = "accent" (click) = "openProductList(shop.name)">Ver productos</button>
+                  </div>
+                </mat-list-item>
+                <br>
+              </mat-list>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
+
 

@@ -13,10 +13,4 @@ describe('ShopsListComponent', () => {
     .compileComponents();
   });
 
-  it('add', () => {
-    let address = new Address("España", "Soria", "Soria", 42004, "Calle Melancolía, Nº13")
-    let newShop = new Shop("Nombre", address);
-    expect(newShop).toBeDefined();
-  })
-
 });

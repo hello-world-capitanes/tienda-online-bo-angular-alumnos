@@ -1,44 +1,47 @@
-export class Categoria {
+export class Category {
 
-  private _nombre: string;
-  private _ID: number;
-  private _estado: boolean;
-  private _descripcion: string;
-  private _color: string;
-  private static contadorId: number= 0;
+  private _name: string;
+  private _ID: string;
+  private _description: string;
+  private _active: boolean;
+  /* private static contadorId: number = 0; */
 
-  constructor(nombre:string, estado:boolean, descripcion:string, color:string){
-    Categoria.contadorId++
-    this._ID = Categoria.contadorId;
-    this._color = color;
-    this._descripcion = descripcion;
-    this._estado = estado;
-    this._nombre = nombre;
+  constructor(name: string, id: string, description: string, active: boolean) {
+    this._ID = id;
+    this._name = name;
+    this._description = description;
+    this._active = active;
   }
 
-  getNombre(){
-    return this._nombre;
+  public get name() {
+    return this._name;
   }
 
-  getID(){
+  public set name(name: string) {
+    this._name = name;
+  }
+
+  public get id() {
     return this._ID;
   }
 
-  getEstado(){
-    return this._estado;
+  public set id(id: string) {
+    this._ID = id;
   }
 
-  getDescripcion(){
-    return this._descripcion;
+  public get description() {
+    return this._description;
   }
 
-  getColor(){
-    return this._color;
+  public set description(description: string) {
+    this._description = description;
   }
 
-  cambiarEstado()
-  {
-    this._estado = !this._estado;
+  public get active() {
+    return this._active;
   }
 
+  public set active(active: boolean) {
+    this._active = active;
+  }
 }

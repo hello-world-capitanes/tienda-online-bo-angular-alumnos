@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Category } from 'src/app/features/category/models/category.model';
+import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Product } from '../../models/product-models';
 import { ProductService } from '../../services/product.service';
 
@@ -14,18 +16,14 @@ export class ProductComponent implements OnInit {
   productForm!: FormGroup;
   products!: Product[];
 
-  categories: String[] = [
-    'Lacteos',
-    'Panaderia',
-    'Carniceria',
-    'Pescaderia',
-    'Fruteria',
-    'Bebidas',
-    'Limpieza',
-  ];
+  categories!: Category[];
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService
+  ) {
     this.products = productService.productList;
+    this.categories = this.categoryService.getAllCategories();
   }
 
   createForm() {
@@ -39,7 +37,7 @@ export class ProductComponent implements OnInit {
       characteristics: new FormControl('', [Validators.required]),
       price: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*$"),
+        Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),
       ]),
       description: new FormControl('', [Validators.required]),
       categories: new FormControl('', [Validators.required]),
@@ -68,7 +66,7 @@ export class ProductComponent implements OnInit {
       );
 
       while (this.existId(id)) {
-        let prod1 = new Product(
+        prod1 = new Product(
           this.generateId(),
           this.productForm.value.name,
           this.productForm.value.characteristics,
@@ -83,6 +81,18 @@ export class ProductComponent implements OnInit {
       this.addProduct(prod1);
       return true;
     }
+  }
+
+  addProduct(product: Product) {
+    if (!!this.productService.findByName(product)) {
+      alert('Ya existe ese producto');
+    } else {
+      this.productService.addProduct(product);
+    }
+  }
+
+  deleteProduct(product: Product) {
+    this.productService.deleteProduct(product);
   }
 
   existId(id: string): boolean {
@@ -101,18 +111,6 @@ export class ProductComponent implements OnInit {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
-    return '_' + Math.random().toString(36).substr(2, 9);
-  }
-
-  addProduct(prod: Product) {
-    this.products.push(prod);
-  }
-
-  deleteProduct(prodId: string) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (prodId === this.products[i].id) {
-        this.products.splice(i, 1);
-      }
-    }
+    return '_' + Math.random().toString(36).substring(2, 9);
   }
 }
