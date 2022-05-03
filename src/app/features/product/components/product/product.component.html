@@ -20,9 +20,11 @@
           <mat-form-field class="formContainer" >
             <mat-label> Categories </mat-label>
             <mat-select class = "input" formControlName = "categories" required>
-              <mat-option *ngFor="let cat of categories" [value]="cat">
+              <div *ngFor="let cat of categories">
+                <mat-option *ngIf="cat.active===true" [value]="cat.name">
                 {{ cat.name }}
               </mat-option>
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
