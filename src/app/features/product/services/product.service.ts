@@ -84,4 +84,13 @@ export class ProductService {
       return null;
     });
   }
+
+  findByName(prod: Product): Product | undefined {
+    return this.productList.find((product) =>{
+      if(product.name === prod.name){
+        return product;
+      }
+      return null;
+    });
+  }
 }

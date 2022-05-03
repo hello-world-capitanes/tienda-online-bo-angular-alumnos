@@ -1,3 +1,4 @@
+import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +24,8 @@ import { ProductComponent } from './components/product/product.component';
     MatListModule,
     MatSelectModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonModule
   ],
   exports: [
     ProductComponent,
