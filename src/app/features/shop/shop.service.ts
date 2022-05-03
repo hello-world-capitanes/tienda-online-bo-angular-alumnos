@@ -12,7 +12,7 @@ export class ShopService {
   private _newAddress = new Address("España","Madrid","Alcala", 28890,"Calle Cervantes 10");
   private _productList : Product[];
   private _productStockList : ProductStock[];
-  private _selectedShop!: string;
+  private _selectedShopSeeProducts!: string;
 
   constructor() {
     this._productList = [
@@ -126,11 +126,11 @@ export class ShopService {
     return this._productStockList;
   }
 
-  public get selectedShop(): string {
-    return this._selectedShop;
+  public get selectedShopSeeProducts(): string {
+    return this._selectedShopSeeProducts;
   }
-  public set selectedShop(value: string) {
-    this._selectedShop = value;
+  public set selectedShopSeeProducts(value: string) {
+    this._selectedShopSeeProducts = value;
   }
 
 }
