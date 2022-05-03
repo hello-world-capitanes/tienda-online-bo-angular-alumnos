@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <app-shops-create (anadirOutPut)="anadirElementoLista($event)"></app-shops-create>
 
   <mat-divider></mat-divider>
@@ -27,5 +27,50 @@
     <mat-divider></mat-divider>
   </table>
 
-</div>
+</div> -->
+
+<app-shops-create (anadirOutPut)="anadirElementoLista($event)"></app-shops-create>
+
+<mat-list role="list" class="listShop">
+  <mat-divider></mat-divider>
+  <ng-container
+    *ngFor="let shop of shops"
+  >
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <div class="info">
+              <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
+                <mat-icon> delete_forever </mat-icon>
+              </button>
+              <mat-panel-title>
+                <mat-list-item role="listitem" class="shop">{{
+                  shop.name
+                }}</mat-list-item>
+              </mat-panel-title>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="hiddenIfo">
+            <div class="firstColumnHidden">
+              <mat-list role="list">
+                <mat-list-item role="listitem">
+                  <div class="expansionContent">
+                    <span> Nombre: {{ shop.name }} </span>
+                    <span> Direccion: {{ shop.address.street }} </span>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
+
 

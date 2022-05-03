@@ -15,6 +15,7 @@ import { Shop } from '../../models/shop.model';
 export class ShopsCreateComponent implements OnInit {
 
   @Output() anadirOutPut = new EventEmitter<any>();
+  panelOpenState = false;
 
   readonly SHOP_ERRORS = SHOP_ERRORS;
 

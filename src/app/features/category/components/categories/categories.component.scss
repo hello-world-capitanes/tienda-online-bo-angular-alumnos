@@ -20,11 +20,32 @@
   margin-left: 50px;
 }
 
-table {
-  width: 100%;
+.category{
+  font-weight: bold;
 }
 
 .mat-form-field {
   font-size: 14px;
   width: 100%;
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.botonProd{
+  margin: 1em;
+  margin-left: 0 auto;
+  flex: 1 1 auto;
+}
+
+.expansionContent{
+  display: flex;
+  flex-direction: column;
+}
+
+.listCategory{
+  margin: 2em;
 }
