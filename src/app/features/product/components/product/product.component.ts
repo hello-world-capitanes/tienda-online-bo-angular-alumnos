@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService
   ) {
-    this.products = productService.productList;
+    this.products = this.productService.productList;
     this.categories = this.categoryService.getAllCategories();
   }
 

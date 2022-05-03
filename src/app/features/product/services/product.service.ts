@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { elementAt } from 'rxjs';
+import { Category } from '../../category/models/category.model';
 import { Product } from '../models/product-models';
 
 @Injectable({
@@ -16,7 +17,10 @@ export class ProductService {
         'Pack de 24 latas',
          2.48,
         'Cerveza lagger de calidad suprema',
-        [],
+        [
+        new Category("Carne", "3", "Productos cárnicos", true),
+        new Category("Alcohol", "6", "Pescados", true)
+        ],
         'https://a1.soysuper.com/4d20a10aab11ff0e321b129feac2401e.1500.0.0.0.wmark.8d2b900a.jpg',
         true
       ),
@@ -27,7 +31,10 @@ export class ProductService {
         '1L de vino',
          0.7,
         'Vino tinto para calimocho',
-        [],
+        [
+          new Category("Carne", "3", "Productos cárnicos", true),
+          new Category("Alcohol", "6", "Pescados", true)
+        ],
         'https://mailenmarket.com/wp-content/uploads/2020/07/6c371039587b41d08078d3d78de1d835.jpg',
         true
       ),
@@ -37,7 +44,9 @@ export class ProductService {
         'Pack de 6 unidades',
          4,
         'Donuts original glaseados',
-        [],
+        [new Category("Carne", "3", "Productos cárnicos", true),
+        new Category("Alcohol", "6", "Pescados", true)
+        ],
         'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
         true
       ),
@@ -47,7 +56,9 @@ export class ProductService {
         'Bolsa de 300g',
          1.3,
         'Doritos picantes bolsa grande',
-        [],
+        [new Category("Carne", "3", "Productos cárnicos", true),
+        new Category("Alcohol", "6", "Pescados", true)
+        ],
         'https://agustomarket.com/wp-content/uploads/2021/12/doritos-bolsaza-300x300.jpg',
         true
       ),
@@ -84,11 +95,11 @@ export class ProductService {
       return null;
     });
   }
-  
+
   getAllProducts(): Product[] {
     return this._productList;
   }
-  
+
   findByName(prod: Product): Product | undefined {
     return this.productList.find((product) =>{
       if(product.name === prod.name){
