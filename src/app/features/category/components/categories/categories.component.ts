@@ -32,12 +32,6 @@ export class CategoriesComponent implements OnInit {
             Validators.maxLength(100),
           ]
         ),
-      active: new FormControl
-        (null,
-          [
-            Validators.required,
-          ]
-        ),
     });
   }
 
@@ -65,28 +59,16 @@ export class CategoriesComponent implements OnInit {
           'Introduce una descripción mas corta' : '';
   }
 
-  get errorMessageActive(): string {
-    const form: FormControl = (this.categoryForm.get('active') as FormControl);
-    return form.hasError('required') ?
-      'Introduce un estado para la categoría' : '';
-  }
-
   addCategory() {
     let bool: boolean;
     if (!this.categoryForm.valid) {
       return;
     }
 
-    if (this.categoryForm.get('active')?.value === "Activo") {
-      bool = true;
-    } else {
-      bool = false
-    }
-
     let category = new Category(this.categoryForm.get('name')?.value,
       this.categoryForm.get('id')?.value,
       this.categoryForm.get('description')?.value,
-      bool)
+      true)
 
     this.categoryService.addCategory(category)
   }
