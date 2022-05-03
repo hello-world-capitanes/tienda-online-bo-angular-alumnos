@@ -12,13 +12,15 @@ import { ShopsListComponent } from './components/shops-list/shops-list.component
 import { ShopsModifyComponent } from './components/shops-modify/shops-modify.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
+import { ProductListShopComponent } from './components/product-list-shop/product-list-shop.component';
 
 
 @NgModule({
   declarations: [
     ShopsListComponent,
     ShopsCreateComponent,
-    ShopsModifyComponent
+    ShopsModifyComponent,
+    ProductListShopComponent
   ],
   imports: [
     CommonModule,
