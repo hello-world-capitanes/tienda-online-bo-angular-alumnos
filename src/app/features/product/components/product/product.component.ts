@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Category } from 'src/app/features/category/models/category.model';
+import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Product } from '../../models/product-models';
 import { ProductService } from '../../services/product.service';
 
@@ -14,18 +16,12 @@ export class ProductComponent implements OnInit {
   productForm!: FormGroup;
   products!: Product[];
 
-  categories: String[] = [
-    'Lacteos',
-    'Panaderia',
-    'Carniceria',
-    'Pescaderia',
-    'Fruteria',
-    'Bebidas',
-    'Limpieza',
-  ];
+  categories!: Category[];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+              private categoryService: CategoryService) {
     this.products = productService.productList;
+    this.categories = this.categoryService.getAllCategories();
   }
 
   createForm() {
