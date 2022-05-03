@@ -13,6 +13,7 @@ import { ShopsModifyComponent } from './components/shops-modify/shops-modify.com
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import { ProductsListShopComponent } from './components/products-list-shop/products-list-shop.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ProductsListShopComponent } from './components/products-list-shop/produ
     MatCardModule,
     MatSelectModule,
     MatExpansionModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
 
   ],
   exports:[
