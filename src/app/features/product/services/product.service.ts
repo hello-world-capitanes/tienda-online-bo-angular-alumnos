@@ -108,4 +108,9 @@ export class ProductService {
       return null;
     });
   }
+
+  removeCategory(product:Product,category:Category){
+    //Se busca la categoria dentro del producto y se borra
+    this.productList[this.productList.indexOf(product)].categories.splice(this.productList[this.productList.indexOf(product)].categories.indexOf(category),1);
+  }
 }

@@ -1,9 +1,9 @@
+import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from 'src/app/features/category/models/category.model';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Product } from '../../models/product-models';
-import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -113,4 +113,10 @@ export class ProductComponent implements OnInit {
     // after the decimal.
     return '_' + Math.random().toString(36).substring(2, 9);
   }
+
+  removeCategory(product:Product, category:Category){
+    this.productService.removeCategory(product,category);
+    this.products = this.productService.productList;
+  }
+
 }

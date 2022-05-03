@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { ProductComponent } from './components/product/product.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductComponent } from './components/product/product.component';
     MatSelectModule,
     MatIconModule,
     MatExpansionModule,
-    MatButtonModule
+    MatChipsModule
+
   ],
   exports: [
     ProductComponent,
