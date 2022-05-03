@@ -1,3 +1,5 @@
+import { AuthenticationModule } from './../features/authentication/authentication.module';
+import { SignInComponent } from './../features/authentication/components/sign-in/sign-in.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -18,12 +20,13 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
   imports: [
     CommonModule,
     RouterModule,
-    
+
     MatToolbarModule,
     MatIconModule,
     MatListModule,
     MatDividerModule,
     MatButtonModule,
+    AuthenticationModule
   ],
   exports: [
     HeaderComponent,

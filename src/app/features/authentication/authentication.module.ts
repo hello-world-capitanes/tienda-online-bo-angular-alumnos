@@ -1,3 +1,5 @@
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -8,7 +10,10 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SignInSidebarComponent } from './components/sign-in-sidebar/sign-in-sidebar.component';
 
 
 
@@ -16,19 +21,25 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
   declarations: [
     DashboardComponent,
     SignInComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    SignInSidebarComponent,
+    SignUpComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
 
+    RouterModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+
+    MatButtonModule
   ],
   exports: [
-
+    SignInSidebarComponent
   ]
 })
 export class AuthenticationModule { }
