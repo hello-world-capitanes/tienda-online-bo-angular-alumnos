@@ -1,3 +1,4 @@
+import { ProductService } from './../product/services/product.service';
 import { Injectable } from '@angular/core';
 import { Address } from './../../core/models/address.model';
 import { Product } from './../product/models/product-models';
@@ -14,49 +15,9 @@ export class ShopService {
   private _productStockList : ProductStock[];
 
 
-  constructor() {
-    this._productList = [
-      new Product(
-        '1',
-        'Steinburg',
-        'Pack de 24 latas',
-        2.48,
-        'Cerveza lagger de calidad suprema',
-        'bebida',
-        '',
-        true
-      ),
-      new Product(
-        '2',
-        'Casón histórico',
-        '1L de vino',
-        0.7,
-        'Vino tinto para calimocho',
-        'bebida',
-        '',
-        true
-      ),
-      new Product(
-        '3',
-        'Donuts',
-        'Pack de 6 unidades',
-        4,
-        'Donuts original glaseados',
-        'comida',
-        '',
-        true
-      ),
-      new Product(
-        '4',
-        'Doritos',
-        'Bolsa de 300g',
-        1.3,
-        'Doritos picantes bolsa grande',
-        'comida',
-        '',
-        true
-      ),
-    ];
+  constructor(private productService:ProductService) {
+    this._productList=productService.getAllProducts();
+
     this._productStockList = [
       new ProductStock(this._productList[0],5),
       new ProductStock(this._productList[1],14),

@@ -13,6 +13,8 @@ export class CategoryService {
       new Category("Aceite", "2", "Aceites", false),
       new Category("Carne", "3", "Productos cárnicos", true),
       new Category("Pescado", "4", "Pescados", false),
+      new Category("Bollería", "5", "Pescados", true),
+      new Category("Alcohol", "6", "Pescados", true),
     ]
   }
 
