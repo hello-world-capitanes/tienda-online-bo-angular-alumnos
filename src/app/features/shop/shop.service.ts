@@ -133,4 +133,7 @@ export class ShopService {
     this._selectedShopSeeProducts = value;
   }
 
+  getProductsList(): Shop[]{
+    return this.spainShops;
+  }
 }
