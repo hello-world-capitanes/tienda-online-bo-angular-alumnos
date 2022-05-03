@@ -111,6 +111,8 @@ export class ProductService {
 
   removeCategory(product:Product,category:Category){
     //Se busca la categoria dentro del producto y se borra
-    this.productList[this.productList.indexOf(product)].categories.splice(this.productList[this.productList.indexOf(product)].categories.indexOf(category),1);
+    let indexProduct = this.productList.indexOf(product);
+    let indexCategory = this.productList[indexProduct].categories.indexOf(category)
+    this.productList[indexProduct].categories.splice(indexCategory,1);
   }
 }
