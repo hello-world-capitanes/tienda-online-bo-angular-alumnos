@@ -1,3 +1,4 @@
+import { SpanishCpValidator } from 'src/app/core/validators/spanish-cp.validators';
 import { Address } from './../../../../core/models/address.model';
 import { PROVINCES } from './../../../../core/utils/lists/provinces.list';
 import { COUNTRIES } from './../../../../core/utils/lists/countries.list';
@@ -53,7 +54,18 @@ export class ShopsCreateComponent implements OnInit {
 
       this.shopService.addShop(newShop);
     }
-
-
   }
+
+  resetValidatorsByProvinceSelected(province: string, country: string){
+    if (province && country){
+      this.formGroupShop.get('cp')?.clearValidators();
+      this.formGroupShop.get('cp')?.addValidators(Validators.required);
+      this.formGroupShop.get('cp')?.updateValueAndValidity();
+      if (country == 'España'){
+        this.formGroupShop.get('cp')?.addValidators(SpanishCpValidator.isValidNumber(province));
+        this.formGroupShop.get('cp')?.updateValueAndValidity();
+      }
+    }
+  }
+
 }

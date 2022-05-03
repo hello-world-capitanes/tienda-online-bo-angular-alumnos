@@ -1,9 +1,9 @@
+import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from 'src/app/features/category/models/category.model';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Product } from '../../models/product-models';
-import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -18,9 +18,11 @@ export class ProductComponent implements OnInit {
 
   categories!: Category[];
 
-  constructor(private productService: ProductService,
-              private categoryService: CategoryService) {
-    this.products = productService.productList;
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService
+  ) {
+    this.products = this.productService.productList;
     this.categories = this.categoryService.getAllCategories();
   }
 
@@ -50,7 +52,6 @@ export class ProductComponent implements OnInit {
     if (!this.productForm.valid) {
       alert('Campos introducidos no válidos');
       return false;
-
     } else {
       let id = this.generateId();
       let prod1 = new Product(
@@ -82,11 +83,15 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  addProduct(product: Product){
-    this.productService.addProduct(product);
+  addProduct(product: Product) {
+    if (!!this.productService.findByName(product)) {
+      alert('Ya existe ese producto');
+    } else {
+      this.productService.addProduct(product);
+    }
   }
 
-  deleteProduct(product: Product){
+  deleteProduct(product: Product) {
     this.productService.deleteProduct(product);
   }
 
@@ -107,6 +112,11 @@ export class ProductComponent implements OnInit {
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
     return '_' + Math.random().toString(36).substring(2, 9);
+  }
+
+  removeCategory(product:Product, category:Category){
+    this.productService.removeCategory(product,category);
+    this.products = this.productService.productList;
   }
 
 }

@@ -20,9 +20,11 @@
           <mat-form-field class="formContainer" >
             <mat-label> Categories </mat-label>
             <mat-select class = "input" formControlName = "categories" required>
-              <ng-container *ngFor="let cat of categories">
-                <mat-option *ngIf="cat.active===true" [value]="cat">{{ cat.name }}</mat-option>
-              </ng-container>
+              <div *ngFor="let cat of categories">
+                <mat-option *ngIf="cat.active===true" [value]="cat.name">
+                {{ cat.name }}
+              </mat-option>
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
@@ -89,9 +91,16 @@
               <mat-list role="list">
                 <mat-list-item role="listitem">
                   <span> Categorias: </span>
-                  <span>
-                    {{ product.categories}}
-                  </span>
+                    <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
+                      <mat-chip
+                        *ngFor="let category of product.categories"
+                        (removed)="removeCategory(product,category)">
+                        {{category.name}}
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                    </mat-chip-list>
                 </mat-list-item>
               </mat-list>
             </div>
