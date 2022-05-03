@@ -20,3 +20,30 @@
 table{
   width:100%;
 }
+.expansionContent {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.shop{
+  font-weight: bold;
+}
+
+.botonShop{
+  margin: 1em;
+  margin-left: 0 auto;
+  flex: 1 1 auto;
+}
+
+.listShop{
+  margin: 2em;
+}

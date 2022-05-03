@@ -1,9 +1,11 @@
-<div class="user-container">
-  <div>
-    <h1>
-      <mat-icon aria-hidden="false" aria-label="Example home icon">people</mat-icon>
-      Añadir usuario
-    </h1>
+<mat-accordion>
+  <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Añadir producto
+        <mat-icon aria-hidden="false">people</mat-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
       <form [formGroup]="formCrear">
 
         <mat-form-field >
@@ -32,7 +34,6 @@
 
         <button class="margin" mat-raised-button color="primary" (click)="addUser()">+</button>
       </form>
-  </div>
+  </mat-expansion-panel>
+</mat-accordion>
   <app-list-user></app-list-user>
-
-</div>

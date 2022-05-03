@@ -12,6 +12,7 @@ export class FormUserComponent implements AfterViewInit {
 
   @ViewChild(ListUserComponent)
   listaUser!: ListUserComponent;
+  panelOpenState=false;
 
   nuevoUser: User = new User("","","","");
 

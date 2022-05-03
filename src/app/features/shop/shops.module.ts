@@ -10,6 +10,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { ShopsCreateComponent } from './components/shops-create/shops-create.component';
 import { ShopsListComponent } from './components/shops-list/shops-list.component';
 import { ShopsModifyComponent } from './components/shops-modify/shops-modify.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { ShopsModifyComponent } from './components/shops-modify/shops-modify.com
     ReactiveFormsModule,
     MatIconModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule,
+    MatListModule
 
   ],
   exports:[

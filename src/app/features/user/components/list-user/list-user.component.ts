@@ -7,6 +7,7 @@ import { User } from '../../models/user.model';
   styleUrls: ['./list-user.component.scss']
 })
 export class ListUserComponent {
+  panelOpenState = false;
 
   users:User[] = [
     new User("Raúl","Pradanas Martín","rp@gmail.com","hola"),
