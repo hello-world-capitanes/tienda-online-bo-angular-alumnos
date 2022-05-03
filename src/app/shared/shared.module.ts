@@ -10,7 +10,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { SignInSidebarComponent } from '../features/authentication/components/sign-in-sidebar/sign-in-sidebar.component';
 
 
 @NgModule({
