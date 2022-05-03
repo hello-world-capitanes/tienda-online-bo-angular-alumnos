@@ -9,9 +9,15 @@ import { Shop } from './models/shop.model';
 })
 export class ShopService {
   private spainShops!: Shop[];
-  private _newAddress = new Address("España","Madrid","Alcala", 28890,"Calle Cervantes 10");
-  private _productList : Product[];
-  private _productStockList : ProductStock[];
+  private _newAddress = new Address(
+    'España',
+    'Madrid',
+    'Alcala',
+    28890,
+    'Calle Cervantes 10'
+  );
+  private _productList: Product[];
+  private _productStockList: ProductStock[];
   private _selectedShopSeeProducts!: string;
 
   constructor() {
@@ -59,23 +65,34 @@ export class ShopService {
     ];
 
     this._productStockList = [
-      new ProductStock(this._productList[0],5),
-      new ProductStock(this._productList[1],14),
-      new ProductStock(this._productList[2],2),
-      new ProductStock(this._productList[3],7),
+      new ProductStock(this._productList[0], 5),
+      new ProductStock(this._productList[1], 14),
+      new ProductStock(this._productList[2], 2),
+      new ProductStock(this._productList[3], 7),
     ];
 
     this.spainShops = [
-      new Shop("1234","Mercadona",this._newAddress,true,this._productStockList),
-      new Shop("4561","Lidl",this._newAddress,true,this._productStockList),
-      new Shop("7895","Mediamarkt",this._newAddress,true,this._productStockList),
-    ]
-   }
-
-  getAllShops(): Shop[]{
-    return this.spainShops;
+      new Shop(
+        '1234',
+        'Mercadona',
+        this._newAddress,
+        true,
+        this._productStockList
+      ),
+      new Shop('4561', 'Lidl', this._newAddress, true, this._productStockList),
+      new Shop(
+        '7895',
+        'Mediamarkt',
+        this._newAddress,
+        true,
+        this._productStockList
+      ),
+    ];
   }
 
+  getAllShops(): Shop[] {
+    return this.spainShops;
+  }
 
   deleteShop(shopRef: Shop) {
     let index = this.spainShops.findIndex((shop) => {
@@ -86,43 +103,43 @@ export class ShopService {
     return !this.shopExists(shopRef);
   }
 
-  shopExists(shopRef: Shop): boolean{
+  shopExists(shopRef: Shop): boolean {
     return !!this.spainShops.find((shop) => {
       return shop === shopRef;
     });
   }
 
-  addShop(newShop: Shop){
+  addShop(newShop: Shop) {
     this.spainShops.push(newShop);
   }
 
-  getShop(id:string){
-    return this.spainShops.find(shop => {
+  getShop(id: string) {
+    return this.spainShops.find((shop) => {
       shop.id === id;
       return shop;
-    })
+    });
   }
 
-  addProduct(product:ProductStock){
+  addProduct(product: ProductStock) {
     this._productStockList.push(product);
   }
 
-  increaseStockProduct(product:ProductStock){
-    this._productStockList.find(productFind =>{
-      if(productFind.product.id === product.product.id){
+  increaseStockProduct(product: ProductStock) {
+    this._productStockList.find((productFind) => {
+      if (productFind.product.id === product.product.id) {
         productFind.stock = product.stock;
       }
-    })
+    });
   }
 
-  decreaseStockProduct(product:ProductStock){
-    this._productStockList.find(productFind =>{
-      if(productFind.product.id === product.product.id){
+  decreaseStockProduct(product: ProductStock) {
+    this._productStockList.find((productFind) => {
+      if (productFind.product.id === product.product.id) {
         productFind.stock = product.stock;
       }
-    })
+    });
   }
-  getProductsStock(){
+  getProductsStock() {
     return this._productStockList;
   }
 
@@ -131,9 +148,5 @@ export class ShopService {
   }
   public set selectedShopSeeProducts(value: string) {
     this._selectedShopSeeProducts = value;
-  }
-
-  getProductsList(): Shop[]{
-    return this.spainShops;
   }
 }

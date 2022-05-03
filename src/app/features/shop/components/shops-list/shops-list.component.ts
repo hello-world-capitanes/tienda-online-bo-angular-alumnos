@@ -55,4 +55,7 @@ export class ShopsListComponent implements OnInit {
     return this._productStockList;
   }
 
+  closeDialog(){
+    this.dialog.closeAll();
+  }
 }

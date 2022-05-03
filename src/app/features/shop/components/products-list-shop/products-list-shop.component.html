@@ -1,24 +1,25 @@
+<button mat-raised-button color="accent" (click)="onNoClick()" class="closeButton">
+  <mat-icon>close</mat-icon>
+</button>
+
 <mat-list role="list" class="listShop">
   <mat-divider></mat-divider>
   <ng-container *ngFor="let shop of shops">
     <div>
-      <mat-list-item role="listitem" class="shop">
-        {{shop.name}}
+      <mat-list-item role="listitem" class="nameShop">
+        {{ shop.name }}
       </mat-list-item>
       <mat-list role="list">
-        <br>
         <mat-list-item role="productList">
-          <ng-container *ngFor="let listProduct of listProducts">
-            <span> Nombre: {{ listProducts.name }} </span>
-            <span> Direccion: {{ listProducts }} </span>
-          </ng-container>
+          <mat-list role="list" *ngFor="let product of shop.products">
+            <mat-list-item role="listitem"
+              >Nombre: {{ product.product.name }} Stock: {{ product.stock }}
+            </mat-list-item>
+          </mat-list>
         </mat-list-item>
-        <br>
       </mat-list>
       <mat-divider></mat-divider>
     </div>
   </ng-container>
 </mat-list>
-<button mat-raised-button color="accent">
-  <mat-icon>close</mat-icon>
-</button>
+
