@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sign-in-sidebar',
@@ -7,11 +8,12 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./sign-in-sidebar.component.scss']
 })
 export class SignInSidebarComponent implements OnInit {
-  user = {
-    name: "pepe"
-  }
 
-  constructor(private route: Router) { }
+
+  constructor(
+    private route: Router,
+    public authService: AuthService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -21,10 +23,11 @@ export class SignInSidebarComponent implements OnInit {
   }
 
   signOut(){
-
+    this.authService.signOut();
+    this.route.navigateByUrl("/sign-in");
   }
 
   sesionIniciada(){
-    return true;
+    return this.authService.userData ? true : false;
   }
 }

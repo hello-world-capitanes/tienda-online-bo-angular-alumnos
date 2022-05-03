@@ -1,4 +1,4 @@
-<div *ngIf="sesionIniciada()">
+<div *ngIf="!sesionIniciada(); else cerrarSesion">
   <button
     mat-raised-button
     color="primary"
@@ -10,16 +10,14 @@
   </button>
 </div>
 
-<div *ngIf="!sesionIniciada()">
-  <span>{{ user.name }}</span>
-  <br>
+<ng-template #cerrarSesion>
   <button
     mat-raised-button
     class="sign-in-button"
     aria-label="Go to user"
-    color="primary"
+    color="warn"
     (click)="signOut()"
   >
     Cerrar sesión
   </button>
-</div>
+</ng-template>
