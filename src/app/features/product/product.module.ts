@@ -19,7 +19,7 @@ import {MatChipsModule} from '@angular/material/chips';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
