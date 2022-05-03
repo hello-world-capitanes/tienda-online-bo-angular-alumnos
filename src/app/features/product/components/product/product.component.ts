@@ -18,8 +18,10 @@ export class ProductComponent implements OnInit {
 
   categories!: Category[];
 
-  constructor(private productService: ProductService,
-              private categoryService: CategoryService) {
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService
+  ) {
     this.products = productService.productList;
     this.categories = this.categoryService.getAllCategories();
   }
@@ -50,7 +52,6 @@ export class ProductComponent implements OnInit {
     if (!this.productForm.valid) {
       alert('Campos introducidos no válidos');
       return false;
-
     } else {
       let id = this.generateId();
       let prod1 = new Product(
@@ -82,11 +83,15 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  addProduct(product: Product){
-    this.productService.addProduct(product);
+  addProduct(product: Product) {
+    if (!!this.productService.findByName(product)) {
+      alert('Ya existe ese producto');
+    } else {
+      this.productService.addProduct(product);
+    }
   }
 
-  deleteProduct(product: Product){
+  deleteProduct(product: Product) {
     this.productService.deleteProduct(product);
   }
 
@@ -108,5 +113,4 @@ export class ProductComponent implements OnInit {
     // after the decimal.
     return '_' + Math.random().toString(36).substring(2, 9);
   }
-
 }
