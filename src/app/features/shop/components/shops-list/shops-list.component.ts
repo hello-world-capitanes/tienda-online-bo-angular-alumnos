@@ -38,7 +38,7 @@ export class ShopsListComponent implements OnInit {
   }
 
   openProductList(name: string){
-    this.shopService.selectedShop = name;
+    this.shopService.selectedShopSeeProducts = name;
     const dialogRef = this.dialog.open(ProductsListShopComponent);
 
     dialogRef.afterClosed().subscribe(result => {
