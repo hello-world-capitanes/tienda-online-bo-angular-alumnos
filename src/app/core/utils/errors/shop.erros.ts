@@ -16,6 +16,7 @@ export const SHOP_ERRORS = {
   },
   cp: {
     notProvided: 'No ha introducido código postal',
-    invalid: 'Código postal inválido'
+    invalid: 'Código postal inválido',
+    spanishInvalid: 'El código postal no pertenece a la provincia'
   }
 }
