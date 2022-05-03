@@ -1,1 +1,25 @@
-<p>products-list-shop works!</p>
+<button mat-raised-button color="accent" (click)="onNoClick()" class="closeButton">
+  <mat-icon>close</mat-icon>
+</button>
+
+<mat-list role="list" class="listShop">
+  <mat-divider></mat-divider>
+  <ng-container *ngFor="let shop of shops">
+    <div>
+      <mat-list-item role="listitem" class="nameShop">
+        {{ shop.name }}
+      </mat-list-item>
+      <mat-list role="list">
+        <mat-list-item role="productList">
+          <mat-list role="list" *ngFor="let product of shop.products">
+            <mat-list-item role="listitem"
+              >Nombre: {{ product.product.name }} Stock: {{ product.stock }}
+            </mat-list-item>
+          </mat-list>
+        </mat-list-item>
+      </mat-list>
+      <mat-divider></mat-divider>
+    </div>
+  </ng-container>
+</mat-list>
+

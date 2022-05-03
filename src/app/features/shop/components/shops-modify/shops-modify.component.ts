@@ -19,7 +19,7 @@ export class ShopsModifyComponent implements OnInit {
     'Bolsa de 300g',
     1.3,
     'Doritos picantes bolsa grande',
-    'comida',
+    [],
     '',
     true
   )
