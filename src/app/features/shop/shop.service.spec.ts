@@ -15,9 +15,17 @@ describe('ShopService', () => {
 
   it('Delete shop', () => {
     const products = service.getProductsStock();
-    expect(service.deleteShop(new Shop("", "", new Address("", "", "", 0, "0"), true, products))).toBeFalse();
-    service.addShop(new Shop("id", "nombre", new Address("test", "test", "test", 0, "test"), true, products));
-    service.deleteShop(new Shop("id", "nombre", new Address("test", "test", "test", 0, "test"), true, products));
-    expect(service.shopExists).toBeFalse();
+    const newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, products);
+    service.addShop(newShop);
+    service.deleteShop(newShop);
+    expect(service.shopExists(newShop)).toBeFalse();
   });
+
+  it('Add shop', () => {
+    const products = service.getProductsStock();
+    const newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, products);
+    service.addShop(newShop);
+    expect(service.shopExists(newShop)).toBeTruthy();
+  })
+
 });

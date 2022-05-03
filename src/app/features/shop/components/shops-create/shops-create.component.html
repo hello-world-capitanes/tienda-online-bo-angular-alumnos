@@ -65,19 +65,15 @@
 
         <mat-form-field>
           <mat-label>CP</mat-label>
-          <div *ngIf="formGroupShop.get('country')?.value === 'España'; then spanishCp else otherCp"></div>
-          <ng-template #spanishCp>
-            <input matInput placeholder="CP" type="number" formControlName="cp"
-              pattern="^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$" required>
-          </ng-template>
-          <ng-template #otherCp>
-            <input matInput placeholder="CP" type="number" formControlName="cp" required>
-          </ng-template>
+          <input matInput placeholder="CP" type="number" formControlName="cp" (ngModelChange)="resetValidatorsByProvinceSelected(formGroupShop.get('province')?.value, formGroupShop.get('country')?.value)">
           <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('required')">
             {{ SHOP_ERRORS.cp.notProvided }}
           </mat-error>
           <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('pattern')">
             {{ SHOP_ERRORS.cp.invalid }}
+          </mat-error>
+          <mat-error *ngIf="!formGroupShop.get('cp')?.valid">
+            {{ SHOP_ERRORS.cp.spanishInvalid }}
           </mat-error>
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="addShop()">Añadir</button>
