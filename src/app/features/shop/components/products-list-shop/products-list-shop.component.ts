@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Shop } from '../../models/shop.model';
 import { ShopService } from '../../shop.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ProductStock } from 'src/app/features/product/models/product-stock.model';
+import { SHOP_CONSTANTS } from '../../models/shop.constants';
 
 @Component({
   selector: 'app-products-list-shop',
@@ -10,10 +12,14 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./products-list-shop.component.scss'],
 })
 export class ProductsListShopComponent implements OnInit {
-  shops!: Shop[];
+  shop: Shop;
+
+  maxInput = SHOP_CONSTANTS.stock.max;
+  minInput = SHOP_CONSTANTS.stock.min;
+  stepInput = SHOP_CONSTANTS.stock.step;
 
   constructor(private shopService: ShopService, public dialogRef: MatDialogRef<ShopsListComponent>) {
-    this.shops = this.shopService.getAllShops();
+    this.shop = this.shopService.selectedShopSeeProducts;
   }
 
   ngOnInit(): void {}
@@ -21,4 +27,10 @@ export class ProductsListShopComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  changeStock(product:ProductStock,units:string){
+    let newStock = Number.parseInt(units);
+    this.shopService.modifyStock(product,newStock);
+  }
+  
 }

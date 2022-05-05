@@ -1,25 +1,30 @@
-<button mat-raised-button color="accent" (click)="onNoClick()" class="closeButton">
+<button
+  mat-raised-button
+  color="accent"
+  (click)="onNoClick()"
+  class="closeButton"
+>
   <mat-icon>close</mat-icon>
 </button>
 
-<mat-list role="list" class="listShop">
+<div class="divShop">
+  <mat-list-item role="listitem" class="nameShop">
+    {{ shop.name }}
+  </mat-list-item>
   <mat-divider></mat-divider>
-  <ng-container *ngFor="let shop of shops">
-    <div>
-      <mat-list-item role="listitem" class="nameShop">
-        {{ shop.name }}
-      </mat-list-item>
-      <mat-list role="list">
-        <mat-list-item role="productList">
-          <mat-list role="list" *ngFor="let product of shop.products">
-            <mat-list-item role="listitem"
-              >Nombre: {{ product.product.name }} Stock: {{ product.stock }}
-            </mat-list-item>
-          </mat-list>
-        </mat-list-item>
-      </mat-list>
-      <mat-divider></mat-divider>
-    </div>
-  </ng-container>
-</mat-list>
 
+  <mat-list role="list" *ngFor="let product of shop.products">
+    <mat-list-item role="listitem"
+      >Nombre: {{ product.product.name }}
+    </mat-list-item>
+    
+    <div class="divStock">
+      <span> Stock: </span>
+      <mat-form-field>
+        <mat-label>Unidades</mat-label>
+        <input type="number" matInput [value]="product.stock" #units [step]="stepInput" [min]="minInput" [max]="maxInput" />
+      </mat-form-field>
+      <button mat-raised-button (click)="changeStock(product,units.value)" value="product">Aplicar Stock</button>
+    </div>
+  </mat-list>
+</div>

@@ -37,9 +37,12 @@ export class ShopsListComponent implements OnInit {
 
   }
 
-  openProductList(name: string){
-    this.shopService.selectedShopSeeProducts = name;
-    const dialogRef = this.dialog.open(ProductsListShopComponent);
+  openProductList(shop: Shop){
+    this.shopService.setSelectedShopSeeProducts(shop);
+    const dialogRef = this.dialog.open(ProductsListShopComponent,{
+      height:'400px',
+      width: '80%'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

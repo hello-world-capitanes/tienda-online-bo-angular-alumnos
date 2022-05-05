@@ -9,7 +9,7 @@ import { Shop } from './models/shop.model';
   providedIn: 'root',
 })
 export class ShopService {
-  private spainShops!: Shop[];
+  private spainShops: Shop[];
   private _newAddress = new Address(
     'España',
     'Madrid',
@@ -19,7 +19,7 @@ export class ShopService {
   );
   private _productList: Product[];
   private _productStockList: ProductStock[];
-  private _selectedShopSeeProducts!: string;
+  private _selectedShopSeeProducts!: Shop;
 
 
 
@@ -86,29 +86,19 @@ export class ShopService {
     this._productStockList.push(product);
   }
 
-  increaseStockProduct(product: ProductStock) {
-    this._productStockList.find((productFind) => {
-      if (productFind.product.id === product.product.id) {
-        productFind.stock = product.stock;
-      }
-    });
-  }
-
-  decreaseStockProduct(product: ProductStock) {
-    this._productStockList.find((productFind) => {
-      if (productFind.product.id === product.product.id) {
-        productFind.stock = product.stock;
-      }
-    });
-  }
   getProductsStock() {
     return this._productStockList;
   }
 
-  public get selectedShopSeeProducts(): string {
+  public get selectedShopSeeProducts(): Shop {
     return this._selectedShopSeeProducts;
   }
-  public set selectedShopSeeProducts(value: string) {
+  setSelectedShopSeeProducts(value: Shop) {
     this._selectedShopSeeProducts = value;
   }
+
+  modifyStock(prod:ProductStock, units:number){
+    prod.stock = units;
+  }
+
 }
