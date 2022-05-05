@@ -1,3 +1,4 @@
+import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductDB } from './../models/productDB.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
@@ -10,7 +11,7 @@ import { Product } from '../models/product-models';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService extends APIServiceService{
+export class ProductService extends FirestoreService{
 
   protected collection!: string;
   private _productList: Product[];
