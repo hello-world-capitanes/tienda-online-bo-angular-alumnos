@@ -6,6 +6,8 @@ import { Category } from '../models/category.model';
 })
 export class CategoryService {
   private _categoryList: Category[];
+  private _category$: Category[] = [];
+  category!: Category;
 
   constructor() {
     this._categoryList = [
@@ -16,6 +18,14 @@ export class CategoryService {
       new Category("Bollería", "5", "Pescados", true),
       new Category("Alcohol", "6", "Pescados", true),
     ]
+  }
+
+  get category$(): Category[]{
+    return this._category$;
+  }
+
+  set category$(category$: Category[]){
+    this._category$ = category$;
   }
 
   addCategory(category: Category) {
@@ -51,6 +61,15 @@ export class CategoryService {
 
   getAllCategories(): Category[] {
     return this._categoryList;
+  }
+
+  getCategory(id: string): Category {
+    for (let i = 0; i < this._category$.length; i++) {
+      if (id === this._category$[i].id) {
+        this.category = this._category$[i];
+      }
+    }
+    return this.category;
   }
 
   deleteCategory(value: Category) {

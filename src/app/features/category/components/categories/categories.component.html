@@ -5,7 +5,7 @@
   >
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Añadir categoría
+        Add category
         <mat-icon aria-hidden="false" aria-label="Example home icon"
           >category</mat-icon
         >
@@ -13,7 +13,7 @@
     </mat-expansion-panel-header>
     <form [formGroup]="categoryForm">
       <mat-form-field>
-        <mat-label>Nombre</mat-label>
+        <mat-label>Name</mat-label>
         <input
           type="text"
           matInput
@@ -24,7 +24,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Descripción</mat-label>
+        <mat-label>Description</mat-label>
         <input
           type="text"
           matInput
@@ -60,11 +60,14 @@
         >
           <mat-expansion-panel-header *ngIf="category.active===true" class="category">
             <div class="info">
-              <button mat-raised-button class="botonProd" (click)="deleteCategory(category)">
+              <button mat-raised-button class="prodButton" (click)="modifyCategory()">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-raised-button class="prodButton" (click)="deleteCategory(category)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
-                <mat-list-item role="listitem">{{
+                <mat-list-item role="listItem">{{
                   category.name
                 }}</mat-list-item>
               </mat-panel-title>
@@ -73,10 +76,10 @@
           <div class="hiddenIfo">
             <div class="firstColumnHidden">
               <mat-list role="list">
-                <mat-list-item role="listitem">
+                <mat-list-item role="listItem">
                   <div class="expansionContent">
-                    <span> Nombre: {{ category.name }} </span>
-                    <span> Descripcion: {{ category.description }} </span>
+                    <span> Name: {{ category.name }} </span>
+                    <span> Description: {{ category.description }} </span>
                   </div>
                 </mat-list-item>
               </mat-list>
