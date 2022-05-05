@@ -9,10 +9,11 @@ export abstract class APIServiceService {
   protected abstract collection: string;
 
   constructor(private firestore: AngularFirestore) {
-
   }
+
 
   protected getCollection(){
     return this.firestore.collection(this.collection);
   }
+
 }
