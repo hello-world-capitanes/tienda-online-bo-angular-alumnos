@@ -12,6 +12,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 export class ShopService extends FirestoreService {
   protected collection: string;
   private readonly SHOP_COLLECTION = 'shops';
+  selectedShopSeeProducts!:string;
 
   constructor(productService: ProductService, firestore: AngularFirestore) {
     super(firestore);
@@ -58,8 +59,8 @@ export class ShopService extends FirestoreService {
     });
   }
 
-  async getShop(id: string): Promise<Shop> {
-    const snapshot = await this.getCollection().ref.where("id", "==", id).get();
+  async getShop(): Promise<Shop> {
+    const snapshot = await this.getCollection().ref.where("name", "==", this.selectedShopSeeProducts).get();
     return snapshot?.docs[0].data() as Shop;
   }
 

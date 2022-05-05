@@ -22,8 +22,6 @@ export class ShopsListComponent implements OnInit {
   shopSub :Subscription;
   panelOpenState=false;
 
-  private _productStockList! : ProductStock[];
-
   constructor(private shopService: ShopService,public dialog: MatDialog) {
     this.shopSub = this.shopService.getAllShops().subscribe( shops => {
         this.shops = (!!shops && shops.length > 0 ? shops : []);
@@ -41,32 +39,21 @@ export class ShopsListComponent implements OnInit {
     return shop;
   }
 
-/*   deleteShop(shop: Shop){
-    this.shopService.deleteShop(shop);
-  } */
 
   updateList(name: string,value: string){
 
   }
   openProductList(name: string){
-  }
-
-/*   openProductList(name: string){
     this.shopService.selectedShopSeeProducts = name;
     const dialogRef = this.dialog.open(ProductsListShopComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-  } */
+  }
 
   anadirElementoLista(elementoLista : any){
     this.shops.push(elementoLista);
 
-  }
-
-  getProductList(){
-    return this._productStockList;
   }
 
   closeDialog(){
