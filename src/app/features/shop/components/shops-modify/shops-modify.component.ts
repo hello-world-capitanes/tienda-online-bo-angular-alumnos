@@ -25,7 +25,7 @@ export class ShopsModifyComponent implements OnInit {
   )
 
   constructor(private shopService:ShopService) {
-    this._shop = this.shopService.getShop("1234");
+    //this._shop = this.shopService.getShop("1234");
     this.products = this._shop?.products;
    }
 
@@ -41,7 +41,7 @@ export class ShopsModifyComponent implements OnInit {
       this.products.find(productFind =>{
         if(productFind.product.id === product.id){
           productFind.stock += addedStock
-          this.shopService.increaseStockProduct(productFind);
+          //this.shopService.increaseStockProduct(productFind);
         }
       })
     }
@@ -55,7 +55,7 @@ export class ShopsModifyComponent implements OnInit {
       this.products.find(productFind =>{
         if(productFind.product.id === product.id){
           productFind.stock -= addedStock;
-          this.shopService.decreaseStockProduct(productFind);
+          //this.shopService.decreaseStockProduct(productFind);
           if(productFind.stock < 0){
             productFind.stock = 0;
           }
@@ -74,7 +74,7 @@ export class ShopsModifyComponent implements OnInit {
   }
   private addProduct(product:ProductStock){
     this.products?.push(product);
-    this.shopService.addProduct(product);
+    //this.shopService.addProduct(product);
   }
 
 }
