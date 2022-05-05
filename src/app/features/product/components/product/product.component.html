@@ -1,41 +1,60 @@
 <mat-accordion>
-  <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Añadir producto
+        Add product
         <mat-icon aria-hidden="false">attach_file</mat-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <form novalidate [formGroup] = "productForm" class="form">
+    <form novalidate [formGroup]="productForm" class="form">
       <div class="container">
         <div class="primeraCol">
-          <mat-form-field class="formContainer" >
+          <mat-form-field class="formContainer">
             <mat-label> Name </mat-label>
             <input matInput class="input" formControlName="name">
+            <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('required')">
+              {{ PRODUCT_ERRORS.name.notProvided }}
+            </mat-error>
           </mat-form-field>
-          <mat-form-field class="formContainer" >
+
+          <mat-form-field class="formContainer">
             <mat-label>Price</mat-label>
             <input matInput class="input" formControlName="price" type="number">
+            <mat-error *ngIf="productForm.get('price')?.errors && productForm.get('price')?.hasError('required')">
+              {{ PRODUCT_ERRORS.price.notProvided }}
+            </mat-error>
           </mat-form-field>
-          <mat-form-field class="formContainer" >
+
+          <mat-form-field class="formContainer">
             <mat-label> Categories </mat-label>
-            <mat-select class = "input" formControlName = "categories" required>
+            <mat-select class="input" formControlName="categories" required>
               <div *ngFor="let cat of categories">
                 <mat-option *ngIf="cat.active===true" [value]="cat.name">
-                {{ cat.name }}
-              </mat-option>
+                  {{ cat.name }}
+                </mat-option>
               </div>
             </mat-select>
+            <mat-error *ngIf="productForm.get('categories')?.errors && productForm.get('categories')?.hasError('required')">
+              {{ PRODUCT_ERRORS.categories.notProvided }}
+            </mat-error>
           </mat-form-field>
         </div>
-        <div class = "segundaCol">
-          <mat-form-field class="formContainer" >
+
+        <div class="segundaCol">
+          <mat-form-field class="formContainer">
             <mat-label> Description </mat-label>
             <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+            <mat-error *ngIf="productForm.get('description')?.errors && productForm.get('description')?.hasError('required')">
+              {{ PRODUCT_ERRORS.description.notProvided }}
+            </mat-error>
           </mat-form-field>
-          <mat-form-field class="formContainer" >
+
+          <mat-form-field class="formContainer">
             <mat-label> Characteristics </mat-label>
             <input class="input" matInput formControlName="characteristics">
+            <mat-error *ngIf="productForm.get('characteristics')?.errors && productForm.get('characteristics')?.hasError('required')">
+              {{ PRODUCT_ERRORS.characteristics.notProvided }}
+            </mat-error>
           </mat-form-field>
           <div class="formBtn">
             <button mat-raised-button class="botonAnadir" type="submit" (click)="newProduct()">
@@ -54,35 +73,29 @@
   <ng-container *ngFor="let product of products">
     <div class="containerProd">
       <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-        >
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <div class="info">
-              <button
-                mat-raised-button
-                class="botonProd"
-                (click)="deleteProduct(product)"
-              >
+              <button mat-raised-button class="botonProd" (click)="deleteProduct(product)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
                 <mat-list-item role="listitem" class="product">{{
                   product.name
-                }}</mat-list-item>
+                  }}</mat-list-item>
               </mat-panel-title>
 
             </div>
           </mat-expansion-panel-header>
-          <div class="infoOculta" id ="{{ product.name }}">
+          <div class="infoOculta" id="{{ product.name }}">
 
-            <img src = "{{ product.image }}" alt = "https://www.med.unc.edu/webguide/wp-content/uploads/sites/419/2019/10/broken_link_AdobeStock_121742806.jpg">
+            <img src="{{ product.image }}"
+              alt="https://www.med.unc.edu/webguide/wp-content/uploads/sites/419/2019/10/broken_link_AdobeStock_121742806.jpg">
 
             <div class="primeraColOculta">
               <mat-list role="list">
                 <mat-list-item role="listitem">
-                  <span> Precio: </span>
+                  <span> Price: </span>
                   <span>
                     {{ product.price | currency: "EUR":true }}
                   </span>
@@ -90,34 +103,34 @@
               </mat-list>
               <mat-list role="list">
                 <mat-list-item role="listitem">
-                  <span> Categorias: </span>
-                    <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip
-                        *ngFor="let category of product.categories"
-                        (removed)="removeCategory(product,category)">
-                        {{category.name}}
-                        <button matChipRemove>
-                          <mat-icon>cancel</mat-icon>
-                        </button>
-                      </mat-chip>
-                    </mat-chip-list>
+                  <span> Categories: </span>
+                  <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
+                    <mat-chip *ngFor="let category of product.categories" (removed)="removeCategory(product,category)">
+                      {{category.name}}
+                      <button matChipRemove class="removeButton">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip>
+                  </mat-chip-list>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="segundaColOculta">
               <mat-list role="list">
                 <mat-list-item role="listitem">
-                  <span> Características: </span>
+                  <span> Characteristics: </span>
                   <span>
                     {{ product.characteristics }}
-                  </span></mat-list-item>
+                  </span>
+                </mat-list-item>
               </mat-list>
               <mat-list role="list">
                 <mat-list-item role="listitem">
-                  <span> Descripción: </span>
+                  <span> Description: </span>
                   <span>
                     {{ product.description}}
-                  </span></mat-list-item>
+                  </span>
+                </mat-list-item>
               </mat-list>
             </div>
           </div>

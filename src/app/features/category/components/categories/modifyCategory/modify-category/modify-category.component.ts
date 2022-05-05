@@ -1,10 +1,10 @@
-import { CategoryService } from './../../../../services/category-service.service';
-import { Category } from './../../../../models/category.model';
-import { CategoriesComponent } from './../../categories.component';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Category } from './../../../../models/category.model';
+import { CategoryService } from './../../../../services/category-service.service';
+import { CategoriesComponent } from './../../categories.component';
 
 @Component({
   selector: 'app-modify-category',

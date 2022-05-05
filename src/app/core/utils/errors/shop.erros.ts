@@ -1,22 +1,22 @@
 export const SHOP_ERRORS = {
   name: {
-    notProvided: 'No ha introducido el nombre de la tienda'
+    notProvided: 'Enter the name'
   },
   country: {
-    notProvided: 'No ha introducido el país'
+    notProvided: 'Enter the country'
   },
   province: {
-    notProvided: 'No ha introducido una provincia'
+    notProvided: 'Enter the province'
   },
   location: {
-    notProvided: 'No ha introducido localidad'
+    notProvided: 'Enter the location'
   },
   street: {
-    notProvided: 'No ha introducido la localidad'
+    notProvided: 'Enter the street'
   },
   cp: {
-    notProvided: 'No ha introducido código postal',
-    invalid: 'Código postal inválido',
-    spanishInvalid: 'El código postal no pertenece a la provincia'
+    notProvided: 'Enter the postal code',
+    invalid: 'Postal code invalid',
+    spanishInvalid: 'The postal code does not belong to the province'
   }
 }
