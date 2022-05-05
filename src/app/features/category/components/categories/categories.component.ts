@@ -2,6 +2,7 @@ import { CategoryService } from 'src/app/features/category/services/category-ser
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../models/category.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-categories',
@@ -11,10 +12,16 @@ import { Category } from '../../models/category.model';
 export class CategoriesComponent implements OnInit {
   categoryForm: FormGroup;
   panelOpenState=false;
+  sub:Subscription;
   categories!: Category[];
 
   constructor(private form: FormBuilder,
     public categoryService: CategoryService) {
+
+      this.sub=this.categoryService.getCategories().subscribe(categoriesFromApi => {
+        this.categories = (!!categoriesFromApi && categoriesFromApi.length > 0 ? categoriesFromApi : []);
+      });
+
     this.categoryForm = this.form.group({
       name: new FormControl
         (null,
@@ -36,7 +43,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getAllCategories();
   }
 
   get errorMessageName(): string {
@@ -94,6 +100,10 @@ export class CategoriesComponent implements OnInit {
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
     return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }

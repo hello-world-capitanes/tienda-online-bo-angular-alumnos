@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 @Injectable({
   providedIn: 'root'
 })
-export abstract class APIServiceService {
+export abstract class FirestoreService {
 
   protected abstract collection: string;
 
@@ -12,11 +12,12 @@ export abstract class APIServiceService {
 
   }
 
-  protected getCollection(): AngularFirestoreCollection<any> {
+  protected getCollection():AngularFirestoreCollection{
     return this.firestore.collection(this.collection);
   }
 
-  protected getFirestore(): AngularFirestore {
+  protected getFirestore():AngularFirestore{
     return this.firestore;
   }
+
 }
