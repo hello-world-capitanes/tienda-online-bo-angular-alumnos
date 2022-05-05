@@ -1,3 +1,5 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
@@ -9,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
-  constructor( public authService: AuthService) {
+  constructor( public authService: AuthService, private snackBar: MatSnackBar) {
     this.signInForm = this.initForm();
   }
 
@@ -18,8 +20,10 @@ export class SignInComponent implements OnInit {
 
   logIn(){
     if(this.signInForm.invalid){
-      //TODO Cambiar log por el snackbar
-      console.log("Formulario no válido");
+      this.snackBar.openFromComponent(SnackBarMessageComponent, {
+        data: "Invalid form",
+        duration: 1500
+      });
       return;
     }
     this.authService.signIn(this.getFormValue("userName"), this.getFormValue("userPassword"))
@@ -27,7 +31,7 @@ export class SignInComponent implements OnInit {
 
   initForm(): FormGroup{
     return new FormGroup({
-      userName: new FormControl('', [Validators.required]),
+      userName: new FormControl('', [Validators.required, Validators.email]),
       userPassword: new FormControl('', [Validators.required]),
     });
   }

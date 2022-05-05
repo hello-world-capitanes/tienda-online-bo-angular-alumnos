@@ -20,7 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   declarations: [
     HeaderComponent,
     SidebarComponent,
-    SnackBarMessageComponent
+    SnackBarMessageComponent,
     HomeComponent
   ],
   imports: [
