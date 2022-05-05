@@ -144,7 +144,7 @@ export class ProductService extends APIServiceService{
       active: product.active,
     } as ProductDB;
 
-    return this.getCollection().doc(product.id).set(Object.assign({}, product)).then(() => {
+    return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
       return productDB;
     })
   }

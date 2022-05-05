@@ -23,18 +23,27 @@ export class ShopService extends FirestoreService {
     return this.getCollection().valueChanges().pipe(map(shops => shops as Shop[]));
   }
 
-  async shopExists(shopRef: Shop): Promise<boolean>{
+  addShop(shop: Shop): Promise<Shop> {
+    // Check if shop already exits
+    let newShop = {
+      id: this.firestore.createId(),
+      name: shop.name,
+      address: {
+        country : shop.address.country,
+        province : shop.address.province,
+        location : shop.address.location,
+        cp : shop.address.cp,
+        street : shop.address.street,
 
-    return (await this.firestore.collection('shops').ref.doc('A0SasV3DNSDAHohcu4kG4vwVxF').get()).exists;
+      },
+      active: shop.active,
+      products: shop.products,
 
-  }
+    }
 
-  async addShop(shop: Shop): Promise<Shop> {
-  // Check if shop already exits
-
-  shop.id = this.getFirestore().createId();
-  await this.getCollection().doc(shop.id).set(shop);
-    return shop;
+    return this.getCollection().doc(newShop.id).set(newShop).then(() => {
+      return newShop as Shop;
+    });
 /*     this.getCollection().add({ name: "aaa"}).then(obj => {
     this.getCollection().doc(obj.id).set({...obj.get(), id: obj.id});
   }) */
@@ -59,6 +68,9 @@ export class ShopService extends FirestoreService {
     return shop_1;
   }
 
+  async shopExists(shop: Shop){
+    return (await this.getCollection().ref.doc(shop.id).get()).exists;
+  }
 /*
   addProduct(product: ProductStock) {
     this._productStockList.push(product);

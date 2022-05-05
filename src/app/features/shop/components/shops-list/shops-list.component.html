@@ -30,6 +30,7 @@
                   <div class="expansionContent">
                     <span> Nombre: {{ shop.name }} </span>
                     <span> Direccion: {{ shop.address.street }} </span>
+                    <span> Activo: {{ shop.active }} </span>
                     <button mat-raised-button color = "accent" (click) = "openProductList(shop.name)">Ver productos</button>
                   </div>
                 </mat-list-item>

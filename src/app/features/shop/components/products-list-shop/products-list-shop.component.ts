@@ -13,7 +13,7 @@ export class ProductsListShopComponent implements OnInit {
   shops!: Shop[];
 
   constructor(private shopService: ShopService, public dialogRef: MatDialogRef<ShopsListComponent>) {
-    this.shops = this.shopService.getAllShops();
+    //this.shops = this.shopService.getAllShops();
   }
 
   ngOnInit(): void {}
