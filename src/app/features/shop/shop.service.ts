@@ -4,6 +4,8 @@ import { Address } from './../../core/models/address.model';
 import { Product } from './../product/models/product-models';
 import { ProductStock } from './../product/models/product-stock.model';
 import { Shop } from './models/shop.model';
+import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -21,10 +23,11 @@ export class ShopService {
   private _productStockList: ProductStock[];
   private _selectedShopSeeProducts!: Shop;
 
-
-
-  constructor(private productService:ProductService) {
-    this._productList=productService.getAllProducts();
+  constructor(
+    private productService: ProductService,
+    public snackBar: MatSnackBar
+  ) {
+    this._productList = productService.getAllProducts();
 
     this._productStockList = [
       new ProductStock(this._productList[0], 5),
@@ -97,9 +100,12 @@ export class ShopService {
     this._selectedShopSeeProducts = value;
   }
 
-  modifyStock(prod:ProductStock, units:number){
+  modifyStock(prod: ProductStock, units: number) {
     prod.stock = units;
-    return prod.stock
+    this.snackBar.openFromComponent(SnackBarMessageComponent, {
+      data: 'Stock del producto ' + prod.product.name + ' modificado',
+      duration: 1500,
+    });
+    return prod.stock;
   }
-
 }
