@@ -66,7 +66,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   addCategory() {
-    let bool: boolean;
     if (!this.categoryForm.valid) {
       return;
     }
