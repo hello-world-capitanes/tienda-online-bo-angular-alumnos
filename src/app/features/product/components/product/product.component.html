@@ -1,72 +1,76 @@
-<mat-accordion>
-  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Add product
-        <mat-icon aria-hidden="false">attach_file</mat-icon>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <form novalidate [formGroup]="productForm" class="form">
-      <div class="container">
-        <div class="primeraCol">
-          <mat-form-field class="formContainer">
-            <mat-label> Name </mat-label>
-            <input matInput class="input" formControlName="name">
-            <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('required')">
-              {{ PRODUCT_ERRORS.name.notProvided }}
-            </mat-error>
-          </mat-form-field>
+<div class="formContainer">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add product
+          <mat-icon aria-hidden="false">attach_file</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form novalidate [formGroup]="productForm" class="form">
+        <div class="container">
+          <div class="primeraCol">
+            <mat-form-field class="formContainer">
+              <mat-label> Name </mat-label>
+              <input matInput class="input" formControlName="name">
+              <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('required')">
+                {{ PRODUCT_ERRORS.name.notProvided }}
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field class="formContainer">
-            <mat-label>Price</mat-label>
-            <input matInput class="input" formControlName="price" type="number">
-            <mat-error *ngIf="productForm.get('price')?.errors && productForm.get('price')?.hasError('required')">
-              {{ PRODUCT_ERRORS.price.notProvided }}
-            </mat-error>
-          </mat-form-field>
+            <mat-form-field class="formContainer">
+              <mat-label>Price</mat-label>
+              <input matInput class="input" formControlName="price" type="number">
+              <mat-error *ngIf="productForm.get('price')?.errors && productForm.get('price')?.hasError('required')">
+                {{ PRODUCT_ERRORS.price.notProvided }}
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field class="formContainer">
-            <mat-label> Categories </mat-label>
-            <mat-select class="input" formControlName="categories" required>
-              <div *ngFor="let cat of categories">
-                <mat-option *ngIf="cat.active===true" [value]="cat.name">
-                  {{ cat.name }}
-                </mat-option>
-              </div>
-            </mat-select>
-            <mat-error *ngIf="productForm.get('categories')?.errors && productForm.get('categories')?.hasError('required')">
-              {{ PRODUCT_ERRORS.categories.notProvided }}
-            </mat-error>
-          </mat-form-field>
-        </div>
+            <mat-form-field class="formContainer">
+              <mat-label> Categories </mat-label>
+              <mat-select class="input" formControlName="categories" required>
+                <div *ngFor="let cat of categories">
+                  <mat-option *ngIf="cat.active===true" [value]="cat.name">
+                    {{ cat.name }}
+                  </mat-option>
+                </div>
+              </mat-select>
+              <mat-error
+                *ngIf="productForm.get('categories')?.errors && productForm.get('categories')?.hasError('required')">
+                {{ PRODUCT_ERRORS.categories.notProvided }}
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-        <div class="segundaCol">
-          <mat-form-field class="formContainer">
-            <mat-label> Description </mat-label>
-            <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
-            <mat-error *ngIf="productForm.get('description')?.errors && productForm.get('description')?.hasError('required')">
-              {{ PRODUCT_ERRORS.description.notProvided }}
-            </mat-error>
-          </mat-form-field>
+          <div class="segundaCol">
+            <mat-form-field class="formContainer">
+              <mat-label> Description </mat-label>
+              <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+              <mat-error
+                *ngIf="productForm.get('description')?.errors && productForm.get('description')?.hasError('required')">
+                {{ PRODUCT_ERRORS.description.notProvided }}
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field class="formContainer">
-            <mat-label> Characteristics </mat-label>
-            <input class="input" matInput formControlName="characteristics">
-            <mat-error *ngIf="productForm.get('characteristics')?.errors && productForm.get('characteristics')?.hasError('required')">
-              {{ PRODUCT_ERRORS.characteristics.notProvided }}
-            </mat-error>
-          </mat-form-field>
-          <div class="formBtn">
-            <button mat-raised-button class="botonAnadir" type="submit" (click)="newProduct()">
-              <mat-icon> add_box </mat-icon>
-            </button>
+            <mat-form-field class="formContainer">
+              <mat-label> Characteristics </mat-label>
+              <input class="input" matInput formControlName="characteristics">
+              <mat-error
+                *ngIf="productForm.get('characteristics')?.errors && productForm.get('characteristics')?.hasError('required')">
+                {{ PRODUCT_ERRORS.characteristics.notProvided }}
+              </mat-error>
+            </mat-form-field>
+            <div class="formBtn">
+              <button mat-raised-button class="addButton" type="submit" (click)="newProduct()">
+                <mat-icon> add_box </mat-icon>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
-  </mat-expansion-panel>
-</mat-accordion>
-
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
 
 <mat-list role="list" class="listaProductos">
   <mat-divider></mat-divider>
@@ -76,7 +80,7 @@
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <div class="info">
-              <button mat-raised-button class="botonProd" (click)="deleteProduct(product)">
+              <button mat-raised-button class="deleteButton" (click)="deleteProduct(product)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
@@ -84,7 +88,6 @@
                   product.name
                   }}</mat-list-item>
               </mat-panel-title>
-
             </div>
           </mat-expansion-panel-header>
           <div class="infoOculta" id="{{ product.name }}">
@@ -107,7 +110,7 @@
                   <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
                     <mat-chip *ngFor="let category of product.categories" (removed)="removeCategory(product,category)">
                       {{category.name}}
-                      <button matChipRemove class="removeButton">
+                      <button matChipRemove>
                         <mat-icon>cancel</mat-icon>
                       </button>
                     </mat-chip>
