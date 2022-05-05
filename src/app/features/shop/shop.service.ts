@@ -1,90 +1,63 @@
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { APIServiceService } from './../../core/services/apiservice.service';
 import { ProductService } from './../product/services/product.service';
 import { Injectable } from '@angular/core';
 import { Address } from './../../core/models/address.model';
 import { Product } from './../product/models/product-models';
 import { ProductStock } from './../product/models/product-stock.model';
 import { Shop } from './models/shop.model';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ShopService {
-  private spainShops!: Shop[];
-  private _newAddress = new Address(
-    'España',
-    'Madrid',
-    'Alcala',
-    28890,
-    'Calle Cervantes 10'
-  );
-  private _productList!: Product[];
-  private _productStockList!: ProductStock[];
-  private _selectedShopSeeProducts!: string;
+export class ShopService extends APIServiceService {
+  protected collection: string;
+  private readonly SHOP_COLLECTION = 'shops';
 
-
-
-  constructor(private productService:ProductService) {
-    //this._productList=productService.getAllProducts();
-
-    /*this._productStockList = [
-      new ProductStock(this._productList[0], 5),
-      new ProductStock(this._productList[1], 14),
-      new ProductStock(this._productList[2], 2),
-      new ProductStock(this._productList[3], 7),
-    ];*/
-
+  constructor(productService: ProductService, firestore: AngularFirestore) {
+    super(firestore);
+    this.collection = this.SHOP_COLLECTION;
+    //this._productList$= productService.getAllProducts();
 
   }
 
-  getAllShops(): Shop[] {
-    return this.spainShops;
+  getAllShops(): Observable<Shop[]> {
+    //return this.getCollection().get().pipe(map(snapshot => snapshot?.docs.map(shop => shop.data() as Shop)));
+    return this.getCollection().valueChanges().pipe(map(shops => shops as Shop[]));
   }
 
-  deleteShop(shopRef: Shop) {
-    let index = this.spainShops.findIndex((shop) => {
-      return shop.id === shopRef.id;
-    });
-    this.spainShops.splice(index, 1);
+  addShop(shop: Shop): Promise<Shop> {
+    // Check if shop already exits
 
-    return !this.shopExists(shopRef);
-  }
-
-  shopExists(shopRef: Shop): boolean {
-    return !!this.spainShops.find((shop) => {
-      return shop === shopRef;
-    });
-  }
-
-  addShop(newShop: Shop) {
-    this.spainShops.push(newShop);
-  }
-
-  getShop(id: string) {
-    return this.spainShops.find((shop) => {
-      shop.id === id;
+    shop.id = this.getFirestore().createId();
+    return this.getCollection().doc(shop.id).set(shop).then(() => {
       return shop;
     });
+/*     this.getCollection().add({ name: "aaa"}).then(obj => {
+      this.getCollection().doc(obj.id).set({...obj.get(), id: obj.id});
+    }) */
   }
 
+  filterShops(): Promise<Shop[]> {
+    return this.getCollection().ref.where("active", "==", true).get().then(snapshot => snapshot?.docs.map(doc => {
+      const shop = doc?.data() as Shop;
+      shop.id = doc.id;
+      return shop;
+    }));
+  }
+
+  getShop(id: string): Promise<Shop> {
+    return this.getCollection().ref.where("id", "==", id).get().then(snapshot => snapshot?.docs[0].data() as Shop)
+  }
+
+
+/*
   addProduct(product: ProductStock) {
     this._productStockList.push(product);
   }
 
-  increaseStockProduct(product: ProductStock) {
-    this._productStockList.find((productFind) => {
-      if (productFind.product.id === product.product.id) {
-        productFind.stock = product.stock;
-      }
-    });
-  }
-
-  decreaseStockProduct(product: ProductStock) {
-    this._productStockList.find((productFind) => {
-      if (productFind.product.id === product.product.id) {
-        productFind.stock = product.stock;
-      }
-    });
-  }
   getProductsStock() {
     return this._productStockList;
   }
@@ -94,5 +67,5 @@ export class ShopService {
   }
   public set selectedShopSeeProducts(value: string) {
     this._selectedShopSeeProducts = value;
-  }
+  } */
 }
