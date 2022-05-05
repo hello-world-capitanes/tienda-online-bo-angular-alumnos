@@ -34,7 +34,7 @@ export class ShopsListComponent implements OnInit {
 
   }
   deleteShop(shop:Shop){
-
+    this.shopService.deleteShop(shop);
   }
 
 /*   deleteShop(shop: Shop){

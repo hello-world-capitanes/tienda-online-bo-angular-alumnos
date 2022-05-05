@@ -1,18 +1,14 @@
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { APIServiceService } from './../../core/services/apiservice.service';
-import { ProductService } from './../product/services/product.service';
 import { Injectable } from '@angular/core';
-import { Address } from './../../core/models/address.model';
-import { Product } from './../product/models/product-models';
-import { ProductStock } from './../product/models/product-stock.model';
-import { Shop } from './models/shop.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { ProductService } from './../product/services/product.service';
+import { Shop } from './models/shop.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ShopService extends APIServiceService {
+export class ShopService extends FirestoreService {
   protected collection: string;
   private readonly SHOP_COLLECTION = 'shops';
 
@@ -52,7 +48,11 @@ export class ShopService extends APIServiceService {
     return this.getCollection().ref.where("id", "==", id).get().then(snapshot => snapshot?.docs[0].data() as Shop)
   }
 
-
+  deleteShop(shop:Shop):Promise<Shop|void>{
+    return this.getCollection().doc(shop.id).update({'active': false}).then(shop =>{
+      return shop;
+    });
+  }
 /*
   addProduct(product: ProductStock) {
     this._productStockList.push(product);
