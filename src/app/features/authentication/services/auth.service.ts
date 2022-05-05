@@ -5,7 +5,7 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { delay, map } from 'rxjs';
 import { UserAdmin } from 'src/app/core/models/userAdmin';
 
 @Injectable({

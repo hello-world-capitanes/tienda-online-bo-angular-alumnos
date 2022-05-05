@@ -1,45 +1,16 @@
-<div class="signInContainer">
-  <div class="authBlock">
-    <h3>Sign In</h3>
-    <div class="formGroup">
-      <input
-        type="text"
-        class="formControl"
-        placeholder="Username"
-        #userName
-        required
-      />
-    </div>
-    <div class="formGroup">
-      <input
-        type="password"
-        class="formControl"
-        placeholder="Password"
-        #userPassword
-        required
-      />
-    </div>
-    <!-- Calling SignIn Api from AuthService -->
-    <div class="formGroup">
-      <input
-        type="button"
-        class="btn btnPrimary"
-        value="Log in"
-        (click)="authService.signIn(userName.value, userPassword.value)"
-      />
-    </div>
-<!--     <div class="formGroup">
-      <span class="or"><span class="orInner">Or</span></span>
-    </div>
-
-    <div class="forgotPassword">
-      <button routerLink="/forgot-password">Forgot Password?</button>
-    </div>
-  </div>
-  <div class="redirectToLogin">
-    <span
-      >Don't have an account?<button class="redirect" routerLink="/sign-up">
-        Sign Up
-      </button></span>
-  </div> -->
+<div class="contenedorForm">
+  <form [formGroup]="signInForm">
+    <span class="titulo">Log In</span>
+    <mat-form-field>
+      <mat-label>User</mat-label>
+      <input type="text" matInput formControlName="userName" />
+      <mat-error>Campo obligatorio</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="userPassword" />
+      <mat-error>Campo obligatorio</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="logIn()">Log in</button>
+  </form>
 </div>
