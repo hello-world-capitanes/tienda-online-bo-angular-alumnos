@@ -1,13 +1,1 @@
-<app-header (onToggleMenu)="onClickMenuButton()"></app-header>
-<mat-divider></mat-divider>
-<mat-drawer-container class="sidebar-container" autosize>
-
-  <mat-drawer #drawer class="sidebar" mode="side" [opened]="true">
-    <app-sidebar></app-sidebar>
-  </mat-drawer>
-
-  <mat-drawer-content class="sidebar-content">
-    <router-outlet></router-outlet>
-  </mat-drawer-content>
-
-</mat-drawer-container>
+<app-home></app-home>
