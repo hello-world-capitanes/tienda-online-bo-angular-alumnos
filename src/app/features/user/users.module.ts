@@ -1,3 +1,4 @@
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,12 +10,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { FormUserComponent } from './components/form-user/form-user.component';
 import { ListUserComponent } from './components/list-user/list-user.component';
+import { UserComponent } from './components/user/user.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
   declarations: [
     FormUserComponent,
-    ListUserComponent
+    ListUserComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
@@ -25,11 +29,11 @@ import { ListUserComponent } from './components/list-user/list-user.component';
     MatIconModule,
     ReactiveFormsModule,
     MatButtonModule,
-
+    MatSidenavModule,
+    MatToolbarModule
   ],
   exports: [
-    FormUserComponent,
-    ListUserComponent
+    UserComponent
   ],
 })
 export class UsersModule { }
