@@ -27,7 +27,7 @@ export class AuthService {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['home']);
       } else {
         this.userData = null;
       }
@@ -90,7 +90,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         });
         this.setUserData(result.user);
       })

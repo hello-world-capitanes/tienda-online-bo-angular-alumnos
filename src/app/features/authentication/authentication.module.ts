@@ -39,7 +39,8 @@ import { SignInSidebarComponent } from './components/sign-in-sidebar/sign-in-sid
     MatButtonModule
   ],
   exports: [
-    SignInSidebarComponent
+    SignInSidebarComponent,
+    SignInComponent
   ]
 })
 export class AuthenticationModule { }

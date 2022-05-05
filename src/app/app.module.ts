@@ -38,6 +38,7 @@ import { ShopsModule } from './features/shop/shops.module';
     CategoriesModule,
     ProductModule,
     AuthenticationModule,
+    SharedModule,
 
     MatSidenavModule,
     MatExpansionModule,
