@@ -39,6 +39,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CategoriesModule,
     ProductModule,
     AuthenticationModule,
+    SharedModule,
 
     MatSidenavModule,
     MatExpansionModule,
