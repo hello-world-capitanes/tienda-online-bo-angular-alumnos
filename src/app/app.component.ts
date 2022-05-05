@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/features/authentication/services/auth.service';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
@@ -8,12 +9,4 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'tienda-online-bo-angular-alumnos';
-
-  @ViewChild('drawer') drawer!: MatDrawer;
-
-  onClickMenuButton(): void {
-    this.drawer?.toggle();
-  }
-
 }

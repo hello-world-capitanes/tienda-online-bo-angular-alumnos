@@ -16,8 +16,4 @@ export abstract class FirestoreService {
     return this.firestore.collection(this.collection);
   }
 
-  protected getFirestore():AngularFirestore{
-    return this.firestore;
-  }
-
 }

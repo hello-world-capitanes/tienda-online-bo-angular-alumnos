@@ -1,3 +1,5 @@
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -14,6 +16,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SignInSidebarComponent } from './components/sign-in-sidebar/sign-in-sidebar.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -35,11 +39,14 @@ import { SignInSidebarComponent } from './components/sign-in-sidebar/sign-in-sid
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-
-    MatButtonModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   exports: [
-    SignInSidebarComponent
+    SignInSidebarComponent,
+    SignInComponent
   ]
 })
 export class AuthenticationModule { }
