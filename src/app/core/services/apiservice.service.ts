@@ -8,7 +8,7 @@ export abstract class APIServiceService {
 
   protected abstract collection: string;
 
-  constructor(private firestore:AngularFirestore) {
+  constructor(private firestore: AngularFirestore) {
 
   }
 

@@ -4,11 +4,15 @@ import { Address } from './../../core/models/address.model';
 import { Product } from './../product/models/product-models';
 import { ProductStock } from './../product/models/product-stock.model';
 import { Shop } from './models/shop.model';
+import { APIServiceService } from 'src/app/core/services/apiservice.service';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ShopService {
+export class ShopService extends APIServiceService{
+
+  protected collection!: string;
   private spainShops!: Shop[];
   private _newAddress = new Address(
     'España',
@@ -23,8 +27,12 @@ export class ShopService {
 
 
 
-  constructor(private productService:ProductService) {
-    this._productList=productService.getAllProducts();
+  constructor(private  firestoreInit: AngularFirestore,
+    private productService: ProductService) {
+
+    super(firestoreInit);
+
+    this._productList =  this.productService.getAllProducts();
 
     this._productStockList = [
       new ProductStock(this._productList[0], 5),
@@ -57,18 +65,20 @@ export class ShopService {
   }
 
   deleteShop(shopRef: Shop) {
+
     let index = this.spainShops.findIndex((shop) => {
       return shop.id === shopRef.id;
     });
     this.spainShops.splice(index, 1);
 
+    this.firestoreInit.collection('shops').doc('A0SasV3ohcu4kG4vwVxF').update({'active': false});
+
     return !this.shopExists(shopRef);
   }
 
-  shopExists(shopRef: Shop): boolean {
-    return !!this.spainShops.find((shop) => {
-      return shop === shopRef;
-    });
+  async shopExists(shopRef: Shop): Promise<boolean>{
+
+    return (await this.firestoreInit.collection('shops').ref.doc('A0SasV3DNSDAHohcu4kG4vwVxF').get()).exists;
   }
 
   addShop(newShop: Shop) {
