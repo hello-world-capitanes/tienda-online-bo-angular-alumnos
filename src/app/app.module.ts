@@ -20,6 +20,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AuthenticationModule } from './features/authentication/authentication.module';
 import { AuthService } from './features/authentication/services/auth.service';
 import { ShopsModule } from './features/shop/shops.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,10 +47,11 @@ import { ShopsModule } from './features/shop/shops.module';
     ReactiveFormsModule,
     MatListModule,
     MatExpansionModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSnackBarModule
   ],
   providers: [AuthService,
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' }}
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' }},
   ],
   bootstrap: [AppComponent]
 })
