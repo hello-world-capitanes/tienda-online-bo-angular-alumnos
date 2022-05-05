@@ -5,7 +5,7 @@ export interface ProductDB{
   characteristics: string;
   price: number;
   description: string;
-  catgories: Category[];
+  categories: Category[];
   image: string;
   active: boolean;
 }

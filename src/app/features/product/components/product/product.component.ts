@@ -25,7 +25,9 @@ export class ProductComponent implements OnInit {
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
     })
-    this.categories = this.categoryService.getAllCategories();
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = (!!categories && categories.length > 0 ? categories : [])
+    })
   }
 
   createForm() {

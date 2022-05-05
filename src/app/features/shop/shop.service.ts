@@ -17,39 +17,23 @@ export class ShopService {
     28890,
     'Calle Cervantes 10'
   );
-  private _productList: Product[];
-  private _productStockList: ProductStock[];
+  private _productList!: Product[];
+  private _productStockList!: ProductStock[];
   private _selectedShopSeeProducts!: string;
 
 
 
   constructor(private productService:ProductService) {
-    this._productList=productService.getAllProducts();
+    //this._productList=productService.getAllProducts();
 
-    this._productStockList = [
+    /*this._productStockList = [
       new ProductStock(this._productList[0], 5),
       new ProductStock(this._productList[1], 14),
       new ProductStock(this._productList[2], 2),
       new ProductStock(this._productList[3], 7),
-    ];
+    ];*/
 
-    this.spainShops = [
-      new Shop(
-        '1234',
-        'Mercadona',
-        this._newAddress,
-        true,
-        this._productStockList
-      ),
-      new Shop('4561', 'Lidl', this._newAddress, true, this._productStockList),
-      new Shop(
-        '7895',
-        'Mediamarkt',
-        this._newAddress,
-        true,
-        this._productStockList
-      ),
-    ];
+
   }
 
   getAllShops(): Shop[] {
