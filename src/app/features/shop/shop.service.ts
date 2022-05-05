@@ -99,6 +99,7 @@ export class ShopService {
 
   modifyStock(prod:ProductStock, units:number){
     prod.stock = units;
+    return prod.stock
   }
 
 }

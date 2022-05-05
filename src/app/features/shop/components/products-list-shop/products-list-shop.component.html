@@ -9,22 +9,41 @@
 
 <div class="divShop">
   <mat-list-item role="listitem" class="nameShop">
-    {{ shop.name }}
+    {{ shop?.name }}
   </mat-list-item>
   <mat-divider></mat-divider>
 
-  <mat-list role="list" *ngFor="let product of shop.products">
-    <mat-list-item role="listitem"
-      >Nombre: {{ product.product.name }}
-    </mat-list-item>
-    
-    <div class="divStock">
-      <span> Stock: </span>
-      <mat-form-field>
-        <mat-label>Unidades</mat-label>
-        <input type="number" matInput [value]="product.stock" #units [step]="stepInput" [min]="minInput" [max]="maxInput" />
-      </mat-form-field>
-      <button mat-raised-button (click)="changeStock(product,units.value)" value="product">Aplicar Stock</button>
-    </div>
-  </mat-list>
+  <ng-container *ngIf="shop?.products && shop.products.length > 0; else noProducts">
+    <mat-list role="list" *ngFor="let productStock of shop.products">
+      <mat-list-item role="listitem"
+        >Nombre: {{ productStock.product?.name }}
+      </mat-list-item>
+
+      <div class="divStock">
+        <span> Stock: </span>
+        <mat-form-field>
+          <mat-label>Unidades</mat-label>
+          <input
+            type="number"
+            matInput
+            [value]="productStock.stock"
+            #units
+            [step]="stepInput"
+            [min]="minInput"
+            [max]="maxInput"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          (click)="changeStock(productStock, units.value)"
+          value="product"
+        >
+          Aplicar Stock
+        </button>
+      </div>
+    </mat-list>
+  </ng-container>
+  <ng-template #noProducts>
+    <span> Actualmente, no hay productos en la tienda</span>
+  </ng-template>
 </div>

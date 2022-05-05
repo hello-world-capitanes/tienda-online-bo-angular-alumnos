@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Product } from 'src/app/features/product/models/product-models';
 
 import { ShopsModifyComponent } from './shops-modify.component';
+import { Category } from 'src/app/features/category/models/category.model';
 
 describe('ShopsModifyComponent', () => {
   let component: ShopsModifyComponent;
@@ -36,7 +37,7 @@ describe('ShopsModifyComponent', () => {
       'Bolsa de 300g',
       1.3,
       'Doritos picantes bolsa grande',
-      'comida',
+      [new Category("Comida", "1", "Comida", true)],
       '',
       true
     )
@@ -47,7 +48,7 @@ describe('ShopsModifyComponent', () => {
         'Pack de 24 latas',
         2.48,
         'Cerveza lagger de calidad suprema',
-        'bebida',
+        [new Category("Bebida", "1", "Bebida", true)],
         '',
         true
       ), 5),
@@ -57,7 +58,7 @@ describe('ShopsModifyComponent', () => {
         '1L de vino',
         0.7,
         'Vino tinto para calimocho',
-        'bebida',
+        [new Category("Bebida", "1", "Bebida", true)],
         '',
         true
       ), 10),
@@ -67,7 +68,7 @@ describe('ShopsModifyComponent', () => {
         'Pack de 6 unidades',
         4,
         'Donuts original glaseados',
-        'comida',
+        [new Category("Comida", "1", "Comida", true)],
         '',
         true
       ), 2),
@@ -77,35 +78,11 @@ describe('ShopsModifyComponent', () => {
         'Bolsa de 300g',
         1.3,
         'Doritos picantes bolsa grande',
-        'comida',
+        [new Category("Comida", "1", "Comida", true)],
         '',
         true
       ), 7)
     ];
 
   });
-
-  it('Increase stock', () => {
-
-    component.increaseStock(6, newProduct);
-    let product = !!component?.products ? component.products[3] : null;
-    if (!!product){
-      expect(product.stock).toBe(13);
-      component.increaseStock(10, newProduct);
-      expect(product.stock).toBe(23);
-    }
-  });
-
-  it('Decrease stock', () => {
-
-    component.decreaseStock(6, newProduct);
-    let product = !!component?.products ? component.products[3] : null;
-    if (!!product){
-      expect(product.stock).toBe(1);
-      component.decreaseStock(10, newProduct);
-      expect(product.stock).toBe(0);
-    }
-  });
-
-
 });
