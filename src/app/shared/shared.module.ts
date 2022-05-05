@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SnackBarMessageComponent } from './components/snack-bar-message/snack-bar-message.component';
 import { HomeComponent } from './components/home/home.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -19,6 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   declarations: [
     HeaderComponent,
     SidebarComponent,
+    SnackBarMessageComponent
     HomeComponent
   ],
   imports: [
