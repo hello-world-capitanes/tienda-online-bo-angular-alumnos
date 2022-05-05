@@ -1,21 +1,32 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { map, Observable } from 'rxjs';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
-  private _categoryList: Category[];
+export class CategoryService extends FirestoreService{
+  protected collection: string;
+  private readonly CATEGORY_COLLECTION='categories'
 
-  constructor() {
-    this._categoryList = [
-      new Category("Lácteos", "1", "Productos lácteos", true),
-      new Category("Aceite", "2", "Aceites", false),
-      new Category("Carne", "3", "Productos cárnicos", true),
-      new Category("Pescado", "4", "Pescados", false),
-      new Category("Bollería", "5", "Pescados", true),
-      new Category("Alcohol", "6", "Pescados", true),
-    ]
+  private _categoryList?: Category[];
+
+  constructor(firestore: AngularFirestore) {
+    super(firestore)
+    this.collection=this.CATEGORY_COLLECTION;
+
+  }
+
+  getCategories(): Observable<Category[]> {
+    return this.getCollection().valueChanges().pipe(map(category=>category as Category[]));
+  }
+
+  addCategory2(category:Category){
+
+
+
   }
 
   addCategory(category: Category) {
@@ -35,9 +46,8 @@ export class CategoryService {
         return;
       }
     } else {
-      this._categoryList.push(category)
+      this._categoryList?.push(category)
     }
-    console.log
 
   };
 
@@ -50,11 +60,11 @@ export class CategoryService {
   }
 
   getAllCategories(): Category[] {
-    return this._categoryList;
+    return this._categoryList!;
   }
 
   deleteCategory(value: Category) {
-    if (this._categoryList.some(element => element.id == value.id)) {
+    if (this._categoryList?.some(element => element.id == value.id)) {
       this._categoryList.splice(this._categoryList.indexOf(value), 1);
     } else {
       return;
@@ -62,7 +72,7 @@ export class CategoryService {
   }
 
   public get cateogoryList(): Category[] {
-    return this._categoryList;
+    return this._categoryList!;
   }
 
   public set categoryList(value: Category[]) {
@@ -70,7 +80,7 @@ export class CategoryService {
   }
 
   findById(id: string) {
-    return this._categoryList.find((category) => {
+    return this._categoryList?.find((category) => {
       if (category.id === id) {
         return category;
       }

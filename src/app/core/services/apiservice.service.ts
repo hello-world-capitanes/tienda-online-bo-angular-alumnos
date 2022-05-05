@@ -11,6 +11,7 @@ export abstract class APIServiceService {
   constructor(protected firestore:AngularFirestore) {
 
   }
+  
 
   protected getCollection(){
     return this.firestore.collection(this.collection);
