@@ -9,7 +9,7 @@
         >
           <mat-expansion-panel-header>
             <div class="info">
-              <button mat-raised-button class="buttonUser" (click)="deleteUser(user)">
+              <button mat-raised-button class="deleteButton" (click)="deleteUser(user)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
@@ -24,8 +24,8 @@
               <mat-list role="list">
                 <mat-list-item role="listitem">
                   <div class="expansionContent">
-                    <span> Nombre: {{ user.name }} {{ user.surname }} </span>
-                    <span> Correo electronico: {{ user.email }} </span>
+                    <span> Name: {{ user.name }} {{ user.surname }} </span>
+                    <span> Email: {{ user.email }} </span>
                   </div>
                 </mat-list-item>
               </mat-list>

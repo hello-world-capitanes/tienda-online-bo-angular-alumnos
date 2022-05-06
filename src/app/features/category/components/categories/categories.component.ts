@@ -1,3 +1,5 @@
+import { MatDialog } from '@angular/material/dialog';
+import { ModifyCategoryComponent } from './modifyCategory/modify-category/modify-category.component';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +16,8 @@ export class CategoriesComponent implements OnInit {
   categories!: Category[];
 
   constructor(private form: FormBuilder,
-    public categoryService: CategoryService) {
+    public categoryService: CategoryService,
+    private matDialog: MatDialog,) {
     this.categoryForm = this.form.group({
       name: new FormControl
         (null,
@@ -42,21 +45,21 @@ export class CategoriesComponent implements OnInit {
   get errorMessageName(): string {
     const form: FormControl = (this.categoryForm.get('name') as FormControl);
     return form.hasError('required') ?
-      'Introduce un nombre para la categoría' :
+      'Enter a name for the category' :
       form.hasError('minlength') ?
-        'El nombre debe tener mínimo x carácteres' :
+        'The name must have at least 3 characters' :
         form.hasError('maxlength') ?
-          'El nombre debe tener máximo x carácteres' : '';
+          'The name must have maximum 20 characters' : '';
   }
 
   get errorMessageDescription(): string {
     const form: FormControl = (this.categoryForm.get('description') as FormControl);
     return form.hasError('required') ?
-      'Introduce una descripción para la categoría' :
+      'Enter a description for the category' :
       form.hasError('minlength') ?
-        'Introduce una buena descripción' :
+        'The name must have at least 3 characters' :
         form.hasError('maxlength') ?
-          'Introduce una descripción mas corta' : '';
+          'Enter a shorter description' : '';
   }
 
   addCategory() {
@@ -71,6 +74,7 @@ export class CategoriesComponent implements OnInit {
       true)
 
     this.categoryService.addCategory(category)
+    this.categoryForm.reset();
   }
 
   deleteCategory(category: Category) {
@@ -94,6 +98,12 @@ export class CategoriesComponent implements OnInit {
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
     return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  modifyCategory(){
+    const dialogRef = this.matDialog.open(ModifyCategoryComponent, {
+      width: '350px',
+    });
   }
 
 }
