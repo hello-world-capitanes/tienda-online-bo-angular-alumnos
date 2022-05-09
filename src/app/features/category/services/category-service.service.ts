@@ -125,4 +125,7 @@ export class CategoryService extends FirestoreService{
       return null;
     });
   }
+  getCategory(id:string){
+    return new Category("","","",true);
+  }
 }
