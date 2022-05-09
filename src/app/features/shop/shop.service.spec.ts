@@ -14,18 +14,16 @@ describe('ShopService', () => {
   });
 
   it('Delete shop', () => {
-    const products = service.getProductsStock();
-    const newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, products);
+    const newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, []);
     service.addShop(newShop);
     service.deleteShop(newShop);
-    expect(service.shopExists(newShop)).toBeFalse();
+    expect(service.shopExistsById(newShop)).toBeFalse();
   });
 
   it('Add shop', () => {
-    const products = service.getProductsStock();
-    const newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, products);
+    const newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, []);
     service.addShop(newShop);
-    expect(service.shopExists(newShop)).toBeTruthy();
+    expect(service.shopExistsById(newShop)).toBeTruthy();
   })
 
 });
