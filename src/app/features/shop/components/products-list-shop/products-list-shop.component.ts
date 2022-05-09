@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ShopsListComponent } from './../shops-list/shops-list.component';
 import { Component, OnInit } from '@angular/core';
 import { Shop } from '../../models/shop.model';
@@ -10,10 +11,12 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./products-list-shop.component.scss'],
 })
 export class ProductsListShopComponent implements OnInit {
-  shops!: Shop[];
+  shop!: Shop;
 
   constructor(private shopService: ShopService, public dialogRef: MatDialogRef<ShopsListComponent>) {
-    this.shops = this.shopService.getAllShops();
+   this.shopService.getShop().then( shop => {
+      this.shop = shop;
+    });
   }
 
   ngOnInit(): void {}

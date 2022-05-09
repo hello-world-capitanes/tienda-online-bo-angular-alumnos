@@ -3,6 +3,7 @@ import { CategoryService } from 'src/app/features/category/services/category-ser
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../models/category.model';
+import { Subscription } from 'rxjs';
 import { ModifyCategoryComponent } from './modifyCategory/modify-category/modify-category.component';
 
 @Component({
@@ -13,11 +14,17 @@ import { ModifyCategoryComponent } from './modifyCategory/modify-category/modify
 export class CategoriesComponent implements OnInit {
   categoryForm: FormGroup;
   panelOpenState=false;
+  sub:Subscription;
   categories!: Category[];
 
   constructor(private form: FormBuilder,
     public categoryService: CategoryService,
     private matDialog: MatDialog,) {
+
+      this.sub=this.categoryService.getCategories().subscribe(categoriesFromApi => {
+        this.categories = (!!categoriesFromApi && categoriesFromApi.length > 0 ? categoriesFromApi : []);
+      });
+
     this.categoryForm = this.form.group({
       name: new FormControl
         (null,
@@ -39,7 +46,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getAllCategories();
   }
 
   get errorMessageName(): string {
@@ -63,7 +69,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   addCategory() {
-    let bool: boolean;
     if (!this.categoryForm.valid) {
       return;
     }
@@ -100,6 +105,10 @@ export class CategoriesComponent implements OnInit {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+
+  }
   modifyCategory(){
     const dialogRef = this.matDialog.open(ModifyCategoryComponent, {
       width: '350px',
