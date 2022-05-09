@@ -32,7 +32,7 @@ export class ProductsListShopComponent implements OnInit {
 
   changeStock(product:ProductStock,units:string){
     let newStock = Number.parseInt(units);
-    return this.shopService.modifyStock(product,newStock);
+    //return this.shopService.modifyStock(product,newStock);
   }
   
 }
