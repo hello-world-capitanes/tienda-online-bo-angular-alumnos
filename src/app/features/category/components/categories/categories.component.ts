@@ -63,7 +63,7 @@ export class CategoriesComponent implements OnInit {
     return form.hasError('required') ?
       'Enter a description for the category' :
       form.hasError('minlength') ?
-        'The name must have at least 3 characters' :
+        'The description must have at least 3 characters' :
         form.hasError('maxlength') ?
           'Enter a shorter description' : '';
   }
@@ -84,18 +84,6 @@ export class CategoriesComponent implements OnInit {
 
   deleteCategory(category: Category) {
     this.categoryService.deleteCategory(category);
-  }
-
-  existId(id: string): boolean {
-    if (
-      this.categoryService.categoryList.find((category) => {
-        category.id === id;
-      })
-    ) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   generateId(): string {

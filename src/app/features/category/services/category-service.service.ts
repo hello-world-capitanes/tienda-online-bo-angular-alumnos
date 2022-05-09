@@ -1,8 +1,6 @@
-import { Product } from 'src/app/features/product/models/product-models';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, docChanges } from '@angular/fire/compat/firestore';
-import { isReactNative } from '@firebase/util';
-import { catchError, map, Observable, Subscription } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { Category } from '../models/category.model';
 
@@ -12,8 +10,6 @@ import { Category } from '../models/category.model';
 export class CategoryService extends FirestoreService{
   protected collection: string;
   private readonly CATEGORY_COLLECTION='categories'
-
-  private _categoryList?: Category[];
 
   constructor(firestore: AngularFirestore) {
     super(firestore)
@@ -33,6 +29,7 @@ export class CategoryService extends FirestoreService{
    * @param category
    * @returns category with DB id
    */
+
     async addCategory(category: Category): Promise<Category | undefined> {
 
       const result =await this.categoryExists(category)
@@ -78,36 +75,5 @@ export class CategoryService extends FirestoreService{
     }));
 
   }*/
-
-  getAllCategories(): Category[] {
-    return this._categoryList!;
-  }
-
-  public get cateogoryList(): Category[] {
-    return this._categoryList!;
-  }
-
-  public set categoryList(value: Category[]) {
-    this._categoryList = value;
-  }
-
-  findById(id: string) {
-    return this._categoryList?.find((category) => {
-      if (category.id === id) {
-        return category;
-      }
-      return null;
-    });
-  }
-  getCategory(id:string){
-    return new Category("","","",true);
-  }
-
-  getCategoryProduct(product: Product){
-    let snapshot = [];
-    for(let i = 0; i < product.categories.length; i++){
-      snapshot.push(this.getCollection())
-    }
-  }
 
 }
