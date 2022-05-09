@@ -1,12 +1,9 @@
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductDB } from './../models/productDB.model';
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-=======
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { elementAt, map, Observable } from 'rxjs';
 import { APIServiceService } from 'src/app/core/services/apiservice.service';
->>>>>>> develop
 import { Category } from '../../category/models/category.model';
 import { Product } from '../models/product-models';
 
