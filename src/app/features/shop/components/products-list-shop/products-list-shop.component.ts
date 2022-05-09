@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ShopsListComponent } from './../shops-list/shops-list.component';
 import { Component, OnInit } from '@angular/core';
 import { Shop } from '../../models/shop.model';
@@ -12,14 +13,15 @@ import { SHOP_CONSTANTS } from '../../models/shop.constants';
   styleUrls: ['./products-list-shop.component.scss'],
 })
 export class ProductsListShopComponent implements OnInit {
-  shop: Shop;
-
+  shop!: Shop;
   maxInput = SHOP_CONSTANTS.stock.max;
   minInput = SHOP_CONSTANTS.stock.min;
   stepInput = SHOP_CONSTANTS.stock.step;
 
   constructor(private shopService: ShopService, public dialogRef: MatDialogRef<ShopsListComponent>) {
-    this.shop = this.shopService.selectedShopSeeProducts;
+   this.shopService.getShop().then( shop => {
+      this.shop = shop;
+    });
   }
 
   ngOnInit(): void {}

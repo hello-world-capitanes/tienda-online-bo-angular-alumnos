@@ -28,9 +28,16 @@
                 <br>
                 <mat-list-item role="listitem">
                   <div class="expansionContent">
+<<<<<<< HEAD
                     <span> Nombre: {{ shop.name }} </span>
                     <span> Direccion: {{ shop.address.street }} </span>
                     <button mat-raised-button color = "accent" (click) = "openProductList(shop)">Ver productos</button>
+=======
+                    <span> Name: {{ shop.name }} </span>
+                    <span> Adress: {{ shop.address.street }} </span>
+                    <span> Activo: {{ shop.active }} </span>
+                    <button mat-raised-button class="viewProducts" color = "accent" (click) = "openProductList(shop.name)">View products</button>
+>>>>>>> develop
                   </div>
                 </mat-list-item>
                 <br>

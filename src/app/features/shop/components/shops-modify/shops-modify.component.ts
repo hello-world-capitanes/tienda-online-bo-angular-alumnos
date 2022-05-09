@@ -23,8 +23,8 @@ export class ShopsModifyComponent implements OnInit {
     true
   );
 
-  constructor(private shopService: ShopService) {
-    this._shop = this.shopService.getShop('1234');
+  constructor(private shopService:ShopService) {
+    //this._shop = this.shopService.getShop("1234");
     this.products = this._shop?.products;
   }
 
@@ -41,6 +41,6 @@ export class ShopsModifyComponent implements OnInit {
   }
   private addProduct(product: ProductStock) {
     this.products?.push(product);
-    this.shopService.addProduct(product);
+    //this.shopService.addProduct(product);
   }
 }

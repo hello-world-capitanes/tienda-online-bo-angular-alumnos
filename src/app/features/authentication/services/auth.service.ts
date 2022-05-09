@@ -130,6 +130,7 @@ export class AuthService {
       _displayName: user.displayName,
       _photoURL: user.photoURL,
     } as unknown as UserAdmin;
+
     return userRef.set(userData, {
       merge: true,
     });

@@ -6,12 +6,33 @@
 >
   <mat-icon>close</mat-icon>
 </button>
+<<<<<<< HEAD
 
 <div class="divShop">
   <mat-list-item role="listitem" class="nameShop">
     {{ shop?.name }}
   </mat-list-item>
   <mat-divider></mat-divider>
+=======
+<mat-list role="list" class="listShop">
+  <mat-divider></mat-divider>
+    <div>
+      <mat-list-item role="listitem" class="nameShop">
+        {{ shop?.name }}
+      </mat-list-item>
+      <mat-list role="list">
+        <mat-list-item role="productList">
+          <mat-list role="list" *ngFor="let product of shop?.products">
+            <mat-list-item role="listitem"
+              >Nombre: {{ product.product?.name }} Stock: {{ product.stock }}
+            </mat-list-item>
+          </mat-list>
+        </mat-list-item>
+      </mat-list>
+      <mat-divider></mat-divider>
+    </div>
+</mat-list>
+>>>>>>> develop
 
   <ng-container
     *ngIf="shop?.products && shop.products.length > 0; else noProducts"

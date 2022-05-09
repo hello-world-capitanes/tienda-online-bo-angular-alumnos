@@ -1,90 +1,82 @@
-import { ProductService } from './../product/services/product.service';
 import { Injectable } from '@angular/core';
-import { Address } from './../../core/models/address.model';
-import { Product } from './../product/models/product-models';
-import { ProductStock } from './../product/models/product-stock.model';
+import { map, Observable } from 'rxjs';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { ProductService } from './../product/services/product.service';
 import { Shop } from './models/shop.model';
 import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { APIServiceService } from 'src/app/core/services/apiservice.service';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ShopService {
-  private spainShops: Shop[];
-  private _newAddress = new Address(
-    'España',
-    'Madrid',
-    'Alcala',
-    28890,
-    'Calle Cervantes 10'
-  );
-  private _productList: Product[];
-  private _productStockList: ProductStock[];
-  private _selectedShopSeeProducts!: Shop;
+export class ShopService extends FirestoreService {
+  protected collection: string;
+  private readonly SHOP_COLLECTION = 'shops';
 
-  constructor(
-    private productService: ProductService,
-    public snackBar: MatSnackBar
-  ) {
-    this._productList = productService.getAllProducts();
+  selectedShopSeeProducts!:string;
 
-    this._productStockList = [
-      new ProductStock(this._productList[0], 5),
-      new ProductStock(this._productList[1], 14),
-      new ProductStock(this._productList[2], 2),
-      new ProductStock(this._productList[3], 7),
-    ];
-
-    this.spainShops = [
-      new Shop(
-        '1234',
-        'Mercadona',
-        this._newAddress,
-        true,
-        this._productStockList
-      ),
-      new Shop('4561', 'Lidl', this._newAddress, true, this._productStockList),
-      new Shop(
-        '7895',
-        'Mediamarkt',
-        this._newAddress,
-        true,
-        this._productStockList
-      ),
-    ];
+  constructor(productService: ProductService, firestore: AngularFirestore,
+    public snackBar: MatSnackBar) {
+    super(firestore);
+    this.collection = this.SHOP_COLLECTION;
   }
 
-  getAllShops(): Shop[] {
-    return this.spainShops;
+  getAllShops(): Observable<Shop[]> {
+    //return this.getCollection().get().pipe(map(snapshot => snapshot?.docs.map(shop => shop.data() as Shop)));
+    return this.getCollection().valueChanges().pipe(map(shops => shops as Shop[]));
   }
 
-  deleteShop(shopRef: Shop) {
-    let index = this.spainShops.findIndex((shop) => {
-      return shop.id === shopRef.id;
+  addShop(shop: Shop): Promise<Shop> {
+    // Check if shop already exits
+    let newShop = {
+      id: this.firestore.createId(),
+      name: shop.name,
+      address: {
+        country : shop.address.country,
+        province : shop.address.province,
+        location : shop.address.location,
+        cp : shop.address.cp,
+        street : shop.address.street,
+
+      },
+      active: shop.active,
+      products: shop.products,
+
+    }
+
+    return this.getCollection().doc(newShop.id).set(newShop).then(() => {
+      return newShop as Shop;
     });
-    this.spainShops.splice(index, 1);
-
-    return !this.shopExists(shopRef);
+/*     this.getCollection().add({ name: "aaa"}).then(obj => {
+    this.getCollection().doc(obj.id).set({...obj.get(), id: obj.id});
+  }) */
   }
 
-  shopExists(shopRef: Shop): boolean {
-    return !!this.spainShops.find((shop) => {
-      return shop === shopRef;
-    });
-  }
-
-  addShop(newShop: Shop) {
-    this.spainShops.push(newShop);
-  }
-
-  getShop(id: string) {
-    return this.spainShops.find((shop) => {
-      shop.id === id;
+  async filterShops(): Promise<Shop[]> {
+    const snapshot = await this.getCollection().ref.where("active", "==", true).get();
+    return snapshot?.docs.map(doc => {
+      const shop = doc?.data() as Shop;
+      shop.id = doc.id;
       return shop;
     });
   }
 
+  async getShop(): Promise<Shop> {
+    const snapshot = await this.getCollection().ref.where("name", "==", this.selectedShopSeeProducts).get();
+    return snapshot?.docs[0].data() as Shop;
+  }
+
+  async deleteShop(shop:Shop):Promise<Shop|void>{
+    const shop_1 = await this.getCollection().doc(shop.id).update({ 'active': false });
+    return shop_1;
+  }
+
+  async shopExists(shop: Shop){
+    return (await this.getCollection().ref.doc(shop.id).get()).exists;
+  }
+/*
   addProduct(product: ProductStock) {
     this._productStockList.push(product);
   }
@@ -108,4 +100,5 @@ export class ShopService {
     });
     return prod.stock;
   }
+  } */
 }
