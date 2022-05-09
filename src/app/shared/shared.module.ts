@@ -1,3 +1,4 @@
+import { UsersModule } from './../features/user/users.module';
 import { AuthenticationModule } from './../features/authentication/authentication.module';
 import { SignInComponent } from './../features/authentication/components/sign-in/sign-in.component';
 import { RouterModule } from '@angular/router';
@@ -11,28 +12,35 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SnackBarMessageComponent } from './components/snack-bar-message/snack-bar-message.component';
+import { HomeComponent } from './components/home/home.component';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
-    SnackBarMessageComponent
+    SnackBarMessageComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+
+    UsersModule,
 
     MatToolbarModule,
     MatIconModule,
     MatListModule,
     MatDividerModule,
     MatButtonModule,
-    AuthenticationModule
+    AuthenticationModule,
+    MatSidenavModule
   ],
   exports: [
     HeaderComponent,
     SidebarComponent,
+    HomeComponent
   ]
 })
 export class SharedModule { }
