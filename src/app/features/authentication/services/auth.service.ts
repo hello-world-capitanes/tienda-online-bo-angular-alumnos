@@ -1,3 +1,5 @@
+import { SnackBarMessageComponent } from './../../../shared/components/snack-bar-message/snack-bar-message.component';
+import { UserAdmin } from './../../../core/models/userAdmin';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -6,9 +8,6 @@ import {
 } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { delay, map } from 'rxjs';
-import { UserAdmin } from 'src/app/core/models/userAdmin';
-import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 
 @Injectable({
   providedIn: 'root'
