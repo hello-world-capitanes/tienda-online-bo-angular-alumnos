@@ -12,7 +12,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 export class ShopService extends FirestoreService {
   protected collection: string;
   private readonly SHOP_COLLECTION = 'shops';
-  selectedShopSeeProducts!:string;
+  selectedShopSeeProducts !: string;
 
   constructor(productService: ProductService, firestore: AngularFirestore) {
     super(firestore);
@@ -20,12 +20,22 @@ export class ShopService extends FirestoreService {
   }
 
   getAllShops(): Observable<Shop[]> {
-    //return this.getCollection().get().pipe(map(snapshot => snapshot?.docs.map(shop => shop.data() as Shop)));
     return this.getCollection().valueChanges().pipe(map(shops => shops as Shop[]));
   }
 
-  addShop(shop: Shop): Promise<Shop> {
-    // Check if shop already exits
+  getAllShopsActive(): Observable<Shop[]> {
+    //return this.getCollection().get().pipe(map(snapshot => snapshot?.docs.map(shop => shop.data() as Shop)));
+    return this.getCollection().valueChanges().pipe(map(shops => shops.filter(shop => shop['active'] == true) as Shop[]));
+  }
+
+  async addShop(shop: Shop): Promise<Shop | null> {
+
+    if (await this.shopExistsByName(shop)){
+
+      return null
+
+  } else {
+
     let newShop = {
       id: this.firestore.createId(),
       name: shop.name,
@@ -39,12 +49,14 @@ export class ShopService extends FirestoreService {
       },
       active: shop.active,
       products: shop.products,
-
     }
 
     return this.getCollection().doc(newShop.id).set(newShop).then(() => {
       return newShop as Shop;
     });
+
+  }
+
 /*     this.getCollection().add({ name: "aaa"}).then(obj => {
     this.getCollection().doc(obj.id).set({...obj.get(), id: obj.id});
   }) */
@@ -64,14 +76,27 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs[0].data() as Shop;
   }
 
-  async deleteShop(shop:Shop):Promise<Shop|void>{
-    const shop_1 = await this.getCollection().doc(shop.id).update({ 'active': false });
-    return shop_1;
+  async deleteShop(shop:Shop):Promise<void | Shop | null>{
+    if ((await this.shopExistsById(shop)).valueOf()){
+      const shop_1 = await this.getCollection().doc(shop.id).update({ 'active': false });
+      return shop_1
+    } else {
+      return null
+    }
   }
 
-  async shopExists(shop: Shop){
+  async shopExistsById(shop: Shop): Promise<boolean>{
     return (await this.getCollection().ref.doc(shop.id).get()).exists;
   }
+
+
+  async shopExistsByName(shop: Shop): Promise<Shop | undefined> {
+
+    const snapshot = await this.getCollection().ref.where("name", "==", shop.name).get();
+    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Shop : undefined;
+  }
+
+
 /*
   addProduct(product: ProductStock) {
     this._productStockList.push(product);

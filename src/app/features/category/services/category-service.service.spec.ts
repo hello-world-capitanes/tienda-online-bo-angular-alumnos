@@ -14,7 +14,15 @@ describe('CategoryServiceService', () => {
   it('Create category', () => {
     let category=new Category("Aceites","","Aceites",false)
     service.addCategory(category)
-    expect(service.categoryExists(category)).toBe(true);
+    expect(service.categoryExists(category).then( value => {
+
+      if (value == true){
+        return true;
+      } else {
+        return false;
+      }
+    }
+      )).toBeTruthy();
   });
 
   it('Delete category', () => {

@@ -20,10 +20,11 @@ export interface shopElement{
 export class ShopsListComponent implements OnInit {
   shops!: Shop[];
   shopSub :Subscription;
-  panelOpenState=false;
+  panelOpenState = false;
 
   constructor(private shopService: ShopService,public dialog: MatDialog) {
-    this.shopSub = this.shopService.getAllShops().subscribe( shops => {
+
+    this.shopSub = this.shopService.getAllShopsActive().subscribe( shops => {
         this.shops = (!!shops && shops.length > 0 ? shops : []);
     });
   }
@@ -31,6 +32,7 @@ export class ShopsListComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   deleteShop(shop:Shop):Shop{
     let shopDeleted;
     this.shopService.deleteShop(shop).then(shop => {
@@ -39,12 +41,9 @@ export class ShopsListComponent implements OnInit {
     return shop;
   }
 
-
-  updateList(name: string,value: string){
-
-  }
-  openProductList(name: string){
+  openShopList(name: string){
     this.shopService.selectedShopSeeProducts = name;
+
     const dialogRef = this.dialog.open(ProductsListShopComponent);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -53,7 +52,6 @@ export class ShopsListComponent implements OnInit {
 
   anadirElementoLista(elementoLista : any){
     this.shops.push(elementoLista);
-
   }
 
   closeDialog(){
