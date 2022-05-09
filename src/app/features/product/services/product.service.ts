@@ -107,6 +107,10 @@ export class ProductService extends FirestoreService{
     });
   }
 
+  getCategories(product: Product){
+
+  }
+
   findByName(prod: Product): Product | undefined {
     return this.productList.find((product) =>{
       if(product.name === prod.name){
@@ -131,6 +135,10 @@ export class ProductService extends FirestoreService{
     return this.getCollection().doc(product.id).update({'active': false});
   }
 
+  activeProduct(product: Product){
+    return this.getCollection().doc(product.id).update({'active': true});
+  }
+
   addProduct(product: Product){
     product.id = this.firestore.createId();
 
@@ -143,7 +151,7 @@ export class ProductService extends FirestoreService{
       categories: product.categories,
       image: product.image,
       active: product.active,
-    } as ProductDB;
+    };
 
     return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
       return productDB;
