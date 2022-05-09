@@ -12,7 +12,7 @@
     {{ shop?.name }}
   </mat-list-item>
   <mat-divider></mat-divider>
-
+  
   <ng-container *ngIf="shop?.products && shop.products.length > 0; else noProducts">
     <mat-list role="list" *ngFor="let productStock of shop.products">
       <mat-list-item role="listitem"

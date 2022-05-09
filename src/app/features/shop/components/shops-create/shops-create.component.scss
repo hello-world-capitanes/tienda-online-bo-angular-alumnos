@@ -1,28 +1,39 @@
-.inputs-shop{
+.formContainer {
+  width: 100%;
+  padding: 5px;
+}
+
+.inputs-shop {
   justify-content: space-around;
   display: flex;
   margin-top: 40px;
 }
 
-.addShopBtn{
+.addShopBtn {
   display: flex;
   justify-content: center;
   margin: 30px;
 }
 
-.title-shop{
+.title-shop {
   margin-top: 40px;
   margin-left: 40px;
 }
 
-.shop-form{
+.shop-form {
   display: grid;
   grid-template-columns: auto auto auto auto auto;
   width: 100%;
 }
 
-.shop-form mat-form-field{
+.shop-form mat-form-field {
   margin: 1em;
   margin-right: 3em;
   margin-left: 2em;
+}
+
+.buttonAdd {
+  margin-top: 5px;
+  background-color: #3f51b5;
+  color: white;
 }
