@@ -96,4 +96,26 @@ export class CategoryService {
       return null;
     });
   }
+
+  modifyCategory(category: Category){
+    if (this._categoryList?.some((element) => element.name === category.name) && !category.active) {
+      return;
+    } else if (this._categoryList?.some((element) => element.name === category.name) && category.active) {
+      if (this._categoryList?.some((element) => element.name === category.name
+        && !element.active)) {
+        for (let i = 0; i < this._categoryList.length; i++) {
+          if (this._categoryList[i].name === category.name) {
+            this._categoryList[i].active;
+            this._categoryList[i].description;
+          }
+        }
+      } else if (this._categoryList?.some((element) => element.name === category.name
+        && element.active)) {
+        return;
+      }
+    } else {
+      this._categoryList.push(category)
+    }
+    console.log
+  }
 }

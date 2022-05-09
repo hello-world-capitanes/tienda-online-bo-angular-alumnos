@@ -33,15 +33,30 @@ export class ModifyCategoryComponent implements OnInit {
     return this.categoryService.getCategory(this.id);
   }
 
-  categoryModified(){
+/*   categoryModified(){
     console.log=(this.modifyCategoryForm.value);
     if(this.modifyCategoryForm.invalid){
       return;
     }
-  }
+  } */
 
   cancelModification(){
     this.dialogRef.close();
+  }
+
+  categoryModified() {
+    let bool: boolean;
+    if (!this.modifyCategoryForm.valid) {
+      return;
+    }
+
+    let category = new Category(this.modifyCategoryForm.get('name')?.value,
+      this.modifyCategoryForm.get('id')?.value,
+      this.modifyCategoryForm.get('description')?.value,
+      true)
+
+    this.categoryService.modifyCategory(category);
+    this.modifyCategoryForm.reset();
   }
 
 }
