@@ -1,3 +1,4 @@
+import { Product } from 'src/app/features/product/models/product-models';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
@@ -136,4 +137,12 @@ export class CategoryService extends FirestoreService {
   getCategory(id: string) {
     return new Category("", "", "", true);
   }
+
+  getCategoryProduct(product: Product){
+    let snapshot = [];
+    for(let i = 0; i < product.categories.length; i++){
+      snapshot.push(this.getCollection())
+    }
+  }
+
 }

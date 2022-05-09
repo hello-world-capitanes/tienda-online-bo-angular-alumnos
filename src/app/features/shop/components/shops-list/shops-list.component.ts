@@ -31,14 +31,14 @@ export class ShopsListComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  deleteShop(shop:Shop):Shop{
-    let shopDeleted;
-    this.shopService.deleteShop(shop).then(shop => {
-      shopDeleted = shop as Shop;
-    });
-    return shop;
-  }
+  deleteShop(shop: Shop) {
 
+    this.shopService.deleteShop(shop);
+
+  }
+  activeShop(shop: Shop){
+    this.shopService.activeShop(shop);
+  }
 
   updateList(name: string,value: string){
 

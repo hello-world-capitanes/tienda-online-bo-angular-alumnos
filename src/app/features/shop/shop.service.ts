@@ -39,7 +39,6 @@ export class ShopService extends FirestoreService {
       },
       active: shop.active,
       products: shop.products,
-
     }
 
     return this.getCollection().doc(newShop.id).set(newShop).then(() => {
@@ -64,9 +63,11 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs[0].data() as Shop;
   }
 
-  async deleteShop(shop:Shop):Promise<Shop|void>{
-    const shop_1 = await this.getCollection().doc(shop.id).update({ 'active': false });
-    return shop_1;
+  async deleteShop(shop:Shop):Promise<any>{
+    return this.getCollection().doc(shop.id).update({'active': false});
+  }
+  async activeShop(shop: Shop):Promise<any>{
+    return this.getCollection().doc(shop.id).update({'active': true});
   }
 
   async shopExists(shop: Shop){
