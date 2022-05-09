@@ -1,4 +1,4 @@
-.categoriaItem{
+.cateogoryItem{
   display: flex;
   padding: 5px;
   width: 100%;
@@ -16,8 +16,9 @@
   word-wrap: break-word;
 }
 
-.form-category{
-  margin-left: 50px;
+.formContainer {
+  width: 100%;
+  padding: 5px;
 }
 
 .category{
@@ -35,10 +36,12 @@
   justify-content: right;
 }
 
-.botonProd{
+.prodButton{
   margin: 1em;
   margin-left: 0 auto;
   flex: 1 1 auto;
+  background-color: #3F51B5;
+  color: white;
 }
 
 .expansionContent{

@@ -48,37 +48,37 @@ export class FormUserComponent implements AfterViewInit {
   get errorMessageEmail(): string {
     const form = this.formCrear.get('emailFormControl');
     return form?.hasError('required') ?
-      'Introduce una correo' :
+      'Introduce your email' :
       form?.hasError('email') ?
-      'Introduce un correo válido':'';
+      'Introduce a valid email':'';
   }
 
   get errorMessagePass(): string {
     const form: FormControl = (this.formCrear.get('passFormControl') as FormControl);
     return form.hasError('required') ?
-      'Introduce una contraseña' :
+      'Introduce your password' :
       form.hasError('minlength') ?
-      'Introduce un contraseña de mínimo 8 carácteres':'';
+      'The password must have at least 8 characters':'';
   }
 
   get errorMessageName(): string {
     const form: FormControl = (this.formCrear.get('nameFormControl') as FormControl);
     return form.hasError('required') ?
-      'Introduce un nombre' :
+      'Enter your name' :
       form.hasError('minlength') ?
-      'Introduce un nombre de mínimo 3 carácteres':
+      'The name must have at least 3 characters':
       form.hasError('maxlength') ?
-      'Introduce un nombre de máximo 3 carácteres' :'';
+      'Enter a shorter name' :'';
   }
 
   get errorMessageSurname(): string {
     const form: FormControl = (this.formCrear.get('surnameFormControl') as FormControl);
     return form.hasError('required') ?
-      'Introduce apellidos' :
+      'Enter your surname' :
       form.hasError('minlength') ?
-      'Introduce apellidos de mínimo 3 carácteres':
+      'The surnames must have at least 3 characters':
       form.hasError('maxlength') ?
-      'Introduce apellidos de máximo 3 carácteres' :'';
+      'Enter a shorter name' :'';
   }
 }
 

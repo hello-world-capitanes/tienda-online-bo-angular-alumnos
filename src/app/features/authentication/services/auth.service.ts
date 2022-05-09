@@ -4,9 +4,11 @@ import {
   AngularFirestore,
   AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { delay, map } from 'rxjs';
 import { UserAdmin } from 'src/app/core/models/userAdmin';
+import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,8 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private snackBar: MatSnackBar
   ) {
 
     /* Saving user data in localstorage when
@@ -40,7 +43,10 @@ export class AuthService {
       .then((result) => {
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Incorrect login or password",
+          duration: 1500
+        });
       });
   }
 
@@ -55,7 +61,10 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Incorrect login or password",
+          duration: 1500
+        });
       });
   }
 
@@ -73,10 +82,16 @@ export class AuthService {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Password reset email sent, check your inbox.",
+          duration: 1500
+        });
       })
       .catch((error) => {
-        window.alert(error);
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Operation fail",
+          duration: 1500
+        });
       });
   }
   // Returns true when user is looged in and email is verified
@@ -95,7 +110,11 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error);
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Operation fail",
+          duration: 1500
+        });
+
       });
   }
   /* Setting up user data when sign in with username/password,
