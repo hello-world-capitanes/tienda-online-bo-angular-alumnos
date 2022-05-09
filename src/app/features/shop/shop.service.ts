@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductService } from './../product/services/product.service';
 import { Shop } from './models/shop.model';
-import { APIServiceService } from 'src/app/core/services/apiservice.service';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',

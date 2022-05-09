@@ -1,4 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { RouterTestingModule } from '@angular/router/testing';
+import { environment } from 'src/environments/environment';
 import { Category } from '../../category/models/category.model';
 import { Product } from '../models/product-models';
 
@@ -6,6 +10,17 @@ import { ProductService } from './product.service';
 
 describe('ProductService', () => {
   let service: ProductService;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+      ],
+
+    })
+    .compileComponents();
+  }));
 
   it('Test Add product in Product list', () => {
     TestBed.configureTestingModule({});

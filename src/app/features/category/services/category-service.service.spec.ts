@@ -1,10 +1,25 @@
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { RouterTestingModule } from '@angular/router/testing';
+import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.model';
 import { CategoryService } from './category-service.service';
 
 
 describe('CategoryServiceService', () => {
   let service: CategoryService;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+      ],
+
+    })
+    .compileComponents();
+  }));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -16,7 +31,7 @@ describe('CategoryServiceService', () => {
     service.addCategory(category)
     expect(service.categoryExists(category).then( value => {
 
-      if (value == true){
+      if (value?.active == true){
         return true;
       } else {
         return false;
@@ -26,7 +41,6 @@ describe('CategoryServiceService', () => {
   });
 
   it('Delete category', () => {
-    expect(service.deleteCategory(new Category("", "", "", true))).toBeFalse();
     service.addCategory(new Category("id", "nombre", "descripcion", true));
     service.deleteCategory(new Category("id", "nombre", "descripcion", true));
     expect(service.categoryExists).toBeFalse();
