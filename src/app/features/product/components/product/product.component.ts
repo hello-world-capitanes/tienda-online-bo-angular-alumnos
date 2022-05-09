@@ -1,3 +1,4 @@
+import { PRODUCT_ERRORS } from './../../../../core/utils/errors/products.errors';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -17,6 +18,8 @@ export class ProductComponent implements OnInit {
   products!: Product[];
 
   categories!: Category[];
+
+  readonly PRODUCT_ERRORS = PRODUCT_ERRORS;
 
   constructor(
     private productService: ProductService,
@@ -54,7 +57,6 @@ export class ProductComponent implements OnInit {
 
   newProduct() {
     if (!this.productForm.valid) {
-      alert('Campos introducidos no válidos');
       return false;
     } else {
       let id = this.generateId();
@@ -89,7 +91,7 @@ export class ProductComponent implements OnInit {
 
   /*addProduct(product: Product) {
     if (!!this.productService.findByName(product)) {
-      alert('Ya existe ese producto');
+      alert('Existing product');
     } else {
       this.productService.addProduct(product);
     }

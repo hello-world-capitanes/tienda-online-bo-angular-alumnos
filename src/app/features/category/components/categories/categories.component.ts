@@ -1,8 +1,10 @@
+import { MatDialog } from '@angular/material/dialog';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../models/category.model';
 import { Subscription } from 'rxjs';
+import { ModifyCategoryComponent } from './modifyCategory/modify-category/modify-category.component';
 
 @Component({
   selector: 'app-categories',
@@ -16,7 +18,8 @@ export class CategoriesComponent implements OnInit {
   categories!: Category[];
 
   constructor(private form: FormBuilder,
-    public categoryService: CategoryService) {
+    public categoryService: CategoryService,
+    private matDialog: MatDialog,) {
 
       this.sub=this.categoryService.getCategories().subscribe(categoriesFromApi => {
         this.categories = (!!categoriesFromApi && categoriesFromApi.length > 0 ? categoriesFromApi : []);
@@ -48,21 +51,21 @@ export class CategoriesComponent implements OnInit {
   get errorMessageName(): string {
     const form: FormControl = (this.categoryForm.get('name') as FormControl);
     return form.hasError('required') ?
-      'Introduce un nombre para la categoría' :
+      'Enter a name for the category' :
       form.hasError('minlength') ?
-        'El nombre debe tener mínimo x carácteres' :
+        'The name must have at least 3 characters' :
         form.hasError('maxlength') ?
-          'El nombre debe tener máximo x carácteres' : '';
+          'The name must have maximum 20 characters' : '';
   }
 
   get errorMessageDescription(): string {
     const form: FormControl = (this.categoryForm.get('description') as FormControl);
     return form.hasError('required') ?
-      'Introduce una descripción para la categoría' :
+      'Enter a description for the category' :
       form.hasError('minlength') ?
-        'Introduce una buena descripción' :
+        'The name must have at least 3 characters' :
         form.hasError('maxlength') ?
-          'Introduce una descripción mas corta' : '';
+          'Enter a shorter description' : '';
   }
 
   addCategory() {
@@ -76,6 +79,7 @@ export class CategoriesComponent implements OnInit {
       true)
 
     this.categoryService.addCategory(category)
+    this.categoryForm.reset();
   }
 
   deleteCategory(category: Category) {
@@ -103,6 +107,12 @@ export class CategoriesComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+
+  }
+  modifyCategory(){
+    const dialogRef = this.matDialog.open(ModifyCategoryComponent, {
+      width: '350px',
+    });
   }
 
 }
