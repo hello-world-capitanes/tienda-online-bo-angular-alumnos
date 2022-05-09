@@ -1,3 +1,4 @@
+import { Product } from 'src/app/features/product/models/product-models';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, docChanges } from '@angular/fire/compat/firestore';
 import { isReactNative } from '@firebase/util';
@@ -101,4 +102,12 @@ export class CategoryService extends FirestoreService{
   getCategory(id:string){
     return new Category("","","",true);
   }
+
+  getCategoryProduct(product: Product){
+    let snapshot = [];
+    for(let i = 0; i < product.categories.length; i++){
+      snapshot.push(this.getCollection())
+    }
+  }
+
 }

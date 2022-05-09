@@ -12,9 +12,16 @@
           (closed)="panelOpenState = false"
         ><mat-expansion-panel-header>
             <div class="info">
-              <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
-                <mat-icon> delete_forever </mat-icon>
-              </button>
+              <div *ngIf="shop.active === false">
+                <button mat-raised-button class="botonShop" (click)="activeShop(shop)">
+                  <mat-icon>autorenew</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="shop.active === true">
+                <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
+                  <mat-icon> delete_forever </mat-icon>
+                </button>
+              </div>
               <mat-panel-title>
                 <mat-list-item role="listitem" class="shop">{{
                   shop.name

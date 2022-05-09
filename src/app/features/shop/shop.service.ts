@@ -76,13 +76,16 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs[0].data() as Shop;
   }
 
-  async deleteShop(shop:Shop):Promise<void | Shop | null>{
+  async deleteShop(shop:Shop):Promise<any>{
     if ((await this.shopExistsById(shop)).valueOf()){
       const shop_1 = await this.getCollection().doc(shop.id).update({ 'active': false });
       return shop_1
     } else {
       return null
     }
+  }
+  async activeShop(shop: Shop):Promise<any>{
+    return this.getCollection().doc(shop.id).update({'active': true});
   }
 
   async shopExistsById(shop: Shop): Promise<boolean>{

@@ -105,6 +105,10 @@ export class ProductComponent implements OnInit {
     this.productService.deleteProduct(product);
   }
 
+  activeProduct(product: Product){
+    this.productService.activeProduct(product);
+  }
+
   existId(id: string): boolean {
     if (
       this.productService.productList.find((product) => {
