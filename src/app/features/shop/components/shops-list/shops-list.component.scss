@@ -1,0 +1,49 @@
+.shops-container{
+  display:flex;
+  justify-content:space-around;
+  flex-direction: row;
+}
+.shops-container > div{
+  display:flex;
+  justify-content:space-around;
+  flex-direction: row;
+}
+.shops-container-shadow{
+  background-color: rgb(221, 221, 221);
+}
+.shops-container-tittle{
+  display:flex;
+  justify-content:space-around;
+  flex-direction: row;
+  background-color: rgb(221, 221, 221);
+}
+table{
+  width:100%;
+}
+.expansionContent {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.shop{
+  font-weight: bold;
+}
+
+.botonShop{
+  margin: 1em;
+  margin-left: 0 auto;
+  flex: 1 1 auto;
+}
+
+.listShop{
+  margin: 2em;
+}

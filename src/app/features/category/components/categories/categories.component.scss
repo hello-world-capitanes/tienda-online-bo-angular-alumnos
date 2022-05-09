@@ -1,0 +1,51 @@
+.categoriaItem{
+  display: flex;
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-left: auto;
+  border: 0.5px solid gray;
+  justify-content: space-around;
+}
+
+.flexElement{
+  width: 20%;
+}
+.descripcion{
+  max-width: 400px;
+  word-wrap: break-word;
+}
+
+.form-category{
+  margin-left: 50px;
+}
+
+.category{
+  font-weight: bold;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.botonProd{
+  margin: 1em;
+  margin-left: 0 auto;
+  flex: 1 1 auto;
+}
+
+.expansionContent{
+  display: flex;
+  flex-direction: column;
+}
+
+.listCategory{
+  margin: 2em;
+}
