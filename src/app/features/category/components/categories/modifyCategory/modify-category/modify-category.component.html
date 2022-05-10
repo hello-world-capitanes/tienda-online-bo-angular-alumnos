@@ -1,18 +1,20 @@
-<h1>Modify category</h1>
+<form novalidate [formGroup]="modifyCategoryForm" class="form">
+  <div class="container">
+    <div class="primeraCol">
+      <mat-form-field class="formContainer">
+        <mat-label> Name </mat-label>
+        <input matInput class="input" formControlName="name">
+      </mat-form-field>
 
-<form [formGroup]="modifyCategoryForm">
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input type="text" matInput formControlName="name" placeholder="New name">
-    <mat-error>{{ errorMessageName }}</mat-error>
-  </mat-form-field>
+      <mat-form-field class="formContainer">
+        <mat-label> Description </mat-label>
+        <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+      </mat-form-field>
+<br>
+      <button mat-raised-button class="addButton" type="submit" (click)="modifyCategory(id)">
+        <mat-icon>add</mat-icon>
+      </button>
 
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <input type="text" matInput formControlName="description" placeholder="New description">
-    <mat-error>{{ errorMessageDescription }}</mat-error>
-  </mat-form-field>
-  <br>
-  <button mat-raised-button color="primary" class="modifyButton" (click)="categoryModified()">Modify</button>
-  <button mat-raised-button color="primary" class="cancelButton" (click)="cancelModification()">Cancel</button>
+    </div>
+  </div>
 </form>
