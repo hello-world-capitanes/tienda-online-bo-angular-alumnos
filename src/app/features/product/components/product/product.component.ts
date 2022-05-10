@@ -34,11 +34,12 @@ export class ProductComponent implements OnInit {
   ) {
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
+      console.log(this.products[0].name);
+      console.log(this.products[0].categories[0].id);
     })
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
-
   }
 
   createForm() {
@@ -92,14 +93,6 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  /*addProduct(product: Product) {
-    if (!!this.productService.findByName(product)) {
-      alert('Existing product');
-    } else {
-      this.productService.addProduct(product);
-    }
-  }*/
-
   addProduct(product: Product){
     this.productService.addProduct(product);
   }
@@ -112,7 +105,7 @@ export class ProductComponent implements OnInit {
     this.productService.activeProduct(product);
   }
 
-  existId(id: string): boolean {
+/*   existId(id: string): boolean {
     if (
       this.productService.productList.find((product) => {
         product.id === id;
@@ -123,7 +116,7 @@ export class ProductComponent implements OnInit {
       return false;
     }
   }
-
+ */
   generateId(): string {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
@@ -131,9 +124,11 @@ export class ProductComponent implements OnInit {
     return '_' + Math.random().toString(36).substring(2, 9);
   }
 
-  removeCategory(product:Product, category:Category){
+  removeCategory(product: Product, category: Category){
+    console.log('HOLAA');
+
     this.productService.removeCategory(product,category);
-    this.products = this.productService.productList;
+/*     this.products = this.productService.productList; */
   }
 
   getProducts(){

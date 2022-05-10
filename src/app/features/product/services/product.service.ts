@@ -15,7 +15,7 @@ import { Product } from '../models/product-models';
 export class ProductService extends FirestoreService{
 
   protected collection!: string;
-  private _productList!: Product[];
+/*   private _productList!: Product[]; */
 
   private readonly PRODUCTS_COLLECTION = 'products';
 
@@ -39,7 +39,7 @@ export class ProductService extends FirestoreService{
     }
   }*/
 
-  public get productList(): Product[] {
+/*   public get productList(): Product[] {
     return this._productList;
   }
 
@@ -54,22 +54,20 @@ export class ProductService extends FirestoreService{
       }
       return null;
     });
-  }
+  } */
 
-  findByName(prod: Product): Product | undefined {
+/*   findByName(prod: Product): Product | undefined {
     return this.productList.find((product) =>{
       if(product.name === prod.name){
         return product;
       }
       return null;
     });
-  }
+  } */
 
-  removeCategory(product:Product,category:Category){
-    //Se busca la categoria dentro del producto y se borra
-    let indexProduct = this.productList.indexOf(product);
-    let indexCategory = this.productList[indexProduct].categories.indexOf(category)
-    this.productList[indexProduct].categories.splice(indexCategory,1);
+  removeCategory(product:Product, category:Category){
+    let categorieList = this.getCollection().doc(product.id).collection('categories');
+    console.log(categorieList.get());
   }
 
   getAllProducts(): Observable<Product[]> {
@@ -84,7 +82,7 @@ export class ProductService extends FirestoreService{
     return this.getCollection().doc(product.id).update({'active': true});
   }
 
-  addProduct(product: Product){
+  async addProduct(product: Product){
     product.id = this.firestore.createId();
 
     let productDB = {
@@ -98,12 +96,11 @@ export class ProductService extends FirestoreService{
       active: product.active,
     };
 
-    return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
-      return productDB;
-    })
+    await this.getCollection().doc(product.id).set(Object.assign({}, productDB));
+    return productDB;
   }
 
-  modifyProduct(id: string, newProd: Product){
+  async modifyProduct(id: string, newProd: Product){
     let productDB = {
       id: id,
       name: newProd.name,
@@ -114,9 +111,8 @@ export class ProductService extends FirestoreService{
       image: newProd.image,
       active: newProd.active,
     };
-    return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
-      return productDB;
-    })
+    await this.getCollection().doc(id).set(Object.assign({}, productDB));
+    return productDB;
   }
 
 }
