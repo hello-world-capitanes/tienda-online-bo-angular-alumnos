@@ -8,7 +8,7 @@ export class Product {
   private _description: string;
   private _categories: Category[];
   private _image: string;
-  private _active: boolean;
+  private _active?: boolean | undefined;
 
   constructor(
     id:string,
@@ -18,7 +18,7 @@ export class Product {
     description: string,
     categories: Category[],
     image: string,
-    active: boolean
+    active: boolean | undefined
   ) {
     this._id = id;
     this._name = name;
@@ -27,7 +27,11 @@ export class Product {
     this._description = description;
     this._categories = categories;
     this._image = image;
-    this._active = active;
+    if(!active){
+      this._active = false;
+    }else{
+      this._active = active;
+    }
   }
 
   public get id() {
@@ -86,11 +90,11 @@ export class Product {
     this._image = image;
   }
 
-  public get active() {
+  public get active(): boolean | undefined {
     return this._active;
   }
 
-  public set active(active: boolean) {
+  public set active(active: boolean | undefined) {
     this._active = active;
   }
 }

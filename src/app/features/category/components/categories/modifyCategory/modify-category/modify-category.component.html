@@ -4,11 +4,13 @@
   <mat-form-field>
     <mat-label>Name</mat-label>
     <input type="text" matInput formControlName="name" placeholder="New name">
+    <mat-error>{{ errorMessageName }}</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Description</mat-label>
     <input type="text" matInput formControlName="description" placeholder="New description">
+    <mat-error>{{ errorMessageDescription }}</mat-error>
   </mat-form-field>
   <br>
   <button mat-raised-button color="primary" class="modifyButton" (click)="categoryModified()">Modify</button>
