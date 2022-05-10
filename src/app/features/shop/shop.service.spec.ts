@@ -1,17 +1,16 @@
-import { ProductStock } from './../product/models/product-stock.model';
 import { async, TestBed } from '@angular/core/testing';
 import { Address } from 'src/app/core/models/address.model';
 import { Shop } from './models/shop.model';
 
-import { ShopService } from './shop.service';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { RouterTestingModule } from '@angular/router/testing';
+import { environment } from 'src/environments/environment';
+import { ShopService } from './shop.service';
 
 describe('ShopService', () => {
   let service: ShopService;
-
+  let newShop: Shop | undefined;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,
@@ -20,31 +19,40 @@ describe('ShopService', () => {
       ],
 
     })
-    .compileComponents();
+      .compileComponents();
   }));
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ShopService);
+    newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, []);
+  });
+  afterEach(async () => {
+
+    if (!!newShop) {
+      await service.permantlyDelete(newShop.id);
+      newShop = undefined;
+    }
   });
 
-  it('Delete shop', () => {
-    let newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, []);
-    service.selectedShopSeeProducts = newShop.name
-    service.addShop(newShop);
-    service.deleteShop(newShop);
+  it('Delete shop', async () => {
+    if(!!newShop){
+      newShop = await service.addShop(newShop);
+      await service.deleteShop(newShop);
 
-    service.getShop().then(shop  => newShop = shop)
-    expect(newShop.active).toBeFalse();
+      newShop = await service.getShop(newShop.name);
+      expect(newShop.active).toBeFalse();
+    }
+
   });
 
-  it('Add shop', () => {
+  it('Add shop', async () => {
+    if(!!newShop){
+      newShop = await service.addShop(newShop);
 
-    let newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, []);
-    service.selectedShopSeeProducts = newShop.name
-    service.addShop(newShop);
+      newShop = await service.getShop(newShop.name);
+      expect(newShop.active).toBeTruthy();
+    }
 
-    service.getShop().then(shop  => newShop = shop)
-    expect(newShop.active).toBeTruthy();
   })
 
 });

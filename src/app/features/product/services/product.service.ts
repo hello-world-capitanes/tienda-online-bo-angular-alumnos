@@ -1,8 +1,10 @@
+import { identifierName } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { Category } from '../../category/models/category.model';
+import { ProductFirebase } from '../models/product-firebase.model';
 import { Product } from '../models/product-models';
 
 
@@ -140,20 +142,32 @@ export class ProductService extends FirestoreService{
   addProduct(product: Product){
     product.id = this.firestore.createId();
 
-    let productDB = {
+    let productDB: ProductFirebase = {
       id: product.id,
       name: product.name,
       characteristics: product.characteristics,
       price: product.price,
       description: product.description,
-      categories: product.categories,
       image: product.image,
       active: product.active,
     };
 
+    if (!!product?.categories && product.categories.length > 0) {
+      for (let category of product.categories) {
+        productDB.categories = [];
+        if (category) {
+          productDB.categories.push(Object.assign({}, category));
+        }
+      }
+    }
     return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
       return productDB;
     })
   }
-
+  permantlyDelete(id:string){
+    if(!!id && id.length >0){
+    return this.getCollection().doc(id).delete();
+    }
+    throw new Error();
+  }
 }
