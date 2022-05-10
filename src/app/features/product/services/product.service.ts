@@ -42,7 +42,7 @@ export class ProductService extends FirestoreService{
     return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Product : undefined;
   }
 
-  async addProduct(product: Product){
+  async addProduct(product: Product): Promise<Product | undefined>{
 
     const result =await this.productExists(product)
 
@@ -60,16 +60,16 @@ export class ProductService extends FirestoreService{
         active: product.active,
       };
 
-      return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
-        return productDB;
-      })
+        return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
+          return productDB as Product;
+        })
     }
     return;
 
 
   }
 
-  async modifyProduct(id: string, newProd: Product){
+  async modifyProduct(id: string, newProd: Product):Promise<Product | undefined>{
 
     const result =await this.productExists(newProd)
 
@@ -86,7 +86,7 @@ export class ProductService extends FirestoreService{
         active: newProd.active,
       };
       return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
-        return productDB;
+        return productDB as Product;
       })
     }
     return;
