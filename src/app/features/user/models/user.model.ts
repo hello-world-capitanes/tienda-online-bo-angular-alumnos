@@ -1,27 +1,35 @@
 export class User {
+  private _id: string;
+  private _name: string;
+  private _surname: string;
+  private _email: string;
+  private _active: boolean;
 
-  private _name:string;
-  private _surname:string;
-  private _email:string;
-  private _password:string;
-
-  constructor(name:string, surname:string, email:string, password:string){
+  constructor(id: string, name: string, surname: string, email: string) {
+    this._id = id;
     this._name = name;
     this._surname = surname;
     this._email = email;
-    this._password = password
+    this._active = true;
   }
 
-  get name():string{
+  get name(): string {
     return this._name;
   }
 
-  get surname():string{
+  get surname(): string {
     return this._surname;
   }
 
-  get email():string{
+  get email(): string {
     return this._email;
   }
-  
+
+  get active(): boolean {
+    return this._active;
+  }
+
+  get id(): string{
+    return this._id;
+  }
 }

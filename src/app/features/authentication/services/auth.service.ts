@@ -69,7 +69,7 @@ export class AuthService {
       })
       .catch((error) => {
         this.snackBar.openFromComponent(SnackBarMessageComponent, {
-          data: "Incorrect login or password",
+          data: "User creation failed",
           duration: 1500
         });
       });

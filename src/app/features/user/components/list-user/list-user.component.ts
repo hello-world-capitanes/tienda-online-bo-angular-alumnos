@@ -1,3 +1,5 @@
+import { UserService } from './../../user.service';
+import { Subscription } from 'rxjs';
 import { User } from './../../models/user.model';
 import { Component } from '@angular/core';
 
@@ -8,12 +10,17 @@ import { Component } from '@angular/core';
 })
 export class ListUserComponent {
   panelOpenState = false;
+  users!: User[];
+  subscription: Subscription;
 
-  users: User[] = [
-    new User('Raúl', 'Pradanas Martín', 'rp@gmail.com', 'hola12345'),
-    new User('Raúl', 'Bravo', 'rb@gmail.com', 'hola'),
-    new User('Fernando', 'Te queremos', 'helloworld@gmail.com', 'hola'),
-  ];
+  constructor(private userService: UserService) {
+    this.subscription = this.userService
+      .getUsers()
+      .subscribe((usersFromApi) => {
+        this.users =
+          !!usersFromApi && usersFromApi.length > 0 ? usersFromApi : [];
+      });
+  }
 
   addUser(nuevoUser: User) {
     if (!!nuevoUser) {
@@ -37,6 +44,9 @@ export class ListUserComponent {
   }
 
   deleteUser(user: User): void {
-    this.users.splice(this.users.indexOf(user), 1);
+    this.userService.deleteUser(user);
+  }
+  activeUser(user: User): void{
+    this.userService.activeUser(user);
   }
 }

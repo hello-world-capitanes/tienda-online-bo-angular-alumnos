@@ -30,26 +30,26 @@ export class CategoryService extends FirestoreService{
    * @returns category with DB id
    */
 
-    async addCategory(category: Category): Promise<Category | undefined> {
+  async addCategory(category: Category): Promise<Category | undefined> {
 
-      const result =await this.categoryExists(category)
+    const result =await this.categoryExists(category)
 
-      if(result===undefined){
-        category.id = this.firestore.createId();
+    if(result===undefined){
+      category.id = this.firestore.createId();
 
-        let categoryDB = {
-          id: category.id,
-          name: category.name,
-          description: category.description,
-          active: category.active,
-        };
+      let categoryDB = {
+        id: category.id,
+        name: category.name,
+        description: category.description,
+        active: category.active,
+      };
 
-        return this.getCollection().doc(category.id).set(Object.assign({}, categoryDB)).then(() => {
-          return categoryDB as Category;
-        })
-      }
+      return this.getCollection().doc(category.id).set(Object.assign({}, categoryDB)).then(() => {
+        return categoryDB as Category;
+      })
+    }
 
-      return;
+    return;
 
   }
 
