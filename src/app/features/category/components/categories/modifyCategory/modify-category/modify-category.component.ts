@@ -56,8 +56,8 @@ export class ModifyCategoryComponent implements OnInit {
       'Enter a description for the category' :
       form.hasError('minlength') ?
         'The description must have at least 3 characters' :
-        form.hasError('maxlength') ?
-          'Enter a shorter description' : '';
+      form.hasError('maxlength') ?
+        'Enter a shorter description' : '';
   }
 
   ngOnInit(): void {

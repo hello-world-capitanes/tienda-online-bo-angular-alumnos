@@ -103,4 +103,20 @@ export class ProductService extends FirestoreService{
     })
   }
 
+  modifyProduct(id: string, newProd: Product){
+    let productDB = {
+      id: id,
+      name: newProd.name,
+      characteristics: newProd.characteristics,
+      price: newProd.price,
+      description: newProd.description,
+      categories: newProd.categories,
+      image: newProd.image,
+      active: newProd.active,
+    };
+    return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
+      return productDB;
+    })
+  }
+
 }

@@ -16,6 +16,12 @@
               <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('required')">
                 {{ PRODUCT_ERRORS.name.notProvided }}
               </mat-error>
+              <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('minLength')">
+                {{ PRODUCT_ERRORS.name.minLength }}
+              </mat-error>
+              <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('maxLength')">
+                {{ PRODUCT_ERRORS.name.maxLength }}
+              </mat-error>
             </mat-form-field>
             <mat-form-field class="formContainer">
               <mat-label>Price</mat-label>
@@ -56,6 +62,14 @@
                 {{ PRODUCT_ERRORS.characteristics.notProvided }}
               </mat-error>
             </mat-form-field>
+            <mat-form-field class="formContainer">
+              <mat-label> Image url </mat-label>
+              <input class="input" matInput formControlName="image">
+              <mat-error
+                *ngIf="productForm.get('image')?.errors && productForm.get('image')?.hasError('pattern')">
+                {{ PRODUCT_ERRORS.image.invalidUrl }}
+              </mat-error>
+            </mat-form-field>
             <div class="formBtn">
               <button mat-raised-button class="addButton" type="submit" (click)="newProduct()">
                 <mat-icon> add_box </mat-icon>
@@ -69,6 +83,7 @@
 </div>
 <mat-list role="list" class="listaProductos">
   <mat-divider></mat-divider>
+  <h1>Active products</h1>
   <ng-container *ngFor="let product of products">
     <div *ngIf="product.active === true">
       <div class="containerProd">
@@ -76,6 +91,9 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <div class="info">
+                <button mat-raised-button class="prodButton" (click)="modifyProduct(product.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
                 <button mat-raised-button class="deleteButton" (click)="deleteProduct(product)">
                   <mat-icon> delete_forever </mat-icon>
                 </button>
@@ -143,6 +161,7 @@
     </div>
   </ng-container>
   <br><br><br>
+  <h1>Inactive products</h1>
   <ng-container *ngFor="let product of products">
     <div *ngIf="product.active === false">
       <div class="containerProd">
@@ -150,6 +169,9 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <div class="info">
+                <button mat-raised-button class="prodButton" (click)="modifyProduct(product.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
                 <button mat-raised-button class="deleteButton" (click)="activeProduct(product)">
                   <mat-icon>check_circle</mat-icon>
                 </button>
