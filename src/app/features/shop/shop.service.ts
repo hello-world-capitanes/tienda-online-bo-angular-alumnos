@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductService } from './../product/services/product.service';
 import { Shop } from './models/shop.model';
-import { APIServiceService } from 'src/app/core/services/apiservice.service';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -28,11 +27,11 @@ export class ShopService extends FirestoreService {
     return this.getCollection().valueChanges().pipe(map(shops => shops.filter(shop => shop['active'] == true) as Shop[]));
   }
 
-  async addShop(shop: Shop): Promise<Shop | null> {
+  async addShop(shop: Shop): Promise<Shop> {
 
     if (await this.shopExistsByName(shop)){
 
-      return null
+      throw new Error();
 
   } else {
 
@@ -71,9 +70,17 @@ export class ShopService extends FirestoreService {
     });
   }
 
-  async getShop(): Promise<Shop> {
-    const snapshot = await this.getCollection().ref.where("name", "==", this.selectedShopSeeProducts).get();
-    return snapshot?.docs[0].data() as Shop;
+  async getShop(name: string): Promise<Shop> {
+    if(!!name && name.length>0){
+      const snapshot = await this.getCollection().ref.where("name", "==", name).get();
+      if(!!snapshot.docs && snapshot.docs.length > 0 ){
+        return snapshot?.docs[0].data() as Shop;
+      }
+      throw new Error();
+    }
+    throw new Error();
+
+
   }
 
   async deleteShop(shop:Shop):Promise<any>{
@@ -99,6 +106,10 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Shop : undefined;
   }
 
+
+  permantlyDelete(id:string):Promise<void>{
+    return this.getCollection().doc(id).delete();
+  }
 
 /*
   addProduct(product: ProductStock) {

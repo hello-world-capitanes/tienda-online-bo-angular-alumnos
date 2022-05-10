@@ -12,9 +12,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ProductsListShopComponent implements OnInit {
   shop!: Shop;
-
-  constructor(private shopService: ShopService, public dialogRef: MatDialogRef<ShopsListComponent>) {
-   this.shopService.getShop().then( shop => {
+  //TODO
+  constructor(private shopService: ShopService, public dialogRef: MatDialogRef<ShopsListComponent>,) {
+   this.shopService.getShop(shopService.selectedShopSeeProducts).then( shop => {
       this.shop = shop;
     });
   }
