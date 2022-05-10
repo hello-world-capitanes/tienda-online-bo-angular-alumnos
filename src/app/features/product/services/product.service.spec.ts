@@ -31,18 +31,10 @@ describe('ProductService', () => {
     product = new Product("Test", "Test", "Test", 0, "Test", cats, "Test", true);
   }));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    let product = new Product("Test", "Test", "Test", 0, "Test", [new Category("Test", "1", "Test", true)],"Test",true);
-=======
-    let product = new Product("Test", "Test", "Test", 0, "Test",cats,"Test",true);
->>>>>>> develop
-    service.addProduct(product);
-=======
+    //service.addProduct(product);
   afterEach(async(() => {
     service.permantlyDelete(product.id);
   }));
->>>>>>> develop
 
 /*   it('Test Add product in Product list', async () => {
 
