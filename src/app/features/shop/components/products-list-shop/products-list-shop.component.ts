@@ -24,12 +24,8 @@ export class ProductsListShopComponent implements OnInit {
   minInput = SHOP_CONSTANTS.stock.min;
   stepInput = SHOP_CONSTANTS.stock.step;
 
-  constructor(
-    private shopService: ShopService,
-    private productService: ProductService,
-    public dialogRef: MatDialogRef<ShopsListComponent>
-  ) {
-    this.shopService.getShop().then((shop) => {
+  constructor(private shopService: ShopService, private productService:ProductService, public dialogRef: MatDialogRef<ShopsListComponent>,) {
+   this.shopService.getShop(shopService.selectedShopSeeProducts).then( shop => {
       this.shop = shop;
     });
 

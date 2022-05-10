@@ -1,17 +1,13 @@
-import { ProductShop } from './../product/models/product-shop';
-import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { ProductStock } from 'src/app/features/product/models/product-stock.model';
+import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
+import { ProductShop } from './../product/models/product-shop';
 import { ProductService } from './../product/services/product.service';
 import { Shop } from './models/shop.model';
-import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { APIServiceService } from 'src/app/core/services/apiservice.service';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -77,6 +73,7 @@ export class ShopService extends FirestoreService {
   }) */
   }
 
+
   async filterShops(): Promise<Shop[]> {
     const snapshot = await this.getCollection()
       .ref.where('active', '==', true)
@@ -88,11 +85,17 @@ export class ShopService extends FirestoreService {
     });
   }
 
-  async getShop(): Promise<Shop> {
-    const snapshot = await this.getCollection()
-      .ref.where('name', '==', this.selectedShopSeeProducts)
-      .get();
-    return snapshot?.docs[0].data() as Shop;
+  async getShop(name: string): Promise<Shop> {
+    if(!!name && name.length>0){
+      const snapshot = await this.getCollection().ref.where("name", "==", name).get();
+      if(!!snapshot.docs && snapshot.docs.length > 0 ){
+        return snapshot?.docs[0].data() as Shop;
+      }
+      throw new Error();
+    }
+    throw new Error();
+
+
   }
 
   async getShopProducts(): Promise<ProductShop[]> {
@@ -159,21 +162,4 @@ export class ShopService extends FirestoreService {
     });
     return prod.stock;
   }
-
-  /*
-  addProduct(product: ProductStock) {
-    this._productStockList.push(product);
-  }
-
-  getProductsStock() {
-    return this._productStockList;
-  }
-
-  public get selectedShopSeeProducts(): Shop {
-    return this._selectedShopSeeProducts;
-  }
-
-
-
-  } */
 }
