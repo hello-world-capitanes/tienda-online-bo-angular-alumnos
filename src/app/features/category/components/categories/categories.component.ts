@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Category } from './../../models/category.model';
@@ -108,13 +108,12 @@ export class CategoriesComponent implements OnInit {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
-  modifyCategory(category: Category) {
+
+  modifyCategory(id: string){
+    let config = new MatDialogConfig();
     const dialogRef = this.matDialog.open(ModifyCategoryComponent, {
       width: '350px',
-      data: {
-        name: category.name,
-        description: category.description,
-      },
     });
+    dialogRef.componentInstance.id = id;
   }
 }

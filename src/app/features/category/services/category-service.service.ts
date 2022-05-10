@@ -14,7 +14,6 @@ export class CategoryService extends FirestoreService {
   constructor(firestore: AngularFirestore) {
     super(firestore)
     this.collection = this.CATEGORY_COLLECTION;
-
   }
   /**
    *
@@ -61,17 +60,11 @@ export class CategoryService extends FirestoreService {
   }
 
   /*filterShops(): Promise<Shop[]> {
-
     return this.getCollection().ref.where("active", "==", true).get().then(snapshot => snapshot?.docs.map(doc => {
-
       const shop = doc?.data() as Shop;
-
       shop.id = doc.id;
-
       return shop;
-
     }));
-
   }*/
 
   addCategory2(category: Category) {
@@ -93,16 +86,7 @@ export class CategoryService extends FirestoreService {
     } else {
       this.categoryList?.push(category)
     }
-
   };
-
-  /*categoryExists(category: Category) {
-    if (this._categoryList?.some((element) => element.name === category.name)) {
-      return true;
-    } else {
-      return false;
-    };
-  }*/
 
   getAllCategories(): Category[] {
     return this.categoryList!;
@@ -125,16 +109,20 @@ export class CategoryService extends FirestoreService {
     });
   }
 
-  categoryModified(id: string, newCat: Category) {
-    let categoryBD = {
-      id: id,
-      name: newCat.name,
-      description: newCat.description,
-      active: newCat.active,
-    };
-    return this.getCollection().doc(id).set(Object.assign({}, categoryBD)).then(() => {
-      return categoryBD;
-    })
+  async modifyCategory(id: string, newCat: Category):Promise<Category|undefined> {
+    const result = await this.categoryExists(newCat)
+    if (result === undefined) {
+      let categoryBD = {
+        id: id,
+        name: newCat.name,
+        description: newCat.description,
+        active: newCat.active,
+      };
+      return this.getCollection().doc(id).set(Object.assign({}, categoryBD)).then(() => {
+        return categoryBD as Category;
+      })
+    }
+    return ;
   }
 
 }
