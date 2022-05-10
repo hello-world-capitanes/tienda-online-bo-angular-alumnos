@@ -55,8 +55,8 @@ export class CategoryService extends FirestoreService {
     return this.getCollection().doc(category.id).update({ 'active': false });
   }
 
-  activeCategory(category: Category){
-    return this.getCollection().doc(category.id).update({'active': true});
+  activeCategory(category: Category) {
+    return this.getCollection().doc(category.id).update({ 'active': true });
   }
 
   /*filterShops(): Promise<Shop[]> {
@@ -109,20 +109,16 @@ export class CategoryService extends FirestoreService {
     });
   }
 
-  async modifyCategory(id: string, newCat: Category):Promise<Category|undefined> {
-    const result = await this.categoryExists(newCat)
-    if (result === undefined) {
-      let categoryBD = {
-        id: id,
-        name: newCat.name,
-        description: newCat.description,
-        active: newCat.active,
-      };
-      return this.getCollection().doc(id).set(Object.assign({}, categoryBD)).then(() => {
-        return categoryBD as Category;
-      })
-    }
-    return ;
+  modifyCategory(id: string, newCat: Category) {
+    let categoryBD = {
+      id: id,
+      name: newCat.name,
+      description: newCat.description,
+      active: newCat.active,
+    };
+    return this.getCollection().doc(id).set(Object.assign({}, categoryBD)).then(() => {
+      return categoryBD as Category;
+    })
   }
 
 }

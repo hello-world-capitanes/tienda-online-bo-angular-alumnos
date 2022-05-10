@@ -6,7 +6,7 @@ export class Category {
   private _active: boolean;
   /* private static contadorId: number = 0; */
 
-  constructor(name: string, id: string, description: string, active: boolean) {
+  constructor(id: string, name: string, description: string, active: boolean) {
     this._ID = id;
     this._name = name;
     this._description = description;
