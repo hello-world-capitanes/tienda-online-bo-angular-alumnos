@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VerifyEmailComponent } from './verify-email.component';
+import { ModifyProductComponent } from './modify-product.component';
 
 describe('VerifyEmailComponent', () => {
 
