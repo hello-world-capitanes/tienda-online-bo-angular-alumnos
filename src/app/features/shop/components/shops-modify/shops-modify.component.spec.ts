@@ -37,7 +37,11 @@ describe('ShopsModifyComponent', () => {
       'Bolsa de 300g',
       1.3,
       'Doritos picantes bolsa grande',
+<<<<<<< HEAD
       [new Category("Comida", "1", "Comida", true)],
+=======
+      [],
+>>>>>>> develop
       '',
       true
     )
@@ -48,7 +52,11 @@ describe('ShopsModifyComponent', () => {
         'Pack de 24 latas',
         2.48,
         'Cerveza lagger de calidad suprema',
+<<<<<<< HEAD
         [new Category("Bebida", "1", "Bebida", true)],
+=======
+        [],
+>>>>>>> develop
         '',
         true
       ), 5),
@@ -58,7 +66,11 @@ describe('ShopsModifyComponent', () => {
         '1L de vino',
         0.7,
         'Vino tinto para calimocho',
+<<<<<<< HEAD
         [new Category("Bebida", "1", "Bebida", true)],
+=======
+        [],
+>>>>>>> develop
         '',
         true
       ), 10),
@@ -68,7 +80,11 @@ describe('ShopsModifyComponent', () => {
         'Pack de 6 unidades',
         4,
         'Donuts original glaseados',
+<<<<<<< HEAD
         [new Category("Comida", "1", "Comida", true)],
+=======
+        [],
+>>>>>>> develop
         '',
         true
       ), 2),
@@ -78,7 +94,11 @@ describe('ShopsModifyComponent', () => {
         'Bolsa de 300g',
         1.3,
         'Doritos picantes bolsa grande',
+<<<<<<< HEAD
         [new Category("Comida", "1", "Comida", true)],
+=======
+        [],
+>>>>>>> develop
         '',
         true
       ), 7)

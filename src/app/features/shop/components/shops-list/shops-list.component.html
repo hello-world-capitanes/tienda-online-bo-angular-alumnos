@@ -12,9 +12,16 @@
           (closed)="panelOpenState = false"
         ><mat-expansion-panel-header>
             <div class="info">
-              <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
-                <mat-icon> delete_forever </mat-icon>
-              </button>
+              <div *ngIf="shop.active === false">
+                <button mat-raised-button class="botonShop" (click)="activeShop(shop)">
+                  <mat-icon>autorenew</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="shop.active === true">
+                <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
+                  <mat-icon> delete_forever </mat-icon>
+                </button>
+              </div>
               <mat-panel-title>
                 <mat-list-item role="listitem" class="shop">{{
                   shop.name
@@ -28,16 +35,14 @@
                 <br>
                 <mat-list-item role="listitem">
                   <div class="expansionContent">
-<<<<<<< HEAD
                     <span> Nombre: {{ shop.name }} </span>
                     <span> Direccion: {{ shop.address.street }} </span>
                     <button mat-raised-button color = "accent" (click) = "openProductList(shop)">Ver productos</button>
-=======
                     <span> Name: {{ shop.name }} </span>
                     <span> Adress: {{ shop.address.street }} </span>
                     <span> Activo: {{ shop.active }} </span>
-                    <button mat-raised-button class="viewProducts" color = "accent" (click) = "openProductList(shop.name)">View products</button>
->>>>>>> develop
+                    <!-- <span> Activo: {{ shop.active }} </span> -->
+                    <button mat-raised-button class="viewProducts" color = "accent" (click) = "openProductList(shop)">View products</button>
                   </div>
                 </mat-list-item>
                 <br>

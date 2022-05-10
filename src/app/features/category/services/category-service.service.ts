@@ -11,8 +11,6 @@ export class CategoryService extends FirestoreService{
   protected collection: string;
   private readonly CATEGORY_COLLECTION='categories'
 
-  private _categoryList?: Category[];
-
   constructor(firestore: AngularFirestore) {
     super(firestore)
     this.collection=this.CATEGORY_COLLECTION;
@@ -31,22 +29,33 @@ export class CategoryService extends FirestoreService{
    * @param category
    * @returns category with DB id
    */
-   async addCategory(category: Category): Promise<Category> {
 
-    if(await this.categoryExists(category)){
-      category.id = this.firestore.createId();
-      return this.getCollection().doc(category.id).set(category).then(() => {
-        return category;
-      });
-    }
+    async addCategory(category: Category): Promise<Category | undefined> {
 
-    return category;
+      const result =await this.categoryExists(category)
+
+      if(result===undefined){
+        category.id = this.firestore.createId();
+
+        let categoryDB = {
+          id: category.id,
+          name: category.name,
+          description: category.description,
+          active: category.active,
+        };
+
+        return this.getCollection().doc(category.id).set(Object.assign({}, categoryDB)).then(() => {
+          return categoryDB as Category;
+        })
+      }
+
+      return;
 
   }
 
-  async categoryExists(category: Category){
-    let categoryExist = (await this.getCollection().ref.doc(category.id).get()).exists;
-    return categoryExist;
+  async categoryExists(category: Category): Promise<Category | undefined> {
+    const snapshot = await this.getCollection().ref.where("name", "==", category.name).get();
+    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Category : undefined;
   }
 
   deleteCategory(category:Category){
@@ -68,23 +77,23 @@ export class CategoryService extends FirestoreService{
   }*/
 
   addCategory2(category: Category) {
-    if (this._categoryList?.some((element) => element.name === category.name) && !category.active) {
+    if (this.categoryList?.some((element) => element.name === category.name) && !category.active) {
       return;
-    } else if (this._categoryList?.some((element) => element.name === category.name) && category.active) {
-      if (this._categoryList?.some((element) => element.name === category.name
+    } else if (this.categoryList?.some((element) => element.name === category.name) && category.active) {
+      if (this.categoryList?.some((element) => element.name === category.name
         && !element.active)) {
-        for (let i = 0; i < this._categoryList.length; i++) {
-          if (this._categoryList[i].name === category.name) {
-            this._categoryList[i].active;
-            this._categoryList[i].description;
+        for (let i = 0; i < this.categoryList.length; i++) {
+          if (this.categoryList[i].name === category.name) {
+            this.categoryList[i].active;
+            this.categoryList[i].description;
           }
         }
-      } else if (this._categoryList?.some((element) => element.name === category.name
+      } else if (this.categoryList?.some((element) => element.name === category.name
         && element.active)) {
         return;
       }
     } else {
-      this._categoryList?.push(category)
+      this.categoryList?.push(category)
     }
 
   };
@@ -98,7 +107,7 @@ export class CategoryService extends FirestoreService{
   }*/
 
   getAllCategories(): Category[] {
-    return this._categoryList!;
+    return this.categoryList!;
   }
 
   /*deleteCategory(value: Category) {
@@ -110,15 +119,15 @@ export class CategoryService extends FirestoreService{
   }*/
 
   public get cateogoryList(): Category[] {
-    return this._categoryList!;
+    return this.categoryList!;
   }
 
   public set categoryList(value: Category[]) {
-    this._categoryList = value;
+    this.categoryList = value;
   }
 
   findById(id: string) {
-    return this._categoryList?.find((category) => {
+    return this.categoryList?.find((category) => {
       if (category.id === id) {
         return category;
       }
@@ -128,4 +137,5 @@ export class CategoryService extends FirestoreService{
   getCategory(id:string){
     return new Category("","","",true);
   }
+
 }

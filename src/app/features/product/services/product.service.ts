@@ -1,3 +1,4 @@
+import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductDB } from './../models/productDB.model';
 import { Injectable } from '@angular/core';
@@ -14,66 +15,14 @@ import { Product } from '../models/product-models';
 export class ProductService extends FirestoreService{
 
   protected collection!: string;
-  private _productList: Product[];
+  private _productList!: Product[];
 
   private readonly PRODUCTS_COLLECTION = 'products';
 
-  constructor(firestore: AngularFirestore) {
+  constructor(firestore: AngularFirestore,
+              private categoryService: CategoryService) {
     super(firestore);
     this.collection = this.PRODUCTS_COLLECTION;
-    this._productList = [
-      new Product(
-        '1',
-        'Steinburg',
-        'Pack de 24 latas',
-         2.48,
-        'Cerveza lagger de calidad suprema',
-        [
-        new Category("Carne", "3", "Productos cárnicos", true),
-        new Category("Alcohol", "6", "Pescados", true)
-        ],
-        'https://a1.soysuper.com/4d20a10aab11ff0e321b129feac2401e.1500.0.0.0.wmark.8d2b900a.jpg',
-        true
-      ),
-
-      new Product(
-        '2',
-        'Casón histórico',
-        '1L de vino',
-         0.7,
-        'Vino tinto para calimocho',
-        [
-          new Category("Carne", "3", "Productos cárnicos", true),
-          new Category("Alcohol", "6", "Pescados", true)
-        ],
-        'https://mailenmarket.com/wp-content/uploads/2020/07/6c371039587b41d08078d3d78de1d835.jpg',
-        true
-      ),
-      new Product(
-        '3',
-        'Donuts',
-        'Pack de 6 unidades',
-         4,
-        'Donuts original glaseados',
-        [new Category("Carne", "3", "Productos cárnicos", true),
-        new Category("Alcohol", "6", "Pescados", true)
-        ],
-        'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
-        true
-      ),
-      new Product(
-        '4',
-        'Doritos',
-        'Bolsa de 300g',
-         1.3,
-        'Doritos picantes bolsa grande',
-        [new Category("Carne", "3", "Productos cárnicos", true),
-        new Category("Alcohol", "6", "Pescados", true)
-        ],
-        'https://agustomarket.com/wp-content/uploads/2021/12/doritos-bolsaza-300x300.jpg',
-        true
-      ),
-    ];
   }
 
   /*public addProduct(value: Product){
@@ -131,6 +80,10 @@ export class ProductService extends FirestoreService{
     return this.getCollection().doc(product.id).update({'active': false});
   }
 
+  activeProduct(product: Product){
+    return this.getCollection().doc(product.id).update({'active': true});
+  }
+
   addProduct(product: Product){
     product.id = this.firestore.createId();
 
@@ -143,9 +96,25 @@ export class ProductService extends FirestoreService{
       categories: product.categories,
       image: product.image,
       active: product.active,
-    } as ProductDB;
+    };
 
     return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
+      return productDB;
+    })
+  }
+
+  modifyProduct(id: string, newProd: Product){
+    let productDB = {
+      id: id,
+      name: newProd.name,
+      characteristics: newProd.characteristics,
+      price: newProd.price,
+      description: newProd.description,
+      categories: newProd.categories,
+      image: newProd.image,
+      active: newProd.active,
+    };
+    return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
       return productDB;
     })
   }
