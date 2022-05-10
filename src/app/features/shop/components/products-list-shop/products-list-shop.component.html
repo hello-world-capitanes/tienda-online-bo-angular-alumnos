@@ -6,14 +6,6 @@
 >
   <mat-icon>close</mat-icon>
 </button>
-<<<<<<< HEAD
-
-<div class="divShop">
-  <mat-list-item role="listitem" class="nameShop">
-    {{ shop?.name }}
-  </mat-list-item>
-  <mat-divider></mat-divider>
-=======
 <mat-list role="list" class="listShop">
   <mat-divider></mat-divider>
     <div>
@@ -32,8 +24,7 @@
       <mat-divider></mat-divider>
     </div>
 </mat-list>
->>>>>>> develop
-
+<div>
   <ng-container
     *ngIf="shop?.products && shop.products.length > 0; else noProducts"
   >

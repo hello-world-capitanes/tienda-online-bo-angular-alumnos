@@ -14,12 +14,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 export class ShopService extends FirestoreService {
   protected collection: string;
   private readonly SHOP_COLLECTION = 'shops';
-<<<<<<< HEAD
 
   selectedShopSeeProducts!:string;
-=======
-  selectedShopSeeProducts !: string;
->>>>>>> develop
 
   constructor(productService: ProductService, firestore: AngularFirestore,
     public snackBar: MatSnackBar) {
@@ -107,6 +103,10 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Shop : undefined;
   }
 
+  setSelectedShopSeeProducts(value: string) {
+    this.selectedShopSeeProducts = value;
+  }
+
 
 /*
   addProduct(product: ProductStock) {
@@ -120,9 +120,7 @@ export class ShopService extends FirestoreService {
   public get selectedShopSeeProducts(): Shop {
     return this._selectedShopSeeProducts;
   }
-  setSelectedShopSeeProducts(value: Shop) {
-    this._selectedShopSeeProducts = value;
-  }
+
 
   modifyStock(prod: ProductStock, units: number) {
     prod.stock = units;

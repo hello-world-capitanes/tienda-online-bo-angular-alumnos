@@ -1,24 +1,32 @@
-<app-shops-create (anadirOutPut)="anadirElementoLista($event)"></app-shops-create>
+<app-shops-create
+  (anadirOutPut)="anadirElementoLista($event)"
+></app-shops-create>
 
 <mat-list role="list" class="listShop">
   <mat-divider></mat-divider>
-  <ng-container
-    *ngFor="let shop of shops"
-  >
+  <ng-container *ngFor="let shop of shops">
     <div>
       <mat-accordion>
         <mat-expansion-panel
           (opened)="panelOpenState = true"
           (closed)="panelOpenState = false"
-        ><mat-expansion-panel-header>
+          ><mat-expansion-panel-header>
             <div class="info">
               <div *ngIf="shop.active === false">
-                <button mat-raised-button class="botonShop" (click)="activeShop(shop)">
+                <button
+                  mat-raised-button
+                  class="botonShop"
+                  (click)="activeShop(shop)"
+                >
                   <mat-icon>autorenew</mat-icon>
                 </button>
               </div>
               <div *ngIf="shop.active === true">
-                <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
+                <button
+                  mat-raised-button
+                  class="botonShop"
+                  (click)="deleteShop(shop)"
+                >
                   <mat-icon> delete_forever </mat-icon>
                 </button>
               </div>
@@ -32,20 +40,33 @@
           <div class="hiddenIfo">
             <div class="firstColumnHidden">
               <mat-list role="list">
-                <br>
+                <br />
                 <mat-list-item role="listitem">
                   <div class="expansionContent">
                     <span> Nombre: {{ shop.name }} </span>
                     <span> Direccion: {{ shop.address.street }} </span>
-                    <button mat-raised-button color = "accent" (click) = "openProductList(shop)">Ver productos</button>
+                    <button
+                      mat-raised-button
+                      color="accent"
+                      (click)="openProductList(shop)"
+                    >
+                      Ver productos
+                    </button>
                     <span> Name: {{ shop.name }} </span>
                     <span> Adress: {{ shop.address.street }} </span>
                     <span> Activo: {{ shop.active }} </span>
                     <!-- <span> Activo: {{ shop.active }} </span> -->
-                    <button mat-raised-button class="viewProducts" color = "accent" (click) = "openProductList(shop)">View products</button>
+                    <button
+                      mat-raised-button
+                      class="viewProducts"
+                      color="accent"
+                      (click)="openProductList(shop)"
+                    >
+                      View products
+                    </button>
                   </div>
                 </mat-list-item>
-                <br>
+                <br />
               </mat-list>
             </div>
           </div>
@@ -55,5 +76,3 @@
     <mat-divider></mat-divider>
   </ng-container>
 </mat-list>
-
-
