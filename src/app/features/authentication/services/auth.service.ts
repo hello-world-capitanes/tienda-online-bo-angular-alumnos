@@ -129,6 +129,7 @@ export class AuthService {
       _email: user.email,
       _displayName: user.displayName,
       _photoURL: user.photoURL,
+      creator: user.creator
     } as unknown as UserAdmin;
 
     return userRef.set(userData, {

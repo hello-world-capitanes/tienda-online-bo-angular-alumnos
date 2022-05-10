@@ -39,7 +39,7 @@
         mat-raised-button
         color="primary"
         [disabled]="this.categoryForm.invalid"
-        (click)="addCategory()"
+        (click)="$event.stopPropagation(); addCategory()"
       >
         +
       </button>
@@ -49,7 +49,7 @@
 </div>
 
 <mat-list role="list" class="listCategory">
-  <mat-divider></mat-divider>
+  <h1>Active categories</h1>
   <ng-container
     *ngFor="let category of categories"
   >
@@ -62,10 +62,10 @@
         >
           <mat-expansion-panel-header *ngIf="category.active===true" class="category">
             <div class="info">
-              <button mat-raised-button class="prodButton" (click)="modifyCategory()">
+              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); modifyCategory(category)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-raised-button class="prodButton" (click)="deleteCategory(category)">
+              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); deleteCategory(category)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
@@ -90,6 +90,49 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
-    <mat-divider></mat-divider>
+
+  </ng-container>
+  <br>
+  <h1>Inactive categories</h1>
+  <ng-container
+    *ngFor="let category of categories"
+  >
+    <div class="containerProd">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+
+        >
+          <mat-expansion-panel-header *ngIf="category.active===false" class="category">
+            <div class="info">
+              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); modifyCategory(category)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); activeCategory(category)">
+                <mat-icon> autorenew </mat-icon>
+              </button>
+              <mat-panel-title>
+                <mat-list-item role="listItem">{{
+                  category.name
+                }}</mat-list-item>
+              </mat-panel-title>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="hiddenIfo">
+            <div class="firstColumnHidden">
+              <mat-list role="list">
+                <mat-list-item role="listItem">
+                  <div class="expansionContent">
+                    <span> Name: {{ category.name }} </span>
+                    <span> Description: {{ category.description }} </span>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </ng-container>
 </mat-list>
