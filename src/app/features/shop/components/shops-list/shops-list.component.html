@@ -12,6 +12,9 @@
           (closed)="panelOpenState = false"
         ><mat-expansion-panel-header>
             <div class="info">
+              <button mat-raised-button class="botonShop" (click)="modifyShop(shop.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
               <div *ngIf="shop.active === false">
                 <button mat-raised-button class="botonShop" (click)="activeShop(shop)">
                   <mat-icon>autorenew</mat-icon>

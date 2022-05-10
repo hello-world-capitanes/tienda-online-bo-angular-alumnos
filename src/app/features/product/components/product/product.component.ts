@@ -83,7 +83,7 @@ export class ProductComponent implements OnInit {
         this.productForm.value.characteristics,
         this.productForm.value.price,
         this.productForm.value.description,
-        this.productForm.value.categories.id,
+        this.productForm.value.categories,
         this.productForm.value.image,
         true
       );
@@ -140,10 +140,29 @@ export class ProductComponent implements OnInit {
     return this.products;
   }
 
+  findById(id: string): Product | undefined{
+    return this.products?.find((prod) => {
+      if(prod.id === id){
+        return prod;
+      }
+      return null;
+    })
+  }
+
   modifyProduct(id: string){
-    let config = new MatDialogConfig();
+    let prod = this.findById(id);
     const dialogRef = this.matDialog.open(ModifyProductComponent, {
       width: '350px',
+      data: {
+        id: id,
+        name: prod?.name,
+        characteristics: prod?.characteristics,
+        price: prod?.price,
+        description: prod?.description,
+        categoriesProd: prod?.categories,
+        image: prod?.image,
+        active: prod?.active
+      }
     });
     dialogRef.componentInstance.id = id;
   }

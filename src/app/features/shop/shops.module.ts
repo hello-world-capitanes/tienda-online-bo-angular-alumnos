@@ -14,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import { ProductsListShopComponent } from './components/products-list-shop/products-list-shop.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ModifyInfoShopsComponent } from './components/modify-info-shops/modify-info-shops.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ShopsListComponent,
     ShopsCreateComponent,
     ShopsModifyComponent,
-    ProductsListShopComponent
+    ProductsListShopComponent,
+    ModifyInfoShopsComponent
   ],
   imports: [
     CommonModule,
