@@ -83,7 +83,7 @@ export class ProductComponent implements OnInit {
         this.productForm.value.characteristics,
         this.productForm.value.price,
         this.productForm.value.description,
-        this.productForm.value.categories.id,
+        this.productForm.value.categories,
         this.productForm.value.image,
         true
       );
