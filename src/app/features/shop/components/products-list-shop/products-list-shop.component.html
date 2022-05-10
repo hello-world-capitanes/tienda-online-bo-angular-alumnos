@@ -1,22 +1,57 @@
-<button mat-raised-button color="accent" (click)="onNoClick()" class="closeButton">
+<button
+  mat-raised-button
+  color="accent"
+  (click)="onNoClick()"
+  class="closeButton"
+>
   <mat-icon>close</mat-icon>
 </button>
-<mat-list role="list" class="listShop">
-  <mat-divider></mat-divider>
-    <div>
-      <mat-list-item role="listitem" class="nameShop">
-        {{ shop?.name }}
-      </mat-list-item>
-      <mat-list role="list">
-        <mat-list-item role="productList">
-          <mat-list role="list" *ngFor="let product of shop?.products">
-            <mat-list-item role="listitem"
-              >Nombre: {{ product.product?.name }} Stock: {{ product.stock }}
-            </mat-list-item>
-          </mat-list>
-        </mat-list-item>
-      </mat-list>
-      <mat-divider></mat-divider>
-    </div>
-</mat-list>
 
+<div class="divShop">
+  <mat-list-item role="listitem" class="nameShop">
+    {{ shop?.name }}
+  </mat-list-item>
+  <mat-divider></mat-divider>
+
+  <ng-container
+    *ngIf="shop?.products && shop.products.length > 0 && isLoaded; else noProducts"
+  >
+    <mat-list role="list" *ngFor="let productStock of showProducts">
+      <div class="divImage">
+        <img src="{{productStock.product.image}}">
+      </div>
+      <div class="divStock">
+        <mat-list-item role="listitem"
+          >Name: {{ productStock.product.name }}
+        </mat-list-item>
+
+        <span> Stock: </span>
+        <mat-form-field>
+          <mat-label>Units</mat-label>
+          <input
+            type="number"
+            matInput
+            [value]="productStock.stock"
+            #units
+            [step]="stepInput"
+            [min]="minInput"
+            [max]="maxInput"
+            class="stockInput"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          (click)="changeStock(productStock,units.value)"
+          value="product"
+          class="stockButton"
+        >
+          Apply Stock
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </ng-container>
+  <ng-template #noProducts>
+    <span> The shop hasn`t got products</span>
+  </ng-template>
+</div>

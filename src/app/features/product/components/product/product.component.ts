@@ -84,7 +84,7 @@ export class ProductComponent implements OnInit {
         this.productForm.value.characteristics,
         this.productForm.value.price,
         this.productForm.value.description,
-        this.productForm.value.categories.id,
+        this.productForm.value.categories,
         this.productForm.value.image,
         true
       );
@@ -105,18 +105,6 @@ export class ProductComponent implements OnInit {
     this.productService.activeProduct(product);
   }
 
-/*   existId(id: string): boolean {
-    if (
-      this.productService.productList.find((product) => {
-        product.id === id;
-      })
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
- */
   generateId(): string {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
