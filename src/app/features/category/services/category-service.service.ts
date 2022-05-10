@@ -112,13 +112,8 @@ export class CategoryService extends FirestoreService {
     }
   }*/
 
-<<<<<<< HEAD
-  public get categoryList(): Category[] {
-    return this._categoryList!;
-=======
   public get cateogoryList(): Category[] {
     return this.categoryList!;
->>>>>>> develop
   }
 
   public set categoryList(value: Category[]) {
