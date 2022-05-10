@@ -38,11 +38,7 @@ export class ProductComponent implements OnInit {
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
-    /*this.categories.forEach((cat) =>{
-      if(cat.active === true){
-        this.categoriesName.push(cat.name)
-      }
-    })*/
+
   }
 
   createForm() {
@@ -135,7 +131,7 @@ export class ProductComponent implements OnInit {
     return '_' + Math.random().toString(36).substring(2, 9);
   }
 
-  removeCategory(product:Product, category:string){
+  removeCategory(product:Product, category:Category){
     this.productService.removeCategory(product,category);
     this.products = this.productService.productList;
   }

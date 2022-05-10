@@ -37,7 +37,6 @@ export class ModifyProductComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    alert(this.id);
     this.createForm();
   }
 

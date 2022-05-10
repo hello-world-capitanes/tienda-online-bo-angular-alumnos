@@ -6,7 +6,7 @@ export class Product {
   private _characteristics: string;
   private _price: number;
   private _description: string;
-  private _categories: string[];
+  private _categories: Category[];
   private _image: string;
   private _active?: boolean | undefined;
 
@@ -16,7 +16,7 @@ export class Product {
     characteristics: string,
     price: number,
     description: string,
-    categories: string[],
+    categories: Category[],
     image: string,
     active: boolean | undefined
   ) {
@@ -78,7 +78,7 @@ export class Product {
     return this._categories;
   }
 
-  public set categories(categories: string[]) {
+  public set categories(categories: Category[]) {
     this._categories = categories;
   }
 

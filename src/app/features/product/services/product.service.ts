@@ -65,7 +65,7 @@ export class ProductService extends FirestoreService{
     });
   }
 
-  removeCategory(product:Product,category:string){
+  removeCategory(product:Product,category:Category){
     //Se busca la categoria dentro del producto y se borra
     let indexProduct = this.productList.indexOf(product);
     let indexCategory = this.productList[indexProduct].categories.indexOf(category)

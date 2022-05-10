@@ -34,7 +34,7 @@
               <mat-label> Categories </mat-label>
               <mat-select class="input" formControlName="categories" required>
                 <div *ngFor="let cat of categories">
-                  <mat-option *ngIf="cat.active===true" [value]="cat">
+                  <mat-option *ngIf="cat.active===true" [value]="cat.id">
                     {{ cat.name }}
                   </mat-option>
                 </div>
@@ -127,7 +127,7 @@
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
                       <mat-chip *ngFor="let category of product.categories">
-                        {{category}}
+                        {{category.name}}
                         <button matChipRemove>
                           <mat-icon>cancel</mat-icon>
                         </button>
