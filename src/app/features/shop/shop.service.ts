@@ -73,7 +73,6 @@ export class ShopService extends FirestoreService {
   }) */
   }
 
-
   async filterShops(): Promise<Shop[]> {
     const snapshot = await this.getCollection()
       .ref.where('active', '==', true)
@@ -86,16 +85,16 @@ export class ShopService extends FirestoreService {
   }
 
   async getShop(name: string): Promise<Shop> {
-    if(!!name && name.length>0){
-      const snapshot = await this.getCollection().ref.where("name", "==", name).get();
-      if(!!snapshot.docs && snapshot.docs.length > 0 ){
+    if (!!name && name.length > 0) {
+      const snapshot = await this.getCollection()
+        .ref.where('name', '==', name)
+        .get();
+      if (!!snapshot.docs && snapshot.docs.length > 0) {
         return snapshot?.docs[0].data() as Shop;
       }
       throw new Error();
     }
     throw new Error();
-
-
   }
 
   async getShopProducts(): Promise<ProductShop[]> {
@@ -120,7 +119,9 @@ export class ShopService extends FirestoreService {
   }
 
   async applyStock(products: ProductShop[]): Promise<any> {
-    return this.getCollection().doc(this.selectedShopSeeProducts).update({ products: products });
+    return this.getCollection()
+      .doc(this.selectedShopSeeProducts)
+      .update({ products: products });
   }
 
   async shopExistsById(shop: Shop): Promise<boolean> {
@@ -150,16 +151,16 @@ export class ShopService extends FirestoreService {
 
   async modifyStock(prod: ProductStock, units: number) {
     let products: ProductShop[] = [];
-    this.getShopProducts().then(prods => {
+    this.getShopProducts().then((prods) => {
       products = prods;
-      this.changeStock(products,prod.product.id,units);
+      this.changeStock(products, prod.product.id, units);
       this.applyStock(products);
-    })
 
-    this.snackBar.openFromComponent(SnackBarMessageComponent, {
-      data: 'Stock del producto ' + prod.product.name + ' modificado',
-      duration: 1500,
+      this.snackBar.openFromComponent(SnackBarMessageComponent, {
+        data: 'Stock del producto ' + prod.product.name + ' modificado',
+        duration: 1500,
+      });
+      return prod.stock;
     });
-    return prod.stock;
   }
 }
