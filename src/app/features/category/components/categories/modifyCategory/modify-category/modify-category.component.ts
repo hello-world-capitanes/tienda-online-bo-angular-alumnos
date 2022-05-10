@@ -12,86 +12,61 @@ import { CategoriesComponent } from './../../categories.component';
   styleUrls: ['./modify-category.component.scss']
 })
 export class ModifyCategoryComponent implements OnInit {
-  modifyCategoryForm: FormGroup;
-  id!:string;
+  modifyCategoryForm!: FormGroup;
+  id!: string;
+  categories!: Category[];
 
-  constructor(private form: FormBuilder,
-    public dialogRef: MatDialogRef<CategoriesComponent>,
+  constructor(
+    private form: FormBuilder,
+    private activeRoute: ActivatedRoute,
     private categoryService: CategoryService,
-    private activeRoute: ActivatedRoute) {
-    this.id = activeRoute.snapshot.params['id'];
-    this.modifyCategoryForm = this.form.group({
-      name: new FormControl
-        (null,
-          [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(20),
-          ]
-        ),
-      description: new FormControl
-        (null,
-          [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(100),
-          ]
-        ),
-    });
-  }
-
-  get errorMessageName(): string {
-    const form: FormControl = (this.modifyCategoryForm.get('name') as FormControl);
-    return form.hasError('required') ?
-      'Enter a name for the category' :
-      form.hasError('minlength') ?
-        'The name must have at least 3 characters' :
-        form.hasError('maxlength') ?
-          'The name must have maximum 20 characters' : '';
-  }
-
-  get errorMessageDescription(): string {
-    const form: FormControl = (this.modifyCategoryForm.get('description') as FormControl);
-    return form.hasError('required') ?
-      'Enter a description for the category' :
-      form.hasError('minlength') ?
-        'The description must have at least 3 characters' :
-      form.hasError('maxlength') ?
-        'Enter a shorter description' : '';
+    public dialogRef: MatDialogRef<CategoriesComponent>) {
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = (!!categories && categories.length > 0 ? categories : [])
+    })
   }
 
   ngOnInit(): void {
+    this.createForm();
   }
 
-  getCategory(): Category{
-    return this.categoryService.getCategory(this.id);
+  createForm() {
+    this.modifyCategoryForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30),
+      ]),
+    })
   }
 
-/*   categoryModified(){
-    console.log=(this.modifyCategoryForm.value);
-  categoryModified(){
-    if(this.modifyCategoryForm.invalid){
-      return;
-    }
-  } */
-
-  cancelModification(){
+  cancelModification() {
     this.dialogRef.close();
   }
 
-  categoryModified() {
-    let bool: boolean;
-    if (!this.modifyCategoryForm.valid) {
-      return;
-    }
+  categoryModified(id: string) {
+    let newCat = new Category(
+      id,
+      this.modifyCategoryForm.value.name,
+      this.modifyCategoryForm.value.description,
+      true
+    )
+    this.categoryService.categoryModified(id, newCat);
+    this.dialogRef.close();
+  }
 
-    let category = new Category(this.modifyCategoryForm.get('name')?.value,
-      this.modifyCategoryForm.get('id')?.value,
-      this.modifyCategoryForm.get('description')?.value,
-      true)
-
-    this.categoryService.modifyCategory(category);
-    this.modifyCategoryForm.reset();
+  findById(id: string): Category | undefined{
+    return this.categories?.find((cat) => {
+      if(cat.id === id){
+        return cat;
+      }
+      return null;
+    })
   }
 
 }

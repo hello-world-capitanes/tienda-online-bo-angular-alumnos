@@ -104,14 +104,6 @@ export class CategoryService extends FirestoreService {
     return this.categoryList!;
   }
 
-  /*deleteCategory(value: Category) {
-    if (this._categoryList?.some(element => element.id == value.id)) {
-      this._categoryList.splice(this._categoryList.indexOf(value), 1);
-    } else {
-      return;
-    }
-  }*/
-
   public get cateogoryList(): Category[] {
     return this.categoryList!;
   }
@@ -129,17 +121,16 @@ export class CategoryService extends FirestoreService {
     });
   }
 
-  async modifyCategory(category: Category): Promise<Category> {
-    if (await this.categoryExists(category)) {
-      return this.getCollection().doc(category.id).set(category).then(() => {
-        return category;
-      });
-    }
-    return category;
-  }
-
-  getCategory(id: string) {
-    return new Category("", "", "", true);
+  categoryModified(id: string, newCat: Category) {
+    let categoryBD = {
+      id: id,
+      name: newCat.name,
+      description: newCat.description,
+      active: newCat.active,
+    };
+    return this.getCollection().doc(id).set(Object.assign({}, categoryBD)).then(() => {
+      return categoryBD;
+    })
   }
 
 }
