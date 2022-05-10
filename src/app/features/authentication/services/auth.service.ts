@@ -1,7 +1,8 @@
+import { UserAdmin } from 'src/app/core/models/userAdmin';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
-  AngularFirestore
+  AngularFirestore, AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -33,6 +34,7 @@ export class AuthService {
   }
 
   signIn(email: string, password: string) {
+
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
@@ -45,11 +47,25 @@ export class AuthService {
       });
   }
 
-  signUp(email: string, password: string) {
+  signUpAdmin(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        this.setUserData(result.user);
+        this.createUserAdmin(result.user);
+      })
+      .catch((error) => {
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Incorrect login or password",
+          duration: 1500
+        });
+      });
+  }
+
+  signUpUser(email: string, password: string) {
+    return this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.createUser(result.user);
       })
       .catch((error) => {
         this.snackBar.openFromComponent(SnackBarMessageComponent, {
@@ -66,15 +82,34 @@ export class AuthService {
   }
 
 
-  /* Setting up user data when sign in with username/password,
-  sign up with username/password and sign in with social auth
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  setUserData(user: any) {
-    console.log("set user data", user);
-    return this.afs.collection("admin").doc(user.uid).set(user).then(() => {
-      console.log(user);
 
-      return user;
+  createUserAdmin(user: any) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `admin/${user.uid}`
+    );
+    const userData : UserAdmin = {
+      uid: user.uid,
+      email: user.email,
+      creatorEmail : this.userData.email,
+      creationDate : new Date
+    };
+    return userRef.set(userData, {
+      merge: true,
+    });
+  }
+
+  createUser(user: any) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
+    const userData : UserAdmin = {
+      uid: user.uid,
+      email: user.email,
+      creatorEmail : this.userData.email,
+      creationDate : new Date
+    };
+    return userRef.set(userData, {
+      merge: true,
     });
   }
 

@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  signUp(){
+  signUpAdmin(){
     if(this.signUpForm.invalid){
       this.snackBar.openFromComponent(SnackBarMessageComponent, {
         data: "Invalid form",
@@ -37,7 +37,7 @@ export class SignUpComponent implements OnInit {
       });
       return;
     }
-    this.authService.signUp(this.getFormValue("email"), this.getFormValue("password"));
+    this.authService.signUpAdmin(this.getFormValue("email"), this.getFormValue("password"));
   }
 
 
