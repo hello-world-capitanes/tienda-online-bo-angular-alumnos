@@ -10,10 +10,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { ProductComponent } from './components/product/product.component';
 import {MatChipsModule} from '@angular/material/chips';
+import { ModifyProductComponent } from './components/modify-product/modify-product.component';
 
 @NgModule({
   declarations: [
-    ProductComponent
+    ProductComponent,
+    ModifyProductComponent
   ],
   imports: [
     CommonModule,

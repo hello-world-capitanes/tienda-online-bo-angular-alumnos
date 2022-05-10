@@ -80,4 +80,66 @@ export class CategoryService extends FirestoreService{
 
   }*/
 
+  addCategory2(category: Category) {
+    if (this.categoryList?.some((element) => element.name === category.name) && !category.active) {
+      return;
+    } else if (this.categoryList?.some((element) => element.name === category.name) && category.active) {
+      if (this.categoryList?.some((element) => element.name === category.name
+        && !element.active)) {
+        for (let i = 0; i < this.categoryList.length; i++) {
+          if (this.categoryList[i].name === category.name) {
+            this.categoryList[i].active;
+            this.categoryList[i].description;
+          }
+        }
+      } else if (this.categoryList?.some((element) => element.name === category.name
+        && element.active)) {
+        return;
+      }
+    } else {
+      this.categoryList?.push(category)
+    }
+
+  };
+
+  /*categoryExists(category: Category) {
+    if (this._categoryList?.some((element) => element.name === category.name)) {
+      return true;
+    } else {
+      return false;
+    };
+  }*/
+
+  getAllCategories(): Category[] {
+    return this.categoryList!;
+  }
+
+  /*deleteCategory(value: Category) {
+    if (this._categoryList?.some(element => element.id == value.id)) {
+      this._categoryList.splice(this._categoryList.indexOf(value), 1);
+    } else {
+      return;
+    }
+  }*/
+
+  public get cateogoryList(): Category[] {
+    return this.categoryList!;
+  }
+
+  public set categoryList(value: Category[]) {
+    this.categoryList = value;
+  }
+
+  findById(id: string) {
+    return this.categoryList?.find((category) => {
+      if (category.id === id) {
+        return category;
+      }
+      return null;
+    });
+  }
+  getCategory(id:string){
+    return new Category("","","",true);
+  }
+
 }
