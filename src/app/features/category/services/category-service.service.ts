@@ -56,6 +56,10 @@ export class CategoryService extends FirestoreService {
     return this.getCollection().doc(category.id).update({ 'active': false });
   }
 
+  activeCategory(category: Category){
+    return this.getCollection().doc(category.id).update({'active': true});
+  }
+
   /*filterShops(): Promise<Shop[]> {
 
     return this.getCollection().ref.where("active", "==", true).get().then(snapshot => snapshot?.docs.map(doc => {
