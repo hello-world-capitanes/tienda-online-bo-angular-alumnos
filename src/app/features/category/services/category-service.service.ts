@@ -130,11 +130,4 @@ export class CategoryService extends FirestoreService{
     return new Category("","","",true);
   }
 
-  getCategoryProduct(product: Product){
-    let snapshot = [];
-    for(let i = 0; i < product.categories.length; i++){
-      snapshot.push(this.getCollection())
-    }
-  }
-
 }

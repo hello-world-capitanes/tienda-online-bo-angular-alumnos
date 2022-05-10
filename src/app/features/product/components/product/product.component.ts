@@ -31,6 +31,7 @@ export class ProductComponent implements OnInit {
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
+
   }
 
   createForm() {
@@ -55,6 +56,14 @@ export class ProductComponent implements OnInit {
     this.createForm();
   }
 
+  getCategories(product: Product){
+    let refs = [];
+    let categories = this.categoryService.getCategories();
+    for(let i = 0; i < product.categories.length; i++){
+
+    }
+  }
+
   newProduct() {
     if (!this.productForm.valid) {
       return false;
@@ -66,24 +75,10 @@ export class ProductComponent implements OnInit {
         this.productForm.value.characteristics,
         this.productForm.value.price,
         this.productForm.value.description,
-        this.productForm.value.categories,
+        this.productForm.value.categories.id,
         '',
         true
       );
-
-      while (this.existId(id)) {
-        prod1 = new Product(
-          this.generateId(),
-          this.productForm.value.name,
-          this.productForm.value.characteristics,
-          this.productForm.value.price,
-          this.productForm.value.description,
-          this.productForm.value.categories,
-          '',
-          true
-        );
-      }
-
       this.addProduct(prod1);
       return true;
     }
@@ -128,7 +123,7 @@ export class ProductComponent implements OnInit {
     return '_' + Math.random().toString(36).substring(2, 9);
   }
 
-  removeCategory(product:Product, category:Category){
+  removeCategory(product:Product, category:string){
     this.productService.removeCategory(product,category);
     this.products = this.productService.productList;
   }
