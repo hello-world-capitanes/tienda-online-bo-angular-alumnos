@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
-import { ForgotPasswordComponent } from './features/authentication/components/forgot-password/forgot-password.component';
 import { SignInComponent } from './features/authentication/components/sign-in/sign-in.component';
 import { SignUpComponent } from './features/authentication/components/sign-up/sign-up.component';
 import { CategoriesComponent } from './features/category/components/categories/categories.component';
@@ -20,7 +19,6 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard]},
   { path: 'home', component: UserComponent, canActivate: [AuthGuard]},
-  { path: 'forgot-password', component: ForgotPasswordComponent },
 ];
 
 @NgModule({
