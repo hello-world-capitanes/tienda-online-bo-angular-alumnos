@@ -23,6 +23,9 @@ export class ProductService extends FirestoreService{
               private categoryService: CategoryService) {
     super(firestore);
     this.collection = this.PRODUCTS_COLLECTION;
+    this.getProducts().then( products => {
+      this._productList = products;
+    });
   }
 
   /*public addProduct(value: Product){
@@ -45,6 +48,15 @@ export class ProductService extends FirestoreService{
 
   public set productList(value: Product[]) {
     this._productList = value;
+  }
+
+  async getProducts(): Promise<Product[]> {
+    let products:Product[] = [];
+    const snapshot = await this.getCollection().ref.get();
+    snapshot.docs.forEach(prod => {
+      products.push(prod.data() as Product);
+    })
+    return products;
   }
 
   findById(prodId: string): Product | undefined {

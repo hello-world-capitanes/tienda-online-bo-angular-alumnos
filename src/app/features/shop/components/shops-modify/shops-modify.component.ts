@@ -30,7 +30,7 @@ export class ShopsModifyComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  private hasProduct(product: Product): boolean {
+ /*  private hasProduct(product: Product): boolean {
     if (this.products != undefined) {
       return this.products?.some((productFind) => {
         productFind.product.id === product.id;
@@ -38,7 +38,7 @@ export class ShopsModifyComponent implements OnInit {
       });
     }
     return false;
-  }
+  } */
   private addProduct(product: ProductStock) {
     this.products?.push(product);
     //this.shopService.addProduct(product);

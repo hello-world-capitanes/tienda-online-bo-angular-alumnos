@@ -1,3 +1,5 @@
+import { ProductShop } from './../product/models/product-shop';
+import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
@@ -80,6 +82,11 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs[0].data() as Shop;
   }
 
+  async getShopProducts(): Promise<ProductShop[]> {
+    const snapshot = await this.getCollection().ref.where("name", "==", this.selectedShopSeeProducts).get();
+    return snapshot?.docs[0].data()['products'] as ProductShop[];
+  }
+
   async deleteShop(shop:Shop):Promise<any>{
     if ((await this.shopExistsById(shop)).valueOf()){
       const shop_1 = await this.getCollection().doc(shop.id).update({ 'active': false });
@@ -90,6 +97,10 @@ export class ShopService extends FirestoreService {
   }
   async activeShop(shop: Shop):Promise<any>{
     return this.getCollection().doc(shop.id).update({'active': true});
+  }
+
+  async applyStock(products: ProductShop[]):Promise<any>{
+    return this.getCollection().doc(this.selectedShopSeeProducts).update({'products': products});
   }
 
   async shopExistsById(shop: Shop): Promise<boolean>{
@@ -107,6 +118,31 @@ export class ShopService extends FirestoreService {
     this.selectedShopSeeProducts = value;
   }
 
+  changeStock(products:ProductShop[], id:string, units:number){
+    products.find(prod => {
+      if(prod.id === id){
+        prod.stock == units;
+      }
+    })
+  }
+
+  modifyStock( prod: ProductStock, units: number) {
+    /* let products: ProductShop[] = [];
+    this.getShopProducts().then(prod => {
+      products = prod;
+    })
+
+    this.changeStock(products,prod.product.id,units);
+
+    this.applyStock(products);
+
+    this.snackBar.openFromComponent(SnackBarMessageComponent, {
+      data: 'Stock del producto ' + prod.product.name + ' modificado',
+      duration: 1500,
+    });
+    return prod.stock; */
+  }
+
 
 /*
   addProduct(product: ProductStock) {
@@ -122,13 +158,6 @@ export class ShopService extends FirestoreService {
   }
 
 
-  modifyStock(prod: ProductStock, units: number) {
-    prod.stock = units;
-    this.snackBar.openFromComponent(SnackBarMessageComponent, {
-      data: 'Stock del producto ' + prod.product.name + ' modificado',
-      duration: 1500,
-    });
-    return prod.stock;
-  }
+
   } */
 }

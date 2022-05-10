@@ -6,35 +6,23 @@
 >
   <mat-icon>close</mat-icon>
 </button>
-<mat-list role="list" class="listShop">
+
+<div class="divShop">
+  <mat-list-item role="listitem" class="nameShop">
+    {{ shop?.name }}
+  </mat-list-item>
   <mat-divider></mat-divider>
-    <div>
-      <mat-list-item role="listitem" class="nameShop">
-        {{ shop?.name }}
-      </mat-list-item>
-      <mat-list role="list">
-        <mat-list-item role="productList">
-          <mat-list role="list" *ngFor="let product of shop?.products">
-            <mat-list-item role="listitem"
-              >Nombre: {{ product.product?.name }} Stock: {{ product.stock }}
-            </mat-list-item>
-          </mat-list>
-        </mat-list-item>
-      </mat-list>
-      <mat-divider></mat-divider>
-    </div>
-</mat-list>
-<div>
+
   <ng-container
-    *ngIf="shop?.products && shop.products.length > 0; else noProducts"
+    *ngIf="shop?.products && shop.products.length > 0 && isLoaded; else noProducts"
   >
-    <mat-list role="list" *ngFor="let productStock of shop.products">
+    <mat-list role="list" *ngFor="let productStock of showProducts">
       <div class="divImage">
-        <img src="{{ productStock.product?.image }}" />
+        <img src="{{productStock.product.image}}">
       </div>
       <div class="divStock">
         <mat-list-item role="listitem"
-          >Nombre: {{ productStock.product?.name }}
+          >Nombre: {{ productStock.product.name }}
         </mat-list-item>
 
         <span> Stock: </span>
@@ -53,7 +41,7 @@
         </mat-form-field>
         <button
           mat-raised-button
-          (click)="changeStock(productStock, units.value)"
+          (click)="changeStock(productStock,units.value)"
           value="product"
           class="stockButton"
         >
