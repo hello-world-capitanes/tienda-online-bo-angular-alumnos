@@ -34,10 +34,12 @@ mat-divider {
   flex-direction: column;
 }
 
-.buttonUser {
+.deleteButton {
   margin: 1em;
   margin-left: 0 auto;
   flex: 1 1 auto;
+  color: white;
+  background-color: #3f51b5;
 }
 
 .user {

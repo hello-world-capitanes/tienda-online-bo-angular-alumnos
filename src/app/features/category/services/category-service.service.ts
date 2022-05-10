@@ -1,80 +1,82 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { map, Observable } from 'rxjs';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
-  private _categoryList: Category[];
+export class CategoryService extends FirestoreService {
+  protected collection: string;
+  private readonly CATEGORY_COLLECTION = 'categories'
 
-  constructor() {
-    this._categoryList = [
-      new Category("Lácteos", "1", "Productos lácteos", true),
-      new Category("Aceite", "2", "Aceites", false),
-      new Category("Carne", "3", "Productos cárnicos", true),
-      new Category("Pescado", "4", "Pescados", false),
-      new Category("Bollería", "5", "Pescados", true),
-      new Category("Alcohol", "6", "Pescados", true),
-    ]
+  constructor(firestore: AngularFirestore) {
+    super(firestore)
+    this.collection = this.CATEGORY_COLLECTION;
+  }
+  /**
+   *
+   * @returns an array of Categories
+   */
+  getCategories(): Observable<Category[]> {
+    return this.getCollection().valueChanges().pipe(map(category => category as Category[]));
   }
 
-  addCategory(category: Category) {
-    if (this._categoryList?.some((element) => element.name === category.name) && !category.active) {
-      return;
-    } else if (this._categoryList?.some((element) => element.name === category.name) && category.active) {
-      if (this._categoryList?.some((element) => element.name === category.name
-        && !element.active)) {
-        for (let i = 0; i < this._categoryList.length; i++) {
-          if (this._categoryList[i].name === category.name) {
-            this._categoryList[i].active;
-            this._categoryList[i].description;
-          }
-        }
-      } else if (this._categoryList?.some((element) => element.name === category.name
-        && element.active)) {
-        return;
-      }
-    } else {
-      this._categoryList.push(category)
+  /**
+   *
+   * @param category
+   * @returns category with DB id
+   */
+
+  async addCategory(category: Category): Promise<Category | undefined> {
+    const result = await this.categoryExists(category)
+    if (result === undefined) {
+      category.id = this.firestore.createId();
+      let categoryDB = {
+        id: category.id,
+        name: category.name,
+        description: category.description,
+        active: category.active,
+      };
+      return this.getCollection().doc(category.id).set(Object.assign({}, categoryDB)).then(() => {
+        return categoryDB as Category;
+      })
     }
-    console.log
+    return;
+  }
 
-  };
+  async categoryExists(category: Category): Promise<Category | undefined> {
+    const snapshot = await this.getCollection().ref.where("name", "==", category.name).get();
+    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Category : undefined;
+  }
 
-  categoryExists(category: Category) {
-    if (this._categoryList?.some((element) => element.name === category.name)) {
-      return true;
-    } else {
-      return false;
+  deleteCategory(category: Category) {
+    return this.getCollection().doc(category.id).update({ 'active': false });
+  }
+
+  activeCategory(category: Category) {
+    return this.getCollection().doc(category.id).update({ 'active': true });
+  }
+
+  /*filterShops(): Promise<Shop[]> {
+    return this.getCollection().ref.where("active", "==", true).get().then(snapshot => snapshot?.docs.map(doc => {
+      const shop = doc?.data() as Shop;
+      shop.id = doc.id;
+      return shop;
+    }));
+  }*/
+
+  async modifyCategory(id: string, newCat: Category): Promise<Category|undefined> {
+    let categoryBD = {
+      id: id,
+      name: newCat.name,
+      description: newCat.description,
+      active: newCat.active,
     };
+    return this.getCollection().doc(id).set(Object.assign({}, categoryBD)).then(() => {
+      return categoryBD as Category;
+    })
   }
 
-  getAllCategories(): Category[] {
-    return this._categoryList;
-  }
-
-  deleteCategory(value: Category) {
-    if (this._categoryList.some(element => element.id == value.id)) {
-      this._categoryList.splice(this._categoryList.indexOf(value), 1);
-    } else {
-      return;
-    }
-  }
-
-  public get cateogoryList(): Category[] {
-    return this._categoryList;
-  }
-
-  public set categoryList(value: Category[]) {
-    this._categoryList = value;
-  }
-
-  findById(id: string) {
-    return this._categoryList.find((category) => {
-      if (category.id === id) {
-        return category;
-      }
-      return null;
-    });
-  }
 }

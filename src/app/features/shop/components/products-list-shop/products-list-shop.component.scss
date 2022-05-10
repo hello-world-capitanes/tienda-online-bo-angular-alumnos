@@ -1,7 +1,35 @@
 .nameShop{
   font-weight: bold;
+  font-size: 20px;
 }
 
-.closeButton{
-  margin-right: 0px;
+.divShop{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.divImage{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 100px;
+  height: auto;
+}
+
+.divStock{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+.stockButton{
+  margin: 10px;
+  height: auto;
+  width: 200px;
+}
+
+.stockInput{
+  min-width: 20px;
 }

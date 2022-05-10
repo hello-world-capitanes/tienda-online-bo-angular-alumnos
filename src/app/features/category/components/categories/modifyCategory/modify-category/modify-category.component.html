@@ -1,0 +1,20 @@
+<form novalidate [formGroup]="modifyCategoryForm" class="form">
+  <div class="container">
+    <div class="primeraCol">
+      <mat-form-field class="formContainer">
+        <mat-label> Name </mat-label>
+        <input matInput class="input" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="formContainer">
+        <mat-label> Description </mat-label>
+        <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+      </mat-form-field>
+<br>
+      <button mat-raised-button class="addButton" type="submit" (click)="modifyCategory(id)">
+        <mat-icon>add</mat-icon>
+      </button>
+
+    </div>
+  </div>
+</form>

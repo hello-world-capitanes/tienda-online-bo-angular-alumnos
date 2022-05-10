@@ -1,3 +1,4 @@
+<div class="formContainer">
 <mat-accordion>
   <mat-expansion-panel
     (opened)="panelOpenState = true"
@@ -5,7 +6,7 @@
   >
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Añadir categoría
+        Add category
         <mat-icon aria-hidden="false" aria-label="Example home icon"
           >category</mat-icon
         >
@@ -13,7 +14,7 @@
     </mat-expansion-panel-header>
     <form [formGroup]="categoryForm">
       <mat-form-field>
-        <mat-label>Nombre</mat-label>
+        <mat-label>Name</mat-label>
         <input
           type="text"
           matInput
@@ -24,7 +25,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Descripción</mat-label>
+        <mat-label>Description</mat-label>
         <input
           type="text"
           matInput
@@ -38,16 +39,17 @@
         mat-raised-button
         color="primary"
         [disabled]="this.categoryForm.invalid"
-        (click)="addCategory()"
+        (click)="$event.stopPropagation(); addCategory()"
       >
         +
       </button>
     </form>
   </mat-expansion-panel>
 </mat-accordion>
+</div>
 
 <mat-list role="list" class="listCategory">
-  <mat-divider></mat-divider>
+  <h1>Active categories</h1>
   <ng-container
     *ngFor="let category of categories"
   >
@@ -60,11 +62,14 @@
         >
           <mat-expansion-panel-header *ngIf="category.active===true" class="category">
             <div class="info">
-              <button mat-raised-button class="botonProd" (click)="deleteCategory(category)">
+              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); modifyCategory(category.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); deleteCategory(category)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
-                <mat-list-item role="listitem">{{
+                <mat-list-item role="listItem">{{
                   category.name
                 }}</mat-list-item>
               </mat-panel-title>
@@ -73,10 +78,10 @@
           <div class="hiddenIfo">
             <div class="firstColumnHidden">
               <mat-list role="list">
-                <mat-list-item role="listitem">
+                <mat-list-item role="listItem">
                   <div class="expansionContent">
-                    <span> Nombre: {{ category.name }} </span>
-                    <span> Descripcion: {{ category.description }} </span>
+                    <span> Name: {{ category.name }} </span>
+                    <span> Description: {{ category.description }} </span>
                   </div>
                 </mat-list-item>
               </mat-list>
@@ -85,6 +90,49 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
-    <mat-divider></mat-divider>
+
+  </ng-container>
+  <br>
+  <h1>Inactive categories</h1>
+  <ng-container
+    *ngFor="let category of categories"
+  >
+    <div class="containerProd">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+
+        >
+          <mat-expansion-panel-header *ngIf="category.active===false" class="category">
+            <div class="info">
+              <button mat-raised-button class="prodButton" (click)="modifyCategory(category.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); activeCategory(category)">
+                <mat-icon> autorenew </mat-icon>
+              </button>
+              <mat-panel-title>
+                <mat-list-item role="listItem">{{
+                  category.name
+                }}</mat-list-item>
+              </mat-panel-title>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="hiddenIfo">
+            <div class="firstColumnHidden">
+              <mat-list role="list">
+                <mat-list-item role="listItem">
+                  <div class="expansionContent">
+                    <span> Name: {{ category.name }} </span>
+                    <span> Description: {{ category.description }} </span>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </ng-container>
 </mat-list>

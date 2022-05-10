@@ -1,129 +1,237 @@
-<mat-accordion>
-  <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Añadir producto
-        <mat-icon aria-hidden="false">attach_file</mat-icon>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <form novalidate [formGroup] = "productForm" class="form">
-      <div class="container">
-        <div class="primeraCol">
-          <mat-form-field class="formContainer" >
-            <mat-label> Name </mat-label>
-            <input matInput class="input" formControlName="name">
-          </mat-form-field>
-          <mat-form-field class="formContainer" >
-            <mat-label>Price</mat-label>
-            <input matInput class="input" formControlName="price" type="number">
-          </mat-form-field>
-          <mat-form-field class="formContainer" >
-            <mat-label> Categories </mat-label>
-            <mat-select class = "input" formControlName = "categories" required>
-              <div *ngFor="let cat of categories">
-                <mat-option *ngIf="cat.active===true" [value]="cat.name">
-                {{ cat.name }}
-              </mat-option>
-              </div>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class = "segundaCol">
-          <mat-form-field class="formContainer" >
-            <mat-label> Description </mat-label>
-            <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
-          </mat-form-field>
-          <mat-form-field class="formContainer" >
-            <mat-label> Characteristics </mat-label>
-            <input class="input" matInput formControlName="characteristics">
-          </mat-form-field>
-          <div class="formBtn">
-            <button mat-raised-button class="botonAnadir" type="submit" (click)="newProduct()">
-              <mat-icon> add_box </mat-icon>
-            </button>
+<div class="formContainer">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add product
+          <mat-icon aria-hidden="false">attach_file</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form novalidate [formGroup]="productForm" class="form">
+        <div class="container">
+          <div class="primeraCol">
+            <mat-form-field class="formContainer">
+              <mat-label> Name </mat-label>
+              <input matInput class="input" formControlName="name">
+              <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('required')">
+                {{ PRODUCT_ERRORS.name.notProvided }}
+              </mat-error>
+              <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('minLength')">
+                {{ PRODUCT_ERRORS.name.minLength }}
+              </mat-error>
+              <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('maxLength')">
+                {{ PRODUCT_ERRORS.name.maxLength }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="formContainer">
+              <mat-label>Price</mat-label>
+              <input matInput class="input" formControlName="price" type="number">
+              <mat-error *ngIf="productForm.get('price')?.errors && productForm.get('price')?.hasError('required')">
+                {{ PRODUCT_ERRORS.price.notProvided }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="formContainer">
+              <mat-label> Categories </mat-label>
+              <mat-select class="input" formControlName="categories" required>
+                <div *ngFor="let cat of categories">
+                  <mat-option *ngIf="cat.active===true" [value]="cat.id">
+                    {{ cat.name }}
+                  </mat-option>
+                </div>
+              </mat-select>
+              <mat-error
+                *ngIf="productForm.get('categories')?.errors && productForm.get('categories')?.hasError('required')">
+                {{ PRODUCT_ERRORS.categories.notProvided }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="segundaCol">
+            <mat-form-field class="formContainer">
+              <mat-label> Description </mat-label>
+              <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+              <mat-error
+                *ngIf="productForm.get('description')?.errors && productForm.get('description')?.hasError('required')">
+                {{ PRODUCT_ERRORS.description.notProvided }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="formContainer">
+              <mat-label> Characteristics </mat-label>
+              <input class="input" matInput formControlName="characteristics">
+              <mat-error
+                *ngIf="productForm.get('characteristics')?.errors && productForm.get('characteristics')?.hasError('required')">
+                {{ PRODUCT_ERRORS.characteristics.notProvided }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="formContainer">
+              <mat-label> Image url </mat-label>
+              <input class="input" matInput formControlName="image">
+              <mat-error
+                *ngIf="productForm.get('image')?.errors && productForm.get('image')?.hasError('pattern')">
+                {{ PRODUCT_ERRORS.image.invalidUrl }}
+              </mat-error>
+            </mat-form-field>
+            <div class="formBtn">
+              <button mat-raised-button class="addButton" type="submit" (click)="newProduct()">
+                <mat-icon> add_box </mat-icon>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
-  </mat-expansion-panel>
-</mat-accordion>
-
-
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
 <mat-list role="list" class="listaProductos">
   <mat-divider></mat-divider>
+  <h1>Active products</h1>
   <ng-container *ngFor="let product of products">
-    <div class="containerProd">
-      <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-        >
-          <mat-expansion-panel-header>
-            <div class="info">
-              <button
-                mat-raised-button
-                class="botonProd"
-                (click)="deleteProduct(product)"
-              >
-                <mat-icon> delete_forever </mat-icon>
-              </button>
-              <mat-panel-title>
-                <mat-list-item role="listitem" class="product">{{
-                  product.name
-                }}</mat-list-item>
-              </mat-panel-title>
-
-            </div>
-          </mat-expansion-panel-header>
-          <div class="infoOculta" id ="{{ product.name }}">
-
-            <img src = "{{ product.image }}" alt = "https://www.med.unc.edu/webguide/wp-content/uploads/sites/419/2019/10/broken_link_AdobeStock_121742806.jpg">
-
-            <div class="primeraColOculta">
-              <mat-list role="list">
-                <mat-list-item role="listitem">
-                  <span> Precio: </span>
-                  <span>
-                    {{ product.price | currency: "EUR":true }}
-                  </span>
-                </mat-list-item>
-              </mat-list>
-              <mat-list role="list">
-                <mat-list-item role="listitem">
-                  <span> Categorias: </span>
+    <div *ngIf="product.active === true">
+      <div class="containerProd">
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <div class="info">
+                <button mat-raised-button class="prodButton" (click)="modifyProduct(product.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-raised-button class="deleteButton" (click)="deleteProduct(product)">
+                  <mat-icon> delete_forever </mat-icon>
+                </button>
+                <mat-panel-title>
+                  <mat-list-item role="listitem" class="product">{{
+                    product.name
+                    }}</mat-list-item>
+                </mat-panel-title>
+              </div>
+            </mat-expansion-panel-header>
+            <div class="infoOculta" id="{{ product.name }}">
+              <div *ngIf="!!product.image">
+                <img src="{{ product.image }}"
+                alt="Imagen de {{ product.name }}">
+              </div>
+              <div *ngIf="!product.image">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAOVBMVEXu7u67u7v////t7e3p6em4uLj8/Pz39/fa2trx8fHGxsbm5ua2trbe3t7BwcHj4+PR0dHNzc3W1tZ8vmScAAAGMklEQVR4nO2d2xajKgyGZSt7xGPt+z/s2IOKBywJCMTJf9e1quYrCCGENHvmxb2V5f/dXFkR24KrxYT09c8Q5nfUnxVhdj8xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX1dTqjyuv+q3mqfjZ0r5duAqwnVQ0iIuqdvxIsJcyEFTFIUfhkvJgTifVR4NeFSQjVAW/Ajr42IJVSbEyjZkVU5DlB6fRdxhKqoNgOIeBx8q8QRis4jIJKwljvbZbf74VWFAxSyj02ouiOzdn0rRwIKUXnspijC+rD37RqxR3bS8dfyOOShCNtj0zdXqweesPTXiFcSYvnEQX9IkrBo8IRNTYBQPdGddOymD2+NeCEhdq74yBfghYRIh+Yr2SZPqAxfspW3KfE6wsEJUEhfK4zreqkboD/3G0yoRhkIla5jvweiP8pKfgmV6p/VkVO6+f3fq40Q6rqh/BETABGqsgtkOUBSVvUZI4BQFV1yeB+d+gf2hB7erMskT+YWe0L8ai+A5GBEtCZUVbpNKF4+kAnRmhC/nA0kV0JHP/p6GR1Z6zZMvQmF6U20JUy+kxq7qSWh03I2jBqD8baEjiuFAGoMQVZbQp8DzeS1+nVfTUNNaEIpu+rZ1sW7rkrRl4/X9oCfOxtmxKCEo5M8rgT0Bc/rQ/8QDlG55ebxCWX3PN7EHtdkg3tDRieUXXuyWlX5A7xbnBahFGd8H8bBra/GJRwXcL+jLqp2Wn/GJJSit4oqqQy/lxOVUFY2eJ/HOARZ4xHuQgzjDDHOhK8Mojzbdl6HSEk0wu1WoMrboZuSAET1rLc5Dr9DeWkRrgGVaqu1p/bKcdiEA5GtGIlwHblW5dGkJ5tqzYhrxTiEq3dQ9cbWkcPKJjqEqyDfaYLUekJBLbfjtKF2g1+DZKP1Z1SqUQxCubSLqn9/Wwu0YB4XgVAz2SpervdpxAZyjDaEAa4QEf00PKE2E9oOjtrQe5hYdn5xcMJOs9a2QZrFSrCHGpxweSAoEjlbAG7E4IRLjmgBAFxeRfAyIzTh4q7BLl1SS6FpccEJ51sB22J+faGpjaEJl94GfJ+WwC5wzzkw4TJV1ND4Eva3Cd2G053gGx5zMhSwmwYmXCZD2HVCn/ZhS4ywhIuViNDS/OvA1omBCafhApPrvXRT0IsYmHBKYoa7l/rPAzpUFPg9nG6ECUjMXRy28RyWcHbZUHlUFeolDkuIs3HWPJemT4g72yUnUyE+e2DCAfUmzbbOxkH8oUiEqM2kxWtnwtVVIQnl/Xvp/Uea+88WHW558BWFGf/+XhtyefC9uJwuBq2eQ6+epmZA1BygsXq6/QoYa+XbUhJRjMUtuW0kaol69neNJjpEhFEeTYSo/nzpXaP62s4McsxPfWdGiwlDvEtCu2vaWAPqboR2SFG73FofBfvsETIVlidaZypo+SkEMhXun22yyh2x6XMEM4b0rK/fiDog5sBq8pl7eqImmcy9zRHr8+xL3T7UbkekDFo9RVi1xmMxzZDr5uGeFSkLWk/zVup5mAW9LYpAKQt6+1yVtZu6E+OnYVP0AXksPt5phPWDlSrKSsjmfRihkd2j3ZxGsHeAUiFcpTd/IV8nStq27fNd8RWV0ztRIs4qOuwe0zs8JubJru60vIr2FKcCaHw671LC9wnSH3z5w+2kbPxTstXZIUSVHU6VpAjHQbUrd6fxPjdX9R1OOr+NEFW7mSHGD/XTS/WpJAhfdshuKPviPStmed3erOLAZMunWsTo0zQJVY1Iv/KHqbyyLaHLKeswagyFFm0JsaW5w0kaTLetMeRSMjeMTKWHrSthxQb4JWPdPWvC1MsoGeudWtf6Srrk3tkSzb7mXtpjjbmKO6AyJPLPKoJImt16SHXPZBGluWoirELrScAzpnY1GfCEo7dcbv+5I766bTTShfCz2GnbMhm1/fH/v+AJJ85UZGEs/ysZfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfW0I76gV4f+3lE54YzEhfTEhff0Fmwm7rx9n5zsAAAAASUVORK5CYII="
+                alt="Imagen por defecto">
+              </div>
+              <div class="primeraColOculta">
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <span> Price: </span>
+                    <span>
+                      {{ product.price | currency: "EUR":true }}
+                    </span>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip
-                        *ngFor="let category of product.categories"
-                        (removed)="removeCategory(product,category)">
-                        {{category.name}}
-                        <button matChipRemove>
-                          <mat-icon>cancel</mat-icon>
-                        </button>
+                      <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
+                          <span> {{ category.id }} </span>
+                          <mat-icon matChipRemove> cancel </mat-icon>
                       </mat-chip>
                     </mat-chip-list>
-                </mat-list-item>
-              </mat-list>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="segundaColOculta">
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <span> Characteristics: </span>
+                    <span>
+                      {{ product.characteristics }}
+                    </span>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <span> Description: </span>
+                    <span>
+                      {{ product.description}}
+                    </span>
+                  </mat-list-item>
+                </mat-list>
+              </div>
             </div>
-            <div class="segundaColOculta">
-              <mat-list role="list">
-                <mat-list-item role="listitem">
-                  <span> Características: </span>
-                  <span>
-                    {{ product.characteristics }}
-                  </span></mat-list-item>
-              </mat-list>
-              <mat-list role="list">
-                <mat-list-item role="listitem">
-                  <span> Descripción: </span>
-                  <span>
-                    {{ product.description}}
-                  </span></mat-list-item>
-              </mat-list>
-            </div>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
     </div>
-    <mat-divider></mat-divider>
+  </ng-container>
+  <br><br><br>
+  <h1>Inactive products</h1>
+  <ng-container *ngFor="let product of products">
+    <div *ngIf="product.active === false">
+      <div class="containerProd">
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <div class="info">
+                <button mat-raised-button class="prodButton" (click)="modifyProduct(product.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-raised-button class="deleteButton" (click)="activeProduct(product)">
+                  <mat-icon>autorenew</mat-icon>
+                </button>
+                <mat-panel-title>
+                  <mat-list-item role="listitem" class="product">{{
+                    product.name
+                    }}</mat-list-item>
+                </mat-panel-title>
+              </div>
+            </mat-expansion-panel-header>
+            <div class="infoOculta" id="{{ product.name }}">
+              <div *ngIf="!!product.image">
+                <img src="{{ product.image }}"
+                alt="Imagen de {{ product.name }}">
+              </div>
+              <div *ngIf="!product.image">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAOVBMVEXu7u67u7v////t7e3p6em4uLj8/Pz39/fa2trx8fHGxsbm5ua2trbe3t7BwcHj4+PR0dHNzc3W1tZ8vmScAAAGMklEQVR4nO2d2xajKgyGZSt7xGPt+z/s2IOKBywJCMTJf9e1quYrCCGENHvmxb2V5f/dXFkR24KrxYT09c8Q5nfUnxVhdj8xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX0xIX1dTqjyuv+q3mqfjZ0r5duAqwnVQ0iIuqdvxIsJcyEFTFIUfhkvJgTifVR4NeFSQjVAW/Ajr42IJVSbEyjZkVU5DlB6fRdxhKqoNgOIeBx8q8QRis4jIJKwljvbZbf74VWFAxSyj02ouiOzdn0rRwIKUXnspijC+rD37RqxR3bS8dfyOOShCNtj0zdXqweesPTXiFcSYvnEQX9IkrBo8IRNTYBQPdGddOymD2+NeCEhdq74yBfghYRIh+Yr2SZPqAxfspW3KfE6wsEJUEhfK4zreqkboD/3G0yoRhkIla5jvweiP8pKfgmV6p/VkVO6+f3fq40Q6rqh/BETABGqsgtkOUBSVvUZI4BQFV1yeB+d+gf2hB7erMskT+YWe0L8ai+A5GBEtCZUVbpNKF4+kAnRmhC/nA0kV0JHP/p6GR1Z6zZMvQmF6U20JUy+kxq7qSWh03I2jBqD8baEjiuFAGoMQVZbQp8DzeS1+nVfTUNNaEIpu+rZ1sW7rkrRl4/X9oCfOxtmxKCEo5M8rgT0Bc/rQ/8QDlG55ebxCWX3PN7EHtdkg3tDRieUXXuyWlX5A7xbnBahFGd8H8bBra/GJRwXcL+jLqp2Wn/GJJSit4oqqQy/lxOVUFY2eJ/HOARZ4xHuQgzjDDHOhK8Mojzbdl6HSEk0wu1WoMrboZuSAET1rLc5Dr9DeWkRrgGVaqu1p/bKcdiEA5GtGIlwHblW5dGkJ5tqzYhrxTiEq3dQ9cbWkcPKJjqEqyDfaYLUekJBLbfjtKF2g1+DZKP1Z1SqUQxCubSLqn9/Wwu0YB4XgVAz2SpervdpxAZyjDaEAa4QEf00PKE2E9oOjtrQe5hYdn5xcMJOs9a2QZrFSrCHGpxweSAoEjlbAG7E4IRLjmgBAFxeRfAyIzTh4q7BLl1SS6FpccEJ51sB22J+faGpjaEJl94GfJ+WwC5wzzkw4TJV1ND4Eva3Cd2G053gGx5zMhSwmwYmXCZD2HVCn/ZhS4ywhIuViNDS/OvA1omBCafhApPrvXRT0IsYmHBKYoa7l/rPAzpUFPg9nG6ECUjMXRy28RyWcHbZUHlUFeolDkuIs3HWPJemT4g72yUnUyE+e2DCAfUmzbbOxkH8oUiEqM2kxWtnwtVVIQnl/Xvp/Uea+88WHW558BWFGf/+XhtyefC9uJwuBq2eQ6+epmZA1BygsXq6/QoYa+XbUhJRjMUtuW0kaol69neNJjpEhFEeTYSo/nzpXaP62s4McsxPfWdGiwlDvEtCu2vaWAPqboR2SFG73FofBfvsETIVlidaZypo+SkEMhXun22yyh2x6XMEM4b0rK/fiDog5sBq8pl7eqImmcy9zRHr8+xL3T7UbkekDFo9RVi1xmMxzZDr5uGeFSkLWk/zVup5mAW9LYpAKQt6+1yVtZu6E+OnYVP0AXksPt5phPWDlSrKSsjmfRihkd2j3ZxGsHeAUiFcpTd/IV8nStq27fNd8RWV0ztRIs4qOuwe0zs8JubJru60vIr2FKcCaHw671LC9wnSH3z5w+2kbPxTstXZIUSVHU6VpAjHQbUrd6fxPjdX9R1OOr+NEFW7mSHGD/XTS/WpJAhfdshuKPviPStmed3erOLAZMunWsTo0zQJVY1Iv/KHqbyyLaHLKeswagyFFm0JsaW5w0kaTLetMeRSMjeMTKWHrSthxQb4JWPdPWvC1MsoGeudWtf6Srrk3tkSzb7mXtpjjbmKO6AyJPLPKoJImt16SHXPZBGluWoirELrScAzpnY1GfCEo7dcbv+5I766bTTShfCz2GnbMhm1/fH/v+AJJ85UZGEs/ysZfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfTEhfW0I76gV4f+3lE54YzEhfTEhff0Fmwm7rx9n5zsAAAAASUVORK5CYII="
+                alt="Imagen por defecto">
+              </div>
+              <div class="primeraColOculta">
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <span> Price: </span>
+                    <span>
+                      {{ product.price | currency: "EUR":true }}
+                    </span>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <span> Categories: </span>
+                    <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
+                      <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
+                          <span> {{ category.id }} </span>
+                          <mat-icon matChipRemove> cancel </mat-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="segundaColOculta">
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <span> Characteristics: </span>
+                    <span>
+                      {{ product.characteristics }}
+                    </span>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <span> Description: </span>
+                    <span>
+                      {{ product.description}}
+                    </span>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
   </ng-container>
 </mat-list>

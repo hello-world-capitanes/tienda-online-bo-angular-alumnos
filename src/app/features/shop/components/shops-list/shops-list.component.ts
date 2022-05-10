@@ -6,6 +6,7 @@ import { ShopService } from '../../shop.service';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductsListShopComponent } from '../products-list-shop/products-list-shop.component';
+import { Subscription } from 'rxjs';
 
 export interface shopElement{
   name: string;
@@ -18,28 +19,39 @@ export interface shopElement{
 })
 export class ShopsListComponent implements OnInit {
   shops!: Shop[];
-  panelOpenState=false;
+  shopSub :Subscription;
+  panelOpenState = false;
 
-  private _productStockList! : ProductStock[];
+  constructor(private shopService: ShopService,public dialog: MatDialog) {
 
-  constructor(private shopService: ShopService,
-              public dialog: MatDialog) { }
-
-  ngOnInit(): void {
-    this.shops = this.shopService.getAllShops();
+    this.shopSub = this.shopService.getAllShopsActive().subscribe( shops => {
+        this.shops = (!!shops && shops.length > 0 ? shops : []);
+    });
   }
 
-  deleteShop(shop: Shop){
+  ngOnInit(): void {
+
+  }
+  deleteShop(shop: Shop) {
+
     this.shopService.deleteShop(shop);
+
+  }
+
+  activeShop(shop: Shop){
+    this.shopService.activeShop(shop);
   }
 
   updateList(name: string,value: string){
 
   }
 
-  openProductList(name: string){
-    this.shopService.selectedShopSeeProducts = name;
-    const dialogRef = this.dialog.open(ProductsListShopComponent);
+  openProductList(shop: Shop){
+    this.shopService.setSelectedShopSeeProducts(shop.name);
+    const dialogRef = this.dialog.open(ProductsListShopComponent,{
+      height:'400px',
+      width: '60%'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -48,14 +60,12 @@ export class ShopsListComponent implements OnInit {
 
   anadirElementoLista(elementoLista : any){
     this.shops.push(elementoLista);
-
-  }
-
-  getProductList(){
-    return this._productStockList;
   }
 
   closeDialog(){
     this.dialog.closeAll();
+  }
+  ngOnDestroy(): void {
+    this.shopSub.unsubscribe();
   }
 }

@@ -1,12 +1,12 @@
+import { UserAdmin } from 'src/app/core/models/userAdmin';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
-  AngularFirestore,
-  AngularFirestoreDocument
+  AngularFirestore, AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
-import { UserAdmin } from 'src/app/core/models/userAdmin';
+import { SnackBarMessageComponent } from './../../../shared/components/snack-bar-message/snack-bar-message.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,103 +19,100 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private snackBar: MatSnackBar
   ) {
 
-    /* Saving user data in localstorage when
-    logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['home']);
       } else {
         this.userData = null;
       }
     });
   }
-  // Sign in with email/password
+
   signIn(email: string, password: string) {
+
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Incorrect login or password",
+          duration: 1500
+        });
       });
   }
 
-  // Sign up with email/password
-  signUp(email: string, password: string) {
+  signUpAdmin(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign
-        up and returns promise */
-        this.sendVerificationMail();
-        this.setUserData(result.user);
+        this.createUserAdmin(result.user);
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Incorrect login or password",
+          duration: 1500
+        });
       });
   }
 
-  // Send email verfificaiton when new user sign up
-  sendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
-      });
-  }
-
-  // Reset Forggot password
-  forgotPassword(passwordResetEmail: string) {
+  signUpUser(email: string, password: string) {
     return this.afAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.createUser(result.user);
       })
       .catch((error) => {
-        window.alert(error);
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+          data: "Incorrect login or password",
+          duration: 1500
+        });
       });
   }
-  // Returns true when user is looged in and email is verified
+
+
+
   get isLoggedIn(): boolean {
     return !!this.userData;
   }
 
-  // Auth logic to run auth providers
-  authLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
-        });
-        this.setUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
-  }
-  /* Setting up user data when sign in with username/password,
-  sign up with username/password and sign in with social auth
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  setUserData(user: any) {
+
+
+  createUserAdmin(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
+      `admin/${user.uid}`
     );
-    const userData: UserAdmin = {
-      _uid: user.uid,
-      _email: user.email,
-      _displayName: user.displayName,
-      _photoURL: user.photoURL,
-    } as unknown as UserAdmin;
+    const userData : UserAdmin = {
+      uid: user.uid,
+      email: user.email,
+      creatorEmail : this.userData.email,
+      creationDate : new Date
+    };
     return userRef.set(userData, {
       merge: true,
     });
   }
-  // Sign out
+
+  createUser(user: any) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
+    const userData : UserAdmin = {
+      uid: user.uid,
+      email: user.email,
+      creatorEmail : this.userData.email,
+      creationDate : new Date
+    };
+    return userRef.set(userData, {
+      merge: true,
+    });
+  }
+
   signOut() {
     this.afAuth.signOut();
     this.router.navigate(['sign-in']);
