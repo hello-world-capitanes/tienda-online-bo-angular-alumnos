@@ -18,17 +18,22 @@ export class SpanishCpValidator{
       return null;
     }
 
+
     let validRegEx = /^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/;
 
     if(!validRegEx.test(value)){
-      return { resultado: 'Incorrecto'}
+      return { resultado: 'Incorrecto'};
     }else{
+
       if(province){
-        let provinceFound  = this.provinces.find(element => element.name == province);
+
+        let provinceFound: Province | undefined  = this.provinces.find(element => element.name == province);
+
         if(provinceFound){
-          value = ''+ value;
+
           if(value.slice(0,2) == provinceFound.cod){
             return null;
+
           }else{
             return { resultado: 'Incorrecto'};
           }
@@ -36,7 +41,7 @@ export class SpanishCpValidator{
           return { resultado: 'Incorrecto'};
         }
       }else{
-        return { resultado: 'Incorrecto'};
+        return null;
       }
     }
   }

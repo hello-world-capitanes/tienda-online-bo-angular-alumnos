@@ -25,53 +25,6 @@ export class ProductService extends FirestoreService{
     this.collection = this.PRODUCTS_COLLECTION;
   }
 
-  /*public addProduct(value: Product){
-    this._productList.push(value);
-  }*/
-
-  /*public deleteProduct(value: Product){
-
-    if (this._productList.some( element => element.id == value.id)){
-      this.productList.splice(this._productList.indexOf(value), 1);
-
-    } else {
-      return;
-    }
-  }*/
-
-  public get productList(): Product[] {
-    return this._productList;
-  }
-
-  public set productList(value: Product[]) {
-    this._productList = value;
-  }
-
-  findById(prodId: string): Product | undefined {
-    return this._productList.find((product) => {
-      if (product.id === prodId) {
-        return product;
-      }
-      return null;
-    });
-  }
-
-  findByName(prod: Product): Product | undefined {
-    return this.productList.find((product) =>{
-      if(product.name === prod.name){
-        return product;
-      }
-      return null;
-    });
-  }
-
-  removeCategory(product:Product,category:Category){
-    //Se busca la categoria dentro del producto y se borra
-    let indexProduct = this.productList.indexOf(product);
-    let indexCategory = this.productList[indexProduct].categories.indexOf(category)
-    this.productList[indexProduct].categories.splice(indexCategory,1);
-  }
-
   getAllProducts(): Observable<Product[]> {
     return this.getCollection().valueChanges().pipe(map(product=>product as Product[]));
   }
@@ -84,39 +37,60 @@ export class ProductService extends FirestoreService{
     return this.getCollection().doc(product.id).update({'active': true});
   }
 
-  addProduct(product: Product){
-    product.id = this.firestore.createId();
-
-    let productDB = {
-      id: product.id,
-      name: product.name,
-      characteristics: product.characteristics,
-      price: product.price,
-      description: product.description,
-      categories: product.categories,
-      image: product.image,
-      active: product.active,
-    };
-
-    return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
-      return productDB;
-    })
+  async productExists(product: Product): Promise<Product | undefined> {
+    const snapshot = await this.getCollection().ref.where("name", "==", product.name).get();
+    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Product : undefined;
   }
 
-  modifyProduct(id: string, newProd: Product){
-    let productDB = {
-      id: id,
-      name: newProd.name,
-      characteristics: newProd.characteristics,
-      price: newProd.price,
-      description: newProd.description,
-      categories: newProd.categories,
-      image: newProd.image,
-      active: newProd.active,
-    };
-    return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
-      return productDB;
-    })
+  async addProduct(product: Product): Promise<Product | undefined>{
+
+    const result =await this.productExists(product)
+
+    if(result===undefined){
+      product.id = this.firestore.createId();
+
+      let productDB = {
+        id: product.id,
+        name: product.name,
+        characteristics: product.characteristics,
+        price: product.price,
+        description: product.description,
+        categories: product.categories,
+        image: product.image,
+        active: product.active,
+      };
+
+        return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => {
+          return productDB as Product;
+        })
+    }
+    return;
+
+
+  }
+
+  async modifyProduct(id: string, newProd: Product):Promise<Product | undefined>{
+
+    const result =await this.productExists(newProd)
+
+    if(result===undefined){
+
+      let productDB = {
+        id: id,
+        name: newProd.name,
+        characteristics: newProd.characteristics,
+        price: newProd.price,
+        description: newProd.description,
+        categories: newProd.categories,
+        image: newProd.image,
+        active: newProd.active,
+      };
+      return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
+        return productDB as Product;
+      })
+    }
+    return;
+
   }
 
 }
