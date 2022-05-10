@@ -61,6 +61,7 @@ export class ShopsCreateComponent implements OnInit {
       this.formGroupShop.get('cp')?.clearValidators();
       this.formGroupShop.get('cp')?.addValidators(Validators.required);
       this.formGroupShop.get('cp')?.updateValueAndValidity();
+
       if (country == 'España'){
         this.formGroupShop.get('cp')?.addValidators(SpanishCpValidator.isValidNumber(province));
         this.formGroupShop.get('cp')?.updateValueAndValidity();
