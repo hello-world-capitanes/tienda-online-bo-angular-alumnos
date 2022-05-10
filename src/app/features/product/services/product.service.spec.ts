@@ -35,51 +35,37 @@ describe('ProductService', () => {
     service.permantlyDelete(product.id);
   }));
 
-  it('Test Add product in Product list', () => {
+/*   it('Test Add product in Product list', async () => {
 
-    service.addProduct(product);
-
-    expect(service.productList.some(element => element.name == product.name)).toBe(true);
-  })
-
-  it('Test Delete product in Product list', async () => {
-
-    await service.addProduct(product);
-    await service.deleteProduct(product);
-
-    expect(service.productList.some(element => element.name == product.name)).toBe(false);
-  })
-
-
-  it('Test find by ID in Product list EXISTING', () => {
-
-    service.addProduct(product);
-    let productFound: Product | undefined = service.findById('Test');
-    let result: boolean;
-
-    if (productFound && productFound.id == product.id) {
-      result = true;
-    } else {
-      result = false;
+    let productFromDatabase = await service.addProduct(product);
+    if (!!productFromDatabase) {
+      service.getAllProducts().subscribe(products => {
+        if (!!products && products.length > 0) {
+          const productFounded = products.find(prod => prod?.name === product.name);
+          expect(!!productFounded).toBe(true);
+          expect(!!productFounded?.active).toBe(true);
+          expect(!!productFounded?.id).toBe(true);
+        }
+      });
     }
 
-    expect(result).toBe(true);
-  })
+  }) */
 
+/*   it('Test Delete product in Product list', async () => {
 
-  it('Test find by ID in Product list NOT EXISTING', () => {
-
-
-    let productFound: Product | undefined = service.findById('Test');
-    let result: boolean;
-
-    if (!productFound) {
-      result = true;
-    } else {
-      result = false;
+    let productFromDatabase = await service.addProduct(product);
+    if (!!productFromDatabase) {
+      await service.deleteProduct(product);
+      service.getAllProducts().subscribe(products => {
+        if (!!products && products.length > 0) {
+          const productFounded = products.find(prod => prod?.name === product.name);
+          expect(!!productFounded).toBe(true);
+          expect(!!productFounded?.active).toBe(false);
+        }
+      });
     }
+  }) */
 
-    expect(result).toBe(true);
-  })
+
 
 });
