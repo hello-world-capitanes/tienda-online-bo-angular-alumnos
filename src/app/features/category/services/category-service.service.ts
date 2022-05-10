@@ -1,4 +1,3 @@
-import { Product } from 'src/app/features/product/models/product-models';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
@@ -11,8 +10,6 @@ import { Category } from '../models/category.model';
 export class CategoryService extends FirestoreService{
   protected collection: string;
   private readonly CATEGORY_COLLECTION='categories'
-
-  private _categoryList?: Category[];
 
   constructor(firestore: AngularFirestore) {
     super(firestore)
@@ -32,22 +29,33 @@ export class CategoryService extends FirestoreService{
    * @param category
    * @returns category with DB id
    */
-   async addCategory(category: Category): Promise<Category> {
 
-    if(await this.categoryExists(category)){
-      category.id = this.firestore.createId();
-      return this.getCollection().doc(category.id).set(category).then(() => {
-        return category;
-      });
-    }
+    async addCategory(category: Category): Promise<Category | undefined> {
 
-    return category;
+      const result =await this.categoryExists(category)
+
+      if(result===undefined){
+        category.id = this.firestore.createId();
+
+        let categoryDB = {
+          id: category.id,
+          name: category.name,
+          description: category.description,
+          active: category.active,
+        };
+
+        return this.getCollection().doc(category.id).set(Object.assign({}, categoryDB)).then(() => {
+          return categoryDB as Category;
+        })
+      }
+
+      return;
 
   }
 
-  async categoryExists(category: Category){
-    let categoryExist = (await this.getCollection().ref.doc(category.id).get()).exists;
-    return categoryExist;
+  async categoryExists(category: Category): Promise<Category | undefined> {
+    const snapshot = await this.getCollection().ref.where("name", "==", category.name).get();
+    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Category : undefined;
   }
 
   deleteCategory(category:Category){
