@@ -22,12 +22,12 @@
       </div>
       <div class="divStock">
         <mat-list-item role="listitem"
-          >Nombre: {{ productStock.product.name }}
+          >Name: {{ productStock.product.name }}
         </mat-list-item>
 
         <span> Stock: </span>
         <mat-form-field>
-          <mat-label>Unidades</mat-label>
+          <mat-label>Units</mat-label>
           <input
             type="number"
             matInput
@@ -45,13 +45,13 @@
           value="product"
           class="stockButton"
         >
-          Aplicar Stock
+          Apply Stock
         </button>
       </div>
       <mat-divider></mat-divider>
     </mat-list>
   </ng-container>
   <ng-template #noProducts>
-    <span> Actualmente, no hay productos en la tienda</span>
+    <span> The shop hasn`t got products</span>
   </ng-template>
 </div>
