@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Category } from './../../../../models/category.model';
 import { CategoryService } from './../../../../services/category-service.service';
 import { CategoriesComponent } from './../../categories.component';
 
@@ -17,12 +16,13 @@ export class ModifyCategoryComponent implements OnInit {
 
   constructor(private form: FormBuilder,
     public dialogRef: MatDialogRef<CategoriesComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private categoryService: CategoryService,
     private activeRoute: ActivatedRoute) {
     this.id = activeRoute.snapshot.params['id'];
     this.modifyCategoryForm = this.form.group({
       name: new FormControl
-        (null,
+        (data.name,
           [
             Validators.required,
             Validators.minLength(3),
@@ -30,7 +30,7 @@ export class ModifyCategoryComponent implements OnInit {
           ]
         ),
       description: new FormControl
-        (null,
+        (data.description,
           [
             Validators.required,
             Validators.minLength(3),
@@ -74,3 +74,7 @@ export class ModifyCategoryComponent implements OnInit {
   }
 
 }
+function MD_DIALOG_DATA(MD_DIALOG_DATA: any) {
+  throw new Error('Function not implemented.');
+}
+
