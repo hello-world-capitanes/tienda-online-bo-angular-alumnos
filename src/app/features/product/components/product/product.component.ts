@@ -92,13 +92,6 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  /*addProduct(product: Product) {
-    if (!!this.productService.findByName(product)) {
-      alert('Existing product');
-    } else {
-      this.productService.addProduct(product);
-    }
-  }*/
 
   addProduct(product: Product){
     this.productService.addProduct(product);
@@ -112,28 +105,11 @@ export class ProductComponent implements OnInit {
     this.productService.activeProduct(product);
   }
 
-  existId(id: string): boolean {
-    if (
-      this.productService.productList.find((product) => {
-        product.id === id;
-      })
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   generateId(): string {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
     return '_' + Math.random().toString(36).substring(2, 9);
-  }
-
-  removeCategory(product:Product, category:Category){
-    this.productService.removeCategory(product,category);
-    this.products = this.productService.productList;
   }
 
   getProducts(){
