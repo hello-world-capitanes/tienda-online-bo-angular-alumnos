@@ -13,7 +13,7 @@
                 <mat-icon> edit </mat-icon>
               </button>
 
-              <button mat-raised-button class = "botonShop" (click)="deleteShop($event,shop)">
+              <button mat-raised-button class = "botonShop" (click)="deactiveShop($event,shop)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
 
@@ -63,7 +63,7 @@
                 <button mat-raised-button class = "botonShop" (click)="modifyShop($event,shop.id)">
                   <mat-icon> edit </mat-icon>
                 </button>
-                <button mat-raised-button class = "botonShop" (click)="activateShop($event,shop)">
+                <button mat-raised-button class = "botonShop" (click)="deactiveShop($event,shop)">
                   <mat-icon> autorenew </mat-icon>
                 </button>
                 <mat-panel-title>

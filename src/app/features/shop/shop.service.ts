@@ -107,7 +107,7 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs[0].data()['products'] as ProductShop[];
   }
 
-  async deleteShop(shop: Shop): Promise<any> {
+  async deactiveShop(shop: Shop): Promise<any> {
     if ((await this.shopExistsById(shop)).valueOf()) {
       const shop_1 = await this.getCollection()
         .doc(shop.id)
@@ -166,6 +166,7 @@ export class ShopService extends FirestoreService {
       return prod.stock;
     });
   }
+
   async permantlyDelete(id:string){
     if(!!id && id.length>0){
       return await this.getCollection().ref.doc(id).delete();

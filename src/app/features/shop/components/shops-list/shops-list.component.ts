@@ -34,9 +34,9 @@ export class ShopsListComponent implements OnInit {
 
   }
 
-  deleteShop(event: any, shop: Shop) {
+  deactiveShop(event: any, shop: Shop) {
     event.stopPropagation();
-    this.shopService.deleteShop(shop);
+    this.shopService.deactiveShop(shop);
   }
 
   activateShop(event: any, shop: Shop){
