@@ -34,7 +34,7 @@ export class ProductsListShopComponent implements OnInit {
       });
 
     this.shopService.getShopProducts().then((prodList) => {
-      if(!!prodList){
+      if (!!prodList) {
         this.showProducts = prodList;
       }
       this.isLoaded = true;
@@ -47,8 +47,11 @@ export class ProductsListShopComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  changeStock(product: ProductStock, units: string, id:string) {
-    let newStock = Number.parseInt(units);
-    return this.shopService.modifyStock(product, newStock, id);
+  changeStock(product: ProductStock, units: string, id: string) {
+    if (!!product && !!units && !!id) {
+      let newStock = Number.parseInt(units);
+      return this.shopService.modifyStock(product, newStock, this.shop.id);
+    }
+    throw Error('Data invalid to change stock');
   }
 }

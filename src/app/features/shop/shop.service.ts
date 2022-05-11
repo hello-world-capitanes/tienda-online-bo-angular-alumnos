@@ -14,7 +14,6 @@ import { Shop } from './models/shop.model';
 @Injectable({
   providedIn: 'root',
 })
-
 export class ShopService extends FirestoreService {
   protected collection: string;
   private readonly SHOP_COLLECTION = 'shops';
@@ -46,7 +45,7 @@ export class ShopService extends FirestoreService {
   }
 
   async addShop(shop: Shop): Promise<Shop> {
-    if(!shop){
+    if (!shop) {
       throw new Error('Shop has not been introduced');
     }
     if (await this.shopExistsByName(shop)) {
@@ -140,8 +139,11 @@ export class ShopService extends FirestoreService {
     return this.getCollection().doc(shop.id).update({ active: true });
   }
 
-  async applyStock(products: ProductShopFirebase[], id: string): Promise<any> {
-    return this.getCollection().doc(id).update({ products: products });
+  private async applyStock(products: ProductShopFirebase[], id: string): Promise<any> {
+    if (!!products && !!id) {
+      return this.getCollection().doc(id).update({ products: products });
+    }
+    throw Error('Error applying stock changed in firebase');
   }
 
   async shopExistsById(shop: Shop): Promise<boolean> {
@@ -161,37 +163,55 @@ export class ShopService extends FirestoreService {
     this.selectedShopSeeProducts = value;
   }
 
-  changeStock(products: ProductStock[], id: string, units: number) {
-    const p = products.find( prod => prod.product.id === id);
-    if (p) {
-      p.stock = units;
+  private changeStock(products: ProductStock[], id: string, units: number) {
+    if (!!products && !!id && !!units) {
+      const p = products.find((prod) => prod.product.id === id);
+      if (!!p) {
+        if (p.product.active || units < p.stock) {
+          p.stock = units;
+          this.snackBar.openFromComponent(SnackBarMessageComponent, {
+            data: 'Stock of ' + p.product.name + ' modificated',
+            duration: 1500,
+          });
+        } else {
+          this.snackBar.openFromComponent(SnackBarMessageComponent, {
+            data: 'Stock of ' + p.product.name + ' not modificated',
+            duration: 1500,
+          });
+        }
+      }
+      return products;
     }
-    return products;
-    
+    throw Error('Error changing stock of a product');
   }
 
   async modifyStock(prod: ProductStock, units: number, id: string) {
-    let products: ProductStock[] = [];
-    this.getShopProducts().then((prods) => {
-      if (!!prods) {
-        products = prods;
-      }
-      products = this.changeStock(products, prod.product.id, units);
-      const finalProducts = products.map(prod => {
-        return {id: prod.product.id,
-        stock: prod.stock} as ProductShopFirebase;
-      })
-      this.applyStock(finalProducts, id);
+    if (prod && units && id) {
+      let products: ProductStock[] = [];
+      this.getShopProducts().then((prods) => {
+        if (!!prods) {
+          products = prods;
+        }
+        products = this.changeStock(products, prod.product.id, units);
+        const finalProducts = products.map((prod) => {
+          return {
+            id: prod.product.id,
+            stock: prod.stock,
+          } as ProductShopFirebase;
+        });
+        this.applyStock(finalProducts, id);
 
-      this.snackBar.openFromComponent(SnackBarMessageComponent, {
-        data: 'Stock del producto ' + prod.product.name + ' modificado',
-        duration: 1500,
+        return finalProducts.find(finalProd => {
+          if(prod.product.id === finalProd.id) {
+            return prod.stock;
+          }
+          return -1;
+        });
       });
-      return prod.stock;
-    });
+    }
   }
-  async permantlyDelete(id:string){
-    if(!!id && id.length>0){
+  async permantlyDelete(id: string) {
+    if (!!id && id.length > 0) {
       return await this.getCollection().ref.doc(id).delete();
     }
     throw new Error('Shop id is not valid or undefined');
