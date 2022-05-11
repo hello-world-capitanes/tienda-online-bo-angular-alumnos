@@ -1,71 +1,91 @@
 import { async, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
-import { Category } from '../../category/models/category.model';
 import { Product } from '../models/product-models';
-
 import { ProductService } from './product.service';
+
 
 describe('ProductService', () => {
   let service: ProductService;
-  let cat: Category;
-  let cat2: Category;
-  let cats: Category[];
-  let product: Product;
-
+  let newProduct: Product | undefined;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        MatSnackBarModule
       ],
 
     })
       .compileComponents();
+  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
     service = TestBed.inject(ProductService);
-    cat = new Category('name', 'id', 'desc', true);
-    cat2 = new Category('name2', 'i2', 'desc2', true);
-    cats = [cat, cat2]
-    product = new Product("Test", "Test", "Test", 0, "Test", cats, "Test", true);
-  }));
+    newProduct = new Product("id", "name", "characteristics",123,"decription",[],"image", true);
+  });
+  afterEach(async () => {
 
-  afterEach(async(() => {
-    service.permantlyDelete(product.id);
-  }));
+    if (!!newProduct) {
+      await service.permantlyDelete(newProduct.id);
 
-/*   it('Test Add product in Product list', async () => {
+    }
+  });
 
-    let productFromDatabase = await service.addProduct(product);
-    if (!!productFromDatabase) {
-      service.getAllProducts().subscribe(products => {
-        if (!!products && products.length > 0) {
-          const productFounded = products.find(prod => prod?.name === product.name);
-          expect(!!productFounded).toBe(true);
-          expect(!!productFounded?.active).toBe(true);
-          expect(!!productFounded?.id).toBe(true);
-        }
-      });
+  it('Delete product', async () => {
+    if (!!newProduct) {
+      newProduct = await service.addProduct(newProduct);
+      await service.deleteProduct(newProduct);
+
+      newProduct = await service.getProduct(newProduct.name);
+      expect(newProduct.active).toBeFalse();
     }
 
-  }) */
+  });
 
-/*   it('Test Delete product in Product list', async () => {
+  it('Add product', async () => {
+    if (!!newProduct) {
+      newProduct = await service.addProduct(newProduct);
 
-    let productFromDatabase = await service.addProduct(product);
-    if (!!productFromDatabase) {
-      await service.deleteProduct(product);
-      service.getAllProducts().subscribe(products => {
-        if (!!products && products.length > 0) {
-          const productFounded = products.find(prod => prod?.name === product.name);
-          expect(!!productFounded).toBe(true);
-          expect(!!productFounded?.active).toBe(false);
-        }
-      });
+      newProduct = await service.getProduct(newProduct.name);
+      expect(newProduct.active).toBeTruthy();
     }
-  }) */
+
+  });
+
+  it('Active product', async () => {
+    if (!!newProduct) {
+      newProduct = await service.addProduct(newProduct);
+      await service.deleteProduct(newProduct);
+      await service.activeProduct(newProduct);
+
+      newProduct = await service.getProduct(newProduct.name);
+      expect(newProduct.active).toBeTruthy();
+    }
+
+  });
+
+  //TODO MIRAR ESTE TEST DE MODIFICAR
+  /*it('Modify product', async () => {
+
+    if (!!newProduct) {
+      newProduct = await service.addProduct(newProduct);
+      newProduct = await service.modifyProduct(newProduct.id,new Product("id","name","characteristics1",1234,"description1",[],"image1",true));
 
 
+      newProduct = await service.getProduct(newProduct.name);
+      expect(newProduct.characteristics).toBe("characteristics1");
+      expect(newProduct.price).toBe(1234);
+      expect(newProduct.description).toBe("decription1");
+      expect(newProduct.image).toBe("image1");
+
+
+
+    }
+
+  });*/
 
 });

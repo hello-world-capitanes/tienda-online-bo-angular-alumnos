@@ -1,4 +1,3 @@
-import { timingSafeEqual } from "crypto";
 import { Category } from "../../category/models/category.model";
 
 export class Product {
