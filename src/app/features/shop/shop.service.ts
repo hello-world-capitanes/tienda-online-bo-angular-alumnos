@@ -76,6 +76,10 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs[0].data() as Shop;
   }
 
+  setSelectedShopSeeProducts(value: string) {
+    this.selectedShopSeeProducts = value;
+  }
+
   async deleteShop(shop:Shop):Promise<any>{
     if ((await this.shopExistsById(shop)).valueOf()){
       const shop_1 = await this.getCollection().doc(shop.id).update({ 'active': false });
@@ -84,8 +88,8 @@ export class ShopService extends FirestoreService {
       return null
     }
   }
-  async activeShop(shop: Shop):Promise<any>{
-    return this.getCollection().doc(shop.id).update({'active': true});
+  async activateShop(shop: Shop): Promise<any> {
+    return this.getCollection().doc(shop.id).update({ active: true });
   }
 
   async shopExistsById(shop: Shop): Promise<boolean>{
