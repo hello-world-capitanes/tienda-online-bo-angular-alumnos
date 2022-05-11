@@ -33,7 +33,7 @@ export class ShopService extends FirestoreService {
 
       throw new Error();
 
-  } else {
+    } else {
 
     let newShop = {
       id: this.firestore.createId(),
@@ -109,6 +109,23 @@ export class ShopService extends FirestoreService {
 
   permantlyDelete(id:string):Promise<void>{
     return this.getCollection().doc(id).delete();
+  }
+
+  modifyShop(id: string, newShop: Shop){
+    let shopBD = {
+      id: id,
+      name: newShop.name,
+      address: {
+        country: newShop.address.country,
+        province: newShop.address.province,
+        location: newShop.address.location,
+        cp: newShop.address.cp,
+        street: newShop.address.street
+      },
+      active: newShop.active,
+      products: newShop.products
+    }
+    return this.getCollection().doc(id).update({'active': shopBD.active, 'address': shopBD.address, 'products': shopBD.products});
   }
 
 /*

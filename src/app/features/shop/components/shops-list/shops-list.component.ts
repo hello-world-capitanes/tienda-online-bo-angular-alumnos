@@ -78,18 +78,22 @@ export class ShopsListComponent implements OnInit {
   }
 
   modifyShop(id: string){
-    //let shop = this.findById(id);
+    let shop = this.findById(id);
     const dialogRef = this.dialog.open(ModifyInfoShopsComponent, {
       width: '350px',
-      /*data: {
+      data: {
         id: id,
         name: shop?.name,
         address: shop?.address,
         active: shop?.active,
         products: shop?.products
-      }*/
+      }
     });
-    console.log("Aaaa")
-    dialogRef.componentInstance.id = id;
+    if(!!shop){
+      dialogRef.componentInstance.id = id;
+      dialogRef.componentInstance.name = shop?.name;
+      dialogRef.componentInstance.active = shop?.active;
+      dialogRef.componentInstance.productsStock = shop?.products;
+    }
   }
 }

@@ -1,12 +1,14 @@
+<div class="header">
+  <div class="title">
+    <h1>{{ name }}</h1>
+  </div>
+  <div class="close">
+    <button mat-raised-button class="buttonClose" color="primary" (click)="closeModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
 <form [formGroup]="formGroupShop" class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Name</mat-label>
-    <input matInput placeholder="Nombre" formControlName="name" required>
-    <mat-error *ngIf="formGroupShop.get('name')?.errors && formGroupShop.get('name')?.hasError('required')">
-      {{ SHOP_ERRORS.name.notProvided }}
-    </mat-error>
-  </mat-form-field>
-
   <mat-form-field class="example-full-width">
     <mat-label>Country</mat-label>
     <mat-select formControlName="country" required>
@@ -39,8 +41,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Adress</mat-label>
-    <input matInput placeholder="Localidad" formControlName="street" required>
+    <mat-label>Location</mat-label>
+    <input matInput placeholder="Localidad" formControlName="location" required>
     <mat-error
       *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('required')">
       {{ SHOP_ERRORS.location.notProvided }}
@@ -49,7 +51,7 @@
   <br>
   <mat-form-field>
     <mat-label>Street</mat-label>
-    <input matInput placeholder="Dirección" formControlName="location" required>
+    <input matInput placeholder="Dirección" formControlName="street" required>
     <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('required')">
       {{ SHOP_ERRORS.street.notProvided }}
     </mat-error>
@@ -70,5 +72,10 @@
     </mat-error>
   </mat-form-field>
   <br>
-  <button mat-raised-button class="buttonAdd" color="primary" (click)="modifyShop()">Añadir</button>
+  <div *ngIf="formGroupShop.invalid">
+    <button mat-raised-button class="buttonAdd" color="primary" (click)="modifyShop(id)" disabled="true">Añadir</button>
+  </div>
+  <div *ngIf="formGroupShop.valid">
+    <button mat-raised-button class="buttonAdd" color="primary" (click)="modifyShop(id)">Añadir</button>
+  </div>
 </form>

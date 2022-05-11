@@ -55,4 +55,10 @@ describe('ShopService', () => {
 
   })
 
+  it('Modify shop', async() => {
+    if(!!newShop){
+
+    }
+  })
+
 });
