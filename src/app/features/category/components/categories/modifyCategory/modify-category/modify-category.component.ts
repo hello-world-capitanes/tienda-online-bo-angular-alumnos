@@ -20,7 +20,7 @@ export class ModifyCategoryComponent implements OnInit {
   id!: string;
   name!: string;
   description!: string;
-  active!:boolean;
+  active!: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<ModifyCategoryComponent>,

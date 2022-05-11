@@ -116,7 +116,6 @@ export class CategoryService extends FirestoreService {
       description: newCat.description,
       active: newCat.active,
     };
-    return this.getCollection().doc(id).update({'description': categoryBD.description});
+    return this.getCollection().doc(id).update({ 'description': categoryBD.description });
   }
-
 }

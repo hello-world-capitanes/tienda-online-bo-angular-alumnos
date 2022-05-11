@@ -1,68 +1,44 @@
 <div class="formContainer">
-<mat-accordion>
-  <mat-expansion-panel
-    (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Add category
-        <mat-icon aria-hidden="false" aria-label="Example home icon"
-          >category</mat-icon
-        >
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <form [formGroup]="categoryForm">
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input
-          type="text"
-          matInput
-          formControlName="name"
-          placeholder="Lácteos"
-        />
-        <mat-error>{{ errorMessageName }}</mat-error>
-      </mat-form-field>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add category
+          <mat-icon aria-hidden="false" aria-label="Example home icon">category</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="categoryForm">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input type="text" matInput formControlName="name" placeholder="Lácteos" />
+          <mat-error>{{ errorMessageName }}</mat-error>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <input
-          type="text"
-          matInput
-          formControlName="description"
-          placeholder="Productos lácteos"
-        />
-        <mat-error>{{ errorMessageDescription }}</mat-error>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input type="text" matInput formControlName="description" placeholder="Productos lácteos" />
+          <mat-error>{{ errorMessageDescription }}</mat-error>
+        </mat-form-field>
 
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="this.categoryForm.invalid"
-        (click)="$event.stopPropagation(); addCategory()"
-      >
-        +
-      </button>
-    </form>
-  </mat-expansion-panel>
-</mat-accordion>
+        <button mat-raised-button color="primary" [disabled]="this.categoryForm.invalid"
+          (click)="$event.stopPropagation(); addCategory()">
+          +
+        </button>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
 
 <mat-list role="list" class="listCategory">
   <h1>Active categories</h1>
-  <ng-container
-    *ngFor="let category of categories"
-  >
+  <ng-container *ngFor="let category of categories">
     <div class="containerProd">
       <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-
-        >
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header *ngIf="category.active===true" class="category">
             <div class="info">
-              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); modifyCategory(category.id)">
+              <button mat-raised-button class="prodButton"
+                (click)="$event.stopPropagation(); modifyCategory(category.id)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); deleteCategory(category)">
@@ -71,7 +47,7 @@
               <mat-panel-title>
                 <mat-list-item role="listItem">{{
                   category.name
-                }}</mat-list-item>
+                  }}</mat-list-item>
               </mat-panel-title>
             </div>
           </mat-expansion-panel-header>
@@ -94,16 +70,10 @@
   </ng-container>
   <br>
   <h1>Inactive categories</h1>
-  <ng-container
-    *ngFor="let category of categories"
-  >
+  <ng-container *ngFor="let category of categories">
     <div class="containerProd">
       <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-
-        >
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header *ngIf="category.active===false" class="category">
             <div class="info">
               <button mat-raised-button class="prodButton" (click)="modifyCategory(category.id)">
@@ -115,7 +85,7 @@
               <mat-panel-title>
                 <mat-list-item role="listItem">{{
                   category.name
-                }}</mat-list-item>
+                  }}</mat-list-item>
               </mat-panel-title>
             </div>
           </mat-expansion-panel-header>
