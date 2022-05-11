@@ -12,6 +12,7 @@ export interface shopElement{
   name: string;
   value: number;
 }
+
 @Component({
   selector: 'app-shops-list',
   templateUrl: './shops-list.component.html',
@@ -24,7 +25,7 @@ export class ShopsListComponent implements OnInit {
 
   constructor(private shopService: ShopService,public dialog: MatDialog) {
 
-    this.shopSub = this.shopService.getAllShopsActive().subscribe( shops => {
+    this.shopSub = this.shopService.getAllShops().subscribe( shops => {
         this.shops = (!!shops && shops.length > 0 ? shops : []);
     });
   }
@@ -32,14 +33,20 @@ export class ShopsListComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  deleteShop(shop: Shop) {
 
+  deleteShop(event: any, shop: Shop) {
+    event.stopPropagation();
     this.shopService.deleteShop(shop);
-
   }
 
-  activeShop(shop: Shop){
-    this.shopService.activeShop(shop);
+  activateShop(event: any, shop: Shop){
+    event.stopPropagation();
+    this.shopService.activateShop(shop);
+  }
+
+  modifyShop(event: any, shopId: string){
+    event.stopPropagation();
+
   }
 
   updateList(name: string,value: string){
