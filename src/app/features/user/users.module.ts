@@ -12,6 +12,8 @@ import { FormUserComponent } from './components/form-user/form-user.component';
 import { ListUserComponent } from './components/list-user/list-user.component';
 import { UserComponent } from './components/user/user.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {RouterModule} from '@angular/router';
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     ReactiveFormsModule,
     MatButtonModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    RouterModule
   ],
   exports: [
     UserComponent

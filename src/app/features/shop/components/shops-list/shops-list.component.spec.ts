@@ -6,6 +6,8 @@ import { ShopsListComponent } from './shops-list.component';
 
 describe('ShopsListComponent', () => {
 
+  let component: ShopsListComponent;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ShopsListComponent ]

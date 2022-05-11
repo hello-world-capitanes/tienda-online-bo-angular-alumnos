@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { Category } from '../../category/models/category.model';
 import { ProductFirebase } from '../models/product-firebase.model';
 import { Product } from '../models/product-models';
 
@@ -12,13 +13,49 @@ import { Product } from '../models/product-models';
 export class ProductService extends FirestoreService{
 
   protected collection!: string;
-  private _productList!: Product[];
+   private _productList!: Product[];
 
   private readonly PRODUCTS_COLLECTION = 'products';
 
   constructor(firestore: AngularFirestore) {
     super(firestore);
     this.collection = this.PRODUCTS_COLLECTION;
+
+    this.getProducts().then( products => {
+      this._productList = products;
+    });
+  }
+
+   public get productList(): Product[] {
+    return this._productList;
+  }
+
+  public set productList(value: Product[]) {
+    this._productList = value;
+  }
+
+  async getProducts(): Promise<Product[]> {
+    let products:Product[] = [];
+    const snapshot = await this.getCollection().ref.get();
+    snapshot.docs.forEach(prod => {
+      products.push(prod.data() as Product);
+    })
+    return products;
+  }
+
+  findById(prodId: string): Product | undefined {
+    return this._productList.find((product) => {
+      if (product.id === prodId) {
+        return product;
+      }
+      return null;
+    });
+  }
+
+
+  removeCategory(product:Product, category:Category){
+    let categorieList = this.getCollection().doc(product.id).collection('categories');
+    console.log(categorieList.get());
   }
 
   getAllProducts(): Observable<Product[]> {
