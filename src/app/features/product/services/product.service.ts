@@ -83,7 +83,6 @@ export class ProductService extends FirestoreService{
     const result =await this.productExists(product)
 
     if(result===undefined){
-      product.id = this.firestore.createId();
 
       let productDB: ProductFirebase = {
         id: product.id,
@@ -111,27 +110,18 @@ export class ProductService extends FirestoreService{
 
   }
 
-  async modifyProduct(id: string, newProd: Product):Promise<Product | undefined>{
+  modifyProduct(id: string, newProd: Product){
 
-    const result =await this.productExists(newProd)
+    let productDB = {
+      id: id,
+      characteristics: newProd.characteristics,
+      price: newProd.price,
+      description: newProd.description,
+      image: newProd.image,
+    };
 
-    if(result===undefined){
-
-      let productDB = {
-        id: id,
-        name: newProd.name,
-        characteristics: newProd.characteristics,
-        price: newProd.price,
-        description: newProd.description,
-        categories: newProd.categories,
-        image: newProd.image,
-        active: newProd.active,
-      };
-      return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
-        return productDB as Product;
-      })
-    }
-    return;
+  return this.getCollection().doc(id).update
+  ({'characteristics': productDB.characteristics, 'price': productDB.price,'description':productDB.description,'image':productDB.image});
 
   }
   permantlyDelete(id:string){

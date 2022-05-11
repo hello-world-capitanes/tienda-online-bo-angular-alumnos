@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "crypto";
 import { Category } from "../../category/models/category.model";
 
 export class Product {
@@ -8,7 +9,7 @@ export class Product {
   private _description: string;
   private _categories: Category[];
   private _image: string;
-  private _active?: boolean | undefined;
+  private _active: boolean;
 
   constructor(
     id:string,
@@ -18,7 +19,7 @@ export class Product {
     description: string,
     categories: Category[],
     image: string,
-    active: boolean | undefined
+    active: boolean
   ) {
     this._id = id;
     this._name = name;
@@ -27,11 +28,7 @@ export class Product {
     this._description = description;
     this._categories = categories;
     this._image = image;
-    if(!active){
-      this._active = false;
-    }else{
-      this._active = active;
-    }
+    this._active=active;
   }
 
   public get id() {
@@ -90,11 +87,11 @@ export class Product {
     this._image = image;
   }
 
-  public get active(): boolean | undefined {
+  public get active(): boolean {
     return this._active;
   }
 
-  public set active(active: boolean | undefined) {
+  public set active(active: boolean) {
     this._active = active;
   }
 }
