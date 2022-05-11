@@ -1,63 +1,45 @@
-<app-shops-create
-  (anadirOutPut)="anadirElementoLista($event)"
-></app-shops-create>
+<app-shops-create (anadirOutPut)="anadirElementoLista($event)"></app-shops-create>
 
 <mat-list role="list" class="listShop">
-  <mat-divider></mat-divider>
+  <h1>Active Shops</h1>
   <ng-container *ngFor="let shop of shops">
-    <div>
+    <div *ngIf="shop.active">
       <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-          ><mat-expansion-panel-header>
-            <div class="info">
-              <div *ngIf="shop.active === false">
-                <button
-                  mat-raised-button
-                  class="botonShop"
-                  (click)="activeShop(shop)"
-                >
-                  <mat-icon>autorenew</mat-icon>
-                </button>
-              </div>
-              <div *ngIf="shop.active === true">
-                <button
-                  mat-raised-button
-                  class="botonShop"
-                  (click)="deleteShop(shop)"
-                >
-                  <mat-icon> delete_forever </mat-icon>
-                </button>
-              </div>
+        <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
+
+          <mat-expansion-panel-header>
+            <div class = "info">
+              <button mat-raised-button class = "botonShop" (click)="modifyShop($event,shop.id)">
+                <mat-icon> edit </mat-icon>
+              </button>
+
+              <button mat-raised-button class = "botonShop" (click)="deleteShop($event,shop)">
+                <mat-icon> delete_forever </mat-icon>
+              </button>
+
               <mat-panel-title>
-                <mat-list-item role="listitem" class="shop">{{
-                  shop.name
-                }}</mat-list-item>
+                <mat-list-item role="listitem" class="shop">
+                  {{ shop.name }}
+                </mat-list-item>
               </mat-panel-title>
             </div>
           </mat-expansion-panel-header>
+
           <div class="hiddenIfo">
             <div class="firstColumnHidden">
               <mat-list role="list">
-                <br />
+                <br>
                 <mat-list-item role="listitem">
                   <div class="expansionContent">
                     <span> Name: {{ shop.name }} </span>
                     <span> Adress: {{ shop.address.street }} </span>
-                    <span> Activo: {{ shop.active }} </span>
-                    <!-- <span> Activo: {{ shop.active }} </span> -->
-                    <button
-                      mat-raised-button
-                      class="viewProducts"
-                      color="accent"
-                      (click)="openProductList(shop)"
-                    >
+                    <br>
+                    <button mat-raised-button class = "viewProducts" color = "accent" (click) = "openProductList(shop)">
                       View products
                     </button>
                   </div>
                 </mat-list-item>
-                <br />
+                <br>
               </mat-list>
             </div>
           </div>
@@ -65,5 +47,54 @@
       </mat-accordion>
     </div>
     <mat-divider></mat-divider>
+  </ng-container>
+
+
+  <br><br>
+  <h1>Inactive Shops</h1>
+  <ng-container *ngFor="let shop of shops">
+    <div *ngIf="!shop.active">
+      <div class = "containerProd">
+        <mat-accordion>
+          <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
+
+            <mat-expansion-panel-header>
+              <div class="info">
+                <button mat-raised-button class = "botonShop" (click)="modifyShop($event,shop.id)">
+                  <mat-icon> edit </mat-icon>
+                </button>
+                <button mat-raised-button class = "botonShop" (click)="activateShop($event,shop)">
+                  <mat-icon> autorenew </mat-icon>
+                </button>
+                <mat-panel-title>
+                  <mat-list-item role="listitem" class="shop">
+                    {{ shop.name }}
+                  </mat-list-item>
+                </mat-panel-title>
+              </div>
+            </mat-expansion-panel-header>
+
+            <div class="hiddenIfo">
+              <div class="firstColumnHidden">
+                <mat-list role="list">
+                  <br>
+                  <mat-list-item role="listitem">
+                    <div class="expansionContent">
+                      <span> Name: {{ shop.name }} </span>
+                      <span> Adress: {{ shop.address.street }} </span>
+                      <br>
+                      <button mat-raised-button class="viewProducts" color="accent" (click)="openProductList(shop)">
+                        View products
+                      </button>
+                    </div>
+                  </mat-list-item>
+                  <br>
+                </mat-list>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
   </ng-container>
 </mat-list>
