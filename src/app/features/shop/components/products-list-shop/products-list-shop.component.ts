@@ -16,22 +16,27 @@ import { ShopsListComponent } from './../shops-list/shops-list.component';
 })
 export class ProductsListShopComponent implements OnInit {
   shop!: Shop;
-  productList!: ProductShop[];
-  shopProducts: Product[] = [];
-  showProducts: ProductStock[] = [];
+  showProducts!: ProductStock[];
   isLoaded = false;
   maxInput = SHOP_CONSTANTS.stock.max;
   minInput = SHOP_CONSTANTS.stock.min;
   stepInput = SHOP_CONSTANTS.stock.step;
 
-  constructor(private shopService: ShopService, private productService:ProductService, public dialogRef: MatDialogRef<ShopsListComponent>,) {
-   this.shopService.getShop(shopService.selectedShopSeeProducts).then( shop => {
-      this.shop = shop;
-    });
+  constructor(
+    private shopService: ShopService,
+    private productService: ProductService,
+    public dialogRef: MatDialogRef<ShopsListComponent>
+  ) {
+    this.shopService
+      .getShop(shopService.selectedShopSeeProducts)
+      .then((shop) => {
+        this.shop = shop;
+      });
 
     this.shopService.getShopProducts().then((prodList) => {
-      this.productList = prodList;
-      this.loadProducts();
+      if(!!prodList){
+        this.showProducts = prodList;
+      }
       this.isLoaded = true;
     });
   }
@@ -42,26 +47,8 @@ export class ProductsListShopComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  changeStock(product: ProductStock, units: string) {
+  changeStock(product: ProductStock, units: string, id:string) {
     let newStock = Number.parseInt(units);
-    return this.shopService.modifyStock(product,newStock);
-  }
-
-  loadProducts() {
-    this.productList.forEach((prod) => {
-      let product = this.productService.findById(prod.id);
-      if (product != undefined) {
-        this.shopProducts.push(product);
-      }
-    });
-
-    this.loadVisibleData();
-  }
-
-  loadVisibleData() {
-    for (let i = 0; i < this.shopProducts.length; i++) {
-      this.showProducts.push(new ProductStock(this.shopProducts[i],this.productList[i].stock));
-    }
-    return this.showProducts;
+    return this.shopService.modifyStock(product, newStock, id);
   }
 }
