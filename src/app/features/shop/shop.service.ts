@@ -42,9 +42,12 @@ export class ShopService extends FirestoreService {
       );
   }
 
-  async addShop(shop: Shop): Promise<Shop | null> {
+  async addShop(shop: Shop): Promise<Shop> {
+    if(!shop){
+      throw new Error('Shop has not been introduced');
+    }
     if (await this.shopExistsByName(shop)) {
-      return null;
+      throw new Error('Shop already exists');
     } else {
       let newShop = {
         id: this.firestore.createId(),
@@ -162,5 +165,11 @@ export class ShopService extends FirestoreService {
       });
       return prod.stock;
     });
+  }
+  async permantlyDelete(id:string){
+    if(!!id && id.length>0){
+      return await this.getCollection().ref.doc(id).delete();
+    }
+    throw new Error('Shop id is not valid or undefined');
   }
 }
