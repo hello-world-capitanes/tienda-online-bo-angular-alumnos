@@ -45,14 +45,10 @@ export class ShopsListComponent implements OnInit {
   updateList(name: string,value: string){
 
   }
+  openShopList(name: string){
+    this.shopService.selectedShopSeeProducts = name;
 
-  openProductList(shop: Shop){
-    this.shopService.setSelectedShopSeeProducts(shop.name);
-    const dialogRef = this.dialog.open(ProductsListShopComponent,{
-      height:'400px',
-      width: '60%'
-    });
-
+    const dialogRef = this.dialog.open(ProductsListShopComponent);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

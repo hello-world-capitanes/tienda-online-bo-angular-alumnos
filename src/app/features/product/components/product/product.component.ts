@@ -34,12 +34,11 @@ export class ProductComponent implements OnInit {
   ) {
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
-      console.log(this.products[0].name);
-      console.log(this.products[0].categories[0].id);
     })
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
+
   }
 
   createForm() {
@@ -110,13 +109,6 @@ export class ProductComponent implements OnInit {
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
     return '_' + Math.random().toString(36).substring(2, 9);
-  }
-
-  removeCategory(product: Product, category: Category){
-    console.log('HOLAA');
-
-    this.productService.removeCategory(product,category);
-/*     this.products = this.productService.productList; */
   }
 
   getProducts(){
