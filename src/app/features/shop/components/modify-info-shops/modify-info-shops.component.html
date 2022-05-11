@@ -19,6 +19,12 @@
     <mat-error *ngIf="formGroupShop.get('country')?.errors && formGroupShop.get('country')?.hasError('required')">
       {{ SHOP_ERRORS.name.notProvided }}
     </mat-error>
+    <mat-error *ngIf="formGroupShop.get('country')?.errors && formGroupShop.get('country')?.hasError('minLength')">
+      {{ SHOP_ERRORS.country.minLength }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('country')?.errors && formGroupShop.get('country')?.hasError('maxLength')">
+      {{ SHOP_ERRORS.country.maxLength }}
+    </mat-error>
   </mat-form-field>
   <br>
   <mat-form-field>
@@ -38,6 +44,12 @@
       *ngIf="formGroupShop.get('province')?.errors && formGroupShop.get('province')?.hasError('required')">
       {{ SHOP_ERRORS.province.notProvided }}
     </mat-error>
+    <mat-error *ngIf="formGroupShop.get('province')?.errors && formGroupShop.get('province')?.hasError('minLength')">
+      {{ SHOP_ERRORS.province.minLength }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('province')?.errors && formGroupShop.get('province')?.hasError('maxLength')">
+      {{ SHOP_ERRORS.province.maxLength }}
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -47,6 +59,12 @@
       *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('required')">
       {{ SHOP_ERRORS.location.notProvided }}
     </mat-error>
+    <mat-error *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('minLength')">
+      {{ SHOP_ERRORS.location.minLength }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('maxLength')">
+      {{ SHOP_ERRORS.location.maxLength }}
+    </mat-error>
   </mat-form-field>
   <br>
   <mat-form-field>
@@ -54,6 +72,12 @@
     <input matInput placeholder="Dirección" formControlName="street" required>
     <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('required')">
       {{ SHOP_ERRORS.street.notProvided }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('minLength')">
+      {{ SHOP_ERRORS.street.minLength }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('maxLength')">
+      {{ SHOP_ERRORS.street.maxLength }}
     </mat-error>
   </mat-form-field>
 

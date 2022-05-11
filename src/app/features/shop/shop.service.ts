@@ -1,3 +1,4 @@
+import { Address } from 'src/app/core/models/address.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
@@ -111,21 +112,18 @@ export class ShopService extends FirestoreService {
     return this.getCollection().doc(id).delete();
   }
 
-  modifyShop(id: string, newShop: Shop){
-    let shopBD = {
-      id: id,
-      name: newShop.name,
-      address: {
+  async modifyShop(id: string, newShop: Shop){
+    if(!!id && id.length > 0 && !!newShop){
+      let address =  {
         country: newShop.address.country,
         province: newShop.address.province,
         location: newShop.address.location,
         cp: newShop.address.cp,
         street: newShop.address.street
-      },
-      active: newShop.active,
-      products: newShop.products
+      } as Address
+      return await this.getCollection().doc(id).update({'address': address});
     }
-    return this.getCollection().doc(id).update({'active': shopBD.active, 'address': shopBD.address, 'products': shopBD.products});
+    throw new Error('ID not valid');
   }
 
 /*

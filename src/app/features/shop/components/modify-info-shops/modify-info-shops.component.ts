@@ -38,19 +38,27 @@ export class ModifyInfoShopsComponent implements OnInit {
     this.formGroupShop = new FormGroup({
       country: new FormControl
         (this.data.address.country,
-          [Validators.required]
+          [Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30)]
         ),
       province: new FormControl
         (this.data.address.province,
-          [Validators.required]
+          [Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30)]
         ),
       location: new FormControl
         (this.data.address.location,
-          [Validators.required]
+          [Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30)]
         ),
       street: new FormControl
         (this.data.address.street,
-          [Validators.required]
+          [Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30)]
         ),
       cp: new FormControl
         (this.data.address.cp,

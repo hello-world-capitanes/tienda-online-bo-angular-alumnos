@@ -6,5 +6,8 @@ describe('ModifyInfoShopsComponent', () => {
   let component: ModifyInfoShopsComponent;
   let fixture: ComponentFixture<ModifyInfoShopsComponent>;
 
+  it('Modify shop', async() => {
+
+  })
 
 });
