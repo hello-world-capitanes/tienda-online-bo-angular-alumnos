@@ -5,6 +5,8 @@ import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
+import { Product } from '../product/models/product-models';
+import { ProductShopFirebase } from '../product/models/product-shop-firebase.model';
 import { ProductShop } from './../product/models/product-shop';
 import { ProductService } from './../product/services/product.service';
 import { Shop } from './models/shop.model';
@@ -12,6 +14,7 @@ import { Shop } from './models/shop.model';
 @Injectable({
   providedIn: 'root',
 })
+
 export class ShopService extends FirestoreService {
   protected collection: string;
   private readonly SHOP_COLLECTION = 'shops';
@@ -19,8 +22,8 @@ export class ShopService extends FirestoreService {
   selectedShopSeeProducts!: string;
 
   constructor(
-    productService: ProductService,
     firestore: AngularFirestore,
+    protected productService: ProductService,
     public snackBar: MatSnackBar
   ) {
     super(firestore);
@@ -97,11 +100,27 @@ export class ShopService extends FirestoreService {
     throw new Error();
   }
 
-  async getShopProducts(): Promise<ProductShop[]> {
+  async getShopProducts(): Promise<ProductStock[] | undefined> {
     const snapshot = await this.getCollection()
       .ref.where('name', '==', this.selectedShopSeeProducts)
       .get();
-    return snapshot?.docs[0].data()['products'] as ProductShop[];
+    const productsShop = snapshot?.docs[0].data()['products'] as ProductShop[];
+    if (!!productsShop && productsShop.length > 0) {
+      const productsStock = [];
+      for (let productShop of productsShop) {
+        if (!!productShop && !Number.isNaN(productShop?.id)) {
+          const product = (await this.productService.findById(
+            productShop?.id
+          )) as Product;
+          if (!!product) {
+            const productStock = new ProductStock(product, productShop.stock);
+            productsStock.push(productStock);
+          }
+        }
+      }
+      return productsStock;
+    }
+    return undefined;
   }
 
   async deleteShop(shop: Shop): Promise<any> {
@@ -118,10 +137,8 @@ export class ShopService extends FirestoreService {
     return this.getCollection().doc(shop.id).update({ active: true });
   }
 
-  async applyStock(products: ProductShop[]): Promise<any> {
-    return this.getCollection()
-      .doc(this.selectedShopSeeProducts)
-      .update({ products: products });
+  async applyStock(products: ProductShopFirebase[], id: string): Promise<any> {
+    return this.getCollection().doc(id).update({ products: products });
   }
 
   async shopExistsById(shop: Shop): Promise<boolean> {
@@ -141,20 +158,27 @@ export class ShopService extends FirestoreService {
     this.selectedShopSeeProducts = value;
   }
 
-  changeStock(products: ProductShop[], id: string, units: number) {
-    products.find((prod) => {
-      if (prod.id === id) {
-        prod.stock == units;
-      }
-    });
+  changeStock(products: ProductStock[], id: string, units: number) {
+    const p = products.find( prod => prod.product.id === id);
+    if (p) {
+      p.stock = units;
+    }
+    return products;
+    
   }
 
-  async modifyStock(prod: ProductStock, units: number) {
-    let products: ProductShop[] = [];
+  async modifyStock(prod: ProductStock, units: number, id: string) {
+    let products: ProductStock[] = [];
     this.getShopProducts().then((prods) => {
-      products = prods;
-      this.changeStock(products, prod.product.id, units);
-      this.applyStock(products);
+      if (!!prods) {
+        products = prods;
+      }
+      products = this.changeStock(products, prod.product.id, units);
+      const finalProducts = products.map(prod => {
+        return {id: prod.product.id,
+        stock: prod.stock} as ProductShopFirebase;
+      })
+      this.applyStock(finalProducts, id);
 
       this.snackBar.openFromComponent(SnackBarMessageComponent, {
         data: 'Stock del producto ' + prod.product.name + ' modificado',
