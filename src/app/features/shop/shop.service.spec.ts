@@ -4,6 +4,7 @@ import { Shop } from './models/shop.model';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
 import { ShopService } from './shop.service';
@@ -16,6 +17,7 @@ describe('ShopService', () => {
       imports: [RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        MatSnackBarModule
       ],
 
     })
@@ -35,7 +37,7 @@ describe('ShopService', () => {
   });
 
   it('Delete shop', async () => {
-    if(!!newShop){
+    if (!!newShop) {
       newShop = await service.addShop(newShop);
       await service.deleteShop(newShop);
 
@@ -46,7 +48,7 @@ describe('ShopService', () => {
   });
 
   it('Add shop', async () => {
-    if(!!newShop){
+    if (!!newShop) {
       newShop = await service.addShop(newShop);
 
       newShop = await service.getShop(newShop.name);

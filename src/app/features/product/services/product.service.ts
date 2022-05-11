@@ -26,20 +26,6 @@ export class ProductService extends FirestoreService{
     });
   }
 
-  /*public addProduct(value: Product){
-    this._productList.push(value);
-  }*/
-
-  /*public deleteProduct(value: Product){
-
-    if (this._productList.some( element => element.id == value.id)){
-      this.productList.splice(this._productList.indexOf(value), 1);
-
-    } else {
-      return;
-    }
-  }*/
-
    public get productList(): Product[] {
     return this._productList;
   }
@@ -66,14 +52,6 @@ export class ProductService extends FirestoreService{
     });
   }
 
-/*   findByName(prod: Product): Product | undefined {
-    return this.productList.find((product) =>{
-      if(product.name === prod.name){
-        return product;
-      }
-      return null;
-    });
-  } */
 
   removeCategory(product:Product, category:Category){
     let categorieList = this.getCollection().doc(product.id).collection('categories');
@@ -91,39 +69,6 @@ export class ProductService extends FirestoreService{
   activeProduct(product: Product){
     return this.getCollection().doc(product.id).update({'active': true});
   }
-
-/*   async addProduct(product: Product){
-    product.id = this.firestore.createId();
-
-    let productDB = {
-      id: product.id,
-      name: product.name,
-      characteristics: product.characteristics,
-      price: product.price,
-      description: product.description,
-      categories: product.categories,
-      image: product.image,
-      active: product.active,
-    };
-
-    await this.getCollection().doc(product.id).set(Object.assign({}, productDB));
-    return productDB;
-  } */
-
-/*   async modifyProduct(id: string, newProd: Product){
-    let productDB = {
-      id: id,
-      name: newProd.name,
-      characteristics: newProd.characteristics,
-      price: newProd.price,
-      description: newProd.description,
-      categories: newProd.categories,
-      image: newProd.image,
-      active: newProd.active,
-    };
-    await this.getCollection().doc(id).set(Object.assign({}, productDB));
-    return productDB;
-  } */
 
   async productExists(product: Product): Promise<Product | undefined> {
     const snapshot = await this.getCollection().ref.where("name", "==", product.name).get();
