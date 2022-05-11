@@ -109,11 +109,25 @@ export class CategoriesComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
+  findById(id: string): Category | undefined {
+    return this.categories?.find((cat) => {
+      if (cat.id === id) {
+        return cat;
+      }
+      return null;
+    })
+  }
+
   modifyCategory(id: string){
-    let config = new MatDialogConfig();
+    let category = this.findById(id);
     const dialogRef = this.matDialog.open(ModifyCategoryComponent, {
       width: '350px',
     });
-    dialogRef.componentInstance.id = id;
+    if(!!category){
+      dialogRef.componentInstance.id = id;
+      dialogRef.componentInstance.name = category.name;
+      dialogRef.componentInstance.description = category.description;
+      dialogRef.componentInstance.active = category.active;
+    }
   }
 }
