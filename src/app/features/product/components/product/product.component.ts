@@ -97,7 +97,10 @@ export class ProductComponent implements OnInit {
   }
 
   deleteProduct(product: Product) {
-    this.productService.deleteProduct(product);
+    if(!!product){
+      this.productService.deleteProduct(product);
+    }
+    throw Error('Product invalid');
   }
 
   activeProduct(product: Product){

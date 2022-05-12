@@ -6,14 +6,12 @@ import { Category } from '../../category/models/category.model';
 import { ProductFirebase } from '../models/product-firebase.model';
 import { Product } from '../models/product-models';
 
-
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService extends FirestoreService{
-
+export class ProductService extends FirestoreService {
   protected collection!: string;
-   private _productList!: Product[];
+  private _productList!: Product[];
 
   private readonly PRODUCTS_COLLECTION = 'products';
 
@@ -21,12 +19,12 @@ export class ProductService extends FirestoreService{
     super(firestore);
     this.collection = this.PRODUCTS_COLLECTION;
 
-    this.getProducts().then( products => {
+    this.getProducts().then((products) => {
       this._productList = products;
     });
   }
 
-   public get productList(): Product[] {
+  public get productList(): Product[] {
     return this._productList;
   }
 
@@ -35,11 +33,11 @@ export class ProductService extends FirestoreService{
   }
 
   async getProducts(): Promise<Product[]> {
-    let products:Product[] = [];
+    let products: Product[] = [];
     const snapshot = await this.getCollection().ref.get();
-    snapshot.docs.forEach(prod => {
+    snapshot.docs.forEach((prod) => {
       products.push(prod.data() as Product);
-    })
+    });
     return products;
   }
 
@@ -65,30 +63,36 @@ export class ProductService extends FirestoreService{
     });
   }
 
-
-  removeCategory(product:Product, category:Category){
-    let categorieList = this.getCollection().doc(product.id).collection('categories');
+  removeCategory(product: Product, category: Category) {
+    let categorieList = this.getCollection()
+      .doc(product.id)
+      .collection('categories');
   }
 
   getAllProducts(): Observable<Product[]> {
-    return this.getCollection().valueChanges().pipe(map(product=>product as Product[]));
+    return this.getCollection()
+      .valueChanges()
+      .pipe(map((product) => product as Product[]));
   }
 
   async deleteProduct(prod: Product): Promise<any> {
-    const result= await this.productExists(prod);
-    if (result!==undefined) {
-      const prod_1 = await this.getCollection()
-        .doc(prod.id)
-        .update({ active: false });
-      return prod_1;
-    } else {
-      return null;
+    if (!!prod) {
+      const result = await this.productExists(prod);
+      if (!!result) {
+        const prod_1 = await this.getCollection()
+          .doc(prod.id)
+          .update({ active: false });
+        return prod_1;
+      } else {
+        return null;
+      }
     }
+    throw Error('Product invalid to delete');
   }
 
   async activeProduct(prod: Product): Promise<any> {
-    const result= await this.productExists(prod);
-    if (result!==undefined) {
+    const result = await this.productExists(prod);
+    if (result !== undefined) {
       const prod_1 = await this.getCollection()
         .doc(prod.id)
         .update({ active: true });
@@ -99,19 +103,22 @@ export class ProductService extends FirestoreService{
   }
 
   async productExists(product: Product): Promise<Product | undefined> {
-    const snapshot = await this.getCollection().ref.where("name", "==", product.name).get();
-    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Product : undefined;
+    const snapshot = await this.getCollection()
+      .ref.where('name', '==', product.name)
+      .get();
+    return snapshot?.docs && snapshot.docs.length > 0
+      ? (snapshot?.docs[0].data() as Product)
+      : undefined;
   }
 
-  async addProduct(product: Product): Promise<Product>{
+  async addProduct(product: Product): Promise<Product> {
     if (!product) {
-      throw new Error("Product not provided");
+      throw new Error('Product not provided');
     }
 
-    const result =await this.productExists(product)
+    const result = await this.productExists(product);
 
-    if(result===undefined){
-
+    if (result === undefined) {
       let productDB: ProductFirebase = {
         id: product.id,
         name: product.name,
@@ -130,19 +137,16 @@ export class ProductService extends FirestoreService{
           }
         }
       }
-      return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => product)
-
-    } else{
-
+      return this.getCollection()
+        .doc(product.id)
+        .set(Object.assign({}, productDB))
+        .then(() => product);
+    } else {
       throw new Error();
     }
-
-
-
   }
 
-  async modifyProduct(id: string, newProd: Product):Promise<any>{
-
+  async modifyProduct(id: string, newProd: Product): Promise<any> {
     let productDB = {
       id: id,
       characteristics: newProd.characteristics,
@@ -151,13 +155,18 @@ export class ProductService extends FirestoreService{
       image: newProd.image,
     };
 
-  return this.getCollection().doc(id).update
-  ({'characteristics': productDB.characteristics, 'price': productDB.price,'description':productDB.description,'image':productDB.image});
-
+    return this.getCollection()
+      .doc(id)
+      .update({
+        characteristics: productDB.characteristics,
+        price: productDB.price,
+        description: productDB.description,
+        image: productDB.image,
+      });
   }
-  permantlyDelete(id:string){
-    if(!!id && id.length >0){
-    return this.getCollection().doc(id).delete();
+  permantlyDelete(id: string) {
+    if (!!id && id.length > 0) {
+      return this.getCollection().doc(id).delete();
     }
     throw new Error();
   }
