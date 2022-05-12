@@ -55,7 +55,6 @@ export class ProductService extends FirestoreService{
 
   removeCategory(product:Product, category:Category){
     let categorieList = this.getCollection().doc(product.id).collection('categories');
-    console.log(categorieList.get());
   }
 
   getAllProducts(): Observable<Product[]> {

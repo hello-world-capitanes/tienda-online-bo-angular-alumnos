@@ -30,11 +30,37 @@ describe('ShopService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ShopService);
     newShop = new Shop('id', 'name', new Address('', '', '', 0, '0'), true, []);
+    newShopWithProducts = new Shop(
+      'idTest',
+      'test',
+      new Address('test', 'test', 'test', 0, '1'),
+      true,
+      [
+        new ProductStock(
+          new Product(
+            '10H5bKRT2wQvtAVppfov',
+            'Perdemos controles',
+            'Pack de 6 unidades',
+            4,
+            'Donuts original glaseados',
+            [new Category('test', '1', 'testing', true)],
+            'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
+            true
+          ),
+          50
+        ),
+      ]
+    );
   });
   afterEach(async () => {
     if (!!newShop) {
       await service.permantlyDelete(newShop.id);
       newShop = undefined;
+    }
+
+    if (!!newShopWithProducts) {
+      await service.permantlyDelete(newShopWithProducts.id);
+      newShopWithProducts = undefined;
     }
   });
 
@@ -58,46 +84,34 @@ describe('ShopService', () => {
   });
 
   /* it('Increase stock of a product', async () => {
-    expect(
-      service.modifyStock(
-        new ProductStock(
-          new Product(
-            '10H5bKRT2wQvtAVppfov',
-            'Perdemos controles',
-            'Pack de 6 unidades',
-            4,
-            'Donuts original glaseados',
-            [new Category('test', '1', 'testing', true)],
-            'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
-            true
-          ),
-          50
-        ),
-        100,
-        'A0SasV3ohcu4kG4vwVxF'
-      )
-    ).toBeGreaterThan(50);
-  });
+    if (!!newShopWithProducts) {
+      newShopWithProducts = await service.addShop(newShopWithProducts);
 
-  it('Decrease stock of a product', async () => {
-    expect(
-      service.modifyStock(
-        new ProductStock(
-          new Product(
-            '10H5bKRT2wQvtAVppfov',
-            'Perdemos controles',
-            'Pack de 6 unidades',
-            4,
-            'Donuts original glaseados',
-            [new Category('test', '1', 'testing', true)],
-            'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
-            true
-          ),
-          50
-        ),
-        20,
-        'A0SasV3ohcu4kG4vwVxF'
-      )
-    ).toBeLessThan(50);
+      newShopWithProducts = await service.getShop(newShopWithProducts.name);
+
+      expect(
+        service.modifyStock(
+          newShopWithProducts.products[0],
+          100,
+          newShopWithProducts.id
+        )
+      ).toBeGreaterThan(50);
+    }
+  }); */
+
+  /* it('Decrease stock of a product', async () => {
+    if (!!newShopWithProducts) {
+      newShopWithProducts = await service.addShop(newShopWithProducts);
+
+      newShopWithProducts = await service.getShop(newShopWithProducts.name);
+
+      expect(
+        service.modifyStock(
+          newShopWithProducts.products[0],
+          20,
+          newShopWithProducts.id
+        )
+      ).toBeLessThan(50);
+    }
   }); */
 });
