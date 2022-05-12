@@ -5,7 +5,7 @@
   <ng-container *ngFor="let shop of shops">
     <div *ngIf="shop.active">
       <mat-accordion>
-        <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
+        <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false" [id]="shop.name">
 
           <mat-expansion-panel-header>
             <div class = "info">
@@ -34,7 +34,7 @@
                     <span> Name: {{ shop.name }} </span>
                     <span> Adress: {{ shop.address.street }} </span>
                     <br>
-                    <button mat-raised-button class = "viewProducts" color = "accent" (click) = "openProductList(shop)">
+                    <button mat-raised-button class = "viewProducts" color = "accent" (click) = "openProductList(shop)" id="viewProducts">
                       View products
                     </button>
                   </div>
