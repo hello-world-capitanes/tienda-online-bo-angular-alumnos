@@ -18,14 +18,13 @@ import { ProductService } from '../../services/product.service';
 export class ModifyProductComponent implements OnInit {
 
   productForm!: FormGroup;
-
+  id! :string;
   readonly PRODUCT_ERRORS = PRODUCT_ERRORS;
 
   categories!: Category[];
   products!: Product[];
 
-  id!: string;
-  categoriesProd!:Category[];
+  categoriesProd!:string[];
   active!:boolean;
 
   constructor(

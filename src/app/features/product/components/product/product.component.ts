@@ -111,7 +111,7 @@ export class ProductComponent implements OnInit {
     return '_' + Math.random().toString(36).substring(2, 9);
   }
 
-  removeCategory(product: Product, category: Category){
+  removeCategory(product: Product, category: string){
 
     this.productService.removeCategory(product,category);
 /*     this.products = this.productService.productList; */

@@ -1,3 +1,4 @@
+import { ProductService } from './../../product/services/product.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
@@ -11,7 +12,7 @@ export class CategoryService extends FirestoreService {
   protected collection: string;
   private readonly CATEGORY_COLLECTION = 'categories'
 
-  constructor(firestore: AngularFirestore) {
+  constructor(firestore: AngularFirestore, private _productService: ProductService) {
     super(firestore)
     this.collection = this.CATEGORY_COLLECTION;
   }
@@ -38,6 +39,7 @@ export class CategoryService extends FirestoreService {
         name: category.name,
         description: category.description,
         active: category.active,
+        products: category.products,
       };
       return this.getCollection().doc(category.id).set(Object.assign({}, categoryDB)).then(() => {
         return categoryDB as Category;
@@ -52,6 +54,7 @@ export class CategoryService extends FirestoreService {
   }
 
   deleteCategory(category: Category) {
+    /* this._productService.deleteCategories(category); */
     return this.getCollection().doc(category.id).update({ 'active': false });
   }
 

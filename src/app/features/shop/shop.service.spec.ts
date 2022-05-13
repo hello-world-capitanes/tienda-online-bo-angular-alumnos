@@ -44,7 +44,7 @@ describe('ShopService', () => {
             'Pack de 6 unidades',
             4,
             'Donuts original glaseados',
-            [new Category('test', '1', 'testing', true)],
+            ['test'],
             'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
             true
           ),

@@ -126,7 +126,7 @@
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
                       <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
-                          <span> {{ category.id }} </span>
+                          <span> {{ category }} </span>
                           <mat-icon matChipRemove> cancel </mat-icon>
                       </mat-chip>
                     </mat-chip-list>
@@ -202,7 +202,7 @@
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
                       <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
-                          <span> {{ category.id }} </span>
+                          <span> {{ category }} </span>
                           <mat-icon matChipRemove> cancel </mat-icon>
                       </mat-chip>
                     </mat-chip-list>

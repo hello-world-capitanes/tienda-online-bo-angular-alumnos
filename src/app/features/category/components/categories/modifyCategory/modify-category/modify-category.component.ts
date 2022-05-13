@@ -48,7 +48,8 @@ export class ModifyCategoryComponent implements OnInit {
       id,
       this.modifyCategoryForm.get('name')?.value,
       this.modifyCategoryForm.get('description')?.value,
-      true
+      true,
+      []
     )
     this.categoryService.modifyCategory(id, newCat);
     this.dialogRef.close();

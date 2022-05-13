@@ -27,7 +27,7 @@ describe('CategoryServiceService', () => {
   });
 
   it('Create category', () => {
-    let category=new Category("Aceites","","Aceites",false)
+    let category=new Category("Aceites","","Aceites",false,[])
     service.addCategory(category)
     expect(service.categoryExists(category).then( value => {
 
