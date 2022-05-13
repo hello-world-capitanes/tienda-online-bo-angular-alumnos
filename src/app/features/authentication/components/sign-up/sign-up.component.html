@@ -1,16 +1,41 @@
-<div>
-  <form [formGroup]="signUpForm">
-    <span>Sign up</span>
-    <mat-form-field>
-      <mat-label>User</mat-label>
-      <input type="text" matInput formControlName="email" />
-      <mat-error>Invalid field</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="password"/>
-      <mat-error>Invalid field</mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="signUpAdmin()">Sign up</button>
-  </form>
+<div class="displayTable">
+  <div class="displayTableCell">
+    <div class="authBlock">
+      <h3>Sign Up</h3>
+      <div class="formGroup">
+        <input
+          type="email"
+          class="formControl"
+          placeholder="Email Address"
+          #userEmail
+          required
+        />
+      </div>
+      <div class="formGroup">
+        <input
+          type="password"
+          class="formControl"
+          placeholder="Password"
+          #userPwd
+          required
+        />
+      </div>
+      <div class="formGroup">
+        <input
+          type="button"
+          class="btn btnPrimary"
+          value="Sign Up"
+          (click)="authService.signUp(userEmail.value, userPwd.value)"
+        />
+      </div>
+      <div class="formGroup">
+        <span class="or"><span class="orInner">Or</span></span>
+      </div>
+    <div class="redirectToLogin">
+      <span
+        >Already have an account?
+        <button class="redirect" routerLink="/sign-in">Log In</button></span
+      >
+    </div>
+  </div>
 </div>

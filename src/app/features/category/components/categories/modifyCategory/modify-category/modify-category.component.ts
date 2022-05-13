@@ -1,6 +1,8 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CATEGORY_ERRORS } from 'src/app/core/utils/errors/category.errors';
 import { Category } from './../../../../models/category.model';
 import { CategoryService } from './../../../../services/category-service.service';
 
@@ -12,13 +14,18 @@ import { CategoryService } from './../../../../services/category-service.service
 export class ModifyCategoryComponent implements OnInit {
   modifyCategoryForm!: FormGroup;
 
+  readonly CATEGORY_ERRORS = CATEGORY_ERRORS;
+
   categories!: Category[];
   id!: string;
+  name!: string;
+  description!: string;
+  active!: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<ModifyCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
   ) {
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
@@ -31,24 +38,25 @@ export class ModifyCategoryComponent implements OnInit {
 
   createForm() {
     this.modifyCategoryForm = new FormGroup({
-      id: new FormControl(''),
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(30),
-      ]),
-      description: new FormControl('', [
-        Validators.required
-      ]),
+      description: new FormControl(this.description,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30),
+        ]),
     });
+  }
+
+  cancelModify() {
+    this.dialogRef.close();
   }
 
   modifyCategory(id: string) {
     let newCat = new Category(
       id,
-      this.modifyCategoryForm.get('name')?.value,
+      this.name,
       this.modifyCategoryForm.get('description')?.value,
-      true,
+      this.active,
       []
     )
     this.categoryService.modifyCategory(id, newCat);

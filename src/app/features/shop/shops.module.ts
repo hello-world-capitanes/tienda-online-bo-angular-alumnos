@@ -16,6 +16,7 @@ import { ProductsListShopComponent } from './components/products-list-shop/produ
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModifyInfoShopsComponent } from './components/modify-info-shops/modify-info-shops.component';
 
+
 @NgModule({
   declarations: [
     ShopsListComponent,
@@ -35,8 +36,12 @@ import { ModifyInfoShopsComponent } from './components/modify-info-shops/modify-
     MatSelectModule,
     MatExpansionModule,
     MatListModule,
-    MatDialogModule,
+    MatDialogModule
+
   ],
-  exports: [ShopsListComponent, ShopsCreateComponent],
+  exports: [
+    ShopsListComponent,
+    ShopsCreateComponent,
+  ]
 })
-export class ShopsModule {}
+export class ShopsModule { }

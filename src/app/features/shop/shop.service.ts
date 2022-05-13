@@ -1,3 +1,4 @@
+
 import { Address } from 'src/app/core/models/address.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -7,10 +8,11 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 import { Product } from '../product/models/product-models';
+import { ProductShop } from '../product/models/product-shop';
 import { ProductShopFirebase } from '../product/models/product-shop-firebase.model';
-import { ProductShop } from './../product/models/product-shop';
 import { ProductService } from './../product/services/product.service';
 import { Shop } from './models/shop.model';
+
 
 @Injectable({
   providedIn: 'root',

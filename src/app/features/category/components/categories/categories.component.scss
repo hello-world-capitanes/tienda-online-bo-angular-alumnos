@@ -1,4 +1,4 @@
-.cateogoryItem{
+.cateogoryItem {
   display: flex;
   padding: 5px;
   width: 100%;
@@ -8,10 +8,10 @@
   justify-content: space-around;
 }
 
-.flexElement{
+.flexElement {
   width: 20%;
 }
-.descripcion{
+.descripcion {
   max-width: 400px;
   word-wrap: break-word;
 }
@@ -21,7 +21,7 @@
   padding: 5px;
 }
 
-.category{
+.category {
   font-weight: bold;
 }
 
@@ -30,25 +30,25 @@
   width: 100%;
 }
 
-.info{
+.info {
   display: flex;
   flex-direction: row;
   justify-content: right;
 }
 
-.prodButton{
+.prodButton {
   margin: 1em;
   margin-left: 0 auto;
   flex: 1 1 auto;
-  background-color: #3F51B5;
+  background-color: #3f51b5;
   color: white;
 }
 
-.expansionContent{
+.expansionContent {
   display: flex;
   flex-direction: column;
 }
 
-.listCategory{
+.listCategory {
   margin: 2em;
 }
