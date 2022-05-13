@@ -1,4 +1,3 @@
-import { Category } from "../../category/models/category.model";
 
 export class Product {
   private _id: string;
@@ -6,7 +5,7 @@ export class Product {
   private _characteristics: string;
   private _price: number;
   private _description: string;
-  private _categories: Category[];
+  private _categories: string[];
   private _shops: string[];
   private _image: string;
   private _active: boolean;
@@ -17,7 +16,7 @@ export class Product {
     characteristics: string,
     price: number,
     description: string,
-    categories: Category[],
+    categories: string[],
     shops: string[],
     image: string,
     active: boolean
@@ -77,7 +76,7 @@ export class Product {
     return this._categories;
   }
 
-  public set categories(categories: Category[]) {
+  public set categories(categories: string[]) {
     this._categories = categories;
   }
 

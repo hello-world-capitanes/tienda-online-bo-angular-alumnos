@@ -1,3 +1,4 @@
+import { CategoryService } from './../../category/services/category-service.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
@@ -64,10 +65,11 @@ export class ProductService extends FirestoreService {
     });
   }
 
-  removeCategory(product: Product, category: Category) {
-    let categorieList = this.getCollection()
-      .doc(product.id)
-      .collection('categories');
+
+  removeCategory(product:Product, category:string){
+    let indexCategory = product.categories.indexOf(category);
+    product.categories.splice(indexCategory,1)
+    return this.getCollection().doc(product.id).update({categories:product.categories});
   }
 
   getAllProducts(): Observable<Product[]> {
@@ -169,6 +171,16 @@ export class ProductService extends FirestoreService {
     if (!!id && id.length > 0) {
       return this.getCollection().doc(id).delete();
     }
-    throw new Error();
+    throw new Error('Id has not been introduced');
   }
+/*   deleteCategories(category:Category){
+    if(!!category && !!category.products && category.products.length>0){
+      for(let product in category.products){
+        let categoryList =
+        this.getCollection().doc(product).get(product => categoryList= product.categories)
+      }
+    }
+    throw new Error('Category has not been introduced')
+
+  } */
 }

@@ -12,23 +12,20 @@ describe('CategoryServiceService', () => {
   });
 
   it('Create category', () => {
-    let category=new Category("Aceites","","Aceites",false)
+    let category=new Category("Aceites","","Aceites",false,[])
     service.addCategory(category)
     expect(service.categoryExists(category).then( value => {
 
-      if (value == true){
-        return true;
-      } else {
-        return false;
-      }
+      return value
+
     }
       )).toBeTruthy();
   });
 
   it('Delete category', () => {
-    expect(service.deleteCategory(new Category("", "", "", true))).toBeFalse();
-    service.addCategory(new Category("id", "nombre", "descripcion", true));
-    service.deleteCategory(new Category("id", "nombre", "descripcion", true));
+    expect(service.deleteCategory(new Category("", "", "", true,[]))).toBeFalse();
+    service.addCategory(new Category("id", "nombre", "descripcion", true,[]));
+    service.deleteCategory(new Category("id", "nombre", "descripcion", true,[]));
     expect(service.categoryExists).toBeFalse();
   });
 });

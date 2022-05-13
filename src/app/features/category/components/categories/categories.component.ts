@@ -85,7 +85,8 @@ export class CategoriesComponent implements OnInit {
       this.categoryForm.get('name')?.value,
       this.categoryForm.get('id')?.value,
       this.categoryForm.get('description')?.value,
-      true
+      true,
+      []
     );
 
     this.categoryService.addCategory(category);
