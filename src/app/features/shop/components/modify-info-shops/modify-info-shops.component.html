@@ -8,7 +8,7 @@
     </button>
   </div>
 </div>
-<form [formGroup]="formGroupShop" class="example-form">
+<form [formGroup]="formGroupShop" class="example-form" id="modifyShopForm">
   <mat-form-field class="example-full-width">
     <mat-label>Country</mat-label>
     <mat-select formControlName="country" required>
@@ -54,7 +54,7 @@
 
   <mat-form-field>
     <mat-label>Location</mat-label>
-    <input matInput placeholder="Localidad" formControlName="location" required>
+    <input matInput placeholder="Localidad" id="location" formControlName="location" required>
     <mat-error
       *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('required')">
       {{ SHOP_ERRORS.location.notProvided }}
@@ -69,7 +69,7 @@
   <br>
   <mat-form-field>
     <mat-label>Street</mat-label>
-    <input matInput placeholder="Dirección" formControlName="street" required>
+    <input matInput placeholder="Dirección" id="street" formControlName="street" required>
     <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('required')">
       {{ SHOP_ERRORS.street.notProvided }}
     </mat-error>
@@ -97,9 +97,9 @@
   </mat-form-field>
   <br>
   <div *ngIf="formGroupShop.invalid">
-    <button mat-raised-button class="buttonAdd" color="primary" (click)="modifyShop(id)" disabled="true">Añadir</button>
+    <button mat-raised-button class="buttonAdd" id="modifyDisabled" color="primary" (click)="modifyShop(id)" disabled="true">Añadir</button>
   </div>
   <div *ngIf="formGroupShop.valid">
-    <button mat-raised-button class="buttonAdd" color="primary" (click)="modifyShop(id)">Añadir</button>
+    <button mat-raised-button class="buttonAdd" id="modifyEnabled" color="primary" (click)="modifyShop(id)">Añadir</button>
   </div>
 </form>

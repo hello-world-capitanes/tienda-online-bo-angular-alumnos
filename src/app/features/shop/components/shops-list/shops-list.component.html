@@ -4,67 +4,48 @@
   <h1>Active Shops</h1>
   <ng-container *ngFor="let shop of shops">
     <div *ngIf="shop.active">
-      <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-        ><mat-expansion-panel-header>
-            <div class="info">
-              <button mat-raised-button class="botonShop" (click)="modifyShop(shop.id)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <div *ngIf="shop.active === false">
-                <button mat-raised-button class="botonShop" (click)="activeShop(shop)">
-                  <mat-icon>autorenew</mat-icon>
+      <div class = "containerProd">
+        <mat-accordion>
+          <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
+
+            <mat-expansion-panel-header>
+              <div class="info">
+                <button mat-raised-button class = "botonShop" id="editShop{{shop.name}}" (click)="modifyShop(shop.id)">
+                  <mat-icon> edit </mat-icon>
                 </button>
-              </div>
-              <div *ngIf="shop.active === true">
-                <button mat-raised-button class="botonShop" (click)="deleteShop(shop)">
+                <button mat-raised-button class = "botonShop" (click)="desactivateShop(shop)">
                   <mat-icon> delete_forever </mat-icon>
                 </button>
+                <mat-panel-title>
+                  <mat-list-item role="listitem" class="shop">
+                    {{ shop.name }}
+                  </mat-list-item>
+                </mat-panel-title>
               </div>
-        <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
+            </mat-expansion-panel-header>
 
-          <mat-expansion-panel-header>
-            <div class = "info">
-              <button mat-raised-button class = "botonShop" (click)="modifyShop($event,shop.id)">
-                <mat-icon> edit </mat-icon>
-              </button>
-
-              <button mat-raised-button class = "botonShop" (click)="deleteShop($event,shop)">
-                <mat-icon> delete_forever </mat-icon>
-              </button>
-
-              <mat-panel-title>
-                <mat-list-item role="listitem" class="shop">
-                  {{ shop.name }}
-                </mat-list-item>
-              </mat-panel-title>
+            <div class="hiddenIfo">
+              <div class="firstColumnHidden">
+                <mat-list role="list">
+                  <br>
+                  <mat-list-item role="listitem">
+                    <div class="expansionContent">
+                      <span> Name: {{ shop.name }} </span>
+                      <span> Adress: {{ shop.address.street }} </span>
+                      <br>
+                      <button mat-raised-button class="viewProducts" color="accent" (click)="openProductList(shop)">
+                        View products
+                      </button>
+                    </div>
+                  </mat-list-item>
+                  <br>
+                </mat-list>
+              </div>
             </div>
-          </mat-expansion-panel-header>
-
-          <div class="hiddenIfo">
-            <div class="firstColumnHidden">
-              <mat-list role="list">
-                <br>
-                <mat-list-item role="listitem">
-                  <div class="expansionContent">
-                    <span> Name: {{ shop.name }} </span>
-                    <span> Adress: {{ shop.address.street }} </span>
-                    <br>
-                    <button mat-raised-button class = "viewProducts" color = "accent" (click) = "openProductList(shop)" id="viewProducts">
-                      View products
-                    </button>
-                  </div>
-                </mat-list-item>
-                <br>
-              </mat-list>
-            </div>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
     </div>
-    <mat-divider></mat-divider>
   </ng-container>
 
 
@@ -78,7 +59,7 @@
 
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class = "botonShop" (click)="modifyShop($event,shop.id)">
+                <button mat-raised-button class = "botonShop" id="editShop{{shop.name}}" (click)="modifyShop(shop.id)">
                   <mat-icon> edit </mat-icon>
                 </button>
                 <button mat-raised-button class = "botonShop" (click)="activateShop($event,shop)">

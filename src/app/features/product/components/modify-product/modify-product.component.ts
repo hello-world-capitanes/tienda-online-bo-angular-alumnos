@@ -25,8 +25,6 @@ export class ModifyProductComponent implements OnInit {
   products!: Product[];
 
   id!: string;
-  products!: Product[];
-
   categoriesProd!:Category[];
   active!:boolean;
 
@@ -35,7 +33,6 @@ export class ModifyProductComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
     public dialogRef: MatDialogRef<ModifyProductComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
@@ -43,7 +40,7 @@ export class ModifyProductComponent implements OnInit {
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
     })
-    this.productForm = this.form.group({
+    this.productForm = new FormGroup({
       name: new FormControl
         (data.name,
           [Validators.required,

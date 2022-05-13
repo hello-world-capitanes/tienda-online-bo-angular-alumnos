@@ -121,15 +121,6 @@ export class ProductComponent implements OnInit {
     return this.products;
   }
 
-  findById(id: string): Product | undefined{
-    return this.products?.find((prod) => {
-      if(prod.id === id){
-        return prod;
-      }
-      return null;
-    })
-  }
-
   modifyProduct(id: string){
     let product=this.findById(id);
     const dialogRef = this.matDialog.open(ModifyProductComponent, {

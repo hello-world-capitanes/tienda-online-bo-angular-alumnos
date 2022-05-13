@@ -65,23 +65,17 @@ export class ShopService extends FirestoreService {
         location : shop.address.location,
         cp : shop.address.cp,
         street : shop.address.street,
-
-      },
+        },
       active: shop.active,
       products: shop.products,
-
-      return this.getCollection()
-        .doc(newShop.id)
-        .set(newShop)
-        .then(() => {
-          return newShop as Shop;
-        });
-
     }
-
-    /*     this.getCollection().add({ name: "aaa"}).then(obj => {
-    this.getCollection().doc(obj.id).set({...obj.get(), id: obj.id});
-  }) */
+    return this.getCollection()
+      .doc(newShop.id)
+      .set(newShop)
+      .then(() => {
+        return newShop as Shop;
+      })
+    }
   }
 
   async filterShops(): Promise<Shop[]> {

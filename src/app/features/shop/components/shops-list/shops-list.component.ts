@@ -47,9 +47,12 @@ export class ShopsListComponent implements OnInit {
     this.shopService.activateShop(shop);
   }
 
-  modifyShop(event: any, shopId: string){
-    event.stopPropagation();
+  activeShop(shop: Shop){
+    this.shopService.activateShop(shop);
+  }
 
+  desactivateShop(shop: Shop){
+    this.shopService.deleteShop(shop);
   }
 
   updateList(name: string,value: string){
