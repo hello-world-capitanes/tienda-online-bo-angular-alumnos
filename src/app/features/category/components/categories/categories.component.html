@@ -38,7 +38,7 @@
           <mat-expansion-panel-header *ngIf="category.active===true" class="category">
             <div class="info">
               <button mat-raised-button class="prodButton"
-                (click)="$event.stopPropagation(); modifyCategory(category.id)">
+                (click)="$event.stopPropagation(); modifyCategory(category.id)" id="edit{{category.name}}">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); deleteCategory(category)">

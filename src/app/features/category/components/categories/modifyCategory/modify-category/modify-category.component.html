@@ -1,4 +1,4 @@
-<form novalidate [formGroup]="modifyCategoryForm" class="form">
+<form novalidate [formGroup]="modifyCategoryForm" class="form" id="modifyCategoryForm">
   <div class="container">
     <div class="primeraCol">
       <div class="header">
@@ -14,7 +14,7 @@
       <mat-form-field class="formContainer">
         <mat-label> Category description </mat-label>
         <textarea matInput placeholder="Description" formControlName="description" class="form-control"
-          name="description" required></textarea>
+          name="description" id="description" required></textarea>
 
         <mat-error
           *ngIf="modifyCategoryForm.get('name')?.errors && modifyCategoryForm.get('name')?.hasError('required')">
@@ -30,7 +30,7 @@
         </mat-error>
       </mat-form-field>
       <br>
-      <button mat-raised-button class="addButton" type="submit" (click)="modifyCategory(id)"
+      <button mat-raised-button class="addButton" type="submit" (click)="modifyCategory(id)" id="modifyEnabled"
         [disabled]="modifyCategoryForm.invalid">
         Añadir
       </button>
