@@ -1,0 +1,105 @@
+<div class="header">
+  <div class="title">
+    <h1>{{ name }}</h1>
+  </div>
+  <div class="close">
+    <button mat-raised-button class="buttonClose" color="primary" (click)="closeModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+<form [formGroup]="formGroupShop" class="example-form" id="modifyShopForm">
+  <mat-form-field class="example-full-width">
+    <mat-label>Country</mat-label>
+    <mat-select formControlName="country" required>
+      <mat-option *ngFor="let country of COUNTRIES" [value]="country.name">
+        {{ country.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="formGroupShop.get('country')?.errors && formGroupShop.get('country')?.hasError('required')">
+      {{ SHOP_ERRORS.name.notProvided }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('country')?.errors && formGroupShop.get('country')?.hasError('minLength')">
+      {{ SHOP_ERRORS.country.minLength }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('country')?.errors && formGroupShop.get('country')?.hasError('maxLength')">
+      {{ SHOP_ERRORS.country.maxLength }}
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Province</mat-label>
+    <div *ngIf="formGroupShop.get('country')?.value === 'España'; then spanishProv else otherProv"></div>
+    <ng-template #spanishProv>
+      <mat-select #spanish formControlName="province" required>
+        <mat-option *ngFor="let prov of PROVINCES" [value]="prov.name">
+          {{ prov.name }}
+        </mat-option>
+      </mat-select>
+    </ng-template>
+    <ng-template #otherProv>
+      <input matInput placeholder="Provincia" formControlName="province" required>
+    </ng-template>
+    <mat-error
+      *ngIf="formGroupShop.get('province')?.errors && formGroupShop.get('province')?.hasError('required')">
+      {{ SHOP_ERRORS.province.notProvided }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('province')?.errors && formGroupShop.get('province')?.hasError('minLength')">
+      {{ SHOP_ERRORS.province.minLength }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('province')?.errors && formGroupShop.get('province')?.hasError('maxLength')">
+      {{ SHOP_ERRORS.province.maxLength }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Location</mat-label>
+    <input matInput placeholder="Localidad" id="location" formControlName="location" required>
+    <mat-error
+      *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('required')">
+      {{ SHOP_ERRORS.location.notProvided }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('minLength')">
+      {{ SHOP_ERRORS.location.minLength }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('location')?.errors && formGroupShop.get('location')?.hasError('maxLength')">
+      {{ SHOP_ERRORS.location.maxLength }}
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Street</mat-label>
+    <input matInput placeholder="Dirección" id="street" formControlName="street" required>
+    <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('required')">
+      {{ SHOP_ERRORS.street.notProvided }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('minLength')">
+      {{ SHOP_ERRORS.street.minLength }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('street')?.errors && formGroupShop.get('street')?.hasError('maxLength')">
+      {{ SHOP_ERRORS.street.maxLength }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Postal code</mat-label>
+    <input matInput placeholder="CP" type="number" formControlName="cp"
+      (ngModelChange)="resetValidatorsByProvinceSelected(formGroupShop.get('province')?.value, formGroupShop.get('country')?.value)">
+    <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('required')">
+      {{ SHOP_ERRORS.cp.notProvided }}
+    </mat-error>
+    <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('pattern')">
+      {{ SHOP_ERRORS.cp.invalid }}
+    </mat-error>
+    <mat-error *ngIf="!formGroupShop.get('cp')?.valid">
+      {{ SHOP_ERRORS.cp.spanishInvalid }}
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <div *ngIf="formGroupShop.invalid">
+    <button mat-raised-button class="buttonAdd" id="modifyDisabled" color="primary" (click)="modifyShop(id)" disabled="true">Añadir</button>
+  </div>
+  <div *ngIf="formGroupShop.valid">
+    <button mat-raised-button class="buttonAdd" id="modifyEnabled" color="primary" (click)="modifyShop(id)">Añadir</button>
+  </div>
+</form>
