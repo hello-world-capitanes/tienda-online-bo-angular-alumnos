@@ -24,6 +24,7 @@ describe('ShopService', () => {
       ],
     }).compileComponents();
   }));
+
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ShopService);
@@ -50,21 +51,32 @@ describe('ShopService', () => {
     }
   });
 
-  it('Delete shop', async () => {
+  it('Deactivate shop', async () => {
     if (!!newShop) {
       newShop = await service.addShop(newShop);
-      await service.deleteShop(newShop);
-
+      await service.deActivateShop(newShop);
       newShop = await service.getShop(newShop.name);
+
       expect(newShop.active).toBeFalse();
+    }
+  });
+
+  it('Activate shop', async () => {
+    if (!!newShop) {
+      newShop = await service.addShop(newShop);
+      await service.deActivateShop(newShop);
+      await service.activateShop(newShop);
+      newShop = await service.getShop(newShop.name);
+
+      expect(newShop.active).toBeTrue();
     }
   });
 
   it('Add shop', async () => {
     if (!!newShop) {
       newShop = await service.addShop(newShop);
-
       newShop = await service.getShop(newShop.name);
+
       expect(newShop.active).toBeTruthy();
     }
   });
@@ -72,9 +84,7 @@ describe('ShopService', () => {
   /* it('Increase stock of a product', async () => {
     if (!!newShopWithProducts) {
       newShopWithProducts = await service.addShop(newShopWithProducts);
-
       newShopWithProducts = await service.getShop(newShopWithProducts.name);
-
       expect(
         service.modifyStock(
           newShopWithProducts.products[0],
@@ -88,9 +98,7 @@ describe('ShopService', () => {
   /* it('Decrease stock of a product', async () => {
     if (!!newShopWithProducts) {
       newShopWithProducts = await service.addShop(newShopWithProducts);
-
       newShopWithProducts = await service.getShop(newShopWithProducts.name);
-
       expect(
         service.modifyStock(
           newShopWithProducts.products[0],

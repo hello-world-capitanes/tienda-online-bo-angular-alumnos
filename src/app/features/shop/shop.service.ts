@@ -1,3 +1,5 @@
+
+import { Address } from 'src/app/core/models/address.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,10 +8,11 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 import { Product } from '../product/models/product-models';
+import { ProductShop } from '../product/models/product-shop';
 import { ProductShopFirebase } from '../product/models/product-shop-firebase.model';
-import { ProductShop } from './../product/models/product-shop';
 import { ProductService } from './../product/services/product.service';
 import { Shop } from './models/shop.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -48,34 +51,33 @@ export class ShopService extends FirestoreService {
     if (!shop) {
       throw new Error('Shop has not been introduced');
     }
-    if (await this.shopExistsByName(shop)) {
-      throw new Error('Shop already exists');
+
+    if (await this.shopExistsByName(shop)){
+
+      throw new Error();
+
     } else {
-      let newShop = {
-        id: this.firestore.createId(),
-        name: shop.name,
-        address: {
-          country: shop.address.country,
-          province: shop.address.province,
-          location: shop.address.location,
-          cp: shop.address.cp,
-          street: shop.address.street,
+
+    let newShop = {
+      id: this.firestore.createId(),
+      name: shop.name,
+      address: {
+        country : shop.address.country,
+        province : shop.address.province,
+        location : shop.address.location,
+        cp : shop.address.cp,
+        street : shop.address.street,
         },
-        active: shop.active,
-        products: shop.products,
-      };
-
-      return this.getCollection()
-        .doc(newShop.id)
-        .set(newShop)
-        .then(() => {
-          return newShop as Shop;
-        });
+      active: shop.active,
+      products: shop.products,
     }
-
-    /*     this.getCollection().add({ name: "aaa"}).then(obj => {
-    this.getCollection().doc(obj.id).set({...obj.get(), id: obj.id});
-  }) */
+    return this.getCollection()
+      .doc(newShop.id)
+      .set(newShop)
+      .then(() => {
+        return newShop as Shop;
+      })
+    }
   }
 
   async filterShops(): Promise<Shop[]> {
@@ -125,7 +127,7 @@ export class ShopService extends FirestoreService {
     return undefined;
   }
 
-  async deleteShop(shop: Shop): Promise<any> {
+  async deActivateShop(shop: Shop): Promise<any> {
     if ((await this.shopExistsById(shop)).valueOf()) {
       const shop_1 = await this.getCollection()
         .doc(shop.id)
@@ -136,6 +138,10 @@ export class ShopService extends FirestoreService {
     }
   }
   async activateShop(shop: Shop): Promise<any> {
+    return this.getCollection().doc(shop.id).update({ active: true });
+  }
+
+  async desactivateShop(shop: Shop): Promise<any> {
     return this.getCollection().doc(shop.id).update({ active: true });
   }
 
@@ -162,6 +168,22 @@ export class ShopService extends FirestoreService {
   setSelectedShopSeeProducts(value: string) {
     this.selectedShopSeeProducts = value;
   }
+
+
+  async modifyShop(id: string, newShop: Shop){
+    if(!!id && id.length > 0 && !!newShop){
+      let address =  {
+        country: newShop.address.country,
+        province: newShop.address.province,
+        location: newShop.address.location,
+        cp: newShop.address.cp,
+        street: newShop.address.street
+      } as Address
+      return await this.getCollection().doc(id).update({'address': address});
+    }
+    throw new Error('ID not valid');
+  }
+
 
   private changeStock(products: ProductStock[], id: string, units: number) {
     if (!!products && !!id && (!!units || units === 0)) {

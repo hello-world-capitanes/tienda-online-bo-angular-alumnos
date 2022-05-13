@@ -14,12 +14,12 @@
     </button>
   </div>
 </div>
-<form novalidate [formGroup]="productForm" class="form">
+<form novalidate id="modifyProduct" [formGroup]="productForm" class="form">
   <div class="container">
     <div class="primeraCol">
       <mat-form-field class="formContainer">
         <mat-label>Price</mat-label>
-        <input matInput class="input" formControlName="price" type="number" />
+        <input matInput id="price" formControlName="price" type="number" />
         <mat-error
           *ngIf="
             productForm.get('price')?.errors &&
@@ -73,22 +73,17 @@
         </mat-error>
       </mat-form-field>
       <div class="formBtn">
-        <button
-          mat-raised-button
-          class="addButton"
-          type="submit"
-          (click)="modifyProduct(id)"
-        >
-          <mat-icon> add_box </mat-icon>
-        </button>
-        <button
-          mat-raised-button
-          class="addButton"
-          type="submit"
-          (click)="close()"
-        >
-          <mat-icon> close </mat-icon>
-        </button>
+        <div *ngIf="productForm.invalid">
+
+          <button mat-raised-button class="buttonAdd" id="modifyDisabled" color="primary" (click)="modifyProduct(id)" disabled="true">Añadir</button>
+
+        </div>
+
+        <div *ngIf="productForm.valid">
+
+          <button mat-raised-button class="buttonAdd" id="modifyEnabled" color="primary" (click)="modifyProduct(id)">Añadir</button>
+
+        </div>
       </div>
     </div>
   </div>

@@ -90,7 +90,7 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="prodButton" (click)="modifyProduct(product.id)">
+                <button mat-raised-button class="prodButton" id="{{product.name}}EditActive" (click)="modifyProduct(product.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-raised-button class="deleteButton" (click)="deleteProduct(product)">
@@ -103,7 +103,7 @@
                 </mat-panel-title>
               </div>
             </mat-expansion-panel-header>
-            <div class="infoOculta" id="{{ product.name }}">
+            <div class="infoOculta" id="{{product.name}}">
               <div *ngIf="!!product.image">
                 <img src="{{ product.image }}"
                 alt="Imagen de {{ product.name }}">
@@ -121,17 +121,19 @@
                     </span>
                   </mat-list-item>
                 </mat-list>
-                <mat-list role="list">
+                <!--<mat-list role="list">
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
-                          <span> {{ category.id }} </span>
-                          <mat-icon matChipRemove> cancel </mat-icon>
+                      <mat-chip *ngFor="let category of product.categories">
+                        {{category.name}}
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
                       </mat-chip>
                     </mat-chip-list>
                   </mat-list-item>
-                </mat-list>
+                </mat-list>-->
               </div>
               <div class="segundaColOculta">
                 <mat-list role="list">
@@ -166,11 +168,11 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="prodButton" (click)="modifyProduct(product.id)">
+                <button mat-raised-button class="prodButton" id="{{product.name}}EditNoActive" (click)="modifyProduct(product.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-raised-button class="deleteButton" (click)="activeProduct(product)">
-                  <mat-icon>autorenew</mat-icon>
+                  <mat-icon>check_circle</mat-icon>
                 </button>
                 <mat-panel-title>
                   <mat-list-item role="listitem" class="product">{{
@@ -179,7 +181,7 @@
                 </mat-panel-title>
               </div>
             </mat-expansion-panel-header>
-            <div class="infoOculta" id="{{ product.name }}">
+            <div class="infoOculta" id="{{product.name}}Panel">
               <div *ngIf="!!product.image">
                 <img src="{{ product.image }}"
                 alt="Imagen de {{ product.name }}">
@@ -201,9 +203,11 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
-                          <span> {{ category.id }} </span>
-                          <mat-icon matChipRemove> cancel </mat-icon>
+                      <mat-chip *ngFor="let category of product.categories">
+                        {{category}}
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
                       </mat-chip>
                     </mat-chip-list>
                   </mat-list-item>
