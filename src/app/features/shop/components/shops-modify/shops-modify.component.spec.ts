@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Product } from 'src/app/features/product/models/product-models';
 
 import { ShopsModifyComponent } from './shops-modify.component';
+import { ProductShopFirebase } from 'src/app/features/product/models/product-shop-firebase.model';
 
 describe('ShopsModifyComponent', () => {
   let component: ShopsModifyComponent;
@@ -37,50 +38,16 @@ describe('ShopsModifyComponent', () => {
       1.3,
       'Doritos picantes bolsa grande',
       [],
+      [],
       '',
       true
     )
+
     component.products = [
-      new ProductStock(new Product(
-        '1',
-        'Steinburg',
-        'Pack de 24 latas',
-        2.48,
-        'Cerveza lagger de calidad suprema',
-        [],
-        '',
-        true
-      ), 5),
-      new ProductStock(new Product(
-        '2',
-        'Casón histórico',
-        '1L de vino',
-        0.7,
-        'Vino tinto para calimocho',
-        [],
-        '',
-        true
-      ), 10),
-      new ProductStock(new Product(
-        '3',
-        'Donuts',
-        'Pack de 6 unidades',
-        4,
-        'Donuts original glaseados',
-        [],
-        '',
-        true
-      ), 2),
-      new ProductStock(new Product(
-        '4',
-        'Doritos',
-        'Bolsa de 300g',
-        1.3,
-        'Doritos picantes bolsa grande',
-        [],
-        '',
-        true
-      ), 7)
+      {id:'1', stock: 13} as ProductShopFirebase,
+      {id:'2', stock: 1} as ProductShopFirebase,
+      {id:'3', stock: 23} as ProductShopFirebase,
+      {id:'4', stock: 33} as ProductShopFirebase,
     ];
 
   });

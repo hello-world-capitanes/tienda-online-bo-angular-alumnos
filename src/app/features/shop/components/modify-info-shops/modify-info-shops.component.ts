@@ -10,6 +10,7 @@ import { COUNTRIES } from 'src/app/core/utils/lists/countries.list';
 import { PROVINCES } from 'src/app/core/utils/lists/provinces.list';
 import { SpanishCpValidator } from 'src/app/core/validators/spanish-cp.validators';
 import { Shop } from '../../models/shop.model';
+import { ProductShopFirebase } from 'src/app/features/product/models/product-shop-firebase.model';
 
 @Component({
   selector: 'app-modify-info-shops',
@@ -21,7 +22,7 @@ export class ModifyInfoShopsComponent implements OnInit {
   id!: string;
   name!: string;
   active!: boolean;
-  productsStock!: ProductStock[];
+  productsStock!: ProductShopFirebase[];
 
 
   readonly SHOP_ERRORS = SHOP_ERRORS;
