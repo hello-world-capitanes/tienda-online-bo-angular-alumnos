@@ -71,7 +71,6 @@ export class ShopsListComponent implements OnInit {
       height:'400px',
       width: '60%'
     });
-
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
     });

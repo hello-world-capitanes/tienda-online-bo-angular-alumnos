@@ -1,1 +1,11 @@
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttonClose, .addButton{
+  background-color: #3847A0;
+  color: white;
+}
 

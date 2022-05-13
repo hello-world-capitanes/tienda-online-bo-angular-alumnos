@@ -1,20 +1,39 @@
-<form novalidate [formGroup]="modifyCategoryForm" class="form">
+<form novalidate [formGroup]="modifyCategoryForm" class="form" id="modifyCategoryForm">
   <div class="container">
     <div class="primeraCol">
+      <div class="header">
+        <div class="title">
+          <h1>{{name}}</h1>
+        </div>
+        <div class="close">
+          <button mat-raised-button class="buttonClose" color="primary" (click)="cancelModify()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
       <mat-form-field class="formContainer">
-        <mat-label> Name </mat-label>
-        <input matInput class="input" formControlName="name">
-      </mat-form-field>
+        <mat-label> Category description </mat-label>
+        <textarea matInput placeholder="Description" formControlName="description" class="form-control"
+          name="description" id="description" required></textarea>
 
-      <mat-form-field class="formContainer">
-        <mat-label> Description </mat-label>
-        <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+        <mat-error
+          *ngIf="modifyCategoryForm.get('name')?.errors && modifyCategoryForm.get('name')?.hasError('required')">
+          {{ CATEGORY_ERRORS.name.notProvided }}
+        </mat-error>
+        <mat-error
+          *ngIf="modifyCategoryForm.get('name')?.errors && modifyCategoryForm.get('name')?.hasError('minLength')">
+          {{ CATEGORY_ERRORS.name.minLength }}
+        </mat-error>
+        <mat-error
+          *ngIf="modifyCategoryForm.get('name')?.errors && modifyCategoryForm.get('name')?.hasError('maxLength')">
+          {{ CATEGORY_ERRORS.name.maxLength }}
+        </mat-error>
       </mat-form-field>
-<br>
-      <button mat-raised-button class="addButton" type="submit" (click)="modifyCategory(id)">
-        <mat-icon>add</mat-icon>
+      <br>
+      <button mat-raised-button class="addButton" type="submit" (click)="modifyCategory(id)" id="modifyEnabled"
+        [disabled]="modifyCategoryForm.invalid">
+        Añadir
       </button>
-
     </div>
   </div>
 </form>
