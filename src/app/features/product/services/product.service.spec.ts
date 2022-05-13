@@ -25,7 +25,7 @@ describe('ProductService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ProductService);
-    newProduct = new Product("id", "name", "characteristics",123,"decription",[],"image", true);
+    newProduct = new Product("id", "name", "characteristics",123,"decription",[],[],"image", true);
   });
   afterEach(async () => {
 

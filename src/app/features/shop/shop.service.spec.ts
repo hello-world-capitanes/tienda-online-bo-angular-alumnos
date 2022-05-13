@@ -1,16 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { Address } from 'src/app/core/models/address.model';
-import { Shop } from './models/shop.model';
-
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Address } from 'src/app/core/models/address.model';
 import { environment } from 'src/environments/environment';
+import { ProductShopFirebase } from '../product/models/product-shop-firebase.model';
+import { Shop } from './models/shop.model';
 import { ShopService } from './shop.service';
-import { ProductStock } from '../product/models/product-stock.model';
-import { Product } from '../product/models/product-models';
-import { Category } from '../category/models/category.model';
+
 
 describe('ShopService', () => {
   let service: ShopService;
@@ -36,19 +34,7 @@ describe('ShopService', () => {
       new Address('test', 'test', 'test', 0, '1'),
       true,
       [
-        new ProductStock(
-          new Product(
-            '10H5bKRT2wQvtAVppfov',
-            'Perdemos controles',
-            'Pack de 6 unidades',
-            4,
-            'Donuts original glaseados',
-            [new Category('test', '1', 'testing', true)],
-            'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
-            true
-          ),
-          50
-        ),
+        {id:'A0SasV3ohcu4kG4vwVxF',stock: 50} as ProductShopFirebase
       ]
     );
   });
