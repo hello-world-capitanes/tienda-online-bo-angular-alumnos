@@ -1,3 +1,4 @@
+import { AuthError } from './../model/authErrors.model';
 import { UserAdmin } from 'src/app/core/models/userAdmin';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -7,12 +8,17 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SnackBarMessageComponent } from './../../../shared/components/snack-bar-message/snack-bar-message.component';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { isAdmin } from '@firebase/util';
+import { User } from '../../user/models/user.model';
+import { result } from 'cypress/types/lodash';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-
+export class AuthService extends FirestoreService{
+  protected collection: string;
+  private readonly CATEGORY_COLLECTION = 'admin'
   userData: any; // Save logged in user data
 
   constructor(
@@ -20,9 +26,11 @@ export class AuthService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    firestore: AngularFirestore
   ) {
-
+    super(firestore);
+    this.collection = this.CATEGORY_COLLECTION;
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -34,17 +42,24 @@ export class AuthService {
   }
 
   signIn(email: string, password: string) {
-
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-      })
-      .catch((error) => {
-        this.snackBar.openFromComponent(SnackBarMessageComponent, {
-          data: "Incorrect login or password",
-          duration: 1500
+    this.isAdmin(email).then((result) => {
+      if(!!result){
+        return this.afAuth
+        .signInWithEmailAndPassword(email, password)
+        .then((result) => {
+        })
+        .catch((error) => {
+          this.loginError();
         });
-      });
+      } else {
+        this.loginError();
+        return;
+      }
+    }).catch((error) => {
+      this.loginError();
+    });
+
+
   }
 
   signUpAdmin(email: string, password: string) {
@@ -54,10 +69,7 @@ export class AuthService {
         this.createUserAdmin(result.user);
       })
       .catch((error) => {
-        this.snackBar.openFromComponent(SnackBarMessageComponent, {
-          data: "Incorrect login or password",
-          duration: 1500
-        });
+        this.loginError();
       });
   }
 
@@ -68,10 +80,7 @@ export class AuthService {
         this.createUser(result.user);
       })
       .catch((error) => {
-        this.snackBar.openFromComponent(SnackBarMessageComponent, {
-          data: "Incorrect login or password",
-          duration: 1500
-        });
+        this.loginError();
       });
   }
 
@@ -117,5 +126,22 @@ export class AuthService {
     this.afAuth.signOut();
     this.router.navigate(['sign-in']);
 
+  }
+
+  async isAdmin(email: string | null | undefined): Promise<User | undefined> {
+    if(!email || email === null || email === ""){
+      return undefined;
+    }
+
+    const snapshot = await this.getCollection().ref.where("email", "==", email).get();
+    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as User : undefined;
+  }
+
+  private loginError(){
+    this.snackBar.openFromComponent(SnackBarMessageComponent, {
+      data: AuthError.LOGIN_FAIL,
+      duration: 1500
+    });
+    return;
   }
 }

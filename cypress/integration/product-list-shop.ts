@@ -17,11 +17,11 @@ describe('Modify stock', () => {
     cy.get('#Merca').click();
     cy.get('#viewProducts',{timeout:5000}).should('be.visible');
     cy.get('#viewProducts').click();
-    cy.get('#DonutsStock',{timeout:5000}).should('be.visible');
-    cy.get('#DonutsStock').clear();
-    cy.get('#DonutsStock').type('5');
-    cy.get('#DonutsButton',{timeout:5000}).should('be.visible');
-    cy.get('#DonutsButton').click();
+    cy.get('#Donut-RaulPradanasStock',{timeout:5000}).should('be.visible');
+    cy.get('#Donut-RaulPradanasStock').clear();
+    cy.get('#Donut-RaulPradanasStock').type('5');
+    cy.get('#Donut-RaulPradanasButton',{timeout:5000}).should('be.visible');
+    cy.get('#Donut-RaulPradanasButton').click();
   });
 
   /* it('Decrease stock', () => {

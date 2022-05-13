@@ -7,6 +7,7 @@
 
 describe('Inicio de sesión', function() {
   const usuarioCorrecto = "admin@gmail.com";
+  const usuarioCorrecto2 = "admin2@gmail.com";
   const passwordCorrecta = "Admin1234#";
 
   beforeEach(function(){
@@ -23,6 +24,14 @@ describe('Inicio de sesión', function() {
     cy.get('#loginButton').click();
     cy.get('#sidenav').should('be.visible');
     cy.get('#sidenav');
+    cy.get('#logoutButton').click();
+    cy.reload();
+
+    cy.get('#mat-input-0').type(usuarioCorrecto2);
+    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#loginButton').click();
+    cy.get('#sidenav').should('be.visible');
+    cy.get('#sidenav').should('be.visible');
     cy.get('#logoutButton').click();
   });
 
@@ -85,4 +94,19 @@ describe('Inicio de sesión', function() {
     cy.get('.contenedorForm').should('be.visible');
   });
 
+  it('Inicio de sesión de con usuarios no administradores', function() {
+    cy.get('#mat-input-0').type('mario@devanddel.com');
+    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#loginButton').click();
+    cy.get('.snackContainer').should('be.visible');
+    cy.get('.contenedorForm').should('be.visible');
+    cy.reload();
+
+    cy.get('#mat-input-0').type('test@test.com');
+    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#loginButton').click();
+    cy.get('.snackContainer').should('be.visible');
+    cy.get('.contenedorForm').should('be.visible');
+    cy.reload();
+  });
 })
