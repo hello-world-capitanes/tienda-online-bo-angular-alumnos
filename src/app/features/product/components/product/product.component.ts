@@ -21,8 +21,6 @@ export class ProductComponent implements OnInit {
 
   categories!: Category[];
 
-  categoriesName!: string[];
-
   readonly PRODUCT_ERRORS = PRODUCT_ERRORS;
   //TODO --> Buscar expresión regular correcta para url, para imagen de producto
   httpRegex = '/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/';

@@ -3,6 +3,7 @@ import { ShopService } from './../../shop.service';
 import { ProductStock } from './../../../product/models/product-stock.model';
 import { Product } from './../../../product/models/product-models';
 import { Component, OnInit } from '@angular/core';
+import { ProductShopFirebase } from 'src/app/features/product/models/product-shop-firebase.model';
 
 @Component({
   selector: 'app-shops-modify',
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopsModifyComponent implements OnInit {
   private _shop: Shop | undefined;
-  products: ProductStock[] | undefined;
+  products: ProductShopFirebase[] | undefined;
   private newProduct = new Product(
     '4',
     'Doritos',
@@ -39,7 +40,7 @@ export class ShopsModifyComponent implements OnInit {
     }
     return false;
   } */
-  private addProduct(product: ProductStock) {
+  private addProduct(product: ProductShopFirebase) {
     this.products?.push(product);
     //this.shopService.addProduct(product);
   }
