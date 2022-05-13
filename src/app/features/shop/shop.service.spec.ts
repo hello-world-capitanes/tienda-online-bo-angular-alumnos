@@ -12,6 +12,7 @@ import { ShopService } from './shop.service';
 describe('ShopService', () => {
   let service: ShopService;
   let newShop: Shop | undefined;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,
@@ -23,35 +24,46 @@ describe('ShopService', () => {
     })
       .compileComponents();
   }));
+
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ShopService);
     newShop = new Shop("id", "name", new Address("", "", "", 0, "0"), true, []);
   });
-  afterEach(async () => {
 
+  afterEach(async () => {
     if (!!newShop) {
       await service.permantlyDelete(newShop.id);
       newShop = undefined;
     }
   });
 
-  it('Delete shop', async () => {
+  it('Deactivate shop', async () => {
     if (!!newShop) {
       newShop = await service.addShop(newShop);
-      await service.deleteShop(newShop);
-
+      await service.deActivateShop(newShop);
       newShop = await service.getShop(newShop.name);
+
       expect(newShop.active).toBeFalse();
     }
+  });
 
+  it('Activate shop', async () => {
+    if (!!newShop) {
+      newShop = await service.addShop(newShop);
+      await service.deActivateShop(newShop);
+      await service.activateShop(newShop);
+      newShop = await service.getShop(newShop.name);
+
+      expect(newShop.active).toBeTrue();
+    }
   });
 
   it('Add shop', async () => {
     if (!!newShop) {
       newShop = await service.addShop(newShop);
-
       newShop = await service.getShop(newShop.name);
+
       expect(newShop.active).toBeTruthy();
     }
 

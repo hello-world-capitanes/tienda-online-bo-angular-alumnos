@@ -1,4 +1,4 @@
-<app-shops-create (anadirOutPut)="anadirElementoLista($event)"></app-shops-create>
+<app-shops-create (anadirOutPut) = "addElementShopList($event)"></app-shops-create>
 
 <mat-list role="list" class="listShop">
   <h1>Active Shops</h1>
@@ -13,7 +13,7 @@
                 <mat-icon> edit </mat-icon>
               </button>
 
-              <button mat-raised-button class = "botonShop" (click)="deactiveShop($event,shop)">
+              <button mat-raised-button class = "botonShop" (click)="deActivateShop($event,shop)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
 
@@ -63,7 +63,7 @@
                 <button mat-raised-button class = "botonShop" (click)="modifyShop($event,shop.id)">
                   <mat-icon> edit </mat-icon>
                 </button>
-                <button mat-raised-button class = "botonShop" (click)="deactiveShop($event,shop)">
+                <button mat-raised-button class = "botonShop" (click)="activateShop($event,shop)">
                   <mat-icon> autorenew </mat-icon>
                 </button>
                 <mat-panel-title>

@@ -107,7 +107,7 @@ export class ShopService extends FirestoreService {
     return snapshot?.docs[0].data()['products'] as ProductShop[];
   }
 
-  async deactiveShop(shop: Shop): Promise<any> {
+  async deActivateShop(shop: Shop): Promise<any> {
     if ((await this.shopExistsById(shop)).valueOf()) {
       const shop_1 = await this.getCollection()
         .doc(shop.id)
