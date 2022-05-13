@@ -37,13 +37,19 @@ export class ShopsListComponent implements OnInit {
 
   }
 
-  deleteShop(event: any, shop: Shop) {
-    event.stopPropagation();
-    this.shopService.deleteShop(shop);
+  deActivateShop(event: any, shop: Shop) {
+    if (event){
+      event.stopPropagation();
+    }
+
+    this.shopService.deActivateShop(shop);
   }
 
   activateShop(event: any, shop: Shop){
-    event.stopPropagation();
+    if (event){
+      event.stopPropagation();
+    }
+
     this.shopService.activateShop(shop);
   }
 
@@ -71,8 +77,8 @@ export class ShopsListComponent implements OnInit {
     });
   }
 
-  anadirElementoLista(elementoLista : any){
-    this.shops.push(elementoLista);
+  addElementShopList(element : any){
+    this.shops.push(element);
   }
 
   closeDialog(){
