@@ -164,11 +164,15 @@ export class ShopService extends FirestoreService {
   }
 
   private changeStock(products: ProductStock[], id: string, units: number) {
-    if (!!products && !!id && !!units) {
+    if (!!products && !!id && (!!units || units === 0)) {
       const p = products.find((prod) => prod.product.id === id);
       if (!!p) {
         if (p.product.active || units < p.stock) {
           p.stock = units;
+          if(p.stock === 0){
+            products.splice(products.indexOf(p),1);
+            
+          }
           this.snackBar.openFromComponent(SnackBarMessageComponent, {
             data: 'Stock of ' + p.product.name + ' modificated',
             duration: 1500,
@@ -186,7 +190,7 @@ export class ShopService extends FirestoreService {
   }
 
   async modifyStock(prod: ProductStock, units: number, id: string) {
-    if (prod && units && id) {
+    if (!!prod && (!!units || units === 0) && !!id) {
       let products: ProductStock[] = [];
       this.getShopProducts().then((prods) => {
         if (!!prods) {

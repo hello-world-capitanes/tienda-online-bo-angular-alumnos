@@ -48,7 +48,7 @@ export class ProductsListShopComponent implements OnInit {
   }
 
   changeStock(product: ProductStock, units: string, id: string) {
-    if (!!product && !!units && !!id) {
+    if (!!product && (!!units || units === "0") && !!id) {
       let newStock = Number.parseInt(units);
       return this.shopService.modifyStock(product, newStock, this.shop.id);
     }
