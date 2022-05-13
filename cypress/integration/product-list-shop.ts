@@ -1,9 +1,14 @@
+
 describe('Modify stock', () => {
   const usuarioCorrecto = 'admin@gmail.com';
   const passwordCorrecta = 'Admin1234#';
 
   beforeEach(function () {
     cy.visit('http://localhost:4200/sign-in');
+  });
+  
+  afterEach(function () {
+    cy.get('#logoutButton').click();
   });
 
   it('Decrease stock', () => {
@@ -17,11 +22,11 @@ describe('Modify stock', () => {
     cy.get('#Merca').click();
     cy.get('#viewProducts',{timeout:5000}).should('be.visible');
     cy.get('#viewProducts').click();
-    cy.get('#DonutsStock',{timeout:5000}).should('be.visible');
-    cy.get('#DonutsStock').clear();
-    cy.get('#DonutsStock').type('5');
-    cy.get('#DonutsButton',{timeout:5000}).should('be.visible');
-    cy.get('#DonutsButton').click();
+    cy.contains('Donut-RaulPradanas').parent().parent().get('#inputStock').as('inputStock');
+    cy.get('@inputStock').clear();
+    cy.get('@inputStock').type('5');
+    cy.contains('Donut-RaulPradanas').parent().parent().get('#buttonStock').as('buttonStock');
+    cy.get('@buttonStock').click()
   });
 
   /* it('Decrease stock', () => {

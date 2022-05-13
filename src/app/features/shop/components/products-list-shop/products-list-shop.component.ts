@@ -18,6 +18,7 @@ export class ProductsListShopComponent implements OnInit {
   shop!: Shop;
   showProducts!: ProductStock[];
   isLoaded = false;
+  
   maxInput = SHOP_CONSTANTS.stock.max;
   minInput = SHOP_CONSTANTS.stock.min;
   stepInput = SHOP_CONSTANTS.stock.step;
@@ -54,4 +55,6 @@ export class ProductsListShopComponent implements OnInit {
     }
     throw Error('Data invalid to change stock');
   }
+
+
 }

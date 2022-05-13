@@ -37,7 +37,7 @@
             [min]="minInput"
             [max]="maxInput"
             class="stockInput"
-            id="{{productStock.product.name}}Stock"
+            id="inputStock"
           />
         </mat-form-field>
         <button
@@ -45,7 +45,8 @@
           (click)="changeStock(productStock,units.value, shop.id)"
           value="product"
           class="stockButton"
-          id="{{productStock.product.name}}Button"
+          id="buttonStock"
+
         >
           Apply Stock
         </button>
