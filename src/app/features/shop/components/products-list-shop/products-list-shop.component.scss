@@ -1,9 +1,23 @@
 .nameShop{
   font-weight: bold;
+  font-size: 25px;
+  margin: 10px;
 }
 
 .closeButton{
   margin-right: 0px;
   background-color: red;
   color: white;
+}
+
+.divStock{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stockButton{
+  height: auto;
+  width: auto;
+  margin: 10px;
 }
