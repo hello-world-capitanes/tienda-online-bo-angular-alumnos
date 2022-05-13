@@ -24,12 +24,14 @@ export class ModifyProductComponent implements OnInit {
   categories!: Category[];
   products!: Product[];
 
-  product!: Product | undefined;
-
   id!: string;
+  products!: Product[];
+
+  categoriesProd!:Category[];
+  active!:boolean;
 
   constructor(
-    private form: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data:any,
     private productService: ProductService,
     private categoryService: CategoryService,
     public dialogRef: MatDialogRef<ModifyProductComponent>,
@@ -73,32 +75,52 @@ export class ModifyProductComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.createForm();
+    this.updateForm();
+  }
 
+  createForm() {
+    this.productForm = new FormGroup({
+      characteristics: new FormControl('', [Validators.required]),
+      price: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),
+      ]),
+      description: new FormControl('', [Validators.required]),
+      image: new FormControl('', )
+    });
+  }
+
+  updateForm(){
+    this.productForm.patchValue({
+      characteristics:this.data.characteristics,
+      price:this.data.price,
+      description:this.data.description,
+      image:this.data.image,
+    })
   }
 
   modifyProduct(id: string){
+    if(this.productForm.invalid){
+      return;
+    }
     let newProd = new Product(
       id,
       this.productForm.value.name,
       this.productForm.value.characteristics,
       this.productForm.value.price,
       this.productForm.value.description,
-      this.productForm.value.categories.id,
+      this.categoriesProd,
       this.productForm.value.image,
-      true
+      this.active,
+
     )
     this.productService.modifyProduct(id, newProd);
     this.dialogRef.close();
   }
 
-
-  findById(id: string): Product | undefined{
-    return this.products?.find((prod) => {
-      if(prod.id === id){
-        return prod;
-      }
-      return null;
-    })
+  close(){
+    this.dialogRef.close();
   }
 
 }
