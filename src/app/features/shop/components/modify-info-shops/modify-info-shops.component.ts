@@ -99,7 +99,7 @@ export class ModifyInfoShopsComponent implements OnInit {
       this.name,
       newAddress,
       this.active,
-      this.productsStock
+      []
     )
     this.shopService.modifyShop(id, newShop);
     this.closeModal();
