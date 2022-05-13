@@ -66,15 +66,15 @@
 
         <mat-form-field>
           <mat-label>Postal code</mat-label>
-          <input matInput placeholder="CP" type="number" formControlName="cp"
+          <input matInput placeholder="CP" type="text" formControlName="cp"
             (ngModelChange)="resetValidatorsByProvinceSelected(formGroupShop.get('province')?.value, formGroupShop.get('country')?.value)">
-          <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('required')">
+          <mat-error *ngIf="formGroupShop.get('cp')?.hasError('required')">
             {{ SHOP_ERRORS.cp.notProvided }}
           </mat-error>
-          <mat-error *ngIf="formGroupShop.get('cp')?.errors && formGroupShop.get('cp')?.hasError('pattern')">
+          <mat-error *ngIf="formGroupShop.get('cp')?.hasError('pattern')">
             {{ SHOP_ERRORS.cp.invalid }}
           </mat-error>
-          <mat-error *ngIf="!formGroupShop.get('cp')?.valid">
+          <mat-error *ngIf="!formGroupShop.get('cp')?.hasError('isValidNumber')">
             {{ SHOP_ERRORS.cp.spanishInvalid }}
           </mat-error>
         </mat-form-field>

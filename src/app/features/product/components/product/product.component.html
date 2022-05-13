@@ -82,7 +82,6 @@
   </mat-accordion>
 </div>
 <mat-list role="list" class="listaProductos">
-  <mat-divider></mat-divider>
   <h1>Active products</h1>
   <ng-container *ngFor="let product of products">
     <div *ngIf="product.active === true">
@@ -126,11 +125,9 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor="let category of product.categories">
-                        {{category.name}}
-                        <button matChipRemove>
-                          <mat-icon>cancel</mat-icon>
-                        </button>
+                      <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
+                          <span> {{ category.id }} </span>
+                          <mat-icon matChipRemove> cancel </mat-icon>
                       </mat-chip>
                     </mat-chip-list>
                   </mat-list-item>
@@ -173,7 +170,7 @@
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-raised-button class="deleteButton" (click)="activeProduct(product)">
-                  <mat-icon>check_circle</mat-icon>
+                  <mat-icon>autorenew</mat-icon>
                 </button>
                 <mat-panel-title>
                   <mat-list-item role="listitem" class="product">{{
@@ -204,11 +201,9 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor="let category of product.categories">
-                        {{category}}
-                        <button matChipRemove>
-                          <mat-icon>cancel</mat-icon>
-                        </button>
+                      <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
+                          <span> {{ category.id }} </span>
+                          <mat-icon matChipRemove> cancel </mat-icon>
                       </mat-chip>
                     </mat-chip-list>
                   </mat-list-item>

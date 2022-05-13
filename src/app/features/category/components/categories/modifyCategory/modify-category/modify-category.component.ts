@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from './../../../../models/category.model';
 import { CategoryService } from './../../../../services/category-service.service';
-import { CategoriesComponent } from './../../categories.component';
 
 @Component({
   selector: 'app-modify-category',
@@ -12,65 +10,62 @@ import { CategoriesComponent } from './../../categories.component';
   styleUrls: ['./modify-category.component.scss']
 })
 export class ModifyCategoryComponent implements OnInit {
-  modifyCategoryForm: FormGroup;
-  id!:string;
+  modifyCategoryForm!: FormGroup;
 
-  constructor(private form: FormBuilder,
-    public dialogRef: MatDialogRef<CategoriesComponent>,
-    private categoryService: CategoryService,
-    private activeRoute: ActivatedRoute) {
-    this.id = activeRoute.snapshot.params['id'];
-    this.modifyCategoryForm = this.form.group({
-      name: new FormControl
-        (null,
-          [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(20),
-          ]
-        ),
-      description: new FormControl
-        (null,
-          [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(100),
-          ]
-        ),
-    });
-  }
+  categories!: Category[];
+  id!: string;
 
-  get errorMessageName(): string {
-    const form: FormControl = (this.modifyCategoryForm.get('name') as FormControl);
-    return form.hasError('required') ?
-      'Enter a name for the category' :
-      form.hasError('minlength') ?
-        'The name must have at least 3 characters' :
-        form.hasError('maxlength') ?
-          'The name must have maximum 20 characters' : '';
-  }
-
-  get errorMessageDescription(): string {
-    const form: FormControl = (this.modifyCategoryForm.get('description') as FormControl);
-    return form.hasError('required') ?
-      'Enter a description for the category' :
-      form.hasError('minlength') ?
-        'The description must have at least 3 characters' :
-      form.hasError('maxlength') ?
-        'Enter a shorter description' : '';
+  constructor(
+    public dialogRef: MatDialogRef<ModifyCategoryComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private categoryService: CategoryService
+  ) {
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = (!!categories && categories.length > 0 ? categories : [])
+    })
   }
 
   ngOnInit(): void {
+    this.createForm();
   }
 
-  categoryModified(){
-    if(this.modifyCategoryForm.invalid){
-      return;
-    }
+  createForm() {
+    this.modifyCategoryForm = new FormGroup({
+      id: new FormControl(''),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30),
+      ]),
+      description: new FormControl('', [
+        Validators.required
+      ]),
+    });
   }
 
-  cancelModification(){
+  modifyCategory(id: string) {
+    let newCat = new Category(
+      id,
+      this.modifyCategoryForm.get('name')?.value,
+      this.modifyCategoryForm.get('description')?.value,
+      true
+    )
+    this.categoryService.modifyCategory(id, newCat);
     this.dialogRef.close();
   }
 
+  findById(id: string): Category | undefined {
+    return this.categories?.find((cat) => {
+      if (cat.id === id) {
+        return cat;
+      }
+      return null;
+    })
+  }
+
 }
+
+function MD_DIALOG_DATA(MD_DIALOG_DATA: any) {
+  throw new Error('Function not implemented.');
+}
+

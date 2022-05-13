@@ -35,10 +35,10 @@ export class ProductComponent implements OnInit {
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
     })
+
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
-
   }
 
   createForm() {
@@ -83,7 +83,7 @@ export class ProductComponent implements OnInit {
         this.productForm.value.characteristics,
         this.productForm.value.price,
         this.productForm.value.description,
-        this.productForm.value.categories.id,
+        this.productForm.value.categories,
         this.productForm.value.image,
         true
       );
@@ -91,14 +91,6 @@ export class ProductComponent implements OnInit {
       return true;
     }
   }
-
-  /*addProduct(product: Product) {
-    if (!!this.productService.findByName(product)) {
-      alert('Existing product');
-    } else {
-      this.productService.addProduct(product);
-    }
-  }*/
 
   addProduct(product: Product){
     this.productService.addProduct(product);
@@ -112,18 +104,6 @@ export class ProductComponent implements OnInit {
     this.productService.activeProduct(product);
   }
 
-  existId(id: string): boolean {
-    if (
-      this.productService.productList.find((product) => {
-        product.id === id;
-      })
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   generateId(): string {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
@@ -131,9 +111,10 @@ export class ProductComponent implements OnInit {
     return '_' + Math.random().toString(36).substring(2, 9);
   }
 
-  removeCategory(product:Product, category:Category){
+  removeCategory(product: Product, category: Category){
+
     this.productService.removeCategory(product,category);
-    this.products = this.productService.productList;
+/*     this.products = this.productService.productList; */
   }
 
   getProducts(){
@@ -141,11 +122,32 @@ export class ProductComponent implements OnInit {
   }
 
   modifyProduct(id: string){
-    let config = new MatDialogConfig();
+    let product=this.findById(id);
     const dialogRef = this.matDialog.open(ModifyProductComponent, {
       width: '350px',
+      data:{
+        name:product?.name,
+        characteristics:product?.characteristics,
+        price:product?.price,
+        description:product?.description,
+        image:product?.image,
+      }
     });
-    dialogRef.componentInstance.id = id;
+    if(!!product){
+      dialogRef.componentInstance.id = id;
+      dialogRef.componentInstance.categoriesProd=product?.categories;
+      dialogRef.componentInstance.active=product?.active;
+    }
+
+  }
+
+  findById(id: string): Product | undefined{
+    return this.products?.find((prod) => {
+      if(prod.id === id){
+        return prod;
+      }
+      return null;
+    })
   }
 
 }
