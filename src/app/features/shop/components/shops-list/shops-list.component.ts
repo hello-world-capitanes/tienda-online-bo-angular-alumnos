@@ -1,3 +1,6 @@
+import { ModifyCategoryComponent } from './../../../category/components/categories/modifyCategory/modify-category/modify-category.component';
+import { ModifyInfoShopsComponent } from './../modify-info-shops/modify-info-shops.component';
+import { ShopsModifyComponent } from './../shops-modify/shops-modify.component';
 import { Component, OnInit } from '@angular/core';
 import { Shop } from '../../models/shop.model';
 
@@ -34,19 +37,28 @@ export class ShopsListComponent implements OnInit {
 
   }
 
-  deleteShop(event: any, shop: Shop) {
-    event.stopPropagation();
-    this.shopService.deleteShop(shop);
+  deActivateShop(event: any, shop: Shop) {
+    if (event){
+      event.stopPropagation();
+    }
+
+    this.shopService.deActivateShop(shop);
   }
 
   activateShop(event: any, shop: Shop){
-    event.stopPropagation();
+    if (event){
+      event.stopPropagation();
+    }
+
     this.shopService.activateShop(shop);
   }
 
-  modifyShop(event: any, shopId: string){
-    event.stopPropagation();
+  activeShop(shop: Shop){
+    this.shopService.activateShop(shop);
+  }
 
+  desactivateShop(shop: Shop){
+    this.shopService.desactivateShop(shop);
   }
 
   updateList(name: string,value: string){
@@ -64,8 +76,8 @@ export class ShopsListComponent implements OnInit {
     });
   }
 
-  anadirElementoLista(elementoLista : any){
-    this.shops.push(elementoLista);
+  addElementShopList(element : any){
+    this.shops.push(element);
   }
 
   closeDialog(){
@@ -73,5 +85,34 @@ export class ShopsListComponent implements OnInit {
   }
   ngOnDestroy(): void {
     this.shopSub.unsubscribe();
+  }
+
+  findById(id: string): Shop | undefined{
+    return this.shops?.find((shop) => {
+      if(shop.id === id){
+        return shop;
+      }
+      return null;
+    })
+  }
+
+  modifyShop(id: string){
+    let shop = this.findById(id);
+    const dialogRef = this.dialog.open(ModifyInfoShopsComponent, {
+      width: '350px',
+      data: {
+        id: id,
+        name: shop?.name,
+        address: shop?.address,
+        active: shop?.active,
+        products: shop?.products
+      }
+    });
+    if(!!shop){
+      dialogRef.componentInstance.id = id;
+      dialogRef.componentInstance.name = shop?.name;
+      dialogRef.componentInstance.active = shop?.active;
+      dialogRef.componentInstance.productsStock = shop?.products;
+    }
   }
 }
