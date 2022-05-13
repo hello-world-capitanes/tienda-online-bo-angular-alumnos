@@ -58,7 +58,7 @@ export class ShopsListComponent implements OnInit {
   }
 
   desactivateShop(shop: Shop){
-    this.shopService.deleteShop(shop);
+    this.shopService.desactivateShop(shop);
   }
 
   updateList(name: string,value: string){
