@@ -1,12 +1,12 @@
-import { PRODUCT_ERRORS } from './../../../../core/utils/errors/products.errors';
-import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Category } from 'src/app/features/category/models/category.model';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Product } from '../../models/product-models';
 import { ModifyProductComponent } from '../modify-product/modify-product.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PRODUCT_ERRORS } from './../../../../core/utils/errors/products.errors';
+import { ProductService } from './../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -35,10 +35,10 @@ export class ProductComponent implements OnInit {
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
     })
+
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
-
   }
 
   createForm() {
@@ -111,16 +111,43 @@ export class ProductComponent implements OnInit {
     return '_' + Math.random().toString(36).substring(2, 9);
   }
 
+  removeCategory(product: Product, category: Category){
+
+    this.productService.removeCategory(product,category);
+/*     this.products = this.productService.productList; */
+  }
+
   getProducts(){
     return this.products;
   }
 
   modifyProduct(id: string){
-    let config = new MatDialogConfig();
+    let product=this.findById(id);
     const dialogRef = this.matDialog.open(ModifyProductComponent, {
       width: '350px',
+      data:{
+        name:product?.name,
+        characteristics:product?.characteristics,
+        price:product?.price,
+        description:product?.description,
+        image:product?.image,
+      }
     });
-    dialogRef.componentInstance.id = id;
+    if(!!product){
+      dialogRef.componentInstance.id = id;
+      dialogRef.componentInstance.categoriesProd=product?.categories;
+      dialogRef.componentInstance.active=product?.active;
+    }
+
+  }
+
+  findById(id: string): Product | undefined{
+    return this.products?.find((prod) => {
+      if(prod.id === id){
+        return prod;
+      }
+      return null;
+    })
   }
 
 }

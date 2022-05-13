@@ -1,69 +1,93 @@
+<div class="header">
+  <div class="title">
+    <h1>{{ this.data.name }}</h1>
+  </div>
+
+  <div class="close">
+    <button
+      mat-raised-button
+      class="buttonClose"
+      color="primary"
+      (click)="close()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
 <form novalidate [formGroup]="productForm" class="form">
   <div class="container">
     <div class="primeraCol">
       <mat-form-field class="formContainer">
-        <mat-label> Name </mat-label>
-        <input matInput class="input" formControlName="name">
-        <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('required')">
-          {{ PRODUCT_ERRORS.name.notProvided }}
-        </mat-error>
-        <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('minLength')">
-          {{ PRODUCT_ERRORS.name.minLength }}
-        </mat-error>
-        <mat-error *ngIf="productForm.get('name')?.errors && productForm.get('name')?.hasError('maxLength')">
-          {{ PRODUCT_ERRORS.name.maxLength }}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="formContainer">
         <mat-label>Price</mat-label>
-        <input matInput class="input" formControlName="price" type="number">
-        <mat-error *ngIf="productForm.get('price')?.errors && productForm.get('price')?.hasError('required')">
-          {{ PRODUCT_ERRORS.price.notProvided }}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="formContainer">
-        <mat-label> Categories </mat-label>
-        <mat-select class="input" formControlName="categories" required>
-          <div *ngFor="let cat of categories">
-            <mat-option *ngIf="cat.active===true" [value]="cat">
-              {{ cat.name }}
-            </mat-option>
-          </div>
-        </mat-select>
+        <input matInput class="input" formControlName="price" type="number" />
         <mat-error
-          *ngIf="productForm.get('categories')?.errors && productForm.get('categories')?.hasError('required')">
-          {{ PRODUCT_ERRORS.categories.notProvided }}
+          *ngIf="
+            productForm.get('price')?.errors &&
+            productForm.get('price')?.hasError('required')
+          "
+        >
+          {{ PRODUCT_ERRORS.price.notProvided }}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="segundaCol">
       <mat-form-field class="formContainer">
         <mat-label> Description </mat-label>
-        <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
+        <textarea
+          matInput
+          placeholder="Description"
+          class="input"
+          formControlName="description"
+        ></textarea>
         <mat-error
-          *ngIf="productForm.get('description')?.errors && productForm.get('description')?.hasError('required')">
+          *ngIf="
+            productForm.get('description')?.errors &&
+            productForm.get('description')?.hasError('required')
+          "
+        >
           {{ PRODUCT_ERRORS.description.notProvided }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="formContainer">
         <mat-label> Characteristics </mat-label>
-        <input class="input" matInput formControlName="characteristics">
+        <input class="input" matInput formControlName="characteristics" />
         <mat-error
-          *ngIf="productForm.get('characteristics')?.errors && productForm.get('characteristics')?.hasError('required')">
+          *ngIf="
+            productForm.get('characteristics')?.errors &&
+            productForm.get('characteristics')?.hasError('required')
+          "
+        >
           {{ PRODUCT_ERRORS.characteristics.notProvided }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="formContainer">
         <mat-label> Image url </mat-label>
-        <input class="input" matInput formControlName="image">
+        <input class="input" matInput formControlName="image" />
         <mat-error
-          *ngIf="productForm.get('image')?.errors && productForm.get('image')?.hasError('pattern')">
+          *ngIf="
+            productForm.get('image')?.errors &&
+            productForm.get('image')?.hasError('pattern')
+          "
+        >
           {{ PRODUCT_ERRORS.image.invalidUrl }}
         </mat-error>
       </mat-form-field>
       <div class="formBtn">
-        <button mat-raised-button class="addButton" type="submit" (click)="modifyProduct(id)">
+        <button
+          mat-raised-button
+          class="addButton"
+          type="submit"
+          (click)="modifyProduct(id)"
+        >
           <mat-icon> add_box </mat-icon>
+        </button>
+        <button
+          mat-raised-button
+          class="addButton"
+          type="submit"
+          (click)="close()"
+        >
+          <mat-icon> close </mat-icon>
         </button>
       </div>
     </div>

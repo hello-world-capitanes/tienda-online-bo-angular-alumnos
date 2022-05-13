@@ -60,7 +60,7 @@ export class ShopsListComponent implements OnInit {
       width: '60%'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      //console.log(`Dialog result: ${result}`);
     });
   }
 
