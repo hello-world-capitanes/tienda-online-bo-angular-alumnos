@@ -1,11 +1,11 @@
-<mat-list>
+<mat-list id="sidenav">
     <div mat-subheader>Modules</div>
 
     <mat-divider></mat-divider>
 
     <mat-list-item *ngFor="let module of modules; let i = index">
       <mat-divider></mat-divider>
-      <a [routerLink]="module?.url" class="module-list-item">
+      <a [routerLink]="module?.url" class="module-list-item" [id]="module.name">
         <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
         <div mat-line>{{ module.name }}</div>
       </a>

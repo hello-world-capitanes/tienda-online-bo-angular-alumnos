@@ -5,6 +5,8 @@ import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
+import { Product } from '../product/models/product-models';
+import { ProductShopFirebase } from '../product/models/product-shop-firebase.model';
 import { ProductShop } from './../product/models/product-shop';
 import { ProductService } from './../product/services/product.service';
 import { Shop } from './models/shop.model';
@@ -19,8 +21,8 @@ export class ShopService extends FirestoreService {
   selectedShopSeeProducts!: string;
 
   constructor(
-    productService: ProductService,
     firestore: AngularFirestore,
+    protected productService: ProductService,
     public snackBar: MatSnackBar
   ) {
     super(firestore);
@@ -43,7 +45,7 @@ export class ShopService extends FirestoreService {
   }
 
   async addShop(shop: Shop): Promise<Shop> {
-    if(!shop){
+    if (!shop) {
       throw new Error('Shop has not been introduced');
     }
     if (await this.shopExistsByName(shop)) {
@@ -100,11 +102,27 @@ export class ShopService extends FirestoreService {
     throw new Error();
   }
 
-  async getShopProducts(): Promise<ProductShop[]> {
+  async getShopProducts(): Promise<ProductStock[] | undefined> {
     const snapshot = await this.getCollection()
       .ref.where('name', '==', this.selectedShopSeeProducts)
       .get();
-    return snapshot?.docs[0].data()['products'] as ProductShop[];
+    const productsShop = snapshot?.docs[0].data()['products'] as ProductShop[];
+    if (!!productsShop && productsShop.length > 0) {
+      const productsStock = [];
+      for (let productShop of productsShop) {
+        if (!!productShop && !Number.isNaN(productShop?.id)) {
+          const product = (await this.productService.findById(
+            productShop?.id
+          )) as Product;
+          if (!!product) {
+            const productStock = new ProductStock(product, productShop.stock);
+            productsStock.push(productStock);
+          }
+        }
+      }
+      return productsStock;
+    }
+    return undefined;
   }
 
   async deActivateShop(shop: Shop): Promise<any> {
@@ -121,10 +139,11 @@ export class ShopService extends FirestoreService {
     return this.getCollection().doc(shop.id).update({ active: true });
   }
 
-  async applyStock(products: ProductShop[]): Promise<any> {
-    return this.getCollection()
-      .doc(this.selectedShopSeeProducts)
-      .update({ products: products });
+  private async applyStock(products: ProductShopFirebase[], id: string): Promise<any> {
+    if (!!products && !!id) {
+      return this.getCollection().doc(id).update({ products: products });
+    }
+    throw Error('Error applying stock changed in firebase');
   }
 
   async shopExistsById(shop: Shop): Promise<boolean> {
@@ -144,31 +163,55 @@ export class ShopService extends FirestoreService {
     this.selectedShopSeeProducts = value;
   }
 
-  changeStock(products: ProductShop[], id: string, units: number) {
-    products.find((prod) => {
-      if (prod.id === id) {
-        prod.stock == units;
+  private changeStock(products: ProductStock[], id: string, units: number) {
+    if (!!products && !!id && !!units) {
+      const p = products.find((prod) => prod.product.id === id);
+      if (!!p) {
+        if (p.product.active || units < p.stock) {
+          p.stock = units;
+          this.snackBar.openFromComponent(SnackBarMessageComponent, {
+            data: 'Stock of ' + p.product.name + ' modificated',
+            duration: 1500,
+          });
+        } else {
+          this.snackBar.openFromComponent(SnackBarMessageComponent, {
+            data: 'Stock of ' + p.product.name + ' not modificated',
+            duration: 1500,
+          });
+        }
       }
-    });
+      return products;
+    }
+    throw Error('Error changing stock of a product');
   }
 
-  async modifyStock(prod: ProductStock, units: number) {
-    let products: ProductShop[] = [];
-    this.getShopProducts().then((prods) => {
-      products = prods;
-      this.changeStock(products, prod.product.id, units);
-      this.applyStock(products);
+  async modifyStock(prod: ProductStock, units: number, id: string) {
+    if (prod && units && id) {
+      let products: ProductStock[] = [];
+      this.getShopProducts().then((prods) => {
+        if (!!prods) {
+          products = prods;
+        }
+        products = this.changeStock(products, prod.product.id, units);
+        const finalProducts = products.map((prod) => {
+          return {
+            id: prod.product.id,
+            stock: prod.stock,
+          } as ProductShopFirebase;
+        });
+        this.applyStock(finalProducts, id);
 
-      this.snackBar.openFromComponent(SnackBarMessageComponent, {
-        data: 'Stock del producto ' + prod.product.name + ' modificado',
-        duration: 1500,
+        return finalProducts.find(finalProd => {
+          if(prod.product.id === finalProd.id) {
+            return prod.stock;
+          }
+          return -1;
+        });
       });
-      return prod.stock;
-    });
+    }
   }
-
-  async permantlyDelete(id:string){
-    if(!!id && id.length>0){
+  async permantlyDelete(id: string) {
+    if (!!id && id.length > 0) {
       return await this.getCollection().ref.doc(id).delete();
     }
     throw new Error('Shop id is not valid or undefined');

@@ -34,9 +34,8 @@ export class ProductComponent implements OnInit {
   ) {
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
-      console.log(this.products[0].name);
-      console.log(this.products[0].categories[0].id);
     })
+
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
@@ -113,7 +112,6 @@ export class ProductComponent implements OnInit {
   }
 
   removeCategory(product: Product, category: Category){
-    console.log('HOLAA');
 
     this.productService.removeCategory(product,category);
 /*     this.products = this.productService.productList; */
@@ -124,11 +122,32 @@ export class ProductComponent implements OnInit {
   }
 
   modifyProduct(id: string){
-    let config = new MatDialogConfig();
+    let product=this.findById(id);
     const dialogRef = this.matDialog.open(ModifyProductComponent, {
       width: '350px',
+      data:{
+        name:product?.name,
+        characteristics:product?.characteristics,
+        price:product?.price,
+        description:product?.description,
+        image:product?.image,
+      }
     });
-    dialogRef.componentInstance.id = id;
+    if(!!product){
+      dialogRef.componentInstance.id = id;
+      dialogRef.componentInstance.categoriesProd=product?.categories;
+      dialogRef.componentInstance.active=product?.active;
+    }
+
+  }
+
+  findById(id: string): Product | undefined{
+    return this.products?.find((prod) => {
+      if(prod.id === id){
+        return prod;
+      }
+      return null;
+    })
   }
 
 }
