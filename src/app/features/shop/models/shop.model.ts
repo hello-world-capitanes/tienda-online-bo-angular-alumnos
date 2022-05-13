@@ -1,3 +1,4 @@
+import { ProductShopFirebase } from '../../product/models/product-shop-firebase.model';
 import { Address } from './../../../core/models/address.model';
 import { ProductStock } from './../../product/models/product-stock.model';
 export class Shop{
@@ -5,13 +6,12 @@ export class Shop{
   private _id: string;
   private _name: string;
   private _address: Address;
-  //private _cp: number[];
   private _active: boolean;
-  private _products: ProductStock[];
+  private _products: ProductShopFirebase[];
 
   //TODO -> La tienda ahora solo reparte en direcciones de la misma ciudad.
   //Queda pendiente crear servicio que calcule a que CP reparte la tienda
-  constructor(id:string, name: string, address: Address, active: boolean, products:ProductStock[]){
+  constructor(id:string, name: string, address: Address, active: boolean, products:ProductShopFirebase[]){
     this._id = id;
     this._name = name;
     this._address = address;
@@ -47,10 +47,10 @@ export class Shop{
     this._active = value;
   }
 
-  public get products(): ProductStock[] {
+  public get products(): ProductShopFirebase[] {
     return this._products;
   }
-  public set products(value: ProductStock[]) {
+  public set products(value: ProductShopFirebase[]) {
     this._products = value;
   }
 

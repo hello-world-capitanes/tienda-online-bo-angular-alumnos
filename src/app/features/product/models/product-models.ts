@@ -7,6 +7,7 @@ export class Product {
   private _price: number;
   private _description: string;
   private _categories: Category[];
+  private _shops: string[];
   private _image: string;
   private _active: boolean;
 
@@ -17,6 +18,7 @@ export class Product {
     price: number,
     description: string,
     categories: Category[],
+    shops: string[],
     image: string,
     active: boolean
   ) {
@@ -26,6 +28,7 @@ export class Product {
     this._price = price;
     this._description = description;
     this._categories = categories;
+    this._shops = shops;
     this._image = image;
     this._active=active;
   }
@@ -76,6 +79,14 @@ export class Product {
 
   public set categories(categories: Category[]) {
     this._categories = categories;
+  }
+
+  public get shops() {
+    return this._shops;
+  }
+
+  public set shops(shop: string[]) {
+    this._shops = shop;
   }
 
   public get image() {

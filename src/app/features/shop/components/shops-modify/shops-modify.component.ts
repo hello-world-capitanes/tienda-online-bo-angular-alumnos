@@ -1,8 +1,8 @@
-import { Shop } from './../../models/shop.model';
-import { ShopService } from './../../shop.service';
-import { ProductStock } from './../../../product/models/product-stock.model';
-import { Product } from './../../../product/models/product-models';
 import { Component, OnInit } from '@angular/core';
+import { ProductShopFirebase } from 'src/app/features/product/models/product-shop-firebase.model';
+import { ProductService } from 'src/app/features/product/services/product.service';
+import { Product } from './../../../product/models/product-models';
+import { Shop } from './../../models/shop.model';
 
 @Component({
   selector: 'app-shops-modify',
@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopsModifyComponent implements OnInit {
   private _shop: Shop | undefined;
-  products: ProductStock[] | undefined;
+  products: ProductShopFirebase[] | undefined;
   private newProduct = new Product(
     '4',
     'Doritos',
@@ -19,28 +19,20 @@ export class ShopsModifyComponent implements OnInit {
     1.3,
     'Doritos picantes bolsa grande',
     [],
+    [],
     '',
     true
   );
 
-  constructor(private shopService:ShopService) {
-    //this._shop = this.shopService.getShop("1234");
+  constructor(private productService:ProductService) {
     this.products = this._shop?.products;
   }
 
   ngOnInit(): void {}
 
- /*  private hasProduct(product: Product): boolean {
-    if (this.products != undefined) {
-      return this.products?.some((productFind) => {
-        productFind.product.id === product.id;
-        return true;
-      });
+  private addProduct(prod: ProductShopFirebase) {
+    if(!!prod){
+      this.products?.push(prod);
     }
-    return false;
-  } */
-  private addProduct(product: ProductStock) {
-    this.products?.push(product);
-    //this.shopService.addProduct(product);
   }
 }

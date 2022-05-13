@@ -77,6 +77,7 @@ export class ModifyProductComponent implements OnInit {
       this.productForm.value.price,
       this.productForm.value.description,
       this.categoriesProd,
+      [],
       this.productForm.value.image,
       this.active,
 
