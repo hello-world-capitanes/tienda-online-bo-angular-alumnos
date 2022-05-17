@@ -51,6 +51,11 @@ export class CategoryService extends FirestoreService {
     return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Category : undefined;
   }
 
+  async categoryExistsById(category: Category): Promise<Category | undefined> {
+    const snapshot = await this.getCollection().ref.where("id", "==", category.id).get();
+    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Category : undefined;
+  }
+
   deleteCategory(category: Category) {
     return this.getCollection().doc(category.id).update({ 'active': false });
   }

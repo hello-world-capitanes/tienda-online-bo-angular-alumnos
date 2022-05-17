@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { Category } from '../../category/models/category.model';
+import { CategoryService } from '../../category/services/category-service.service';
 import { ProductFirebase } from '../models/product-firebase.model';
 import { Product } from '../models/product-models';
 
@@ -17,7 +18,8 @@ export class ProductService extends FirestoreService{
 
   private readonly PRODUCTS_COLLECTION = 'products';
 
-  constructor(firestore: AngularFirestore) {
+  constructor(firestore: AngularFirestore,
+              private categoryService: CategoryService) {
     super(firestore);
     this.collection = this.PRODUCTS_COLLECTION;
 
@@ -71,7 +73,28 @@ export class ProductService extends FirestoreService{
   }
 
   getAllProducts(): Observable<Product[]> {
-    return this.getCollection().valueChanges().pipe(map(product=>product as Product[]));
+    return this.getCollection().valueChanges().pipe(map(product=>{
+
+      let products = product as Product[];
+
+
+      products.map( async product => {
+        if (product.categories){
+          for (let i = 0; i < product.categories.length ; i++) {
+            console.log(i);
+
+            const result = await this.categoryService.categoryExistsById(product.categories[i]);
+            console.log(i);
+            if ( result !== undefined){
+              console.log(result.name);
+              product.categories[i] = result;
+            }
+          }
+        }
+      })
+
+      return products
+    }));
   }
 
   async deleteProduct(prod: Product): Promise<any> {
