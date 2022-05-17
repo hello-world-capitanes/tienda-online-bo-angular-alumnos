@@ -1,3 +1,4 @@
+import { AuthError } from './../../model/authErrors.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -26,7 +27,7 @@ export class SignInComponent implements OnInit {
       });
       return;
     }
-    this.authService.signIn(this.getFormValue("userName"), this.getFormValue("userPassword"))
+    this.authService.signIn(this.getFormValue("userName"), this.getFormValue("userPassword"));
   }
 
   initForm(): FormGroup{

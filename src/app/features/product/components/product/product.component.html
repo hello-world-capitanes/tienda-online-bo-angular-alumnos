@@ -30,20 +30,6 @@
                 {{ PRODUCT_ERRORS.price.notProvided }}
               </mat-error>
             </mat-form-field>
-            <mat-form-field class="formContainer">
-              <mat-label> Categories </mat-label>
-              <mat-select class="input" formControlName="categories" required>
-                <div *ngFor="let cat of categories">
-                  <mat-option *ngIf="cat.active===true" [value]="cat.id">
-                    {{ cat.name }}
-                  </mat-option>
-                </div>
-              </mat-select>
-              <mat-error
-                *ngIf="productForm.get('categories')?.errors && productForm.get('categories')?.hasError('required')">
-                {{ PRODUCT_ERRORS.categories.notProvided }}
-              </mat-error>
-            </mat-form-field>
           </div>
           <div class="segundaCol">
             <mat-form-field class="formContainer">
@@ -128,7 +114,7 @@
                       <mat-chip *ngFor="let category of product.categories">
                         {{category.name}}
                         <button matChipRemove>
-                          <mat-icon>cancel</mat-icon>
+                          <mat-icon matChipRemove>cancel</mat-icon>
                         </button>
                       </mat-chip>
                     </mat-chip-list>
@@ -215,7 +201,7 @@
                       <mat-chip *ngFor="let category of product.categories">
                         {{category.name}}
                         <button matChipRemove>
-                          <mat-icon>cancel</mat-icon>
+                          <mat-icon matChipRemove>cancel</mat-icon>
                         </button>
                       </mat-chip>
                     </mat-chip-list>

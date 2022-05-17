@@ -56,13 +56,16 @@ export class ProductService extends FirestoreService{
     throw new Error();
   }
 
-  findById(prodId: string): Product | undefined {
-    return this._productList.find((product) => {
-      if (product.id === prodId) {
-        return product;
+  async findById(prodId: string): Promise<Product | undefined> {
+    if (!!prodId && prodId.length > 0) {
+      const snapshot = await this.getCollection()
+        .doc(prodId).ref.get();
+      if (!!snapshot) {
+        return snapshot?.data() as Product;
       }
-      return null;
-    });
+      throw new Error();
+    }
+    throw new Error();
   }
 
 
@@ -111,9 +114,10 @@ export class ProductService extends FirestoreService{
     const result =await this.productExists(product)
 
     if(result===undefined){
-      product.id = this.firestore.createId();
+      let id = this.firestore.createId();
+
       let productDB: ProductFirebase = {
-        id: product.id,
+        id: id,
         name: product.name,
         characteristics: product.characteristics,
         price: product.price,
@@ -122,15 +126,9 @@ export class ProductService extends FirestoreService{
         active: !!product?.active,
       };
 
-      if (!!product?.categories && product.categories.length > 0) {
-        for (let category of product.categories) {
-          productDB.categories = [];
-          if (category) {
-            productDB.categories.push(Object.assign({}, category));
-          }
-        }
-      }
-      return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => product)
+      return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
+        return productDB as Product;
+      })
 
     } else{
 
