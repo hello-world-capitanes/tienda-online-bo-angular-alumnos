@@ -15,7 +15,7 @@ describe('Modify stock', () => {
     cy.get(`[data-shop-id="expansion_${shopId}"]`, {
       timeout: 5000,
     }).should('be.visible');
-    
+
     cy.get(`[data-shop-id="expansion_${shopId}"]`).click();
     cy.get(`[data-shop-button="button_${shopId}"]`).as('viewProducts');
     cy.get('@viewProducts').click();
@@ -41,5 +41,7 @@ describe('Modify stock', () => {
 
         cy.get('@buttonStock').click();
       });
+      cy.get('#closeDialog').click();
+      cy.get('#logoutButton').click();
   });
 });
