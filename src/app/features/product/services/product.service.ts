@@ -56,13 +56,16 @@ export class ProductService extends FirestoreService{
     throw new Error();
   }
 
-  findById(prodId: string): Product | undefined {
-    return this._productList.find((product) => {
-      if (product.id === prodId) {
-        return product;
+  async findById(prodId: string): Promise<Product | undefined> {
+    if (!!prodId && prodId.length > 0) {
+      const snapshot = await this.getCollection()
+        .doc(prodId).ref.get();
+      if (!!snapshot) {
+        return snapshot?.data() as Product;
       }
-      return null;
-    });
+      throw new Error();
+    }
+    throw new Error();
   }
 
 
