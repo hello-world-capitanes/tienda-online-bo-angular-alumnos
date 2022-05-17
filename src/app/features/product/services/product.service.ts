@@ -111,7 +111,7 @@ export class ProductService extends FirestoreService{
     const result =await this.productExists(product)
 
     if(result===undefined){
-
+      product.id = this.firestore.createId();
       let productDB: ProductFirebase = {
         id: product.id,
         name: product.name,
@@ -160,5 +160,19 @@ export class ProductService extends FirestoreService{
     return this.getCollection().doc(id).delete();
     }
     throw new Error();
+  }
+  async addCategory(product:Product,category:Category){
+    if(!product){
+      throw new Error('Product has not been introduced');
+    }
+    if(!category){
+      throw new Error('Category has not been introduced');
+    }
+    if(product.categories.includes(category)){
+      throw new Error('Category already exists into product')
+    }
+    let newCategories:Category[] = product.categories;
+    newCategories.push(category);
+    return await this.getCollection().doc(product.id).update({categories: newCategories });
   }
 }

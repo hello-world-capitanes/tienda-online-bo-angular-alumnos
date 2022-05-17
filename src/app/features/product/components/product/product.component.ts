@@ -15,9 +15,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class ProductComponent implements OnInit {
   panelOpenState = false;
-
   productForm!: FormGroup;
   products!: Product[];
+
+  selected!:Category;
 
   categories!: Category[];
 
@@ -147,5 +148,7 @@ export class ProductComponent implements OnInit {
       return null;
     })
   }
-
+  addCategory(product:Product){
+    this.productService.addCategory(product,this.selected);
+  }
 }
