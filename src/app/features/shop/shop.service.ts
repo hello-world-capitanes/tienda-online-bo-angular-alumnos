@@ -50,31 +50,28 @@ export class ShopService extends FirestoreService {
       throw new Error('Shop has not been introduced');
     }
 
-    if (await this.shopExistsByName(shop)){
-
+    if (await this.shopExistsByName(shop)) {
       throw new Error();
-
     } else {
-
-    let newShop = {
-      id: this.firestore.createId(),
-      name: shop.name,
-      address: {
-        country : shop.address.country,
-        province : shop.address.province,
-        location : shop.address.location,
-        cp : shop.address.cp,
-        street : shop.address.street,
+      let newShop = {
+        id: this.firestore.createId(),
+        name: shop.name,
+        address: {
+          country: shop.address.country,
+          province: shop.address.province,
+          location: shop.address.location,
+          cp: shop.address.cp,
+          street: shop.address.street,
         },
-      active: shop.active,
-      products: shop.products,
-    }
-    return this.getCollection()
-      .doc(newShop.id)
-      .set(newShop)
-      .then(() => {
-        return newShop as Shop;
-      })
+        active: shop.active,
+        products: shop.products,
+      };
+      return this.getCollection()
+        .doc(newShop.id)
+        .set(newShop)
+        .then(() => {
+          return newShop as Shop;
+        });
     }
   }
 
@@ -143,7 +140,10 @@ export class ShopService extends FirestoreService {
     return this.getCollection().doc(shop.id).update({ active: true });
   }
 
-  private async applyStock(products: ProductShopFirebase[], id: string): Promise<any> {
+  private async applyStock(
+    products: ProductShopFirebase[],
+    id: string
+  ): Promise<any> {
     if (!!products && !!id) {
       return this.getCollection().doc(id).update({ products: products });
     }
@@ -167,27 +167,25 @@ export class ShopService extends FirestoreService {
     this.selectedShopSeeProducts = value;
   }
 
-
-  async modifyShop(id: string, newShop: Shop){
-    if(!!id && id.length > 0 && !!newShop){
-      let address =  {
+  async modifyShop(id: string, newShop: Shop) {
+    if (!!id && id.length > 0 && !!newShop) {
+      let address = {
         country: newShop.address.country,
         province: newShop.address.province,
         location: newShop.address.location,
         cp: newShop.address.cp,
-        street: newShop.address.street
-      } as Address
-      return await this.getCollection().doc(id).update({'address': address});
+        street: newShop.address.street,
+      } as Address;
+      return await this.getCollection().doc(id).update({ address: address });
     }
     throw new Error('ID not valid');
   }
 
-
   private changeStock(products: ProductStock[], id: string, units: number) {
-    if (!!products && !!id && !!units) {
+    if (!!products && !!id && (!!units || units === 0)) {
       const p = products.find((prod) => prod.product.id === id);
       if (!!p) {
-        if (p.product.active || units < p.stock) {
+        if (p.product.active || (!p.product.active && units <= p.stock)) {
           p.stock = units;
           this.snackBar.openFromComponent(SnackBarMessageComponent, {
             data: 'Stock of ' + p.product.name + ' modificated',
@@ -200,13 +198,16 @@ export class ShopService extends FirestoreService {
           });
         }
       }
+      if (p?.stock === 0) {
+        products.splice(products.indexOf(p), 1);
+      }
       return products;
     }
     throw Error('Error changing stock of a product');
   }
 
   async modifyStock(prod: ProductStock, units: number, id: string) {
-    if (prod && units && id) {
+    if (prod && (!!units || units === 0) && id) {
       let products: ProductStock[] = [];
       this.getShopProducts().then((prods) => {
         if (!!prods) {
@@ -221,8 +222,8 @@ export class ShopService extends FirestoreService {
         });
         this.applyStock(finalProducts, id);
 
-        return finalProducts.find(finalProd => {
-          if(prod.product.id === finalProd.id) {
+        return finalProducts.find((finalProd) => {
+          if (prod.product.id === finalProd.id) {
             return prod.stock;
           }
           return -1;

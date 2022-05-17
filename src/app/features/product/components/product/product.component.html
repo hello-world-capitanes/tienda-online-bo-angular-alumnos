@@ -30,20 +30,6 @@
                 {{ PRODUCT_ERRORS.price.notProvided }}
               </mat-error>
             </mat-form-field>
-            <mat-form-field class="formContainer">
-              <mat-label> Categories </mat-label>
-              <mat-select class="input" formControlName="categories" required>
-                <div *ngFor="let cat of categories">
-                  <mat-option *ngIf="cat.active===true" [value]="cat.id">
-                    {{ cat.name }}
-                  </mat-option>
-                </div>
-              </mat-select>
-              <mat-error
-                *ngIf="productForm.get('categories')?.errors && productForm.get('categories')?.hasError('required')">
-                {{ PRODUCT_ERRORS.categories.notProvided }}
-              </mat-error>
-            </mat-form-field>
           </div>
           <div class="segundaCol">
             <mat-form-field class="formContainer">
@@ -121,17 +107,20 @@
                     </span>
                   </mat-list-item>
                 </mat-list>
-                <!--<mat-list role="list">
+                <mat-list role="list">
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
-                          <span> {{ category.id }} </span>
-                          <mat-icon matChipRemove> cancel </mat-icon>
+                      <mat-chip *ngFor="let category of product.categories">
+                        {{category.name}}
+                        <button matChipRemove>
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </button>
                       </mat-chip>
                     </mat-chip-list>
                   </mat-list-item>
-                </mat-list>-->
+                </mat-list>
+                <button mat-button class ='prodButton' (click)="addCategory(product)">Add category</button>
               </div>
               <div class="segundaColOculta">
                 <mat-list role="list">
@@ -150,6 +139,14 @@
                     </span>
                   </mat-list-item>
                 </mat-list>
+                <mat-form-field appearance="fill">
+                  <mat-label>Select Category</mat-label>
+                  <mat-select [(value)]="selected">
+                    <mat-option *ngFor="let category of categories" [value]="category">
+                      {{category.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
           </mat-expansion-panel>
@@ -170,7 +167,7 @@
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-raised-button class="deleteButton" (click)="activeProduct(product)">
-                  <mat-icon>autorenew</mat-icon>
+                  <mat-icon>check_circle</mat-icon>
                 </button>
                 <mat-panel-title>
                   <mat-list-item role="listitem" class="product">{{
@@ -201,13 +198,16 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor= "let category of product.categories" (removed) = "removeCategory(product, category)">
-                          <span> {{ category.id }} </span>
-                          <mat-icon matChipRemove> cancel </mat-icon>
+                      <mat-chip *ngFor="let category of product.categories">
+                        {{category.name}}
+                        <button matChipRemove>
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </button>
                       </mat-chip>
                     </mat-chip-list>
                   </mat-list-item>
                 </mat-list>
+                <button mat-button class ='prodButton' (click)="addCategory(product)">Add category</button>
               </div>
               <div class="segundaColOculta">
                 <mat-list role="list">
@@ -226,6 +226,14 @@
                     </span>
                   </mat-list-item>
                 </mat-list>
+                <mat-form-field appearance="fill">
+                  <mat-label>Select Category</mat-label>
+                  <mat-select [(value)]="selected">
+                    <mat-option *ngFor="let category of categories" [value]="category">
+                      {{category.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
           </mat-expansion-panel>

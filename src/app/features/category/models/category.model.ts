@@ -1,9 +1,12 @@
+import { Product } from "../../product/models/product-models";
+
 export class Category {
 
   private _name: string;
   private _ID: string;
   private _description: string;
   private _active: boolean;
+  private _products: Product[];
   /* private static contadorId: number = 0; */
 
   constructor(id: string, name: string, description: string, active: boolean) {
@@ -11,6 +14,7 @@ export class Category {
     this._name = name;
     this._description = description;
     this._active = active;
+    this._products = [];
   }
 
   public get name() {
