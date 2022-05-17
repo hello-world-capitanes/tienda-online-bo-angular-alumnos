@@ -37,20 +37,8 @@ describe('ShopService', () => {
       new Address('test', 'test', 'test', 0, '1'),
       true,
       [
-        new ProductStock(
-          new Product(
-            '10H5bKRT2wQvtAVppfov',
-            'Perdemos controles',
-            'Pack de 6 unidades',
-            4,
-            'Donuts original glaseados',
-            ['test'],
-            'https://m.media-amazon.com/images/I/910x9xh3rcL._AC_SL1500_.jpg',
-            true
-          ),
-          50
-        ),
-      ]
+
+      ],
     );
   });
   afterEach(async () => {
