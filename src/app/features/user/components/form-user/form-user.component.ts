@@ -1,3 +1,6 @@
+import { USER_ERRORS } from './../../../../core/utils/errors/users.errors';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { UserService } from './../../service/user.service';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user.model';
@@ -14,16 +17,25 @@ export class FormUserComponent implements AfterViewInit {
   listaUser!: ListUserComponent;
   panelOpenState=false;
 
-  nuevoUser: User = new User("","","","");
+  users!: User[];
 
   formCrear: FormGroup;
 
-  constructor(public formulario:FormBuilder) {
+  readonly USER_ERRORS = USER_ERRORS;
+
+  constructor(
+    private userService: UserService,
+    public formulario:FormBuilder,
+    private firestore: AngularFirestore
+  ){
     this.formCrear = this.formulario.group({
-      nameFormControl : new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      surnameFormControl : new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      emailFormControl : new FormControl('', [Validators.required, Validators.email]),
-      passFormControl : new FormControl('', [Validators.required, Validators.minLength(8)]),
+      name : new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      surname : new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      email : new FormControl('', [Validators.required, Validators.email]),
+      //password : new FormControl('', [Validators.required, Validators.minLength(8)]),
+    }),
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = (!!users && users.length > 0 ? users : [])
     })
   }
 
@@ -31,55 +43,37 @@ export class FormUserComponent implements AfterViewInit {
 
   }
 
-  addUser() {
-    if (!this.formCrear.valid) {
-      return;
+  addUser(user: User) {
+    this.userService.addUser(user);
+  }
+
+
+  findByEmail(email: string): User | undefined{
+    return this.users?.find((user) => {
+      if(user.email === email){
+        return user;
+      }
+      return null;
+    })
+  }
+
+  newUser(){
+    if(!this.formCrear.valid){
+      return false;
+    }else{
+      let id = this.firestore.createId();
+      let user = new User(
+        id,
+        this.formCrear.value.name,
+        this.formCrear.value.surname,
+        this.formCrear.value.email,
+        true
+      );
+      this.addUser(user);
+      return true;
     }
-    else{
-      this.nuevoUser = new User(this.formCrear.get("nameFormControl")?.value,
-      this.formCrear.get("surnameFormControl")?.value,this.formCrear.get("emailFormControl")?.value,
-      this.formCrear.get("passFormControl")?.value);
-      this.listaUser?.addUser(this.nuevoUser);
-    }
-
   }
 
-
-  get errorMessageEmail(): string {
-    const form = this.formCrear.get('emailFormControl');
-    return form?.hasError('required') ?
-      'Introduce your email' :
-      form?.hasError('email') ?
-      'Introduce a valid email':'';
-  }
-
-  get errorMessagePass(): string {
-    const form: FormControl = (this.formCrear.get('passFormControl') as FormControl);
-    return form.hasError('required') ?
-      'Introduce your password' :
-      form.hasError('minlength') ?
-      'The password must have at least 8 characters':'';
-  }
-
-  get errorMessageName(): string {
-    const form: FormControl = (this.formCrear.get('nameFormControl') as FormControl);
-    return form.hasError('required') ?
-      'Enter your name' :
-      form.hasError('minlength') ?
-      'The name must have at least 3 characters':
-      form.hasError('maxlength') ?
-      'Enter a shorter name' :'';
-  }
-
-  get errorMessageSurname(): string {
-    const form: FormControl = (this.formCrear.get('surnameFormControl') as FormControl);
-    return form.hasError('required') ?
-      'Enter your surname' :
-      form.hasError('minlength') ?
-      'The surnames must have at least 3 characters':
-      form.hasError('maxlength') ?
-      'Enter a shorter name' :'';
-  }
 }
 
 
