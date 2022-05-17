@@ -19,8 +19,8 @@ describe('Modify-shop', function() {
   });
 
   it("Modificar datos de tienda",function() {
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type(usuarioCorrecto);
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('#Shops > .mat-line').click();
     cy.get('#editShopmercadona').click();
@@ -29,6 +29,8 @@ describe('Modify-shop', function() {
     cy.get('#street').type('calle');
     cy.get('#modifyEnabled').click();
     cy.get('#modifyShopForm').submit();
+    cy.get('#logoutButton').click();
+
   });
 
 })
