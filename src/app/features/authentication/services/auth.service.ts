@@ -1,5 +1,3 @@
-import { AuthError } from './../model/authErrors.model';
-import { UserAdmin } from 'src/app/core/models/userAdmin';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -7,11 +5,11 @@ import {
 } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { SnackBarMessageComponent } from './../../../shared/components/snack-bar-message/snack-bar-message.component';
+import { UserAdmin } from 'src/app/core/models/userAdmin';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
-import { isAdmin } from '@firebase/util';
 import { User } from '../../user/models/user.model';
-import { result } from 'cypress/types/lodash';
+import { SnackBarMessageComponent } from './../../../shared/components/snack-bar-message/snack-bar-message.component';
+import { AuthError } from './../model/authErrors.model';
 
 @Injectable({
   providedIn: 'root'
