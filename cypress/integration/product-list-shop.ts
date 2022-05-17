@@ -7,8 +7,8 @@ describe('Modify stock', () => {
   });
 
   it('Decrease stock', () => {
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type(usuarioCorrecto);
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('#Shops').click();
     const shopId = 'A0SasV3ohcu4kG4vwVxF';

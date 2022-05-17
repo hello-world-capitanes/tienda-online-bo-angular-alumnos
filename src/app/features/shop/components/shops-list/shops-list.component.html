@@ -3,7 +3,7 @@
 <mat-list role="list" class="listShop">
   <h1>Active Shops</h1>
   <ng-container *ngFor="let shop of shops">
-    <div *ngIf="shop.active">
+    <div *ngIf="shop.active" id="{{shop.name}}">
       <div class = "containerProd">
         <mat-accordion>
           <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false" [attr.data-shop-id]="'expansion_'+shop.id">
