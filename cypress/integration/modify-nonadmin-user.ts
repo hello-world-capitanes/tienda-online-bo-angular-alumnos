@@ -7,15 +7,15 @@ describe('Modify nonadmin user', () => {
   });
 
   it('Modify user', () => {
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type(usuarioCorrecto);
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     //cy.visit('http://localhost:4200/home');
     cy.get('#BGShudOwwyCEJCmMj39qEditActive').click();
-    cy.get('#name').clear();
-    cy.get('#name').type("CambioName");
-    cy.get('#surname').clear();
-    cy.get('#surname').type("CambioSurname")
+    cy.get('#nameModifyUser').clear();
+    cy.get('#nameModifyUser').type("CambioNameee")
+    cy.get('#surnameModifyUser').clear();
+    cy.get('#surnameModifyUser').type("CambioSurnameee")
     cy.get('#modifyEnabled').click();
     cy.get('#modifyUser').submit();
   })

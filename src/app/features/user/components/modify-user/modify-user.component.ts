@@ -64,7 +64,6 @@ export class ModifyUserComponent implements OnInit {
       this.data.email,
       this.data.active
     )
-    newUser.active = this.data.active;
     this.userService.modifyUser(id, newUser);
     this.close();
   }

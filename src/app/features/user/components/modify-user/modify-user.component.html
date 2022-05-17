@@ -17,7 +17,7 @@
   <div class="container">
     <mat-form-field class="formContainer">
       <mat-label>Name</mat-label>
-      <input matInput class="name" id="name" formControlName="name" type="text">
+      <input matInput formControlName="name" type="text" id="nameModifyUser">
       <mat-error *ngIf="modifyUserForm.get('name')?.errors && modifyUserForm.get('name')?.hasError('required')">
         {{ USER_ERRORS.name.notProvided }}
       </mat-error>
@@ -30,7 +30,7 @@
     </mat-form-field>
     <mat-form-field class="surname" class="formContainer">
       <mat-label>Surname</mat-label>
-      <input matInput formControlName="surname" type="text">
+      <input matInput formControlName="surname" type="text" id="surnameModifyUser">
       <mat-error *ngIf="modifyUserForm.get('surname')?.errors && modifyUserForm.get('surname')?.hasError('required')">
         {{ USER_ERRORS.surname.notProvided }}
       </mat-error>
