@@ -7,8 +7,8 @@ describe('Modify stock', () => {
   });
 
   it('Decrease stock', () => {
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type(usuarioCorrecto);
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('#Shops').click();
     cy.get('#Merca', {
@@ -22,6 +22,9 @@ describe('Modify stock', () => {
     cy.get('#Donut-RaulPradanasStock').type('5');
     cy.get('#Donut-RaulPradanasButton',{timeout:5000}).should('be.visible');
     cy.get('#Donut-RaulPradanasButton').click();
+    cy.get('#closeDialog').click();
+    cy.get('#logoutButton').click();
+
   });
 
   /* it('Decrease stock', () => {

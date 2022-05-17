@@ -7,8 +7,8 @@ describe('Modify shop list', () => {
   });
 
   it('Set shop inactive, then set shop active', () => {
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type(usuarioCorrecto);
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('#Shops > .mat-line').click();
     cy.get('#mercadona', {
@@ -22,6 +22,8 @@ describe('Modify shop list', () => {
     cy.get('#mercadonadeactiveShopButton').click();
     cy.get('#mercadonaactiveShopButton',{timeout:5000}).should('be.visible');
     cy.get('#mercadonaactiveShopButton').click();
+    cy.get('#logoutButton').click();
+
 
   });
 });

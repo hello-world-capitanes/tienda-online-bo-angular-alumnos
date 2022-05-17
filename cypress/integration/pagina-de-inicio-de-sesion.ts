@@ -19,16 +19,16 @@ describe('Inicio de sesión', function() {
   });
 
   it("Incio de sesión correcto",function() {
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type(usuarioCorrecto);
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('#sidenav').should('be.visible');
     cy.get('#sidenav');
     cy.get('#logoutButton').click();
     cy.reload();
 
-    cy.get('#mat-input-0').type(usuarioCorrecto2);
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type(usuarioCorrecto2);
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('#sidenav').should('be.visible');
     cy.get('#sidenav').should('be.visible');
@@ -36,29 +36,29 @@ describe('Inicio de sesión', function() {
   });
 
   it("Inicio de sesión con credenciales inválidas",function() {
-    cy.get('#mat-input-0').type('invalid@gmail.com');
-    cy.get('#mat-input-1').type('12345');
+    cy.get('#emailInput').type('invalid@gmail.com');
+    cy.get('#passwordInput').type('12345');
     cy.get('#loginButton').click();
     cy.get('.snackContainer').should('be.visible');
     cy.get('.contenedorForm').should('be.visible');
     cy.reload();
 
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type('fasdf32eds');
+    cy.get('#emailInput').type(usuarioCorrecto);
+    cy.get('#passwordInput').type('fasdf32eds');
     cy.get('#loginButton').click();
     cy.get('.snackContainer').should('be.visible');
     cy.get('.contenedorForm').should('be.visible');
     cy.reload();
 
-    cy.get('#mat-input-0').type("a@afasd");
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type("a@afasd");
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('.snackContainer').should('be.visible');
     cy.get('.contenedorForm').should('be.visible');
     cy.reload();
 
-    cy.get('#mat-input-0').type(" ");
-    cy.get('#mat-input-1').type(" ");
+    cy.get('#emailInput').type(" ");
+    cy.get('#passwordInput').type(" ");
     cy.get('#loginButton').click();
     cy.get('.snackContainer').should('be.visible');
     cy.get('.contenedorForm').should('be.visible');
@@ -95,15 +95,15 @@ describe('Inicio de sesión', function() {
   });
 
   it('Inicio de sesión de con usuarios no administradores', function() {
-    cy.get('#mat-input-0').type('mario@devanddel.com');
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type('mario@devanddel.com');
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('.snackContainer').should('be.visible');
     cy.get('.contenedorForm').should('be.visible');
     cy.reload();
 
-    cy.get('#mat-input-0').type('test@test.com');
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type('test@test.com');
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('.snackContainer').should('be.visible');
     cy.get('.contenedorForm').should('be.visible');
