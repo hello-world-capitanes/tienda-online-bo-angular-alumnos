@@ -12,8 +12,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class ModifyUserComponent implements OnInit {
 
-  id!: string;
-
   user!: User;
 
   modifyUserForm!: FormGroup;
@@ -48,10 +46,10 @@ export class ModifyUserComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(30)]
         ),
-      email: new FormControl
+      /*email: new FormControl
         (this.data.email,
         [Validators.required,
-        Validators.email])
+        Validators.email])*/
     })
   }
 
@@ -63,7 +61,7 @@ export class ModifyUserComponent implements OnInit {
       id,
       this.modifyUserForm.value.name,
       this.modifyUserForm.value.surname,
-      this.modifyUserForm.value.email,
+      this.data.email,
       this.data.active
     )
     newUser.active = this.data.active;

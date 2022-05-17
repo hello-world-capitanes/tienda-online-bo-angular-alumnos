@@ -1,6 +1,6 @@
 <div class="header">
   <div class="title">
-    <h4>ID: {{ id }}</h4>
+    <h4>ID: {{ data.id }}</h4>
   </div>
   <div class="close">
     <button
@@ -17,7 +17,7 @@
   <div class="container">
     <mat-form-field class="formContainer">
       <mat-label>Name</mat-label>
-      <input matInput id="name" formControlName="name" type="text">
+      <input matInput class="name" id="name" formControlName="name" type="text">
       <mat-error *ngIf="modifyUserForm.get('name')?.errors && modifyUserForm.get('name')?.hasError('required')">
         {{ USER_ERRORS.name.notProvided }}
       </mat-error>
@@ -28,9 +28,9 @@
         {{ USER_ERRORS.name.maxLength }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="formContainer">
+    <mat-form-field class="surname" class="formContainer">
       <mat-label>Surname</mat-label>
-      <input matInput id="surname" formControlName="surname" type="text">
+      <input matInput formControlName="surname" type="text">
       <mat-error *ngIf="modifyUserForm.get('surname')?.errors && modifyUserForm.get('surname')?.hasError('required')">
         {{ USER_ERRORS.surname.notProvided }}
       </mat-error>
@@ -41,7 +41,7 @@
         {{ USER_ERRORS.surname.maxLength }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="formContainer">
+    <!--<mat-form-field class="formContainer">
       <mat-label>Email</mat-label>
       <input matInput id="email" formControlName="email" type="email">
       <mat-error *ngIf="modifyUserForm.get('email')?.errors && modifyUserForm.get('email')?.hasError('required')">
@@ -50,12 +50,12 @@
       <mat-error *ngIf="modifyUserForm.get('email')?.errors && modifyUserForm.get('email')?.hasError('email')">
         {{ USER_ERRORS.email.invalid }}
       </mat-error>
-    </mat-form-field>
+    </mat-form-field>-->
     <div *ngIf="modifyUserForm.invalid">
       <button mat-raised-button class="buttonAdd" id="modifyDisabled" color="primary" disabled="true">Modify</button>
     </div>
     <div *ngIf="modifyUserForm.valid">
-      <button mat-raised-button class="buttonAdd" id="modifyDisabled" color="primary" (click)="modifyUser(id)">Modify</button>
+      <button mat-raised-button class="buttonAdd" id="modifyEnabled" color="primary" (click)="modifyUser(data.id)">Modify</button>
     </div>
   </div>
 </form>

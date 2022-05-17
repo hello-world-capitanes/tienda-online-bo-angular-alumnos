@@ -76,7 +76,6 @@ export class UserService extends FirestoreService {
       throw new Error('User not provided')
     }
     const result = await this.userExists(user)
-
     if(result === undefined){
       let userDB = {
         id: user.id,
