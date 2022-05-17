@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CATEGORY_ERRORS } from 'src/app/core/utils/errors/category.errors';
 import { Category } from './../../../../models/category.model';
 import { CategoryService } from './../../../../services/category-service.service';
 
@@ -12,55 +13,62 @@ import { CategoryService } from './../../../../services/category-service.service
 export class ModifyCategoryComponent implements OnInit {
   modifyCategoryForm!: FormGroup;
 
+  readonly CATEGORY_ERRORS = CATEGORY_ERRORS;
+
   categories!: Category[];
   id!: string;
+  active!:boolean;
 
   constructor(
-    public dialogRef: MatDialogRef<ModifyCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<ModifyCategoryComponent>,
     private categoryService: CategoryService
   ) {
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
+    this.modifyCategoryForm = new FormGroup({
+      description: new FormControl
+      (data.description, 
+        [Validators.required]),
+    })
   }
 
   ngOnInit(): void {
     this.createForm();
+    this.updateForm();
   }
 
   createForm() {
     this.modifyCategoryForm = new FormGroup({
-      id: new FormControl(''),
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(30),
-      ]),
       description: new FormControl('', [
         Validators.required
       ]),
     });
   }
 
+  updateForm(){
+    this.modifyCategoryForm.patchValue({
+      description:this.data.description,
+    })
+  }
+
   modifyCategory(id: string) {
+    if(this.modifyCategoryForm.invalid){
+      return;
+    }
     let newCat = new Category(
       id,
-      this.modifyCategoryForm.get('name')?.value,
-      this.modifyCategoryForm.get('description')?.value,
-      true
+      this.modifyCategoryForm.value.name,
+      this.modifyCategoryForm.value.description,
+      this.active,
     )
     this.categoryService.modifyCategory(id, newCat);
     this.dialogRef.close();
   }
 
-  findById(id: string): Category | undefined {
-    return this.categories?.find((cat) => {
-      if (cat.id === id) {
-        return cat;
-      }
-      return null;
-    })
+  close(){
+    this.dialogRef.close();
   }
 
 }

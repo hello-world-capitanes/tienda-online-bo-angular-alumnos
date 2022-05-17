@@ -67,7 +67,7 @@ export class CategoryService extends FirestoreService {
     }));
   }*/
 
-  async modifyCategory(id: string, newCat: Category): Promise<Category|undefined> {
+/*   async modifyCategory(id: string, newCat: Category): Promise<Category|undefined> {
     let categoryBD = {
       id: id,
       name: newCat.name,
@@ -77,6 +77,18 @@ export class CategoryService extends FirestoreService {
     return this.getCollection().doc(id).set(Object.assign({}, categoryBD)).then(() => {
       return categoryBD as Category;
     })
+  } */
+
+  async modifyCategory(id: string, newCat: Category):Promise<any>{
+
+    let categoryDB = {
+      id: id,
+      description: newCat.description,
+    };
+
+  return this.getCollection().doc(id).update
+  ({'description': categoryDB.description});
+
   }
 
 }
