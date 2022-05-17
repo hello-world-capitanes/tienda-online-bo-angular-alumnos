@@ -110,26 +110,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   modifyCategory(id: string){
-    let category = this.findById(id);
+    let config = new MatDialogConfig();
     const dialogRef = this.matDialog.open(ModifyCategoryComponent, {
       width: '350px',
-      data:{
-        name:category?.name,
-        description:category?.description,
-      }
     });
-    if(!!category){
-      dialogRef.componentInstance.id = id;
-      dialogRef.componentInstance.active= category?.active;
-    }
-  }
-
-  findById(id: string): Category | undefined{
-    return this.categories?.find((cat) => {
-      if(cat.id === id){
-        return cat;
-      }
-      return null;
-    })
+    dialogRef.componentInstance.id = id;
   }
 }
