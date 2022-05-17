@@ -25,7 +25,6 @@ describe('Modify-category', function() {
       cy.get('#Categories > .mat-line').click();
       cy.get('#editAceites').click();
       //cy.get('#mat-dialog-2').click();
-      cy.get('#location').type('location');
       cy.get('#description').type('Aceite de girasol');
       cy.get('#modifyEnabled').click();
       cy.get('#modifyCategory').submit();
