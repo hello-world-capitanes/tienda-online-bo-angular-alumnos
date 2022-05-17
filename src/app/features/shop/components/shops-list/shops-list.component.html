@@ -3,7 +3,7 @@
 <mat-list role="list" class="listShop">
   <h1>Active Shops</h1>
   <ng-container *ngFor="let shop of shops">
-    <div *ngIf="shop.active">
+    <div *ngIf="shop.active" id="{{shop.name}}">
       <div class = "containerProd">
         <mat-accordion>
           <mat-expansion-panel (opened) = "panelOpenState = true" (closed) = "panelOpenState = false">
@@ -33,7 +33,7 @@
                       <span> Name: {{ shop.name }} </span>
                       <span> Adress: {{ shop.address.street }} </span>
                       <br>
-                      <button mat-raised-button class="viewProducts" color="accent" (click)="openProductList(shop)">
+                      <button mat-raised-button class="viewProducts" color="accent" (click)="openProductList(shop)" id="viewProducts">
                         View products
                       </button>
                     </div>
