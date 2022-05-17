@@ -1,6 +1,8 @@
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { ActivatedRoute } from '@angular/router';
 import { PRODUCT_ERRORS } from 'src/app/core/utils/errors/products.errors';
 import { Category } from 'src/app/features/category/models/category.model';
@@ -20,9 +22,9 @@ export class ModifyProductComponent implements OnInit {
   readonly PRODUCT_ERRORS = PRODUCT_ERRORS;
 
   categories!: Category[];
-  id!: string;
   products!: Product[];
 
+  id!: string;
   categoriesProd!:Category[];
   active!:boolean;
 
@@ -30,13 +32,42 @@ export class ModifyProductComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data:any,
     private productService: ProductService,
     private categoryService: CategoryService,
-    public dialogRef: MatDialogRef<ModifyProductComponent>
+    public dialogRef: MatDialogRef<ModifyProductComponent>,
   ) {
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
+    })
+    this.productForm = new FormGroup({
+      name: new FormControl
+        (data.name,
+          [Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30)]
+        ),
+      characteristics: new FormControl
+        (data.characteristics,
+          [Validators.required]
+        ),
+      price: new FormControl
+        (data.price,
+          [Validators.required,
+          Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),]
+        ),
+      description: new FormControl
+        (data.description,
+          [Validators.required]
+        ),
+      categories: new FormControl
+        (data.categories,
+          [Validators.required]
+        ),
+      image: new FormControl
+        (data.image),
+      active: new FormControl
+        (data.active)
     })
    }
 

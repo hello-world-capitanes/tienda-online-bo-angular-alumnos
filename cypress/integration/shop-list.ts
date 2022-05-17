@@ -14,12 +14,12 @@ describe('Modify shop list', () => {
     cy.get('#mercadona', {
       timeout: 5000,
     }).should('be.visible');
-    cy.get('#mercadonadeactiveShopButton',{timeout:5000}).should('be.visible');
-    cy.get('#mercadonadeactiveShopButton').click();
     cy.get('#mercadonaactiveShopButton',{timeout:5000}).should('be.visible');
     cy.get('#mercadonaactiveShopButton').click();
-    cy.get('#mercadonadeactiveShopButton',{timeout:5000}).should('be.visible');
-    cy.get('#mercadonadeactiveShopButton').click();
+    cy.get('#mercadonaactiveShopButton',{timeout:5000}).should('be.visible');
+    cy.get('#mercadonaactiveShopButton').click();
+    cy.get('#mercadonaactiveShopButton',{timeout:5000}).should('be.visible');
+    cy.get('#mercadonaactiveShopButton').click();
     cy.get('#mercadonaactiveShopButton',{timeout:5000}).should('be.visible');
     cy.get('#mercadonaactiveShopButton').click();
     cy.get('#logoutButton').click();
