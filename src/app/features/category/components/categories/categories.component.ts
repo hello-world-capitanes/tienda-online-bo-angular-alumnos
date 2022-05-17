@@ -3,9 +3,9 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators
+  Validators,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Category } from './../../models/category.model';
@@ -50,17 +50,17 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   get errorMessageName(): string {
     const form: FormControl = this.categoryForm.get('name') as FormControl;
     return form.hasError('required')
       ? 'Enter a name for the category'
       : form.hasError('minlength')
-        ? 'The name must have at least 3 characters'
-        : form.hasError('maxlength')
-          ? 'The name must have maximum 20 characters'
-          : '';
+      ? 'The name must have at least 3 characters'
+      : form.hasError('maxlength')
+      ? 'The name must have maximum 20 characters'
+      : '';
   }
 
   get errorMessageDescription(): string {
@@ -70,10 +70,10 @@ export class CategoriesComponent implements OnInit {
     return form.hasError('required')
       ? 'Enter a description for the category'
       : form.hasError('minlength')
-        ? 'The description must have at least 3 characters'
-        : form.hasError('maxlength')
-          ? 'Enter a shorter description'
-          : '';
+      ? 'The description must have at least 3 characters'
+      : form.hasError('maxlength')
+      ? 'Enter a shorter description'
+      : '';
   }
 
   addCategory() {
@@ -85,8 +85,7 @@ export class CategoriesComponent implements OnInit {
       this.categoryForm.get('name')?.value,
       this.categoryForm.get('id')?.value,
       this.categoryForm.get('description')?.value,
-      true,
-      []
+      true
     );
 
     this.categoryService.addCategory(category);
@@ -96,11 +95,9 @@ export class CategoriesComponent implements OnInit {
   deleteCategory(category: Category) {
     this.categoryService.deleteCategory(category);
   }
-
   activeCategory(category: Category) {
     this.categoryService.activeCategory(category);
   }
-
   generateId(): string {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
@@ -112,25 +109,11 @@ export class CategoriesComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  findById(id: string): Category | undefined {
-    return this.categories?.find((cat) => {
-      if (cat.id === id) {
-        return cat;
-      }
-      return null;
-    })
-  }
-
-  modifyCategory(id: string) {
-    let category = this.findById(id);
+  modifyCategory(id: string){
+    let config = new MatDialogConfig();
     const dialogRef = this.matDialog.open(ModifyCategoryComponent, {
       width: '350px',
     });
-    if (!!category) {
-      dialogRef.componentInstance.id = id;
-      dialogRef.componentInstance.name = category.name;
-      dialogRef.componentInstance.description = category.description;
-      dialogRef.componentInstance.active = category.active;
-    }
+    dialogRef.componentInstance.id = id;
   }
 }

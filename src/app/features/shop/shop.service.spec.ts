@@ -86,7 +86,9 @@ describe('ShopService', () => {
   /* it('Increase stock of a product', async () => {
     if (!!newShopWithProducts) {
       newShopWithProducts = await service.addShop(newShopWithProducts);
+
       newShopWithProducts = await service.getShop(newShopWithProducts.name);
+
       expect(
         service.modifyStock(
           newShopWithProducts.products[0],
@@ -100,7 +102,9 @@ describe('ShopService', () => {
   /* it('Decrease stock of a product', async () => {
     if (!!newShopWithProducts) {
       newShopWithProducts = await service.addShop(newShopWithProducts);
+
       newShopWithProducts = await service.getShop(newShopWithProducts.name);
+
       expect(
         service.modifyStock(
           newShopWithProducts.products[0],

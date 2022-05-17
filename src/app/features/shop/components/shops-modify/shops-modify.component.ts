@@ -8,7 +8,7 @@ import { ProductShopFirebase } from 'src/app/features/product/models/product-sho
 @Component({
   selector: 'app-shops-modify',
   templateUrl: './shops-modify.component.html',
-  styleUrls: ['./shops-modify.component.scss']
+  styleUrls: ['./shops-modify.component.scss'],
 })
 export class ShopsModifyComponent implements OnInit {
   private _shop: Shop | undefined;

@@ -4,16 +4,12 @@ describe('Modify product', () => {
 
   beforeEach(function () {
     cy.visit('http://localhost:4200/sign-in');
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type(passwordCorrecta);
-    cy.get('#loginButton').click();
-  });
-
-  afterEach(function() {
-    cy.get('#logoutButton').click();
   });
 
   it('Modify product with correct data', () => {
+    cy.get('#mat-input-0').type(usuarioCorrecto);
+    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#loginButton').click();
     cy.get('#Products > .mat-line').click();
     cy.get('#DonutsEditActive', {
       timeout: 5000,
@@ -23,6 +19,6 @@ describe('Modify product', () => {
       timeout: 5000,
     }).should('be.visible');
     cy.get('#price').type('40');
-    cy.get('#modifyEnabled').click();
+    cy.get('#modifyProduct').submit();
   });
 });
