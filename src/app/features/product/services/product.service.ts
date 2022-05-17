@@ -111,9 +111,10 @@ export class ProductService extends FirestoreService{
     const result =await this.productExists(product)
 
     if(result===undefined){
+      let id = this.firestore.createId();
 
       let productDB: ProductFirebase = {
-        id: product.id,
+        id: id,
         name: product.name,
         characteristics: product.characteristics,
         price: product.price,
@@ -122,15 +123,9 @@ export class ProductService extends FirestoreService{
         active: !!product?.active,
       };
 
-      if (!!product?.categories && product.categories.length > 0) {
-        for (let category of product.categories) {
-          productDB.categories = [];
-          if (category) {
-            productDB.categories.push(Object.assign({}, category));
-          }
-        }
-      }
-      return this.getCollection().doc(product.id).set(Object.assign({}, productDB)).then(() => product)
+      return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
+        return productDB as Product;
+      })
 
     } else{
 

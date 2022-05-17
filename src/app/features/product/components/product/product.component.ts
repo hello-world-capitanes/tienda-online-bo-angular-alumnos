@@ -1,12 +1,12 @@
-import { PRODUCT_ERRORS } from './../../../../core/utils/errors/products.errors';
-import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Category } from 'src/app/features/category/models/category.model';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Product } from '../../models/product-models';
 import { ModifyProductComponent } from '../modify-product/modify-product.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PRODUCT_ERRORS } from './../../../../core/utils/errors/products.errors';
+import { ProductService } from './../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -62,12 +62,13 @@ export class ProductComponent implements OnInit {
     this.createForm();
   }
 
-  getCategories(product: Product){
-    let refs = [];
-    let categories = this.categoryService.getCategories();
-    for(let i = 0; i < product.categories.length; i++){
-
-    }
+  findById(id: string): Product | undefined{
+    return this.products?.find((prod) => {
+      if(prod.id === id){
+        return prod;
+      }
+      return null;
+    })
   }
 
   newProduct() {
@@ -137,15 +138,6 @@ export class ProductComponent implements OnInit {
       dialogRef.componentInstance.active=product?.active;
     }
 
-  }
-
-  findById(id: string): Product | undefined{
-    return this.products?.find((prod) => {
-      if(prod.id === id){
-        return prod;
-      }
-      return null;
-    })
   }
 
 }
