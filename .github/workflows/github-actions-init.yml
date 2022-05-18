@@ -28,7 +28,7 @@ jobs:
           wait-on: "http://localhost:4200"
           # wait for 6 minutes for the server to respond
           wait-on-timeout: 360
-          record: true
+          record: false
           parallel: true
           group: "UI - Chrome"
         env:
