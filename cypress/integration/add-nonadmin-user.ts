@@ -9,6 +9,10 @@ describe ('Add user', () => {
     cy.get('#loginButton').click();
   });
 
+  afterEach(function() {
+    cy.get('#logoutButton').click();
+  });
+
   it('Add user', () => {
     cy.contains("BackOffice Tienda Mercadona").then(() => {
       cy.visit('users').then(() => {
