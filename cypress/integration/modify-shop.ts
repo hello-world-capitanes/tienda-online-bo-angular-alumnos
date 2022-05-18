@@ -1,3 +1,4 @@
+import { ShopService } from './../../src/app/features/shop/shop.service';
 // pagina-de-inicio-de-sesion.js created with Cypress
 //
 // Start writing your Cypress tests below!
@@ -12,26 +13,33 @@ describe('Modify-shop', function() {
 
   beforeEach(function(){
     cy.visit('http://localhost:4200/sign-in');
-  })
-
-  afterEach(function() {
-    cy.reload();
-  });
-
-  it("Modificar datos de tienda",function() {
     cy.get('#emailInput').type(usuarioCorrecto);
     cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     cy.get('#Shops > .mat-line').click();
+  })
+
+  afterEach(function() {
+    cy.get('#logoutButton').click();
+    cy.reload();
+  });
+
+  it("Modificar datos de tienda",function() {
     cy.get('#editShopmercadona').click();
     //cy.get('#mat-dialog-2').click();
-    cy.get('#location').clear();
+    cy.get('#location').click().clear();
     cy.get('#location').type('location');
-    cy.get('#street').clear();
+    cy.get('#street').click().clear();
     cy.get('#street').type('calle');
     cy.get('#modifyEnabled').click();
     cy.get('#modifyShopForm').submit();
-    cy.get('#logoutButton').click();
+  });
+
+  it("Desactivar una tienda", function() {
+    const shopId = '4qCK2BqRorCbzOzRk1JK';
+    cy.get(`[data-shop-id="delete_${shopId}"]`).click();
+    cy.get(`[data-shop-id="reactivate_${shopId}"]`).should('be.visible');
+    cy.get(`[data-shop-id="reactivate_${shopId}"]`).click();
 
   });
 

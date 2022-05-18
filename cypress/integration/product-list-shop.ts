@@ -19,8 +19,8 @@ describe('Modify stock', () => {
     cy.get(`[data-shop-id="expansion_${shopId}"]`).click();
     cy.get(`[data-shop-button="button_${shopId}"]`).as('viewProducts');
     cy.get('@viewProducts').click();
-    const productName = 'Donut-RaulPradanas';
-    const productId = '_z090vkd';
+    const productName = 'Donuts-RaulPradanas';
+    const productId = 'tZYYHlk6n0tYUWpIXSrL';
     cy.contains(productName)
       .parent()
       .parent()

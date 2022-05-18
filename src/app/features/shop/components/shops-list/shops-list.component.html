@@ -13,7 +13,7 @@
                 <button mat-raised-button class = "botonShop" id="editShop{{shop.name}}" (click)="modifyShop(shop.id)">
                   <mat-icon> edit </mat-icon>
                 </button>
-                <button mat-raised-button id = "{{shop.name}}activeShopButton" class = "botonShop" (click)="desactivateShop(shop)">
+                <button mat-raised-button id = "{{shop.name}}activeShopButton" class = "botonShop" (click)="desactivateShop(shop)" [attr.data-shop-id]="'delete_'+shop.id">
                   <mat-icon> delete_forever </mat-icon>
                 </button>
                 <mat-panel-title>
@@ -62,7 +62,7 @@
                 <button mat-raised-button class = "botonShop" id="editShop{{shop.name}}" (click)="modifyShop(shop.id)">
                   <mat-icon> edit </mat-icon>
                 </button>
-                <button mat-raised-button id = "{{shop.name}}activeShopButton" class = "botonShop" (click)="activeShop(shop)">
+                <button mat-raised-button id = "{{shop.name}}activeShopButton" class = "botonShop" (click)="activeShop(shop)" [attr.data-shop-id]="'reactivate_'+shop.id">
                   <mat-icon> autorenew </mat-icon>
                 </button>
                 <mat-panel-title>
