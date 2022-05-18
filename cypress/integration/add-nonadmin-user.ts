@@ -20,7 +20,7 @@ describe ('Add user', () => {
     cy.get('#email').type('nuevomail@mail');
     cy.get('.addButton .mat-icon').click();
     cy.get('#addUserForm').submit();
-
+    cy.get('#logoutButton').click();
   })
 
 })
