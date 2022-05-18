@@ -15,9 +15,10 @@ import { ProductService } from './../../services/product.service';
 })
 export class ProductComponent implements OnInit {
   panelOpenState = false;
-
   productForm!: FormGroup;
   products!: Product[];
+
+  selected!:Category;
 
   categories!: Category[];
 
@@ -140,4 +141,7 @@ export class ProductComponent implements OnInit {
 
   }
 
+  addCategory(product:Product){
+    this.productService.addCategory(product,this.selected);
+  }
 }

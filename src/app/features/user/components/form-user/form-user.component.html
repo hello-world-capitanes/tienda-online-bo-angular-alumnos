@@ -2,42 +2,71 @@
   <button [routerLink]="['/sign-up']" class="addAdminBtn" mat-raised-button color="primary">new Admin</button>
 
 <mat-accordion>
-  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel id="addUser" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Add user
         <mat-icon aria-hidden="false">people</mat-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <form [formGroup]="formCrear">
-
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input class= "name" type="text" matInput formControlName="nameFormControl" placeholder="Name">
-        <mat-error>{{errorMessageName}}</mat-error>
-      </mat-form-field>
-
-      <mat-form-field class= "surname">
-        <mat-label>Surnames</mat-label>
-        <input type="text" matInput formControlName="surnameFormControl" placeholder="Surname">
-        <mat-error>{{errorMessageSurname}}</mat-error>
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input type="email" matInput formControlName="emailFormControl" placeholder="Ex. name@gmail.com">
-        <mat-error>{{errorMessageEmail}}</mat-error>
-      </mat-form-field>
-
-      <mat-form-field class= "password">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="passFormControl" placeholder="********">
-        <mat-error>{{errorMessagePass}}</mat-error>
-      </mat-form-field>
-      <br>
-      <button class="margin" mat-raised-button color="primary" (click)="addUser()">+</button>
+    <form [formGroup]="formCrear" id="addUserForm">
+      <div class="container">
+        <mat-form-field class="formContainer">
+          <mat-label> Name </mat-label>
+          <input matInput class="input" type="text" formControlName="name" id="name">
+          <mat-error *ngIf="formCrear.get('name')?.errors && formCrear.get('name')?.hasError('required')">
+            {{ USER_ERRORS.name.notProvided }}
+          </mat-error>
+          <mat-error *ngIf="formCrear.get('name')?.errors && formCrear.get('name')?.hasError('minLength')">
+            {{ USER_ERRORS.name.minLength }}
+          </mat-error>
+          <mat-error *ngIf="formCrear.get('name')?.errors && formCrear.get('name')?.hasError('maxLength')">
+            {{ USER_ERRORS.name.maxLength }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="formContainer">
+          <mat-label> Surname </mat-label>
+          <input matInput class="input" type="text" formControlName="surname" id="surname">
+          <mat-error *ngIf="formCrear.get('surname')?.errors && formCrear.get('surname')?.hasError('required')">
+            {{ USER_ERRORS.surname.notProvided }}
+          </mat-error>
+          <mat-error *ngIf="formCrear.get('surname')?.errors && formCrear.get('surname')?.hasError('minLength')">
+            {{ USER_ERRORS.surname.minLength }}
+          </mat-error>
+          <mat-error *ngIf="formCrear.get('surname')?.errors && formCrear.get('surname')?.hasError('maxLength')">
+            {{ USER_ERRORS.surname.maxLength }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="formContainer">
+          <mat-label> Email </mat-label>
+          <input matInput class="input" type="email" formControlName="email" id="email">
+          <mat-error *ngIf="formCrear.get('email')?.errors && formCrear.get('email')?.hasError('required')">
+            {{ USER_ERRORS.email.notProvided }}
+          </mat-error>
+          <mat-error *ngIf="formCrear.get('email')?.errors && formCrear.get('email')?.hasError('email')">
+            {{ USER_ERRORS.email.invalid }}
+          </mat-error>
+        </mat-form-field>
+        <!--
+        <mat-form-field class="formContainer">
+          <mat-label> Password </mat-label>
+          <input matInput class="input" type="password" formControlName="email">
+          <mat-error *ngIf="formCrear.get('password')?.errors && formCrear.get('password')?.hasError('required')">
+            {{ USER_ERRORS.password.notProvided }}
+          </mat-error>
+          <mat-error *ngIf="formCrear.get('password')?.errors && formCrear.get('password')?.hasError('minLength')">
+            {{ USER_ERRORS.password.minLength }}
+          </mat-error>
+          <mat-error *ngIf="formCrear.get('password')?.errors && formCrear.get('password')?.hasError('maxLength')">
+            {{ USER_ERRORS.password.maxLength }}
+          </mat-error>
+        </mat-form-field>
+        -->
+        <button mat-raised-button class="addButton" type="submit" color="primary" (click)="newUser()">
+          <mat-icon> add_box </mat-icon>
+        </button>
+      </div>
     </form>
   </mat-expansion-panel>
 </mat-accordion>
 </div>
-<app-list-user></app-list-user>

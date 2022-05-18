@@ -1,39 +1,85 @@
 <mat-list role="list" class="listUser">
-  <mat-divider></mat-divider>
+  <h1>Active users</h1>
   <ng-container *ngFor="let user of users">
-    <div class="containerProd">
-      <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-        >
-          <mat-expansion-panel-header>
-            <div class="info">
-              <button mat-raised-button class="deleteButton" (click)="deleteUser(user)">
-                <mat-icon> delete_forever </mat-icon>
-              </button>
-              <mat-panel-title>
-                <mat-list-item role="listItem" class="user">{{
-                  user.name
-                }}</mat-list-item>
-              </mat-panel-title>
+    <div *ngIf="user.active === true">
+      <div class="containerProd">
+        <mat-accordion>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <div class="info">
+                <button mat-raised-button class="userButton" color="primary" id="{{user.id}}EditActive" (click)="modifyUser(user)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-raised-button class="deleteButton" (click)="deleteUser(user)">
+                  <mat-icon> delete_forever </mat-icon>
+                </button>
+                <mat-panel-title>
+                  <mat-list-item role="listItem" class="user">{{
+                    user.name
+                  }}</mat-list-item>
+                </mat-panel-title>
+              </div>
+            </mat-expansion-panel-header>
+            <div class="hiddenInfo" id="{{ user.name }}">
+              <div class="primeraColOculta">
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <div class="expansionContent">
+                      <span> Name: {{ user.name }} {{ user.surname }} </span>
+                      <span> Email: {{ user.email }} </span>
+                    </div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
             </div>
-          </mat-expansion-panel-header>
-          <div class="hiddenInfo" id="{{ user.name }}">
-            <div class="primeraColOculta">
-              <mat-list role="list">
-                <mat-list-item role="listitem">
-                  <div class="expansionContent">
-                    <span> Name: {{ user.name }} {{ user.surname }} </span>
-                    <span> Email: {{ user.email }} </span>
-                  </div>
-                </mat-list-item>
-              </mat-list>
-            </div>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
     </div>
-    <mat-divider></mat-divider>
+  </ng-container>
+  <mat-divider></mat-divider>
+  <h1>Inactive users</h1>
+  <ng-container *ngFor="let user of users">
+    <div *ngIf="user.active === false">
+      <div class="containerProd">
+        <mat-accordion>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <div class="info">
+                <button mat-raised-button class="userButton" color="primary" id="edit{{user.id}}" (click)="modifyUser(user)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-raised-button class="deleteButton" (click)="activateUser(user)">
+                  <mat-icon>autorenew</mat-icon>
+                </button>
+                <mat-panel-title>
+                  <mat-list-item role="listItem" class="user">{{
+                    user.name
+                  }}</mat-list-item>
+                </mat-panel-title>
+              </div>
+            </mat-expansion-panel-header>
+            <div class="hiddenInfo" id="{{ user.name }}">
+              <div class="primeraColOculta">
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    <div class="expansionContent">
+                      <span> Name: {{ user.name }} {{ user.surname }} </span>
+                      <span> Email: {{ user.email }} </span>
+                    </div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
   </ng-container>
 </mat-list>

@@ -156,4 +156,18 @@ export class ProductService extends FirestoreService{
     }
     throw new Error();
   }
+  async addCategory(product:Product,category:Category){
+    if(!product){
+      throw new Error('Product has not been introduced');
+    }
+    if(!category){
+      throw new Error('Category has not been introduced');
+    }
+    if(product.categories.includes(category)){
+      throw new Error('Category already exists into product')
+    }
+    let newCategories:Category[] = product.categories;
+    newCategories.push(category);
+    return await this.getCollection().doc(product.id).update({categories: newCategories });
+  }
 }
