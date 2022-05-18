@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { USER_ERRORS } from './../../../../core/utils/errors/users.errors';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserService } from './../../service/user.service';
@@ -5,6 +6,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { ListUserComponent } from './../list-user/list-user.component';
+import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 
 @Component({
   selector: 'app-form-user',
@@ -26,7 +28,8 @@ export class FormUserComponent implements AfterViewInit {
   constructor(
     private userService: UserService,
     public formulario:FormBuilder,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private snackBar: MatSnackBar
   ){
     this.formCrear = this.formulario.group({
       name : new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
@@ -44,7 +47,15 @@ export class FormUserComponent implements AfterViewInit {
   }
 
   addUser(user: User) {
-    this.userService.addUser(user);
+    let result = this.findByEmail(user.email);
+    if(result === undefined){
+      this.userService.addUser(user);
+    }else{
+      this.snackBar.openFromComponent(SnackBarMessageComponent, {
+        data: 'Unable to create user: the email is already registered',
+        duration: 2000
+      })
+    }
   }
 
 
