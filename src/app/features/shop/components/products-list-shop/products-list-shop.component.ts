@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ProductShop } from 'src/app/features/product/models/product-shop';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
+import { setTimeout } from 'timers';
 import { SHOP_CONSTANTS } from '../../models/shop.constants';
 import { Shop } from '../../models/shop.model';
 import { ShopService } from '../../shop.service';
@@ -18,6 +19,7 @@ export class ProductsListShopComponent implements OnInit {
   shop!: Shop;
   showProducts!: ProductStock[];
   isLoaded = false;
+  isLoading = true;
   maxInput = SHOP_CONSTANTS.stock.max;
   minInput = SHOP_CONSTANTS.stock.min;
   stepInput = SHOP_CONSTANTS.stock.step;
@@ -34,10 +36,13 @@ export class ProductsListShopComponent implements OnInit {
       });
 
     this.shopService.getShopProducts().then((prodList) => {
+      this.isLoading = false;
       if (!!prodList) {
         this.showProducts = prodList;
+        if (this.showProducts.length > 0) {
+          this.isLoaded = true;
+        }
       }
-      this.isLoaded = true;
     });
   }
 
