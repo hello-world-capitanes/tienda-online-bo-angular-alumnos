@@ -76,10 +76,10 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [attr.data-product-id]="'expansion_'+product.id">
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="prodButton" [attr.data-product-id] = "'editActive' + product.name" (click)="modifyProduct(product.id)">
+                <button mat-raised-button class="prodButton" [attr.data-product-id] = "'edit' + product.name" (click)="$event.stopPropagation(); modifyProduct(product.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-raised-button class="deleteButton" (click)="deleteProduct(product)">
+                <button mat-raised-button class="deleteButton" (click)="$event.stopPropagation(); deleteProduct(product)">
                   <mat-icon> delete_forever </mat-icon>
                 </button>
                 <mat-panel-title>
@@ -112,7 +112,7 @@
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
                       <ng-container *ngFor = "let category of product.categories">
-                        <mat-chip *ngIf = "category.active" [attr.data-product-id]="'categories_'+product.id+'_'+category.id">
+                        <mat-chip class = "matChipCategory" *ngIf = "category.active" [attr.data-product-id] = "'categories_'+product.id+'_'+category.id">
                             <span>
                               {{ category.name }}
                             </span>
@@ -167,10 +167,10 @@
           <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="prodButton" [attr.data-product-id] = "'editActive' + product.name" (click)="modifyProduct(product.id)">
+                <button mat-raised-button class="prodButton" [attr.data-product-id] = "'edit' + product.name" (click)="$event.stopPropagation(); modifyProduct(product.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-raised-button class="deleteButton" (click)="activeProduct(product)">
+                <button mat-raised-button class="deleteButton" (click)="$event.stopPropagation(); activeProduct(product)">
                   <mat-icon>check_circle</mat-icon>
                 </button>
                 <mat-panel-title>

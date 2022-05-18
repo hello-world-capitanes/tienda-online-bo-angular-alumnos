@@ -7,6 +7,9 @@ describe('Modify shop list', () => {
   });
 
   it('Set shop inactive, then set shop active', () => {
+
+    /* ####### DEPENDS OF SHOP: 'MERCADONA' SET TO ACTIVE  ########## */
+
     cy.get('#emailInput').type(usuarioCorrecto);
     cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
@@ -14,6 +17,7 @@ describe('Modify shop list', () => {
     cy.get('#mercadona', {
       timeout: 5000,
     }).should('be.visible');
+
     cy.get('#mercadonaactiveShopButton',{timeout:5000}).should('be.visible');
     cy.get('#mercadonaactiveShopButton').click();
     cy.get('#mercadonaactiveShopButton',{timeout:5000}).should('be.visible');

@@ -12,7 +12,8 @@ describe('Category list test section', () => {
   it('Disable category and see if Product dont have it listed', () => {
 
 
-    /* ####### DEPENDS OF CATEGORY: LIMPIEZA SET TO ACTIVE  ########## */
+    /* ####### DEPENDS OF CATEGORY: 'LIMPIEZA' SET TO ACTIVE  ########## */
+
     const productTestId = '6SPRbZPGUA0V6pbM3ClU';
     const categoryTestId = 'kSVchlEW4mvqZWKndxgL';
     const categoryTestName = 'Limpieza';
