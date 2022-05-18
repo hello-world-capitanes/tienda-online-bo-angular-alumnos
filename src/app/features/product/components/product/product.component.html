@@ -111,9 +111,9 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor="let category of product.categories" [attr.data-product-id]="'categories_'+product.id+'_'+category.id">
+                      <mat-chip *ngFor="let category of product.categories" (removed)="removeCategory(product,category)"[attr.data-product-id]="'categories_'+product.id+'_'+category.id">
                         {{category.name}}
-                        <button matChipRemove>
+                        <button matChipRemove >
                           <mat-icon matChipRemove>cancel</mat-icon>
                         </button>
                       </mat-chip>
@@ -198,9 +198,9 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor="let category of product.categories" [attr.data-product-id]="'categories_'+product.id+'_'+category.id">
+                      <mat-chip *ngFor="let category of product.categories" (removed)="removeCategory(product,category)" [attr.data-product-id]="'categories_'+product.id+'_'+category.id">
                         {{category.name}}
-                        <button matChipRemove>
+                        <button matChipRemove >
                           <mat-icon matChipRemove>cancel</mat-icon>
                         </button>
                       </mat-chip>

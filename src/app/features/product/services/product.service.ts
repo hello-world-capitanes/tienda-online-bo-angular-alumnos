@@ -70,8 +70,26 @@ export class ProductService extends FirestoreService{
 
 
   removeCategory(product:Product, category:Category){
-    let categorieList = this.getCollection().doc(product.id).collection('categories');
+    if(!product){
+      throw new Error('Product has not been introduced');
+    }
+    if(!category){
+      throw new Error('Category has not been introduced');
+    }
+    let newCategories:Category[] = product.categories;
+    let index = -1;
+    for(let i = 0; i<newCategories.length;i++){
+      if(newCategories[i].id===category.id){
+        index = i;
+      }
+    }
+    if(index===-1){
+      throw new Error("Category not found");
+    }
+    newCategories.splice(index,1);
+    return this.getCollection().doc(product.id).update({categories: newCategories });
   }
+
 
   getAllProducts(): Observable<Product[]> {
     return this.getCollection().valueChanges().pipe(map(product=>product as Product[]));
@@ -159,7 +177,7 @@ export class ProductService extends FirestoreService{
     }
     throw new Error();
   }
-  async addCategory(product:Product,category:Category){
+  addCategory(product:Product,category:Category){
     if(!product){
       throw new Error('Product has not been introduced');
     }
@@ -171,6 +189,6 @@ export class ProductService extends FirestoreService{
     }
     let newCategories:Category[] = product.categories;
     newCategories.push(category);
-    return await this.getCollection().doc(product.id).update({categories: newCategories });
+    return this.getCollection().doc(product.id).update({categories: newCategories });
   }
 }
