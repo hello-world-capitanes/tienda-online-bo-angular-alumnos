@@ -199,8 +199,8 @@
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
                       <ng-container *ngFor= "let category of product.categories">
-                        <mat-chip *ngIf= "category.active" (removed) = "removeCategory(product, category)">
-                            <span> {{ category.name }} </span>
+                        <mat-chip id = "{{category.name}}chip" *ngIf= "category.active" (removed) = "removeCategory(product, category)">
+                            <span id = "{{category.name}}chip"> {{ category.name }} </span>
                             <mat-icon matChipRemove> cancel </mat-icon>
                         </mat-chip>
                       </ng-container>
