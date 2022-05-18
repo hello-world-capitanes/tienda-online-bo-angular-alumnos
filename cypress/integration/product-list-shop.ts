@@ -14,7 +14,7 @@ describe('Modify stock', () => {
     cy.get('#logoutButton').click();
   });
 
-  it('Decrease stock', () => {
+  /* it('Decrease stock', () => {
     cy.get('#Shops').click();
     const shopId = 'A0SasV3ohcu4kG4vwVxF';
     cy.get(`[data-shop-id="expansion_${shopId}"]`, {
@@ -47,7 +47,7 @@ describe('Modify stock', () => {
         cy.get('@buttonStock').click();
       });
       cy.get('#closeDialog').click();
-  });
+  }); */
 
   it('Add Category to product', () => {
 
@@ -62,8 +62,7 @@ describe('Modify stock', () => {
     cy.get(`[data-product-id="select_${productId}"]`).click();
     cy.get(`[data-product-id="option_${categoryId}"]`).click();
     cy.get(`[data-product-id="addCategory_${productId}"]`).click();
-    cy.get(`[data-product-id="categories_${productId}_${categoryId}"]`);
-
+    cy.get(`[data-product-id="categories_${productId}_${categoryId}"]`).contains('Bollería');
 
   });
 });
