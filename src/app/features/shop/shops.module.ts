@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { ProductsListShopComponent } from './components/products-list-shop/products-list-shop.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModifyInfoShopsComponent } from './components/modify-info-shops/modify-info-shops.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ModifyInfoShopsComponent } from './components/modify-info-shops/modify-
     MatExpansionModule,
     MatListModule,
     MatDialogModule,
+    MatProgressSpinnerModule
   ],
   exports: [ShopsListComponent, ShopsCreateComponent],
 })
