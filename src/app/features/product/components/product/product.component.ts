@@ -114,7 +114,6 @@ export class ProductComponent implements OnInit {
   removeCategory(product: Product, category: Category){
 
     this.productService.removeCategory(product,category);
-/*     this.products = this.productService.productList; */
   }
 
   getProducts(){

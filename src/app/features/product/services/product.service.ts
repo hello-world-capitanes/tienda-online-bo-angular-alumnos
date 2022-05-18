@@ -189,10 +189,8 @@ export class ProductService extends FirestoreService {
     if (!category) {
       throw new Error('Category has not been introduced');
     }
-
-    if (product.categories.includes(category)) {
-      throw new Error('Category already exists into product');
-
+    if(product.categories.find(cat => {if(category.id === cat.id){ return true} return false})){
+      throw new Error('Category already exists into product')
     }
     let newCategories: Category[] = product.categories;
     newCategories.push(category);
