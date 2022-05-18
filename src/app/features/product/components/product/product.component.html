@@ -76,10 +76,10 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [attr.data-product-id]="'expansion_'+product.id">
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="prodButton" id="{{product.name}}EditActive" (click)="modifyProduct(product.id)">
+                <button mat-raised-button class="prodButton" id="{{product.name}}EditActive" (click)="$event.stopPropagation(); modifyProduct(product.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-raised-button class="deleteButton" (click)="deleteProduct(product)">
+                <button mat-raised-button class="deleteButton" (click)="$event.stopPropagation(); deleteProduct(product)">
                   <mat-icon> delete_forever </mat-icon>
                 </button>
                 <mat-panel-title>
@@ -163,10 +163,10 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="prodButton" id="{{product.name}}EditNoActive" (click)="modifyProduct(product.id)">
+                <button mat-raised-button class="prodButton" id="{{product.name}}EditNoActive" (click)="$event.stopPropagation(); modifyProduct(product.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-raised-button class="deleteButton" (click)="activeProduct(product)">
+                <button mat-raised-button class="deleteButton" (click)="$event.stopPropagation(); activeProduct(product)">
                   <mat-icon>check_circle</mat-icon>
                 </button>
                 <mat-panel-title>
