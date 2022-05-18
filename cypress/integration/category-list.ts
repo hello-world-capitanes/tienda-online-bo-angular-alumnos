@@ -12,28 +12,40 @@ describe('Category list test section', () => {
   it('Disable category and see if Product dont have it listed', () => {
 
 
+    /* ####### DEPENDS OF CATEGORY: LIMPIEZA SET TO ACTIVE  ########## */
+    const productTestId = '6SPRbZPGUA0V6pbM3ClU';
+    const categoryTestId = 'kSVchlEW4mvqZWKndxgL';
+    const categoryTestName = 'Limpieza';
+
     cy.get('#Categories', {
       timeout: 5000,
     }).should('be.visible');
 
     cy.get('#Categories').click();
-    cy.get('#LimpiezaEditNoActive .mat-icon').click();
+    cy.get(`[data-category-name = "editActiveCategory${categoryTestName}"]`).click();
     cy.get('.mat-list-item:nth-child(6) > .mat-list-item-content').click();
     cy.get('#Products').click();
-    cy.get('#EstropajoExpansionPanel > .mat-list-item-content').click();
 
-     cy.get('#Limpiezachip', {
+    cy.get(`[data-product-id = "expansion_${productTestId}"]`, {
+      timeout: 5000,
+    }).should('be.visible');
+
+    cy.get(`[data-product-id = "expansion_${productTestId}"]`).click();
+
+    cy.get(`[data-product-id = "categories_${productTestId}_${categoryTestId}"]`, {
       timeout: 5000,
     }).should('not.exist');
 
-    cy.get('#Categories > .mat-line').click();
-    cy.get('#LimpiezaEditActive .mat-icon').click();
-    cy.get('#Products > .mat-icon').click();
-    cy.get('#EstropajoExpansionPanel > .mat-list-item-content').click();
+    cy.get('#Categories').click();
+    cy.get(`[data-category-name = "editActiveCategory${categoryTestName}"]`).click();
+    cy.get('#Products').click();
 
-    cy.get('#Limpiezachip', {
+    cy.get(`[data-product-id = "expansion_${productTestId}"]`).click();
+
+    cy.get(`[data-product-id = "categories_${productTestId}_${categoryTestId}"]`, {
       timeout: 5000,
     }).should('exist');
+
   });
 
   afterEach(function() {

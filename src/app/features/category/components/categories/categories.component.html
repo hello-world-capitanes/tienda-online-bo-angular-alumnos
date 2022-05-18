@@ -61,10 +61,10 @@
         >
           <mat-expansion-panel-header *ngIf="category.active===true" class="category">
             <div class="info">
-              <button mat-raised-button class="prodButton" id="{{category.name}}EditActive" (click)="$event.stopPropagation(); modifyCategory(category.id)">
+              <button mat-raised-button class="prodButton" [attr.data-category-name] = "'modifyCategory'+category.name" (click)="$event.stopPropagation(); modifyCategory(category.id)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-raised-button class="prodButton" id="{{category.name}}EditNoActive" (click)="$event.stopPropagation(); deleteCategory(category)">
+              <button mat-raised-button class="prodButton" [attr.data-category-name] = "'editActiveCategory'+category.name" (click)="$event.stopPropagation(); deleteCategory(category)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
@@ -105,10 +105,10 @@
         >
           <mat-expansion-panel-header *ngIf="category.active===false" class="category">
             <div class="info">
-              <button mat-raised-button class="prodButton" id = "{{category.name}}EditInactive" (click)="modifyCategory(category.id)">
+              <button mat-raised-button class="prodButton" [attr.data-category-name] = "'modifyCategory'+category.name"  (click)="modifyCategory(category.id)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-raised-button class="prodButton" id = "{{category.name}}EditActive" (click)="$event.stopPropagation(); activeCategory(category)">
+              <button mat-raised-button class="prodButton" [attr.data-category-name] = "'editActiveCategory'+category.name"  (click)="$event.stopPropagation(); activeCategory(category)">
                 <mat-icon> autorenew </mat-icon>
               </button>
               <mat-panel-title>
