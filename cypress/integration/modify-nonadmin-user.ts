@@ -18,6 +18,7 @@ describe('Modify nonadmin user', () => {
     cy.get('#surnameModifyUser').type("CambioSurnameee")
     cy.get('#modifyEnabled').click();
     cy.get('#modifyUser').submit();
+    cy.get('#logoutButton').click();
   })
 
 })
