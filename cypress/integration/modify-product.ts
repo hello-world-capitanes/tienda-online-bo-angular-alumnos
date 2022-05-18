@@ -22,7 +22,7 @@ describe('Modify product', () => {
     cy.get('#modifyProduct', {
       timeout: 5000,
     }).should('be.visible');
-    cy.get('#price').click().clear();
+    cy.get('#price').clear();
     cy.get('#price').type('40');
     cy.get('#modifyEnabled').click();
   });

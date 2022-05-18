@@ -12,9 +12,9 @@ describe('Modify nonadmin user', () => {
     cy.get('#loginButton').click();
     //cy.visit('http://localhost:4200/home');
     cy.get('#BGShudOwwyCEJCmMj39qEditActive').click();
-    cy.get('#nameModifyUser').click().clear();
+    cy.get('#nameModifyUser').clear();
     cy.get('#nameModifyUser').type("CambioNameee")
-    cy.get('#surnameModifyUser').click().clear();
+    cy.get('#surnameModifyUser').clear();
     cy.get('#surnameModifyUser').type("CambioSurnameee")
     cy.get('#modifyEnabled').click();
     cy.get('#modifyUser').submit();
