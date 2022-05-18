@@ -82,8 +82,8 @@ export class CategoriesComponent implements OnInit {
     }
 
     let category = new Category(
-      this.categoryForm.get('name')?.value,
       this.categoryForm.get('id')?.value,
+      this.categoryForm.get('name')?.value,
       this.categoryForm.get('description')?.value,
       true
     );
