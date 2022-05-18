@@ -137,7 +137,7 @@ export class ShopService extends FirestoreService {
   }
 
   async desactivateShop(shop: Shop): Promise<any> {
-    return this.getCollection().doc(shop.id).update({ active: true });
+    return this.getCollection().doc(shop.id).update({ active: false });
   }
 
   private async applyStock(
