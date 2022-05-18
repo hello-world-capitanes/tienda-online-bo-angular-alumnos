@@ -1,5 +1,9 @@
+import { ModifyUserComponent } from './../modify-user/modify-user.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UserService } from './../../service/user.service';
 import { User } from './../../models/user.model';
 import { Component } from '@angular/core';
+import { identity } from 'cypress/types/lodash';
 
 @Component({
   selector: 'app-list-user',
@@ -9,34 +13,35 @@ import { Component } from '@angular/core';
 export class ListUserComponent {
   panelOpenState = false;
 
-  users: User[] = [
-    new User('Raúl', 'Pradanas Martín', 'rp@gmail.com', 'hola12345'),
-    new User('Raúl', 'Bravo', 'rb@gmail.com', 'hola'),
-    new User('Fernando', 'Te queremos', 'helloworld@gmail.com', 'hola'),
-  ];
+  users!: User[];
 
-  addUser(nuevoUser: User) {
-    if (!!nuevoUser) {
-      if (this.findByEmail(nuevoUser)) {
-        alert('Este usuario ya está dado de alta');
-      } else {
-        this.users.push(nuevoUser);
-      }
-    } else {
-      alert('Datos introducidos no válidos');
-    }
+  constructor(
+    private userService: UserService,
+    private matDialog: MatDialog
+  ){
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = (!!users && users.length > 0 ? users : [])
+    })
   }
 
-  findByEmail(nUser: User) {
-    return this.users.find((user) => {
-      if (user.email === nUser.email) {
-        return true;
-      }
-      return false;
-    });
+  deleteUser(user: User){
+    this.userService.deleteUser(user)
   }
 
-  deleteUser(user: User): void {
-    this.users.splice(this.users.indexOf(user), 1);
+  activateUser(user: User){
+    this.userService.activateUser(user)
+  }
+
+  modifyUser(user: User){
+    const dialogRef = this.matDialog.open(ModifyUserComponent, {
+      width: '350px',
+      data: {
+        id: user.id,
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        active: user.active,
+      }
+    })
   }
 }

@@ -1,3 +1,4 @@
+import { ModifyUserComponent } from './components/modify-user/modify-user.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -20,7 +21,8 @@ import {RouterModule} from '@angular/router';
   declarations: [
     FormUserComponent,
     ListUserComponent,
-    UserComponent
+    UserComponent,
+    ModifyUserComponent
   ],
   imports: [
     CommonModule,
