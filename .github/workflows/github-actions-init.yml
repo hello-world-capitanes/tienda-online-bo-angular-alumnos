@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Cypress run
-        uses: cypress-io/github-action@v2.9.7
+        uses: cypress-io/github-action@v2
         with:
           start: npm run start
           # quote the url to be safe against YML parsing surprises
@@ -31,12 +31,9 @@ jobs:
           record: true
           parallel: true
           group: "UI - Chrome"
-          spec: cypress/integration/*
         env:
-          # pass the Dashboard record key as an environment variable
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass the project ID from the secrets through environment variable
-          CYPRESS_PROJECT_ID: ${{ secrets.CY_PROJECT_ID }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Cypress variables
