@@ -30,7 +30,7 @@ describe('ShopService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ShopService);
-    newShop = new Shop('id', 'name', new Address('', '', '', 0, '0'), true, []);
+    newShop = new Shop('id', 'test38712', new Address('', '', '', 0, '0'), true, []);
     newShopWithProducts = new Shop(
       'idTest',
       'test',
@@ -54,9 +54,12 @@ describe('ShopService', () => {
   });
 
   it('Deactivate shop', async () => {
+
     if (!!newShop) {
+
+
       newShop = await service.addShop(newShop);
-      await service.deActivateShop(newShop);
+      await service.deActivateShop(newShop);console.log('hola');
       newShop = await service.getShop(newShop.name);
 
       expect(newShop.active).toBeFalse();
