@@ -23,15 +23,14 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2.9.7
         with:
-          browser: chrome
-          record: true
-          parallel: true
           start: npm run start
           # quote the url to be safe against YML parsing surprises
-          wait-on: 'http://localhost:4200'
+          wait-on: "http://localhost:4200"
           # wait for 6 minutes for the server to respond
           wait-on-timeout: 360
-          group: 'UI - Chrome'
+          record: true
+          parallel: true
+          group: "UI - Chrome"
           spec: cypress/integration/*
         env:
           # pass the Dashboard record key as an environment variable
