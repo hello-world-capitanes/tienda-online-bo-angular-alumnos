@@ -80,16 +80,12 @@ export class ProductService extends FirestoreService{
 
       let products = product as Product[];
 
-
       products.map( async product => {
         if (product.categories){
           for (let i = 0; i < product.categories.length ; i++) {
-            console.log(i);
-
             const result = await this.categoryService.categoryExistsById(product.categories[i]);
-            console.log(i);
+
             if ( result !== undefined){
-              console.log(result.name);
               product.categories[i] = result;
             }
           }

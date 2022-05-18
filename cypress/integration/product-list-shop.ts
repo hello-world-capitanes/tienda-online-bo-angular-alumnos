@@ -56,9 +56,11 @@ describe('Modify stock', () => {
 
     const productId = '115rz26jYchbNq4ap896';
     const categoryId = '5oIil7tlHyKeA8ifiSw0';
+
     cy.get(`[data-product-id="expansion_${productId}"]`, {
       timeout: 5000,
     }).should('be.visible');
+
     cy.get(`[data-product-id="expansion_${productId}"]`).click();
     cy.get(`[data-product-id="select_${productId}"]`).click();
     cy.get(`[data-product-id="option_${categoryId}"]`).click();
