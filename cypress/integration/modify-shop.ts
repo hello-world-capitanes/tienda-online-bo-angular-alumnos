@@ -25,9 +25,9 @@ describe('Modify-shop', function() {
     cy.get('#Shops > .mat-line').click();
     cy.get('#editShopmercadona').click();
     //cy.get('#mat-dialog-2').click();
-    cy.get('#location').clear();
+    cy.get('#location').click().clear();
     cy.get('#location').type('location');
-    cy.get('#street').clear();
+    cy.get('#street').click().clear();
     cy.get('#street').type('calle');
     cy.get('#modifyEnabled').click();
     cy.get('#modifyShopForm').submit();
