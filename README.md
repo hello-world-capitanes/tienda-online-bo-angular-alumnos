@@ -1,5 +1,18 @@
 # TiendaOnlineBoAngularAlumnos
 
+## Environments
+### develop
+#### Code Review
+[![codebeat badge](https://codebeat.co/badges/b5a48d84-60f0-4a2c-a8ac-1f2e0064ef12)](https://codebeat.co/projects/github-com-hello-world-capitanes-tienda-online-bo-angular-alumnos-develop)
+#### e2e testing
+[![tienda-online-bo-angular-alumnos](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/35npwp/develop&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/35npwp/runs)
+
+### master
+#### Code Review
+[![codebeat badge](https://codebeat.co/badges/b5a48d84-60f0-4a2c-a8ac-1f2e0064ef12)](https://codebeat.co/projects/github-com-hello-world-capitanes-tienda-online-bo-angular-alumnos-master)
+#### e2e testing
+[![tienda-online-bo-angular-alumnos-PROD](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/1i25q3/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/1i25q3/runs)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
 
 ## Development server
