@@ -73,7 +73,7 @@
     <div *ngIf="product.active === true">
       <div class="containerProd">
         <mat-accordion>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [attr.data-product-id]="'expansion_'+product.id">
             <mat-expansion-panel-header>
               <div class="info">
                 <button mat-raised-button class="prodButton" id="{{product.name}}EditActive" (click)="modifyProduct(product.id)">
@@ -111,7 +111,7 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor="let category of product.categories">
+                      <mat-chip *ngFor="let category of product.categories" [attr.data-product-id]="'categories_'+product.id+'_'+category.id">
                         {{category.name}}
                         <button matChipRemove>
                           <mat-icon matChipRemove>cancel</mat-icon>
@@ -120,7 +120,7 @@
                     </mat-chip-list>
                   </mat-list-item>
                 </mat-list>
-                <button mat-button class ='prodButton' (click)="addCategory(product)">Add category</button>
+                <button mat-button class ='prodButton' (click)="addCategory(product)" [attr.data-product-id]="'addCategory_'+product.id">Add category</button>
               </div>
               <div class="segundaColOculta">
                 <mat-list role="list">
@@ -139,10 +139,10 @@
                     </span>
                   </mat-list-item>
                 </mat-list>
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" [attr.data-product-id]="'select_'+product.id">
                   <mat-label>Select Category</mat-label>
                   <mat-select [(value)]="selected">
-                    <mat-option *ngFor="let category of categories" [value]="category">
+                    <mat-option *ngFor="let category of categories" [value]="category" [attr.data-product-id]="'option_'+category.id">
                       {{category.name}}
                     </mat-option>
                   </mat-select>
@@ -198,7 +198,7 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor="let category of product.categories">
+                      <mat-chip *ngFor="let category of product.categories" [attr.data-product-id]="'categories_'+product.id+'_'+category.id">
                         {{category.name}}
                         <button matChipRemove>
                           <mat-icon matChipRemove>cancel</mat-icon>
@@ -207,7 +207,7 @@
                     </mat-chip-list>
                   </mat-list-item>
                 </mat-list>
-                <button mat-button class ='prodButton' (click)="addCategory(product)">Add category</button>
+                <button mat-button class ='prodButton' (click)="addCategory(product)" [attr.data-product-id]="'addCategory_'+product.id">Add category</button>
               </div>
               <div class="segundaColOculta">
                 <mat-list role="list">
@@ -229,7 +229,7 @@
                 <mat-form-field appearance="fill">
                   <mat-label>Select Category</mat-label>
                   <mat-select [(value)]="selected">
-                    <mat-option *ngFor="let category of categories" [value]="category">
+                    <mat-option *ngFor="let category of categories" [value]="category" [attr.data-product-id]="'option_'+category.id">
                       {{category.name}}
                     </mat-option>
                   </mat-select>
