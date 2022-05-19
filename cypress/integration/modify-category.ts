@@ -1,28 +1,28 @@
-describe('Modify category', () => {
-  const usuarioCorrecto = 'admin@gmail.com';
-  const passwordCorrecta = 'Admin1234#';
+describe('Modify-category', function() {
 
-  beforeEach(function () {
+  const usuarioCorrecto = "admin@gmail.com";
+  const passwordCorrecta = "Admin1234#";
+
+  beforeEach(function(){
     cy.visit('http://localhost:4200/sign-in');
-    cy.get('#mat-input-0').type(usuarioCorrecto);
-    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#emailInput').type(usuarioCorrecto);
+    cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
-  });
+    cy.get('#Categories > .mat-line').click();
+  })
 
   afterEach(function() {
     cy.get('#logoutButton').click();
+    cy.reload();
   });
 
-  it('Modify category with correct data', () => {
-    cy.get('#Categories > .mat-line').click();
-    cy.get('#AceitesEditActive', {
-      timeout: 5000,
-    }).should('be.visible');
-    cy.get('#AceitesEditActive').click();
-    cy.get('#modifyCategory', {
-      timeout: 5000,
-    }).should('be.visible');
-    cy.get('#description').type('Origen España');
+  it("Modificar datos de tienda",function() {
+    cy.get('#editAceites').click();
+    //cy.get('#mat-dialog-2').click();
+    cy.get('#description').click().clear();
+    cy.get('#description').type('Nueva descripción');
     cy.get('#modifyEnabled').click();
+    cy.get('#modifyCategory').submit();
   });
-});
+
+})

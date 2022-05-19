@@ -45,3 +45,4 @@ describe('Modify stock', () => {
       cy.get('#logoutButton').click();
   });
 });
+

@@ -18,7 +18,8 @@
   <div class="container">
       <mat-form-field class="formContainer">
         <mat-label>Description</mat-label>
-        <input matInput id="description" formControlName="description" type="text" />
+        <input matInput id="description" formControlName="description" type="text" 
+        [attr.data-category-id]="'input_'+categories"/>
         <mat-error
           *ngIf="
           modifyCategoryForm.get('description')?.errors &&
