@@ -15,13 +15,22 @@ describe('Modify product', () => {
 
   it('Modify product with correct data', () => {
     cy.get('#Products > .mat-line').click();
-    cy.get('#DonutsEditActive', {
+
+    const productTestId = '10H5bKRT2wQvtAVppfov';
+    const productTestName = 'Donuts';
+
+    cy.get(`[data-product-id = "expansion_${productTestId}"]`, {
       timeout: 5000,
     }).should('be.visible');
-    cy.get('#DonutsEditActive').click();
-    cy.get('#modifyProduct', {
+
+    cy.get(`[data-product-id = "expansion_${productTestId}"]`).click();
+
+    cy.get(`[data-product-id = "edit${productTestName}"]`, {
       timeout: 5000,
     }).should('be.visible');
+
+    cy.get(`[data-product-id = "edit${productTestName}"]`).click();
+
     cy.get('#price').click().clear();
     cy.get('#price').type('40');
     cy.get('#modifyEnabled').click();
