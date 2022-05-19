@@ -21,7 +21,6 @@ describe('Modify-shop', function() {
 
   afterEach(function() {
     cy.get('#logoutButton').click();
-    cy.reload();
   });
 
   it("Modificar datos de tienda",function() {

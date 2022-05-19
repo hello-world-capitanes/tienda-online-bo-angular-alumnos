@@ -6,8 +6,8 @@
 // https://on.cypress.io/writing-first-test
 
 describe('Inicio de sesión', function() {
-  const usuarioCorrecto = "admin@gmail.com";
-  const usuarioCorrecto2 = "admin2@gmail.com";
+  const usuarioCorrecto = "bueno@correo.com";
+  const usuarioCorrecto2 = "admin@gmail.com";
   const passwordCorrecta = "Admin1234#";
 
   beforeEach(function(){
@@ -30,7 +30,6 @@ describe('Inicio de sesión', function() {
     cy.get('#emailInput').type(usuarioCorrecto2);
     cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
-    cy.get('#sidenav').should('be.visible');
     cy.get('#sidenav').should('be.visible');
     cy.get('#logoutButton').click();
   });
