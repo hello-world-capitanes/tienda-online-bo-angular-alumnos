@@ -112,12 +112,12 @@
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
                       <ng-container *ngFor = "let category of product.categories">
-                        <mat-chip class = "matChipCategory" *ngIf = "category.active" [attr.data-product-id] = "'categories_'+product.id+'_'+category.id">
+                        <mat-chip class = "matChipCategory" *ngIf = "category.active" [attr.data-product-id] = "'categories_'+product.id+'_'+category.id" (removed)="removeCategory(product,category)">
                             <span>
                               {{ category.name }}
                             </span>
                             <button matChipRemove>
-                              <mat-icon matChipRemove>cancel</mat-icon>
+                              <mat-icon matChipRemove [attr.data-product-id]="'removeCategory_'+product.id+'_'+category.id">cancel</mat-icon>
                             </button>
                         </mat-chip>
                       </ng-container>
@@ -203,12 +203,12 @@
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
                       <ng-container *ngFor = "let category of product.categories">
-                        <mat-chip *ngIf = "category.active" [attr.data-product-id]="'categories_'+product.id+'_'+category.id">
+                        <mat-chip *ngIf = "category.active" [attr.data-product-id]="'categories_'+product.id+'_'+category.id" (removed)="removeCategory(product,category)">
                             <span>
                               {{ category.name }}
                             </span>
                             <button matChipRemove>
-                              <mat-icon matChipRemove>cancel</mat-icon>
+                              <mat-icon matChipRemove [attr.data-product-id]="'removeCategory_'+product.id+'_'+category.id">cancel</mat-icon>
                             </button>
                         </mat-chip>
                       </ng-container>

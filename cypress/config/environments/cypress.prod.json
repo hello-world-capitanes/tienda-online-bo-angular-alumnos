@@ -1,0 +1,6 @@
+{
+  "baseUrl": "https://tienda-online-mercadona-prod.web.app",
+  "env": {
+    "language": "es-ES"
+  }
+}

@@ -1,0 +1,39 @@
+name: End-to-end tests
+on:
+  push:
+    branches:
+      - "develop"
+      - "master"
+  pull_request:
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node:version: "14"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm run start
+          # quote the url to be safe against YML parsing surprises
+          wait-on: "http://localhost:4200"
+          # wait for 6 minutes for the server to respond
+          wait-on-timeout: 360
+          record: false
+        env:
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Cypress variables
+          CYPRESS_regular_user_username: ${{ secrets.CYPRESS_regular_user_username }}
+          CYPRESS_regular_user_password: ${{ secrets.CYPRESS_regular_user_password }}
