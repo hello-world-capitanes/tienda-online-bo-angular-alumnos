@@ -3,14 +3,14 @@
     <span>Sign up</span>
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input type="text" matInput formControlName="email" />
+      <input type="text" matInput formControlName="email" id="emailInput"/>
       <mat-error>Invalid field</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="password"/>
+      <input type="password" matInput formControlName="password" id="passwordInput"/>
       <mat-error>Invalid field</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="signUpAdmin()">Sign up</button>
+    <button mat-raised-button color="primary" (click)="signUpAdmin()" id="addAdminButton">Sign up</button>
   </form>
 </div>
