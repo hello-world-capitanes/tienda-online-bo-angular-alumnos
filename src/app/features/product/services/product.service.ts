@@ -65,11 +65,28 @@ export class ProductService extends FirestoreService {
     throw new Error();
   }
 
-  removeCategory(product: Product, category: Category) {
-    let categorieList = this.getCollection()
-      .doc(product.id)
-      .collection('categories');
+
+  removeCategory(product:Product, category:Category){
+    if(!product){
+      throw new Error('Product has not been introduced');
+    }
+    if(!category){
+      throw new Error('Category has not been introduced');
+    }
+    let newCategories:Category[] = product.categories;
+    let index = -1;
+    for(let i = 0; i<newCategories.length;i++){
+      if(newCategories[i].id===category.id){
+        index = i;
+      }
+    }
+    if(index===-1){
+      throw new Error("Category not found");
+    }
+    newCategories.splice(index,1);
+    return this.getCollection().doc(product.id).update({categories: newCategories });
   }
+
 
   getAllProducts(): Observable<Product[]> {
     return this.getCollection()
@@ -165,22 +182,18 @@ export class ProductService extends FirestoreService {
     }
     throw new Error();
   }
-  async addCategory(product: Product, category: Category) {
-    if (!product) {
+  addCategory(product:Product,category:Category){
+    if(!product){
       throw new Error('Product has not been introduced');
     }
     if (!category) {
       throw new Error('Category has not been introduced');
     }
-
-    if (product.categories.includes(category)) {
-      throw new Error('Category already exists into product');
-
+    if(product.categories.find(cat => {if(category.id === cat.id){ return true} return false})){
+      throw new Error('Category already exists into product')
     }
     let newCategories: Category[] = product.categories;
     newCategories.push(category);
-    return await this.getCollection()
-      .doc(product.id)
-      .update({ categories: newCategories });
+    return this.getCollection().doc(product.id).update({categories: newCategories });
   }
 }

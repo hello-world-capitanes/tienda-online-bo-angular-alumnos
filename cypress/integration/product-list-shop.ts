@@ -1,3 +1,5 @@
+import { TimeoutError } from "cypress/types/bluebird";
+
 describe('Modify stock', () => {
   const usuarioCorrecto = 'admin@gmail.com';
   const passwordCorrecta = 'Admin1234#';
@@ -65,5 +67,20 @@ describe('Modify stock', () => {
     cy.get(`[data-product-id="addCategory_${productId}"]`).click();
     cy.get(`[data-product-id="categories_${productId}_${categoryId}"]`).contains('Bollería');
 
+  });
+
+  it('Remove Category to product', () => {
+
+    cy.get('#Products').click();
+
+    const productId = '115rz26jYchbNq4ap896';
+    const categoryId = '5oIil7tlHyKeA8ifiSw0';
+    cy.get(`[data-product-id="expansion_${productId}"]`, {
+      timeout: 5000,
+    }).should('be.visible');
+    cy.get(`[data-product-id="expansion_${productId}"]`).click();
+    cy.get(`[data-product-id="removeCategory_${productId}_${categoryId}"]`).click().wait(1000);
+    cy.get(`[data-product-id="expansion_${productId}"]`).click();
+    //TODO cy.contains(`[data-product-id="categories_${productId}_${categoryId}"]`).should('.not.exist');
   });
 });
