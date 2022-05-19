@@ -117,7 +117,7 @@
                               {{ category.name }}
                             </span>
                             <button matChipRemove>
-                              <mat-icon matChipRemove>cancel</mat-icon>
+                              <mat-icon matChipRemove [attr.data-product-id]="'removeCategory_'+product.id+'_'+category.id">cancel</mat-icon>
                             </button>
                         </mat-chip>
                       </ng-container>
@@ -208,7 +208,7 @@
                               {{ category.name }}
                             </span>
                             <button matChipRemove>
-                              <mat-icon matChipRemove>cancel</mat-icon>
+                              <mat-icon matChipRemove [attr.data-product-id]="'removeCategory_'+product.id+'_'+category.id">cancel</mat-icon>
                             </button>
                         </mat-chip>
                       </ng-container>
