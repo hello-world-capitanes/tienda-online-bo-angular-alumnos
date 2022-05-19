@@ -1,12 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { elementAt } from 'rxjs';
 import { Product } from 'src/app/features/product/models/product-models';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { ProductService } from 'src/app/features/product/services/product.service';
+import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
 import { Shop } from '../../models/shop.model';
 import { ShopService } from '../../shop.service';
 import { ShopsListComponent } from '../shops-list/shops-list.component';
@@ -31,7 +34,8 @@ export class ModifyProductsShopComponent implements OnInit {
   constructor(
     private shopService: ShopService,
     private productService: ProductService,
-    public dialogRef: MatDialogRef<ShopsListComponent>
+    public dialogRef: MatDialogRef<ShopsListComponent>,
+    public snackBar: MatSnackBar
   ) {
     this.shopService
       .getShop(shopService.selectedShopSeeProducts)
@@ -87,43 +91,33 @@ export class ModifyProductsShopComponent implements OnInit {
   loadProducts() {
     this.productService.getProducts().then((prodList) => {
       if (!!prodList) {
-        let productActive: Product[] = [];
         this.showProducts = prodList;
-        this.showProducts.map((element) => {
-          if (element.active || this.productInShop(element.id)) {
-            productActive.push(element);
-          }
-        });
-        if (productActive.length > 0) {
-          this.dataSource = new MatTableDataSource(productActive);
+        if (this.showProducts.length > 0) {
+          this.dataSource = new MatTableDataSource(this.showProducts);
         }
       }
     });
   }
 
-  toggle(id: string) {
-    if (!!id) {
-      this.finalProducts.map((prod) => {
-        if (prod === id) {
-          this.finalProducts.splice(this.finalProducts.indexOf(prod), 1);
-        } else {
-          this.finalProducts.push(id);
-        }
-      });
+  toggle(ob: MatCheckboxChange, id: string) {
+    if (!!id && id.length > 0) {
+      const productIndex = this.finalProducts?.indexOf(id);
+
+      if (Number.isNaN(productIndex) || productIndex < 0) {
+        this.finalProducts.push(id);
+      } else {
+        this.finalProducts.splice(productIndex, 1);
+      }
     }
   }
 
   modifyProductsShop(finalProducts: string[], id: string) {
-    this.finalProducts.map((prod) => {
-      let product!: Product;
-      this.productService.findById(prod).then((prod) => {
-        if (!!prod) {
-          product = prod;
-        }
-        if (!!product) {
-          this.shopService.addProductToShop(product, id);
-        }
-      });
-    });
+    if(finalProducts.length === 0){
+      throw Error('Any product selected')
+    }
+    if(!id){
+      throw Error('Invalid id of a shop');
+    }
+    this.shopService.addProductToShop(finalProducts,id);
   }
 }
