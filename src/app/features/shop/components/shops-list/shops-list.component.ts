@@ -58,7 +58,7 @@ export class ShopsListComponent implements OnInit {
   openProductList(shop: Shop){
     this.shopService.setSelectedShopSeeProducts(shop.name);
     const dialogRef = this.dialog.open(ProductsListShopComponent,{
-      height:'400px',
+      height:'600px',
       width: '60%'
     });
 

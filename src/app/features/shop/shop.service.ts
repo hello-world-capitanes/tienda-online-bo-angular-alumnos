@@ -195,9 +195,6 @@ export class ShopService extends FirestoreService {
           });
         }
       }
-      if (p?.stock === 0) {
-        products.splice(products.indexOf(p), 1);
-      }
       return products;
     }
     throw Error('Error changing stock of a product');
@@ -250,7 +247,7 @@ export class ShopService extends FirestoreService {
             throw Error('Product undefined');
           }
           if(p.active){
-            newProducts.push(new ProductStock(p,1));
+            newProducts.push(new ProductStock(p,0));
           }
           else{
             this.snackBar.openFromComponent(SnackBarMessageComponent, {

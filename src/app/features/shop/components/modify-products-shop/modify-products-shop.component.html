@@ -74,7 +74,7 @@
     mat-raised-button
     color="accent"
     class="acceptButton"
-    (click)="modifyProductsShop(finalProducts, shop.id)"
+    (click)="$event.stopPropagation(); modifyProductsShop(finalProducts, shop.id)"
   >
     Aceptar
   </button>
