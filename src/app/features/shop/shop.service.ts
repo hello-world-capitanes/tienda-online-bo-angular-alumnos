@@ -234,4 +234,24 @@ export class ShopService extends FirestoreService {
     }
     throw new Error('Shop id is not valid or undefined');
   }
+
+  async addProductToShop(prod:Product, id:string){
+    if(!!prod){
+      let products: ProductStock[] = [];
+      this.getShopProducts().then(prods => {
+        if (!!prods) {
+          products = prods;
+        }
+        products.push(new ProductStock(prod,100));
+      })
+      
+      const finalProducts = products.map((prod) => {
+        return {
+          id: prod.product.id,
+          stock: prod.stock,
+        } as ProductShopFirebase;
+      });
+      this.applyStock(finalProducts, id);
+    }
+  }
 }

@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { elementAt } from 'rxjs';
 import { Product } from 'src/app/features/product/models/product-models';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { ProductService } from 'src/app/features/product/services/product.service';
@@ -22,6 +23,7 @@ export class ModifyProductsShopComponent implements OnInit {
   shop!: Shop;
   showProducts!: Product[];
   shopProducts!: ProductStock[];
+  finalProducts: string[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -37,26 +39,19 @@ export class ModifyProductsShopComponent implements OnInit {
         this.shop = shop;
       });
 
-    this.productService.getProducts().then((prodList) => {
-      if (!!prodList) {
-        let productActive:Product[] = [];
-        this.showProducts = prodList;
-        this.showProducts.map( element => {
-          if(element.active){
-            productActive.push(element);
-          }
-        })
-        if (productActive.length > 0) {
-          this.dataSource = new MatTableDataSource(productActive);
+    this.shopService.getShopProducts().then((prods) => {
+      if (!!prods) {
+        this.shopProducts = prods;
+        if (this.shopProducts.length > 0) {
+          this.shopProducts.map((element) => {
+            if (!!element) {
+              this.finalProducts.push(element.product.id);
+            }
+          });
         }
       }
+      this.loadProducts();
     });
-
-    this.shopService.getShopProducts().then(prods => {
-      if(!!prods){
-        this.shopProducts = prods
-      }
-    })
   }
 
   ngOnInit(): void {
@@ -77,15 +72,58 @@ export class ModifyProductsShopComponent implements OnInit {
     }
   }
 
-  productInShop(id:string){
-    if(!!id && !!this.shopProducts){
-      return this.shopProducts.find( prods => {
-        if(prods.product.id === id){
+  productInShop(id: string) {
+    if (!!id && !!this.shopProducts) {
+      return this.shopProducts.find((prods) => {
+        if (prods.product.id === id) {
           return true;
         }
         return false;
-      })
+      });
     }
     return false;
+  }
+
+  loadProducts() {
+    this.productService.getProducts().then((prodList) => {
+      if (!!prodList) {
+        let productActive: Product[] = [];
+        this.showProducts = prodList;
+        this.showProducts.map((element) => {
+          if (element.active || this.productInShop(element.id)) {
+            productActive.push(element);
+          }
+        });
+        if (productActive.length > 0) {
+          this.dataSource = new MatTableDataSource(productActive);
+        }
+      }
+    });
+  }
+
+  toggle(id: string) {
+    if (!!id) {
+      this.finalProducts.map((prod) => {
+        if (prod === id) {
+          this.finalProducts.splice(this.finalProducts.indexOf(prod), 1);
+        } else {
+          this.finalProducts.push(id);
+        }
+      });
+    }
+  }
+
+  modifyProductsShop(finalProducts: string[], id: string) {
+    this.finalProducts.map((prod) => {
+      let product!: Product;
+      this.productService.findById(prod).then((prod) => {
+        if (!!prod) {
+          product = prod;
+        }
+        if (!!product) {
+          this.shopService.addProductToShop(product, id);
+        }
+      });
+    });
   }
 }
