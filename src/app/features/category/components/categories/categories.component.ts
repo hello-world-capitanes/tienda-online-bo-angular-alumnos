@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -37,17 +37,15 @@ export class CategoriesComponent implements OnInit {
   dataSourceActiveCategories!: MatTableDataSource<Category>;
   dataSourceDeActiveCategories!: MatTableDataSource<Category>;
 
-  lengthActiveCategories!: number;
-  lengthDeActiveCategories!: number;
-  pageSize = 10;
+  pageSize = 5;
 
   categoryExpanded: Category | null = null;
   columnsToDisplay: string[] = [ "edit", "active", "category-name", "expand"];
   pageSizeOptionsActiveCategories: number[] = [5, 10, 20, 50];
   pageSizeOptionsDeActiveCategories: number[] = [5, 10, 20, 50];
 
-  @ViewChild(MatPaginator, { static: true }) paginatorActiveCategories!: MatPaginator;
-  @ViewChild(MatPaginator, { static: true }) paginatorDeActiveCategories!: MatPaginator;
+  @ViewChild('matPaginatorActiveCategories') matPaginatorActiveCategories !: MatPaginator;
+  @ViewChild('matPaginatorDeactiveCategories') matPaginatorDeactiveCategories !: MatPaginator;
 
   // MatPaginator Output
   pageEventActiveCategories!: PageEvent;
@@ -65,9 +63,9 @@ export class CategoriesComponent implements OnInit {
           !!categoriesFromApi && categoriesFromApi.length > 0
             ? categoriesFromApi
             : [];
+
         this.dataSourceActiveCategories = new MatTableDataSource<Category>(this.activeCategories);
-        this.dataSourceActiveCategories.paginator = this.paginatorActiveCategories;
-        this.lengthActiveCategories = this.activeCategories.length;
+        this.dataSourceActiveCategories.paginator = this.matPaginatorActiveCategories;
     });
 
     this.deActiveCategoryListSub = this.categoryService
@@ -78,8 +76,7 @@ export class CategoriesComponent implements OnInit {
           ? categoriesFromApi
           : [];
       this.dataSourceDeActiveCategories = new MatTableDataSource<Category>(this.deActiveCategories);
-      this.dataSourceDeActiveCategories.paginator = this.paginatorDeActiveCategories;
-      this.lengthDeActiveCategories = this.deActiveCategories.length;
+      this.dataSourceDeActiveCategories.paginator = this.matPaginatorDeactiveCategories;
     });
 
     this.categoryForm = this.form.group({

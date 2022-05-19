@@ -83,7 +83,7 @@
 
     <!-- Expandable -->
     <ng-container matColumnDef = "expand-content">
-      <td mat-cell *matCellDef = "let category" [attr.colspan]="columnsToDisplay.length">
+      <td mat-cell *matCellDef = "let category" [attr.colspan] = "columnsToDisplay.length">
         <div class = "category-detail" [@detailExpand] = "category === categoryExpanded ? 'expanded' : 'collapsed'">
           <div class = "expansionContent">
             <div>
@@ -103,13 +103,13 @@
     <tr mat-row *matRowDef = "let row; columns: columnsToDisplay;"
     [class.expanded-row] = "categoryExpanded === row"
     (click) = "toggleCollapse(row)"></tr>
-    <tr mat-row *matRowDef = "let row; columns: ['expand-content'];" class="expanded-row-detail"></tr>
+    <tr mat-row *matRowDef = "let row; columns: ['expand-content'];" class = "expanded-row-detail"></tr>
   </table>
-  <mat-paginator [length] = "lengthActiveCategories" [pageSize] = "pageSize" [pageSizeOptions] = "pageSizeOptionsActiveCategories" (page) = "pageEventActiveCategories = $event" aria-label = "Select page"></mat-paginator>
+  <mat-paginator #matPaginatorActiveCategories [showFirstLastButtons] = true [pageSize] = "pageSize" [pageSizeOptions] = "pageSizeOptionsActiveCategories" (page) = "pageEventActiveCategories = $event" aria-label = "Select page"></mat-paginator>
 
   <br>
   <h1>Inactive categories</h1>
-<!--
+
   <table mat-table [dataSource] = "dataSourceDeActiveCategories" multiTemplateDataRows class = "data-column">
     <ng-container matColumnDef = "edit">
       <td mat-header-cell *matHeaderCellDef></td>
@@ -141,8 +141,8 @@
     </ng-container>
 
     <ng-container matColumnDef = "expand-content">
-      <td mat-cell *matCellDef = "let category" [attr.colspan]="columnsToDisplay.length">
-        <div class = "category-detail" [@detailExpand]="category === categoryExpanded ? 'expanded' : 'collapsed'">
+      <td mat-cell *matCellDef = "let category" [attr.colspan] = "columnsToDisplay.length">
+        <div class = "category-detail" [@detailExpand] = "category === categoryExpanded ? 'expanded' : 'collapsed'">
           <div class = "expansionContent">
             <div>
               <span class = "title-name"> Name: </span>
@@ -157,11 +157,11 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
-    [class.expanded-row]="categoryExpanded === row"
-    (click)="toggleCollapse(row)"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['expand-content'];" class="expanded-row-detail"></tr>
+    <tr mat-header-row *matHeaderRowDef = "columnsToDisplay"></tr>
+    <tr mat-row *matRowDef = "let row; columns: columnsToDisplay;"
+    [class.expanded-row] = "categoryExpanded === row"
+    (click) = "toggleCollapse(row)"></tr>
+    <tr mat-row *matRowDef = "let row; columns: ['expand-content'];" class = "expanded-row-detail"></tr>
   </table>
-  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptionsDeActiveCategories" (page)="pageEventDeActiveCategories = $event" aria-label="Select page"></mat-paginator> -->
+  <mat-paginator #matPaginatorDeactiveCategories [showFirstLastButtons] = true [pageSize] = "pageSize" [pageSizeOptions] = "pageSizeOptionsDeActiveCategories" (page) = "pageEventDeActiveCategories = $event" aria-label = "Select page"></mat-paginator>
 </mat-list>
