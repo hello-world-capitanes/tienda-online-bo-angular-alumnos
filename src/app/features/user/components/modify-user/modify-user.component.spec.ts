@@ -19,7 +19,4 @@ describe('ModifyUserComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });
