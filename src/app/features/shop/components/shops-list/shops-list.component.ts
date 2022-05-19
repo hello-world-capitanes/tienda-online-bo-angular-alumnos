@@ -42,7 +42,7 @@ export class ShopsListComponent implements OnInit {
       event.stopPropagation();
     }
 
-    this.shopService.deActivateShop(shop);
+    this.shopService.desactivateShop(shop);
   }
 
   activateShop(event: any, shop: Shop){
