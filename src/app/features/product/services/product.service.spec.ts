@@ -19,14 +19,12 @@ describe('ProductService', () => {
         MatSnackBarModule
       ],
 
-    })
-      .compileComponents();
-  }));
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
+    }).compileComponents();
+
     service = TestBed.inject(ProductService);
     newProduct = new Product("TESTING-PRODUCT", "TESTING-PRODUCT", "characteristics",123,"decription",[],"image", true);
-  });
+  }));
+
   afterEach(async () => {
     if (!!newProduct) {
       await service.permantlyDelete(newProduct.id);
