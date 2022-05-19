@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/features/product/models/product-models';
+import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { ProductService } from 'src/app/features/product/services/product.service';
 import { Shop } from '../../models/shop.model';
 import { ShopService } from '../../shop.service';
@@ -20,6 +21,7 @@ export class ModifyProductsShopComponent implements OnInit {
 
   shop!: Shop;
   showProducts!: Product[];
+  shopProducts!: ProductStock[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -36,15 +38,25 @@ export class ModifyProductsShopComponent implements OnInit {
       });
 
     this.productService.getProducts().then((prodList) => {
-      //this.isLoading = false;
       if (!!prodList) {
+        let productActive:Product[] = [];
         this.showProducts = prodList;
-        if (this.showProducts.length > 0) {
-          //this.isLoaded = true;
-          this.dataSource = new MatTableDataSource(this.showProducts);
+        this.showProducts.map( element => {
+          if(element.active){
+            productActive.push(element);
+          }
+        })
+        if (productActive.length > 0) {
+          this.dataSource = new MatTableDataSource(productActive);
         }
       }
     });
+
+    this.shopService.getShopProducts().then(prods => {
+      if(!!prods){
+        this.shopProducts = prods
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -63,5 +75,17 @@ export class ModifyProductsShopComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  productInShop(id:string){
+    if(!!id && !!this.shopProducts){
+      return this.shopProducts.find( prods => {
+        if(prods.product.id === id){
+          return true;
+        }
+        return false;
+      })
+    }
+    return false;
   }
 }
