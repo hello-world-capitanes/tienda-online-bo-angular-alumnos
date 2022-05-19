@@ -16,6 +16,7 @@ export class ProductsListShopComponent implements OnInit {
   shop!: Shop;
   showProducts!: ProductStock[];
   isLoaded = false;
+  isLoading = true;
   maxInput = SHOP_CONSTANTS.stock.max;
   minInput = SHOP_CONSTANTS.stock.min;
   stepInput = SHOP_CONSTANTS.stock.step;
@@ -32,10 +33,13 @@ export class ProductsListShopComponent implements OnInit {
       });
 
     this.shopService.getShopProducts().then((prodList) => {
+      this.isLoading = false;
       if (!!prodList) {
         this.showProducts = prodList;
+        if (this.showProducts.length > 0) {
+          this.isLoaded = true;
+        }
       }
-      this.isLoaded = true;
     });
   }
 
@@ -48,7 +52,12 @@ export class ProductsListShopComponent implements OnInit {
   changeStock(product: ProductStock, units: string, id: string) {
     if (!!product && (!!units || units === '0') && !!id) {
       let newStock = Number.parseInt(units);
-      return this.shopService.modifyStock(product, newStock, this.shop.id);
+      this.shopService.modifyStock(product, newStock, this.shop.id);
+      this.shopService.getShopProducts().then((prodList) => {
+        if (!!prodList) {
+          this.showProducts = prodList;
+        }
+      });
     }
     throw Error('Data invalid to change stock');
   }

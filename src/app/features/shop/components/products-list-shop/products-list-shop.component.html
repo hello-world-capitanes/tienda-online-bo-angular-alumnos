@@ -15,46 +15,56 @@
   <mat-divider></mat-divider>
 
   <ng-container
-    *ngIf="shop?.products && shop.products.length > 0 && isLoaded; else noProducts"
+    *ngIf="
+      isLoaded && !isLoading && showProducts.length > 0;
+      else productsLoaded
+    "
   >
     <mat-list role="list" *ngFor="let productStock of showProducts">
-      <div class="divImage">
-        <img src="{{productStock.product.image}}">
-      </div>
-      <div class="divStock">
-        <mat-list-item role="listitem"
-          >Name: {{ productStock.product.name }}
-        </mat-list-item>
+      <div class="divProduct" *ngIf="productStock.stock > 0">
+        <div class="divImage">
+          <img src="{{ productStock.product.image }}" />
+        </div>
+        <div class="divStock">
+          <mat-list-item role="listitem"
+            >Name: {{ productStock.product.name }}
+          </mat-list-item>
 
-        <span> Stock: </span>
-        <mat-form-field>
-          <mat-label>Units</mat-label>
-          <input
-            type="number"
-            matInput
-            [value]="productStock.stock"
-            #units
-            [step]="stepInput"
-            [min]="minInput"
-            [max]="maxInput"
-            class="stockInput"
-            [attr.data-product-id]="'input_'+productStock.product.id"
-          />
-        </mat-form-field>
-        <button
-          mat-raised-button
-          (click)="changeStock(productStock,units.value, shop.id)"
-          value="product"
-          class="stockButton"
-          [attr.data-product-id]="'button_'+productStock.product.id"
-        >
-          Apply Stock
-        </button>
+          <span> Stock: </span>
+          <mat-form-field>
+            <mat-label>Units</mat-label>
+            <input
+              type="number"
+              matInput
+              [value]="productStock.stock"
+              #units
+              [step]="stepInput"
+              [min]="minInput"
+              [max]="maxInput"
+              class="stockInput"
+              [attr.data-product-id]="'input_' + productStock.product.id"
+            />
+          </mat-form-field>
+          <button
+            mat-raised-button
+            (click)="changeStock(productStock, units.value, shop.id)"
+            value="product"
+            class="stockButton"
+            [attr.data-product-id]="'button_' + productStock.product.id"
+          >
+            Apply Stock
+          </button>
+        </div>
       </div>
       <mat-divider></mat-divider>
     </mat-list>
   </ng-container>
-  <ng-template #noProducts>
-    <span> The shop hasn`t got products</span>
+  <ng-template #productsLoaded>
+    <ng-container *ngIf="!isLoading && !isLoaded; else noProducts">
+      <span> The shop hasn`t got products</span>
+    </ng-container>
+    <ng-template #noProducts>
+      <mat-spinner></mat-spinner>
+    </ng-template>
   </ng-template>
 </div>

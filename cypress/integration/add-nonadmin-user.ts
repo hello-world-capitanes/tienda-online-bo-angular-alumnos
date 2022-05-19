@@ -28,5 +28,4 @@ describe ('Add user', () => {
       })
     })
   })
-
 })

@@ -1,9 +1,12 @@
 {
+  "projectId": "35npwp",
+  "baseUrl": "http://localhost:4200",
+  "viewportHeight": 1000,
+  "viewportWidth": 1280,
   "integrationFolder": "cypress/integration",
   "supportFile": "cypress/support/index.ts",
   "videosFolder": "cypress/videos",
   "screenshotsFolder": "cypress/screenshots",
   "pluginsFile": "cypress/plugins/index.ts",
-  "fixturesFolder": "cypress/fixtures",
-  "baseUrl": "http://localhost:4200"
+  "fixturesFolder": "cypress/fixtures"
 }

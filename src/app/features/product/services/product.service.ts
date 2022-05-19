@@ -122,18 +122,12 @@ export class ProductService extends FirestoreService{
         image: product.image,
         active: !!product?.active,
       };
-
       return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
         return productDB as Product;
       })
-
     } else{
-
       throw new Error();
     }
-
-
-
   }
 
   async modifyProduct(id: string, newProd: Product):Promise<any>{

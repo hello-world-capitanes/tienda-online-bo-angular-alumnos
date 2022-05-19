@@ -73,13 +73,13 @@
     <div *ngIf="product.active === true">
       <div class="containerProd">
         <mat-accordion>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [attr.data-product-id]="'expansion_'+product.id">
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="prodButton" id="{{product.name}}EditActive" (click)="modifyProduct(product.id)">
+                <button mat-raised-button class="prodButton" [attr.data-product-id] = "'edit' + product.name" (click)="$event.stopPropagation(); modifyProduct(product.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-raised-button class="deleteButton" (click)="deleteProduct(product)">
+                <button mat-raised-button class="deleteButton" (click)="$event.stopPropagation(); deleteProduct(product)">
                   <mat-icon> delete_forever </mat-icon>
                 </button>
                 <mat-panel-title>
@@ -111,16 +111,20 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor="let category of product.categories">
-                        {{category.name}}
-                        <button matChipRemove>
-                          <mat-icon matChipRemove>cancel</mat-icon>
-                        </button>
-                      </mat-chip>
+                      <ng-container *ngFor = "let category of product.categories">
+                        <mat-chip class = "matChipCategory" *ngIf = "category.active" [attr.data-product-id] = "'categories_'+product.id+'_'+category.id" (removed)="removeCategory(product,category)">
+                            <span>
+                              {{ category.name }}
+                            </span>
+                            <button matChipRemove>
+                              <mat-icon matChipRemove [attr.data-product-id]="'removeCategory_'+product.id+'_'+category.id">cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                      </ng-container>
                     </mat-chip-list>
                   </mat-list-item>
                 </mat-list>
-                <button mat-button class ='prodButton' (click)="addCategory(product)">Add category</button>
+                <button mat-button class ='prodButton' (click)="addCategory(product)" [attr.data-product-id]="'addCategory_'+product.id">Add category</button>
               </div>
               <div class="segundaColOculta">
                 <mat-list role="list">
@@ -139,10 +143,10 @@
                     </span>
                   </mat-list-item>
                 </mat-list>
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" [attr.data-product-id]="'select_'+product.id">
                   <mat-label>Select Category</mat-label>
                   <mat-select [(value)]="selected">
-                    <mat-option *ngFor="let category of categories" [value]="category">
+                    <mat-option *ngFor="let category of categories" [value]="category" [attr.data-product-id]="'option_'+category.id">
                       {{category.name}}
                     </mat-option>
                   </mat-select>
@@ -160,17 +164,17 @@
     <div *ngIf="product.active === false">
       <div class="containerProd">
         <mat-accordion>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="prodButton" id="{{product.name}}EditNoActive" (click)="modifyProduct(product.id)">
+                <button mat-raised-button class="prodButton" [attr.data-product-id] = "'edit' + product.name" (click)="$event.stopPropagation(); modifyProduct(product.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-raised-button class="deleteButton" (click)="activeProduct(product)">
+                <button mat-raised-button class="deleteButton" (click)="$event.stopPropagation(); activeProduct(product)">
                   <mat-icon>check_circle</mat-icon>
                 </button>
                 <mat-panel-title>
-                  <mat-list-item role="listitem" class="product">{{
+                  <mat-list-item id = "{{product.name}}ExpansionPanel" role="listitem" class="product">{{
                     product.name
                     }}</mat-list-item>
                 </mat-panel-title>
@@ -198,16 +202,20 @@
                   <mat-list-item role="listitem">
                     <span> Categories: </span>
                     <mat-chip-list #chipList aria-label="Category Selection" class="category-list">
-                      <mat-chip *ngFor="let category of product.categories">
-                        {{category.name}}
-                        <button matChipRemove>
-                          <mat-icon matChipRemove>cancel</mat-icon>
-                        </button>
-                      </mat-chip>
+                      <ng-container *ngFor = "let category of product.categories">
+                        <mat-chip *ngIf = "category.active" [attr.data-product-id]="'categories_'+product.id+'_'+category.id" (removed)="removeCategory(product,category)">
+                            <span>
+                              {{ category.name }}
+                            </span>
+                            <button matChipRemove>
+                              <mat-icon matChipRemove [attr.data-product-id]="'removeCategory_'+product.id+'_'+category.id">cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                      </ng-container>
                     </mat-chip-list>
                   </mat-list-item>
                 </mat-list>
-                <button mat-button class ='prodButton' (click)="addCategory(product)">Add category</button>
+                <button mat-button class ='prodButton' (click)="addCategory(product)" [attr.data-product-id]="'addCategory_'+product.id">Add category</button>
               </div>
               <div class="segundaColOculta">
                 <mat-list role="list">
@@ -229,7 +237,7 @@
                 <mat-form-field appearance="fill">
                   <mat-label>Select Category</mat-label>
                   <mat-select [(value)]="selected">
-                    <mat-option *ngFor="let category of categories" [value]="category">
+                    <mat-option *ngFor="let category of categories" [value]="category" [attr.data-product-id]="'option_'+category.id">
                       {{category.name}}
                     </mat-option>
                   </mat-select>
