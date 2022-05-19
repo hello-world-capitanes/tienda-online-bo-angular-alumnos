@@ -122,7 +122,7 @@ export class ShopService extends FirestoreService {
     return undefined;
   }
 
-  async desactivateShop(shop: Shop): Promise<any> {
+  async deActivateShop(shop: Shop): Promise<any> {
     if ((await this.shopExistsById(shop)).valueOf()) {
       const shop_1 = await this.getCollection()
         .doc(shop.id)

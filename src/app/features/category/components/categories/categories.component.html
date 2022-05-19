@@ -48,7 +48,7 @@
 </mat-accordion>
 </div>
 
-<mat-list role="list" class="listCategory">
+<mat-list role="list" class="listCategory" id = "listCategory">
   <h1>Active categories</h1>
   <ng-container
     *ngFor="let category of categories"
@@ -58,14 +58,13 @@
         <mat-expansion-panel
           (opened)="panelOpenState = true"
           (closed)="panelOpenState = false"
-
         >
           <mat-expansion-panel-header *ngIf="category.active===true" class="category">
             <div class="info">
-              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); modifyCategory(category.id)">
+              <button mat-raised-button class="prodButton" [attr.data-category-name] = "'modifyCategory'+category.name" (click)="$event.stopPropagation(); modifyCategory(category.id)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); deleteCategory(category)">
+              <button mat-raised-button class="prodButton" [attr.data-category-name] = "'editActiveCategory'+category.name" (click)="$event.stopPropagation(); deleteCategory(category)">
                 <mat-icon> delete_forever </mat-icon>
               </button>
               <mat-panel-title>
@@ -75,6 +74,7 @@
               </mat-panel-title>
             </div>
           </mat-expansion-panel-header>
+
           <div class="hiddenIfo">
             <div class="firstColumnHidden">
               <mat-list role="list">
@@ -102,14 +102,13 @@
         <mat-expansion-panel
           (opened)="panelOpenState = true"
           (closed)="panelOpenState = false"
-
         >
           <mat-expansion-panel-header *ngIf="category.active===false" class="category">
             <div class="info">
-              <button mat-raised-button class="prodButton" (click)="modifyCategory(category.id)">
+              <button mat-raised-button class="prodButton" [attr.data-category-name] = "'modifyCategory'+category.name"  (click)="modifyCategory(category.id)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-raised-button class="prodButton" (click)="$event.stopPropagation(); activeCategory(category)">
+              <button mat-raised-button class="prodButton" [attr.data-category-name] = "'editActiveCategory'+category.name"  (click)="$event.stopPropagation(); activeCategory(category)">
                 <mat-icon> autorenew </mat-icon>
               </button>
               <mat-panel-title>
