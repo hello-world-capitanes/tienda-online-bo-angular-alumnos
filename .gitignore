@@ -46,4 +46,7 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Cypress
 /cypress.json
+.as-a.ini

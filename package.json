@@ -1,17 +1,17 @@
 {
   "name": "tienda-online-bo-angular-alumnos",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --hmr",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "e2e": "ng e2e",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "e2e": "as-a local ng e2e",
+    "e2e:dev": "as-a dev npx cypress run --env environment=dev",
+    "e2e:prod": "as-a prod npx cypress run --env environment=prod"
   },
-  "private": true,
   "dependencies": {
     "@angular-material-components/color-picker": "^7.0.1",
     "@angular/animations": "~13.2.0",
@@ -38,7 +38,8 @@
     "@angular/compiler-cli": "~13.2.0",
     "@cypress/schematic": "^1.7.0",
     "@types/jasmine": "~3.10.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.20.52",
+    "as-a": "^2.2.0",
     "cypress": "^9.6.1",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",
@@ -46,7 +47,6 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.5.2",
-    "cypress": "latest"
+    "typescript": "~4.5.2"
   }
 }

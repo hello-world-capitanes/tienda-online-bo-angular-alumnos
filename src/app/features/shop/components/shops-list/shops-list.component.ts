@@ -53,17 +53,6 @@ export class ShopsListComponent implements OnInit {
     this.shopService.activateShop(shop);
   }
 
-  activeShop(shop: Shop){
-    this.shopService.activateShop(shop);
-  }
-
-  desactivateShop(shop: Shop){
-    this.shopService.desactivateShop(shop);
-  }
-
-  updateList(name: string,value: string){
-
-  }
 
   openProductList(shop: Shop){
     this.shopService.setSelectedShopSeeProducts(shop.name);
