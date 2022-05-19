@@ -3,11 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-page-container',
+  templateUrl: './page-container.component.html',
+  styleUrls: ['./page-container.component.scss']
 })
-export class HomeComponent implements OnInit{
+export class PageContainerComponent implements OnInit{
   title = 'tienda-online-bo-angular-alumnos';
   userLogged: Boolean = false;
   constructor(public auth:AuthService) { }

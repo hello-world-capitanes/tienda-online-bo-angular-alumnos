@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 import { AuthenticationModule } from './../features/authentication/authentication.module';
 import { UsersModule } from './../features/user/users.module';
 import { HeaderComponent } from './components/header/header.component';
-import { HomeComponent } from './components/home/home.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SnackBarMessageComponent } from './components/snack-bar-message/snack-bar-message.component';
 
@@ -19,8 +18,7 @@ import { SnackBarMessageComponent } from './components/snack-bar-message/snack-b
   declarations: [
     HeaderComponent,
     SidebarComponent,
-    SnackBarMessageComponent,
-    HomeComponent
+    SnackBarMessageComponent
   ],
   imports: [
     CommonModule,
@@ -38,8 +36,7 @@ import { SnackBarMessageComponent } from './components/snack-bar-message/snack-b
   ],
   exports: [
     HeaderComponent,
-    SidebarComponent,
-    HomeComponent
+    SidebarComponent
   ]
 })
 export class SharedModule { }

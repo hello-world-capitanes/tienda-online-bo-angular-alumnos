@@ -1,7 +1,4 @@
-import { AuthService } from 'src/app/features/authentication/services/auth.service';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',

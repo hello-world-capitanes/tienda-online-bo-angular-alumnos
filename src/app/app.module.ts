@@ -20,6 +20,8 @@ import { ProductModule } from './features/product/product.module';
 import { ShopsModule } from './features/shop/shops.module';
 import { UsersModule } from './features/user/users.module';
 import { SharedModule } from './shared/shared.module';
+import { PageContainerModule } from './page-container/page-container.module';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { SharedModule } from './shared/shared.module';
     ProductModule,
     AuthenticationModule,
     SharedModule,
+    PageContainerModule,
 
     MatSidenavModule,
     MatExpansionModule,
