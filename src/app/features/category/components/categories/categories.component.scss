@@ -1,4 +1,4 @@
-/* .cateogoryItem {
+.cateogoryItem {
   display: flex;
   padding: 5px;
   width: 100%;
@@ -15,7 +15,7 @@
   max-width: 400px;
   word-wrap: break-word;
 }
- */
+
 
 .formContainer {
   width: 100%;
@@ -46,10 +46,10 @@
   color: white;
 }
 
-.expansionContent {
+.expansionContent{
   display: flex;
   flex-direction: column;
-  margin-left: 19.2%;
+  margin-left: 11.2%;
   margin-block: 2%;
 }
 

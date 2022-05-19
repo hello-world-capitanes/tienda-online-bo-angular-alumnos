@@ -37,18 +37,21 @@ export class CategoriesComponent implements OnInit {
   dataSourceActiveCategories!: MatTableDataSource<Category>;
   dataSourceDeActiveCategories!: MatTableDataSource<Category>;
 
-  length = 100;
-  pageSize = 5;
+  lengthActiveCategories!: number;
+  lengthDeActiveCategories!: number;
+  pageSize = 10;
 
   categoryExpanded: Category | null = null;
   columnsToDisplay: string[] = [ "edit", "active", "category-name", "expand"];
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageSizeOptionsActiveCategories: number[] = [5, 10, 20, 50];
+  pageSizeOptionsDeActiveCategories: number[] = [5, 10, 20, 50];
 
   @ViewChild(MatPaginator, { static: true }) paginatorActiveCategories!: MatPaginator;
   @ViewChild(MatPaginator, { static: true }) paginatorDeActiveCategories!: MatPaginator;
 
   // MatPaginator Output
-  pageEvent!: PageEvent;
+  pageEventActiveCategories!: PageEvent;
+  pageEventDeActiveCategories!: PageEvent;
 
   constructor(
     private form: FormBuilder,
@@ -64,6 +67,7 @@ export class CategoriesComponent implements OnInit {
             : [];
         this.dataSourceActiveCategories = new MatTableDataSource<Category>(this.activeCategories);
         this.dataSourceActiveCategories.paginator = this.paginatorActiveCategories;
+        this.lengthActiveCategories = this.activeCategories.length;
     });
 
     this.deActiveCategoryListSub = this.categoryService
@@ -75,6 +79,7 @@ export class CategoriesComponent implements OnInit {
           : [];
       this.dataSourceDeActiveCategories = new MatTableDataSource<Category>(this.deActiveCategories);
       this.dataSourceDeActiveCategories.paginator = this.paginatorDeActiveCategories;
+      this.lengthDeActiveCategories = this.deActiveCategories.length;
     });
 
     this.categoryForm = this.form.group({
