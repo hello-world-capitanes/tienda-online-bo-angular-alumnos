@@ -30,12 +30,7 @@ export class AuthService extends FirestoreService{
     super(firestore);
     this.collection = this.CATEGORY_COLLECTION;
     this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        this.userData = user;
-        this.router.navigate(['home']);
-      } else {
-        this.userData = null;
-      }
+      this.userData = (!!user ? user : null);
     });
   }
 

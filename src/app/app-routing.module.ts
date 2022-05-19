@@ -8,6 +8,7 @@ import { ProductComponent } from './features/product/components/product/product.
 import { ShopsListComponent } from './features/shop/components/shops-list/shops-list.component';
 import { UserComponent } from './features/user/components/user/user.component';
 import { HomeComponent } from './shared/components/home/home.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: SignInComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard]},
   { path: 'home', component: UserComponent, canActivate: [AuthGuard]},
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
