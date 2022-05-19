@@ -11,7 +11,7 @@ describe('Modify nonadmin user', () => {
     cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     //cy.visit('http://localhost:4200/home');
-    cy.get('#BGShudOwwyCEJCmMj39qEditActive').click();
+    cy.get('#BwnV0h11YKc1nh1oBIJiEditActive').click();
     cy.get('#nameModifyUser').click().clear();
     cy.get('#nameModifyUser').type("CambioNameee")
     cy.get('#surnameModifyUser').click().clear();
