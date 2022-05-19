@@ -15,7 +15,7 @@ describe('Category list test section', () => {
     /* ####### DEPENDS OF CATEGORY: 'LIMPIEZA' SET TO ACTIVE  ########## */
 
     const productTestId = '6SPRbZPGUA0V6pbM3ClU';
-    const categoryTestId = 'kSVchlEW4mvqZWKndxgL';
+    const categoryTestId = '5oIil7tlHyKeA8ifiSw0';
     const categoryTestName = 'Limpieza';
 
     cy.get('#Categories', {
