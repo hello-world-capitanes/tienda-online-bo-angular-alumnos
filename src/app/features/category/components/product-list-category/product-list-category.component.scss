@@ -1,0 +1,26 @@
+.nameCat{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.divProduct{
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.divImage{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 100px;
+  height: auto;
+}
+
+.colVacia{
+  width: 10em;
+}
+
+.segundaCol div{
+  margin: 2em;
+}

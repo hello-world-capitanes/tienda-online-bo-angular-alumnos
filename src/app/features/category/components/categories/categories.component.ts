@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, QueryList, ViewChild } from '@angular/core';
+import { ProductListCategoryComponent } from './../product-list-category/product-list-category.component';
 import {
   FormBuilder,
   FormControl,
@@ -163,5 +164,17 @@ export class CategoriesComponent implements OnInit {
       width: '350px',
     });
     dialogRef.componentInstance.id = id;
+  }
+
+  openProductList(category: Category){
+    this.categoryService.setSelectedCategorySeeProducts(category.name);
+    const dialogRef = this.matDialog.open(ProductListCategoryComponent, {
+      height:'400px',
+      width: '60%',
+      data: {
+        category: category
+      }
+    })
+
   }
 }

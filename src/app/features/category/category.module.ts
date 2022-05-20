@@ -12,12 +12,14 @@ import { MatTableModule } from '@angular/material/table';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ModifyCategoryComponent } from './components/categories/modifyCategory/modify-category/modify-category.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ProductListCategoryComponent } from './components/product-list-category/product-list-category.component';
 
 
 @NgModule({
   declarations: [
     CategoriesComponent,
-    ModifyCategoryComponent
+    ModifyCategoryComponent,
+    ProductListCategoryComponent
   ],
   imports: [
     CommonModule,
