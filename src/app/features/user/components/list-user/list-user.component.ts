@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserService } from './../../service/user.service';
 import { User } from './../../models/user.model';
 import { Component } from '@angular/core';
-import { identity } from 'cypress/types/lodash';
 
 @Component({
   selector: 'app-list-user',

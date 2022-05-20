@@ -1,15 +1,18 @@
-<mat-list id="sidenav">
-    <div mat-subheader>Modules</div>
+<div class="modulesContainer">
 
-    <mat-divider></mat-divider>
+  <mat-list id="sidenav">
 
-    <mat-list-item *ngFor="let module of modules; let i = index">
-      <mat-divider></mat-divider>
-      <a [routerLink]="module?.url" class="module-list-item" [id]="module.name">
-        <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
-        <div mat-line>{{ module.name }}</div>
-      </a>
-    </mat-list-item>
-</mat-list>
 
-<app-sign-in-sidebar></app-sign-in-sidebar>
+      <mat-divider class="divider"></mat-divider>
+
+      <mat-list-item *ngFor="let module of modules; let i = index">
+        <mat-divider class="divider"></mat-divider>
+        <a [routerLink]="module?.url" class="module-list-item" [id]="module.name">
+          <mat-icon mat-list-icon>{{ module.icon }}</mat-icon>
+          <div mat-line>{{ module.name }}</div>
+        </a>
+      </mat-list-item>
+  </mat-list>
+
+  <app-sign-in-sidebar></app-sign-in-sidebar>
+</div>

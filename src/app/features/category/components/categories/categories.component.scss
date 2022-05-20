@@ -40,7 +40,7 @@
   margin: 1em;
   margin-left: 0 auto;
   flex: 1 1 auto;
-  background-color: #3F51B5;
+  background-color: #E8C07D;
   color: white;
 }
 
@@ -59,8 +59,20 @@
 .listCategory{
   margin: 2em;
 }
-
-.viewProducts{
-  margin-bottom: 1.5em;
+mat-icon{
+  color: #614124;
 }
 
+span{
+
+  color: #614124;
+
+}
+.containerProd{
+  margin-bottom: 10px;
+}
+h1{
+
+  color: #614124;
+
+}
