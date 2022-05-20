@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ModifyCategoryComponent } from './components/categories/modifyCategory/modify-category/modify-category.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ModifyCategoryComponent } from './components/categories/modifyCategory/
     MatTableModule,
     MatExpansionModule,
     MatListModule,
+    MatPaginatorModule
 
   ],
   exports: [

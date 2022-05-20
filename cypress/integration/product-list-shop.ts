@@ -57,7 +57,7 @@ describe('Modify stock', () => {
     cy.get('#Products').click();
 
     const productId = '115rz26jYchbNq4ap896';
-    const categoryId = '5oIil7tlHyKeA8ifiSw0';
+    const categoryId = 'kSVchlEW4mvqZWKndxgL';
 
     cy.get(`[data-product-id="expansion_${productId}"]`, {
       timeout: 5000,
@@ -67,7 +67,7 @@ describe('Modify stock', () => {
     cy.get(`[data-product-id="select_${productId}"]`).click();
     cy.get(`[data-product-id="option_${categoryId}"]`).click();
     cy.get(`[data-product-id="addCategory_${productId}"]`).click();
-    cy.get(`[data-product-id="categories_${productId}_${categoryId}"]`).contains('Bollería');
+    cy.get(`[data-product-id="categories_${productId}_${categoryId}"]`).contains('Bolleria');
 
   });
 
@@ -76,7 +76,7 @@ describe('Modify stock', () => {
     cy.get('#Products').click();
 
     const productId = '115rz26jYchbNq4ap896';
-    const categoryId = '5oIil7tlHyKeA8ifiSw0';
+    const categoryId = 'kSVchlEW4mvqZWKndxgL';
     cy.get(`[data-product-id="expansion_${productId}"]`, {
       timeout: 5000,
     }).should('be.visible');

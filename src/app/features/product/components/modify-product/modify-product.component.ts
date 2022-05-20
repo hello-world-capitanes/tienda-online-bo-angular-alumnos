@@ -34,7 +34,7 @@ export class ModifyProductComponent implements OnInit {
     private categoryService: CategoryService,
     public dialogRef: MatDialogRef<ModifyProductComponent>,
   ) {
-    this.categoryService.getCategories().subscribe(categories => {
+    this.categoryService.getAllCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
     this.productService.getAllProducts().subscribe(products => {
