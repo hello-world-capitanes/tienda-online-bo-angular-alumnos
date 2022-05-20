@@ -5,7 +5,8 @@ export const PRODUCT_ERRORS = {
     maxLength: 'The max length are 30 characters'
   },
   price: {
-    notProvided: 'Enter the price'
+    notProvided: 'Enter the price',
+    invalidPrice: 'Enter a positive price or 0'
   },
   categories: {
     notProvided: 'Select the category/categories'

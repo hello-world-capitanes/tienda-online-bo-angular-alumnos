@@ -7,7 +7,7 @@
 
 describe('Inicio de sesión', function() {
   const usuarioCorrecto = "admin@gmail.com";
-  const usuarioCorrecto2 = "admin2@gmail.com";
+  const usuarioCorrecto2 = "bueno@correo.com";
   const passwordCorrecta = "Admin1234#";
 
   beforeEach(function(){
