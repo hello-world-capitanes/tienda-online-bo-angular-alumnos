@@ -10,6 +10,7 @@ import { ProductStock } from 'src/app/features/product/models/product-stock.mode
 import { MatDialog } from '@angular/material/dialog';
 import { ProductsListShopComponent } from '../products-list-shop/products-list-shop.component';
 import { Subscription } from 'rxjs';
+import { ModifyProductsShopComponent } from '../modify-products-shop/modify-products-shop.component';
 
 export interface shopElement{
   name: string;
@@ -57,7 +58,19 @@ export class ShopsListComponent implements OnInit {
   openProductList(shop: Shop){
     this.shopService.setSelectedShopSeeProducts(shop.name);
     const dialogRef = this.dialog.open(ProductsListShopComponent,{
-      height:'400px',
+      height:'600px',
+      width: '60%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openModifyProducts(shop: Shop){
+    this.shopService.setSelectedShopSeeProducts(shop.name);
+    const dialogRef = this.dialog.open(ModifyProductsShopComponent,{
+      height:'800px',
       width: '60%'
     });
 

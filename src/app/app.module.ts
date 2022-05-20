@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,6 +41,7 @@ import { SharedModule } from './shared/shared.module';
     ProductModule,
     AuthenticationModule,
     SharedModule,
+    HttpClientModule,
 
     MatSidenavModule,
     MatExpansionModule,

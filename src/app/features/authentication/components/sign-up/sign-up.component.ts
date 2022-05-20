@@ -37,7 +37,20 @@ export class SignUpComponent implements OnInit {
       });
       return;
     }
-    this.authService.signUpAdmin(this.getFormValue("email"), this.getFormValue("password"));
+    this.authService.signUpAdmin(this.getFormValue("email"), this.getFormValue("password")).subscribe(
+      res => {
+
+        this.snackBar.openFromComponent(SnackBarMessageComponent, {
+        data: "User has been added correctly",
+        duration: 1500
+      })
+    },err => {
+      this.snackBar.openFromComponent(SnackBarMessageComponent, {
+        data: "Invalid user",
+        duration: 1500
+      })
+
+    });
   }
 
 
