@@ -53,11 +53,6 @@ export class ProductsListShopComponent implements OnInit {
     if (!!product && (!!units || units === '0') && !!id) {
       let newStock = Number.parseInt(units);
       this.shopService.modifyStock(product, newStock, this.shop.id);
-      this.shopService.getShopProducts().then((prodList) => {
-        if (!!prodList) {
-          this.showProducts = prodList;
-        }
-      });
     }
     throw Error('Data invalid to change stock');
   }

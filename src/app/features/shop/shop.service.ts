@@ -2,7 +2,7 @@ import { Address } from 'src/app/core/models/address.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map, Observable } from 'rxjs';
+import { elementAt, map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
@@ -137,7 +137,7 @@ export class ShopService extends FirestoreService {
     return this.getCollection().doc(shop.id).update({ active: true });
   }
 
-  private async applyStock(
+  private async updateProducts(
     products: ProductShopFirebase[],
     id: string
   ): Promise<any> {
@@ -195,9 +195,6 @@ export class ShopService extends FirestoreService {
           });
         }
       }
-      if (p?.stock === 0) {
-        products.splice(products.indexOf(p), 1);
-      }
       return products;
     }
     throw Error('Error changing stock of a product');
@@ -217,7 +214,7 @@ export class ShopService extends FirestoreService {
             stock: prod.stock,
           } as ProductShopFirebase;
         });
-        this.applyStock(finalProducts, id);
+        this.updateProducts(finalProducts, id);
 
         return finalProducts.find((finalProd) => {
           if (prod.product.id === finalProd.id) {
@@ -233,5 +230,42 @@ export class ShopService extends FirestoreService {
       return await this.getCollection().ref.doc(id).delete();
     }
     throw new Error('Shop id is not valid or undefined');
+  }
+
+  async addProductToShop(prod: string[], id: string) {
+    if(prod.length === 0){
+      return;
+    }
+    if(!id){
+      throw Error('Invalid id of a shop');
+    }
+    let newProducts: ProductStock[] = [];
+    prod.forEach(element => {
+      if(!!element){
+        this.productService.findById(element).then(p => {
+          if(!p){
+            throw Error('Product undefined');
+          }
+          if(p.active){
+            newProducts.push(new ProductStock(p,0));
+          }
+          else{
+            this.snackBar.openFromComponent(SnackBarMessageComponent, {
+              data: 'Product ' + p?.name + ' is inactive',
+              duration: 1500,
+            });
+          }
+
+          const finalProducts = newProducts.map((prod) => {
+            return {
+              id: prod.product.id,
+              stock: prod.stock,
+            } as ProductShopFirebase;
+          });
+          this.updateProducts(finalProducts, id);
+        })
+      }
+    })
+    
   }
 }

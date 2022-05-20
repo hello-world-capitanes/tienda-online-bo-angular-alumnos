@@ -15,7 +15,11 @@ import { MatListModule } from '@angular/material/list';
 import { ProductsListShopComponent } from './components/products-list-shop/products-list-shop.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModifyInfoShopsComponent } from './components/modify-info-shops/modify-info-shops.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ModifyProductsShopComponent } from './components/modify-products-shop/modify-products-shop.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ShopsCreateComponent,
     ShopsModifyComponent,
     ProductsListShopComponent,
-    ModifyInfoShopsComponent
+    ModifyInfoShopsComponent,
+    ModifyProductsShopComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +42,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatExpansionModule,
     MatListModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatPaginatorModule,
   ],
   exports: [ShopsListComponent, ShopsCreateComponent],
 })

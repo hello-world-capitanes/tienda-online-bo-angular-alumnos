@@ -1,3 +1,4 @@
+import { Subscription, Observable } from 'rxjs';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -10,7 +11,17 @@ import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { User } from '../../user/models/user.model';
 import { SnackBarMessageComponent } from './../../../shared/components/snack-bar-message/snack-bar-message.component';
 import { AuthError } from './../model/authErrors.model';
+import { AuthApiService } from './auth-api.service';
 
+export interface ApiUserAdmin {
+  uid: string;
+  email: string;
+  password: string;
+  creatorId: string;
+  creationDate: Date;
+  active:string;
+
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +36,8 @@ export class AuthService extends FirestoreService{
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     private snackBar: MatSnackBar,
-    firestore: AngularFirestore
+    firestore: AngularFirestore,
+    private authApiService:AuthApiService,
   ) {
     super(firestore);
     this.collection = this.CATEGORY_COLLECTION;
@@ -60,15 +72,10 @@ export class AuthService extends FirestoreService{
 
   }
 
-  signUpAdmin(email: string, password: string) {
-    return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.createUserAdmin(result.user);
-      })
-      .catch((error) => {
-        this.loginError();
-      });
+  signUpAdmin(email: string, password: string):Observable<UserAdmin> {
+
+    return this.authApiService.signUp(email,password,this.userData.uid);
+
   }
 
   signUpUser(email: string, password: string) {
@@ -97,8 +104,9 @@ export class AuthService extends FirestoreService{
     const userData : UserAdmin = {
       uid: user.uid,
       email: user.email,
-      creatorEmail : this.userData.email,
-      creationDate : new Date
+      creatorId : this.userData.email,
+      creationDate : new Date,
+      active: true,
     };
     return userRef.set(userData, {
       merge: true,
@@ -112,8 +120,9 @@ export class AuthService extends FirestoreService{
     const userData : UserAdmin = {
       uid: user.uid,
       email: user.email,
-      creatorEmail : this.userData.email,
-      creationDate : new Date
+      creatorId : this.userData.uid,
+      creationDate : new Date,
+      active: true,
     };
     return userRef.set(userData, {
       merge: true,
