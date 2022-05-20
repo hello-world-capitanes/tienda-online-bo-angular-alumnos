@@ -3,30 +3,30 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { Category } from '../../category/models/category.model';
-import { CategoryService } from '../../category/services/category-service.service';
 import { ProductFirebase } from '../models/product-firebase.model';
 import { Product } from '../models/product-models';
+
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService extends FirestoreService {
+export class ProductService extends FirestoreService{
+
   protected collection!: string;
-  private _productList!: Product[];
+   private _productList!: Product[];
 
   private readonly PRODUCTS_COLLECTION = 'products';
 
-  constructor(firestore: AngularFirestore,
-              private categoryService: CategoryService) {
+  constructor(firestore: AngularFirestore) {
     super(firestore);
     this.collection = this.PRODUCTS_COLLECTION;
 
-    this.getProducts().then((products) => {
+    this.getProducts().then( products => {
       this._productList = products;
     });
   }
 
-  public get productList(): Product[] {
+   public get productList(): Product[] {
     return this._productList;
   }
 
@@ -35,11 +35,11 @@ export class ProductService extends FirestoreService {
   }
 
   async getProducts(): Promise<Product[]> {
-    let products: Product[] = [];
+    let products:Product[] = [];
     const snapshot = await this.getCollection().ref.get();
-    snapshot.docs.forEach((prod) => {
+    snapshot.docs.forEach(prod => {
       products.push(prod.data() as Product);
-    });
+    })
     return products;
   }
 
@@ -56,64 +56,27 @@ export class ProductService extends FirestoreService {
     throw new Error();
   }
 
-  async findById(prodId: string): Promise<Product | undefined> {
-    if (!!prodId && prodId.length > 0) {
-      const snapshot = await this.getCollection().doc(prodId).ref.get();
-      if (!!snapshot) {
-        return snapshot?.data() as Product;
+  findById(prodId: string): Product | undefined {
+    return this._productList.find((product) => {
+      if (product.id === prodId) {
+        return product;
       }
-      throw new Error();
-    }
-    throw new Error();
+      return null;
+    });
   }
 
 
   removeCategory(product:Product, category:Category){
-    if(!product){
-      throw new Error('Product has not been introduced');
-    }
-    if(!category){
-      throw new Error('Category has not been introduced');
-    }
-    let newCategories:Category[] = product.categories;
-    let index = -1;
-    for(let i = 0; i<newCategories.length;i++){
-      if(newCategories[i].id===category.id){
-        index = i;
-      }
-    }
-    if(index===-1){
-      throw new Error("Category not found");
-    }
-    newCategories.splice(index,1);
-    return this.getCollection().doc(product.id).update({categories: newCategories });
+    let categorieList = this.getCollection().doc(product.id).collection('categories');
   }
 
-
   getAllProducts(): Observable<Product[]> {
-    return this.getCollection().valueChanges().pipe(map(product=>{
-
-      let products = product as Product[];
-
-      products.map( async product => {
-        if (product.categories){
-          for (let i = 0; i < product.categories.length ; i++) {
-            const result = await this.categoryService.categoryExistsById(product.categories[i]);
-
-            if ( result !== undefined){
-              product.categories[i] = result;
-            }
-          }
-        }
-      })
-
-      return products
-    }));
+    return this.getCollection().valueChanges().pipe(map(product=>product as Product[]));
   }
 
   async deleteProduct(prod: Product): Promise<any> {
-    const result = await this.productExists(prod);
-    if (result !== undefined) {
+    const result= await this.productExists(prod);
+    if (result!==undefined) {
       const prod_1 = await this.getCollection()
         .doc(prod.id)
         .update({ active: false });
@@ -124,8 +87,8 @@ export class ProductService extends FirestoreService {
   }
 
   async activeProduct(prod: Product): Promise<any> {
-    const result = await this.productExists(prod);
-    if (result !== undefined) {
+    const result= await this.productExists(prod);
+    if (result!==undefined) {
       const prod_1 = await this.getCollection()
         .doc(prod.id)
         .update({ active: true });
@@ -136,22 +99,18 @@ export class ProductService extends FirestoreService {
   }
 
   async productExists(product: Product): Promise<Product | undefined> {
-    const snapshot = await this.getCollection()
-      .ref.where('name', '==', product.name)
-      .get();
-    return snapshot?.docs && snapshot.docs.length > 0
-      ? (snapshot?.docs[0].data() as Product)
-      : undefined;
+    const snapshot = await this.getCollection().ref.where("name", "==", product.name).get();
+    return snapshot?.docs && snapshot.docs.length > 0 ? snapshot?.docs[0].data() as Product : undefined;
   }
 
-  async addProduct(product: Product): Promise<Product> {
+  async addProduct(product: Product): Promise<Product>{
     if (!product) {
-      throw new Error('Product not provided');
+      throw new Error("Product not provided");
     }
 
-    const result = await this.productExists(product);
+    const result =await this.productExists(product)
 
-    if (result === undefined) {
+    if(result===undefined){
       let id = this.firestore.createId();
 
       let productDB: ProductFirebase = {
@@ -163,19 +122,16 @@ export class ProductService extends FirestoreService {
         image: product.image,
         active: !!product?.active,
       };
-
-      return this.getCollection()
-        .doc(id)
-        .set(Object.assign({}, productDB))
-        .then(() => {
-          return productDB as Product;
-        });
-    } else {
+      return this.getCollection().doc(id).set(Object.assign({}, productDB)).then(() => {
+        return productDB as Product;
+      })
+    } else{
       throw new Error();
     }
   }
 
-  async modifyProduct(id: string, newProd: Product): Promise<any> {
+  async modifyProduct(id: string, newProd: Product):Promise<any>{
+
     let productDB = {
       id: id,
       characteristics: newProd.characteristics,
@@ -184,33 +140,28 @@ export class ProductService extends FirestoreService {
       image: newProd.image,
     };
 
-    return this.getCollection()
-      .doc(id)
-      .update({
-        characteristics: productDB.characteristics,
-        price: productDB.price,
-        description: productDB.description,
-        image: productDB.image,
-      });
+  return this.getCollection().doc(id).update
+  ({'characteristics': productDB.characteristics, 'price': productDB.price,'description':productDB.description,'image':productDB.image});
+
   }
-  permantlyDelete(id: string) {
-    if (!!id && id.length > 0) {
-      return this.getCollection().doc(id).delete();
+  permantlyDelete(id:string){
+    if(!!id && id.length >0){
+    return this.getCollection().doc(id).delete();
     }
     throw new Error();
   }
-  addCategory(product:Product,category:Category){
+  async addCategory(product:Product,category:Category){
     if(!product){
       throw new Error('Product has not been introduced');
     }
-    if (!category) {
+    if(!category){
       throw new Error('Category has not been introduced');
     }
-    if(product.categories.find(cat => {if(category.id === cat.id){ return true} return false})){
+    if(product.categories.includes(category)){
       throw new Error('Category already exists into product')
     }
-    let newCategories: Category[] = product.categories;
+    let newCategories:Category[] = product.categories;
     newCategories.push(category);
-    return this.getCollection().doc(product.id).update({categories: newCategories });
+    return await this.getCollection().doc(product.id).update({categories: newCategories });
   }
 }

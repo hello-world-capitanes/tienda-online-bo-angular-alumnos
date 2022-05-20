@@ -25,6 +25,10 @@ describe('Modify-shop', function() {
   });
 
   it("Modificar datos de tienda",function() {
+    cy.get('#mat-input-0').type(usuarioCorrecto);
+    cy.get('#mat-input-1').type(passwordCorrecta);
+    cy.get('#loginButton').click();
+    cy.get('#Shops > .mat-line').click();
     cy.get('#editShopmercadona').click();
     //cy.get('#mat-dialog-2').click();
     cy.get('#location').click().clear();
@@ -40,7 +44,5 @@ describe('Modify-shop', function() {
     cy.get(`[data-shop-id="delete_${shopId}"]`).click();
     cy.get(`[data-shop-id="reactivate_${shopId}"]`).should('be.visible');
     cy.get(`[data-shop-id="reactivate_${shopId}"]`).click();
-
   });
-
 })

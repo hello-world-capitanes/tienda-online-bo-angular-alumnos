@@ -4,8 +4,8 @@ describe('Modify product', () => {
 
   beforeEach(function () {
     cy.visit('http://localhost:4200/sign-in');
-    cy.get('#emailInput').type(usuarioCorrecto);
-    cy.get('#passwordInput').type(passwordCorrecta);
+    cy.get('#mat-input-0').type(usuarioCorrecto);
+    cy.get('#mat-input-1').type(passwordCorrecta);
     cy.get('#loginButton').click();
   });
 

@@ -1,20 +1,47 @@
-<form novalidate [formGroup]="modifyCategoryForm" class="form">
+<div class="header">
+  <div class="title">
+    <h1>{{ this.data.name }}</h1>
+  </div>
+
+  <div class="close">
+    <button
+      mat-raised-button
+      class="buttonClose"
+      color="primary"
+      (click)="close()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+<form novalidate id="modifyCategory" [formGroup]="modifyCategoryForm" class="form">
   <div class="container">
-    <div class="primeraCol">
       <mat-form-field class="formContainer">
-        <mat-label> Name </mat-label>
-        <input matInput class="input" formControlName="name">
+        <mat-label>Description</mat-label>
+        <input matInput id="description" formControlName="description" type="text" 
+        [attr.data-category-id]="'input_'+categories"/>
+        <mat-error
+          *ngIf="
+          modifyCategoryForm.get('description')?.errors &&
+          modifyCategoryForm.get('description')?.hasError('required')
+          "
+        >
+          {{ CATEGORY_ERRORS.description.notProvided }}
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="formContainer">
-        <mat-label> Description </mat-label>
-        <textarea matInput placeholder="Description" class="input" formControlName="description"></textarea>
-      </mat-form-field>
-<br>
-      <button mat-raised-button class="addButton" type="submit" (click)="modifyCategory(id)">
-        <mat-icon>add</mat-icon>
-      </button>
+      <div class="formBtn">
+        <div *ngIf="modifyCategoryForm.invalid">
 
-    </div>
+          <button mat-raised-button class="buttonAdd" id="modifyDisabled" color="primary" (click)="modifyCategory(id)" disabled="true">Añadir</button>
+
+        </div>
+
+        <div *ngIf="modifyCategoryForm.valid">
+
+          <button mat-raised-button class="buttonAdd" id="modifyEnabled" color="primary" (click)="modifyCategory(id)">Añadir</button>
+
+        </div>
+      </div>
   </div>
 </form>

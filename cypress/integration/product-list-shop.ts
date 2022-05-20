@@ -86,3 +86,4 @@ describe('Modify stock', () => {
     //TODO cy.contains(`[data-product-id="categories_${productId}_${categoryId}"]`).should('.not.exist');
   });
 });
+

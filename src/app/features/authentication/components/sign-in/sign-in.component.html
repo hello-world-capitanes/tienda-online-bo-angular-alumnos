@@ -3,12 +3,12 @@
     <span class="titulo">Log In</span>
     <mat-form-field>
       <mat-label>User</mat-label>
-      <input type="text" matInput formControlName="userName" id="emailInput"/>
+      <input type="text" matInput formControlName="userName" />
       <mat-error>Invalid field</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="userPassword" id="passwordInput" />
+      <input type="password" matInput formControlName="userPassword" />
       <mat-error>Invalid field</mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="logIn()" id="loginButton">Log in</button>
