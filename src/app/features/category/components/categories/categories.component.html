@@ -37,11 +37,10 @@
 
       <button
         mat-raised-button
-        color="primary"
-        [disabled]="this.categoryForm.invalid"
+        class="addCategoryBtn"
         (click)="$event.stopPropagation(); addCategory()"
       >
-        +
+      <mat-icon> add_box </mat-icon>
       </button>
     </form>
   </mat-expansion-panel>
