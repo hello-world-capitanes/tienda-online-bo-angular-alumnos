@@ -104,6 +104,7 @@ export class ShopService extends FirestoreService {
       .ref.where('name', '==', this.selectedShopSeeProducts)
       .get();
     const productsShop = snapshot?.docs[0].data()['products'] as ProductShop[];
+
     if (!!productsShop && productsShop.length > 0) {
       const productsStock = [];
       for (let productShop of productsShop) {
@@ -240,6 +241,7 @@ export class ShopService extends FirestoreService {
       throw Error('Invalid id of a shop');
     }
     let newProducts: ProductStock[] = [];
+
     prod.forEach(element => {
       if(!!element){
         this.productService.findById(element).then(p => {
@@ -266,6 +268,6 @@ export class ShopService extends FirestoreService {
         })
       }
     })
-    
+
   }
 }

@@ -31,9 +31,11 @@ export class CategoriesComponent implements OnInit {
   panelOpenState = false;
   activeCategoryListSub: Subscription;
   deActiveCategoryListSub: Subscription;
+  allCategoriesSub!: Subscription;
 
   activeCategories!: Category[];
   deActiveCategories !: Category[];
+  allCategories!: Category[];
   dataSourceActiveCategories!: MatTableDataSource<Category>;
   dataSourceDeActiveCategories!: MatTableDataSource<Category>;
 
@@ -56,6 +58,15 @@ export class CategoriesComponent implements OnInit {
     public categoryService: CategoryService,
     private matDialog: MatDialog
   ) {
+
+    this.allCategoriesSub = this.categoryService.getAllCategories()
+      .subscribe((categoriesFromApi) => {
+        this.allCategories =
+          !!categoriesFromApi && categoriesFromApi.length > 0
+            ? categoriesFromApi
+            : [];
+    });
+
     this.activeCategoryListSub = this.categoryService
       .getAllActiveCategories()
       .subscribe((categoriesFromApi) => {
@@ -173,7 +184,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   findById(id: string): Category | undefined{
-    return this.categories?.find((cat) => {
+    return this.allCategories?.find((cat) => {
       if(cat.id === id){
         return cat;
       }

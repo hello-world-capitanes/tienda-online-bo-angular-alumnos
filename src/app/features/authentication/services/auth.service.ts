@@ -13,15 +13,15 @@ import { SnackBarMessageComponent } from './../../../shared/components/snack-bar
 import { AuthError } from './../model/authErrors.model';
 import { AuthApiService } from './auth-api.service';
 
-export interface ApiUserAdmin {
+  export interface ApiUserAdmin {
   uid: string;
   email: string;
   password: string;
   creatorId: string;
   creationDate: Date;
   active:string;
-
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -68,14 +68,11 @@ export class AuthService extends FirestoreService{
     }).catch((error) => {
       this.loginError();
     });
-
-
   }
 
   signUpAdmin(email: string, password: string):Observable<UserAdmin> {
 
     return this.authApiService.signUp(email,password,this.userData.uid);
-
   }
 
   signUpUser(email: string, password: string) {
