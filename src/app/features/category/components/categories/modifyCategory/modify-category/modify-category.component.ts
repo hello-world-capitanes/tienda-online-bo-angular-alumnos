@@ -24,7 +24,7 @@ export class ModifyCategoryComponent implements OnInit {
     public dialogRef: MatDialogRef<ModifyCategoryComponent>,
     private categoryService: CategoryService
   ) {
-    this.categoryService.getCategories().subscribe(categories => {
+    this.categoryService.getAllCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
     this.modifyCategoryForm = new FormGroup({

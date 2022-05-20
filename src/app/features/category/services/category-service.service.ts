@@ -19,9 +19,32 @@ export class CategoryService extends FirestoreService {
    *
    * @returns an array of Categories
    */
-  getCategories(): Observable<Category[]> {
-    return this.getCollection().valueChanges().pipe(map(category => category as Category[]));
+  getAllCategories(): Observable<Category[]> {
+    return this.getCollection().valueChanges().pipe(map(categoryList => categoryList as Category[]));
   }
+
+  getAllActiveCategories(): Observable<Category[]>{
+    return this.getCollection().valueChanges().pipe(map(categoryList => {
+
+      let categoryListCopy = categoryList as Category[];
+
+      categoryListCopy = categoryListCopy.filter( category => category.active === true);
+
+      return categoryListCopy;
+    }));
+  }
+
+  getAllDeActiveCategories(): Observable<Category[]>{
+    return this.getCollection().valueChanges().pipe(map(categoryList => {
+
+      let categoryListCopy = categoryList as Category[];
+
+      categoryListCopy = categoryListCopy.filter( category => category.active === false);
+
+      return categoryListCopy;
+    }));
+  }
+
 
   /**
    *

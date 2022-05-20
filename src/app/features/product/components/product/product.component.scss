@@ -8,6 +8,9 @@
   display: flex;
   flex-direction: row;
 }
+mat-icon{
+  color: #614124;
+}
 
 .primeraCol,
 .segundaCol {
@@ -45,7 +48,7 @@ mat-form-field {
 .addButton {
   width: 30%;
   padding: 0.7em;
-  background-color: #3f51b5;
+  background-color: #E8C07D;
   color: white;
 }
 
@@ -56,6 +59,7 @@ mat-form-field {
 .containerProd {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 
 .info {
@@ -68,7 +72,7 @@ mat-form-field {
   margin: 1em;
   margin-left: 0 auto;
   flex: 1 1 auto;
-  background-color: #3f51b5;
+  background-color: #E8C07D;
   color: white;
 }
 
@@ -90,6 +94,7 @@ mat-form-field {
 
 span {
   margin-left: 0.2cm;
+  color : #614124;
 }
 
 img {
@@ -105,6 +110,12 @@ img {
   margin: 1em;
   margin-left: 0 auto;
   flex: 1 1 auto;
-  background-color: #3F51B5;
-  color: white;
+  background-color: #E8C07D;
+  color: #614124;
+}
+
+h1{
+
+  color: #614124;
+
 }

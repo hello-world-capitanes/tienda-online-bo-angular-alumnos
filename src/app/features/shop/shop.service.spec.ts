@@ -30,11 +30,11 @@ describe('ShopService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ShopService);
-    newShop = new Shop('id', 'test38712', new Address('', '', '', 0, '0'), true, []);
+    newShop = new Shop('SHOP-TEST', 'SHOP-TEST', new Address('SHOP-TEST', 'SHOP-TEST', 'SHOP-TEST', 0, '0'), true, []);
     newShopWithProducts = new Shop(
-      'idTest',
-      'test',
-      new Address('test', 'test', 'test', 0, '1'),
+      'SHOP-TEST-WITH-PRODUCTS',
+      'SHOP-TEST-WITH-PRODUCTS',
+      new Address('SHOP-TEST-WITH-PRODUCTS', 'SHOP-TEST-WITH-PRODUCTS', 'SHOP-TEST-WITH-PRODUCTS', 0, '1'),
       true,
       [
 
