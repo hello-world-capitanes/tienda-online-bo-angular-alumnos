@@ -7,11 +7,12 @@ describe('Modify nonadmin user', () => {
   });
 
   it('Modify user', () => {
+    const userId = 'Cpm9Rdgvw3tWrupkfved'
     cy.get('#emailInput').type(usuarioCorrecto);
     cy.get('#passwordInput').type(passwordCorrecta);
     cy.get('#loginButton').click();
     //cy.visit('http://localhost:4200/home');
-    cy.get('#BGShudOwwyCEJCmMj39qEditActive').click();
+    cy.get(`[data-user-id="modify_${userId}"]`).click();
     cy.get('#nameModifyUser').click().clear();
     cy.get('#nameModifyUser').type("CambioNameee")
     cy.get('#surnameModifyUser').click().clear();
