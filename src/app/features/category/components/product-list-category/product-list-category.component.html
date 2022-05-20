@@ -1,0 +1,59 @@
+<button
+  mat-raised-button
+  color="primary"
+  (click)="close()"
+  class="closeButton"
+  id="closeDialog"
+>
+  <mat-icon>close</mat-icon>
+</button>
+<div class="divCat">
+  <mat-list-item role="listitem" class="nameCat">
+    <h1>{{ category?.name }}</h1>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+
+  <ng-container
+    *ngIf="
+      isLoaded && !isLoading && catProducts.length > 0;
+      else productsLoaded
+    "
+  >
+    <mat-list role="list" *ngFor="let prod of catProducts">
+      <div class="divProduct" *ngIf="!!prod">
+        <div class="primeraCol">
+          <div class="divImage">
+            <img src="{{ prod.image }}" />
+          </div>
+          <div class="divName">
+            <mat-list-item role="listitem"
+              ><strong>Name:</strong> {{ prod.name }}
+            </mat-list-item>
+          </div>
+        </div>
+        <div class="colVacia"></div>
+        <div class="segundaCol">
+          <div class="divChar">
+            <strong>Characteristics:</strong> {{prod.characteristics}}
+          </div>
+          <div class="divDes">
+            <strong>Description:</strong> {{prod.description}}
+          </div>
+          <div class="divPrice">
+            <strong>Price:</strong> {{prod.price}}
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </ng-container>
+  <ng-template #productsLoaded>
+    <ng-container *ngIf="!isLoading && !isLoaded; else noProducts">
+      <span> The category hasn`t got products</span>
+    </ng-container>
+    <ng-template #noProducts>
+
+    </ng-template>
+  </ng-template>
+</div>
+

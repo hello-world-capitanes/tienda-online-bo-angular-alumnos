@@ -46,9 +46,21 @@
 
 .expansionContent{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  span{
+    margin: 4em;
+  }
+  button{
+    height: 3em;
+    margin-top: 3em;
+  }
 }
 
 .listCategory{
   margin: 2em;
 }
+
+.viewProducts{
+  margin-bottom: 1.5em;
+}
+

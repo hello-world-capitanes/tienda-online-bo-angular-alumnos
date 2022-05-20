@@ -80,8 +80,12 @@
               <mat-list role="list">
                 <mat-list-item role="listItem">
                   <div class="expansionContent">
-                    <span> Name: {{ category.name }} </span>
-                    <span> Description: {{ category.description }} </span>
+                    <span> <strong>Name:</strong> {{ category.name }} </span>
+                    <span> <strong>Description:</strong> {{ category.description }} </span>
+                    <br>
+                    <button mat-raised-button class="viewProducts" color="primary" (click)="openProductList(category)" [attr.data-category-button]="'button_'+category.id">
+                      View products
+                    </button>
                   </div>
                 </mat-list-item>
               </mat-list>
