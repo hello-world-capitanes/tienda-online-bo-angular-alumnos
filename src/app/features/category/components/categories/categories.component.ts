@@ -8,6 +8,7 @@ import {
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
+import { Product } from 'src/app/features/product/models/product-models';
 import { Category } from './../../models/category.model';
 import { ModifyCategoryComponent } from './modifyCategory/modify-category/modify-category.component';
 
@@ -21,6 +22,9 @@ export class CategoriesComponent implements OnInit {
   panelOpenState = false;
   sub: Subscription;
   categories!: Category[];
+
+  selected!:Product;
+  products!:Product[];
 
   constructor(
     private form: FormBuilder,
@@ -115,5 +119,13 @@ export class CategoriesComponent implements OnInit {
       width: '350px',
     });
     dialogRef.componentInstance.id = id;
+  }
+
+  addProduct(category:Category){
+    /* this.categoryService.addProduct(category, this.selected); */
+  }
+
+  removeProduct(category:Category, product:Product){
+    this.categoryService.removeProduct(category,product);
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { Product } from '../../product/models/product-models';
 import { Category } from '../models/category.model';
 
 @Injectable({
@@ -82,6 +83,40 @@ export class CategoryService extends FirestoreService {
     return this.getCollection().doc(id).set(Object.assign({}, categoryBD)).then(() => {
       return categoryBD as Category;
     })
+  }
+
+/*   addProduct(product:Product, category:Category){
+    if(!product){
+      throw new Error('Product has not been introduced');
+    }
+    if(!category){
+      throw new Error('Category has not been introduced');
+    }
+    if(product.categories.find(prod => {if(product.id === prod.id){return false}return false})){
+      throw new Error('Product already exists into category');
+    }
+    let newProducts: Product[] = category.products
+  } */
+
+  removeProduct(category: Category, product:Product){
+    if(!product){
+      throw new Error('Product has not been introduced');
+    }
+    if(!category){
+      throw new Error('Category has not been introduced');
+    }
+  /*   let newProduct:Product[] = product.categories;
+    let index = -1;
+    for(let i = 0; i<newCategories.length;i++){
+      if(newCategories[i].id===category.id){
+        index = i;
+      }
+    }
+    if(index===-1){
+      throw new Error("Category not found");
+    }
+    newCategories.splice(index,1);
+    return this.getCollection().doc(product.id).update({categories: newCategories }) */;
   }
 
 }

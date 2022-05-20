@@ -7,7 +7,6 @@ import { CategoriesComponent } from './features/category/components/categories/c
 import { ProductComponent } from './features/product/components/product/product.component';
 import { ShopsListComponent } from './features/shop/components/shops-list/shops-list.component';
 import { UserComponent } from './features/user/components/user/user.component';
-import { HomeComponent } from './shared/components/home/home.component';
 
 const routes: Routes = [
   { path: '', component: SignInComponent },
