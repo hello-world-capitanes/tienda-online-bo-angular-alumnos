@@ -20,7 +20,7 @@ export class ModifyCategoryComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private categoryService: CategoryService
   ) {
-    this.categoryService.getCategories().subscribe(categories => {
+    this.categoryService.getAllCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
   }

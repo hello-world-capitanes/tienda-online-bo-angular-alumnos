@@ -40,8 +40,8 @@ table{
   margin: 1em;
   margin-left: 0 auto;
   flex: 1 1 auto;
-  background-color: #3F51B5;
-  color: white;
+  background-color: #E8C07D;
+
 }
 
 .listShop{
@@ -49,7 +49,33 @@ table{
 }
 
 .viewProducts{
-  background-color: #3F51B5;
-  color: white;
+  background-color: #E8C07D;
+  color : #614124;
+
+}
+.divButtons{
+  display: flex;
+  flex-direction: row;
 }
 
+mat-icon{
+  color: #614124;
+}
+
+span{
+
+  color: #614124;
+
+}
+mat-list-item{
+  color:#614124;
+}
+.containerProd{
+  margin-bottom: 10px;
+}
+
+h1{
+
+  color: #614124;
+
+}

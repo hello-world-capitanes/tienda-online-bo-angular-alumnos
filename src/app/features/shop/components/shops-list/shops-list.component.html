@@ -10,10 +10,10 @@
 
             <mat-expansion-panel-header >
               <div class="info">
-                <button mat-raised-button class = "botonShop" id="editShop{{shop.name}}" (click)="modifyShop(shop.id)">
+                <button mat-raised-button class = "botonShop" id="editShop{{shop.name}}" (click)="$event.stopPropagation(); modifyShop(shop.id)">
                   <mat-icon> edit </mat-icon>
                 </button>
-                <button mat-raised-button id = "{{shop.name}}activeShopButton" class = "botonShop" (click)="deActivateShop($event, shop)" [attr.data-shop-id]="'delete_'+shop.id">
+                <button mat-raised-button id = "{{shop.name}}activeShopButton" class = "botonShop" (click)="$event.stopPropagation(); deActivateShop($event, shop)" [attr.data-shop-id]="'delete_'+shop.id">
                   <mat-icon> delete_forever </mat-icon>
                 </button>
                 <mat-panel-title>
@@ -33,9 +33,15 @@
                       <span> Name: {{ shop.name }} </span>
                       <span> Adress: {{ shop.address.street }} </span>
                       <br>
-                      <button mat-raised-button class="viewProducts" color="accent" (click)="openProductList(shop)" [attr.data-shop-button]="'button_'+shop.id">
-                        View products
-                      </button>
+                      <div class="divButtons">
+                        <button mat-raised-button class="viewProducts" color="accent" (click)="$event.stopPropagation(); openProductList(shop)" [attr.data-shop-button]="'button_'+shop.id">
+                          View products
+                        </button>
+                        <button mat-raised-button class="viewProducts" color="accent" (click)="$event.stopPropagation(); openModifyProducts(shop)" [attr.data-shop-button]="'buttonProducts_'+shop.id">
+                          Reassignate products
+                        </button>
+                      </div>
+
                     </div>
                   </mat-list-item>
                   <br>
@@ -59,10 +65,10 @@
 
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class = "botonShop" id="editShop{{shop.name}}" (click)="modifyShop(shop.id)">
+                <button mat-raised-button class = "botonShop" id="editShop{{shop.name}}" (click)="$event.stopPropagation(); modifyShop(shop.id)">
                   <mat-icon> edit </mat-icon>
                 </button>
-                <button mat-raised-button id = "{{shop.name}}activeShopButton" class = "botonShop" (click)="activateShop($event,shop)" [attr.data-shop-id]="'reactivate_'+shop.id">
+                <button mat-raised-button id = "{{shop.name}}activeShopButton" class = "botonShop" (click)="$event.stopPropagation(); activateShop($event,shop)" [attr.data-shop-id]="'reactivate_'+shop.id">
                   <mat-icon> autorenew </mat-icon>
                 </button>
                 <mat-panel-title>
