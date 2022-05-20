@@ -40,35 +40,6 @@ export class ModifyProductComponent implements OnInit {
     this.productService.getAllProducts().subscribe(products => {
       this.products = (!!products && products.length > 0 ? products : [])
     })
-    this.productForm = new FormGroup({
-      name: new FormControl
-        (data.name,
-          [Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(30)]
-        ),
-      characteristics: new FormControl
-        (data.characteristics,
-          [Validators.required]
-        ),
-      price: new FormControl
-        (data.price,
-          [Validators.required,
-          Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),]
-        ),
-      description: new FormControl
-        (data.description,
-          [Validators.required]
-        ),
-      categories: new FormControl
-        (data.categories,
-          [Validators.required]
-        ),
-      image: new FormControl
-        (data.image),
-      active: new FormControl
-        (data.active)
-    })
    }
 
   ngOnInit(): void {
@@ -81,10 +52,10 @@ export class ModifyProductComponent implements OnInit {
       characteristics: new FormControl('', [Validators.required]),
       price: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*$'),
+        Validators.pattern('^([\+|0-9][0-9]*)(\.?)[0-9|0-9]*$'),
       ]),
       description: new FormControl('', [Validators.required]),
-      image: new FormControl('', )
+      image: new FormControl('',[Validators.pattern('^http(s?):\/{2}(.{1,1000})[^\.]\.(png|jpg|jpeg|svg|gif)$')]),
     });
   }
 
@@ -101,16 +72,16 @@ export class ModifyProductComponent implements OnInit {
     if(this.productForm.invalid){
       return;
     }
+
     let newProd = new Product(
       id,
       this.productForm.value.name,
       this.productForm.value.characteristics,
-      this.productForm.value.price,
+      parseFloat(this.productForm.value.price),
       this.productForm.value.description,
       this.categoriesProd,
       this.productForm.value.image,
       this.active,
-
     )
     this.productService.modifyProduct(id, newProd);
     this.dialogRef.close();

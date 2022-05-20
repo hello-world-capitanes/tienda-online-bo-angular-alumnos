@@ -19,15 +19,21 @@
     <div class="primeraCol">
       <mat-form-field class="formContainer">
         <mat-label>Price</mat-label>
-        <input matInput id="price" formControlName="price" type="number" />
+        <input matInput id="price" formControlName="price" type="text" />
         <mat-error
-          *ngIf="
-            productForm.get('price')?.errors &&
-            productForm.get('price')?.hasError('required')
-          "
-        >
-          {{ PRODUCT_ERRORS.price.notProvided }}
-        </mat-error>
+        *ngIf="
+          productForm.get('price')?.hasError('required')
+        "
+      >
+        {{ PRODUCT_ERRORS.price.notProvided }}
+      </mat-error>
+        <mat-error
+        *ngIf="
+          productForm.get('price')?.hasError('pattern')
+        "
+      >
+        {{ PRODUCT_ERRORS.price.invalidPrice }}
+      </mat-error>
       </mat-form-field>
     </div>
     <div class="segundaCol">
@@ -63,26 +69,34 @@
       <mat-form-field class="formContainer">
         <mat-label> Image url </mat-label>
         <input class="input" matInput formControlName="image" />
-        <mat-error
-          *ngIf="
-            productForm.get('image')?.errors &&
-            productForm.get('image')?.hasError('pattern')
-          "
-        >
+        <mat-error *ngIf="productForm.get('image')?.hasError('pattern')">
           {{ PRODUCT_ERRORS.image.invalidUrl }}
         </mat-error>
       </mat-form-field>
       <div class="formBtn">
         <div *ngIf="productForm.invalid">
-
-          <button mat-raised-button class="buttonAdd" id="modifyDisabled" color="primary" (click)="modifyProduct(id)" disabled="true">Añadir</button>
-
+          <button
+            mat-raised-button
+            class="buttonAdd"
+            id="modifyDisabled"
+            color="primary"
+            (click)="modifyProduct(id)"
+            disabled="true"
+          >
+            Añadir
+          </button>
         </div>
 
         <div *ngIf="productForm.valid">
-
-          <button mat-raised-button class="buttonAdd" id="modifyEnabled" color="primary" (click)="modifyProduct(id)">Añadir</button>
-
+          <button
+            mat-raised-button
+            class="buttonAdd"
+            id="modifyEnabled"
+            color="primary"
+            (click)="modifyProduct(id)"
+          >
+            Añadir
+          </button>
         </div>
       </div>
     </div>
