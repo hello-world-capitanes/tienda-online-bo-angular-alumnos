@@ -12,8 +12,8 @@ table {
     justify-content: center;
     margin: auto;
     .acceptButton{
-        background-color:  #3F51B5;
-        color: white;
+        background-color:  #E8C07D;
+        color: #614124;
     }
     button{
         margin: 5px;
@@ -24,4 +24,19 @@ table {
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+mat-button{
+  background-color: #E8C07D;
+  color : #614124;
+}
+#closeDialog{
+  background-color: #E8C07D;
+  color : #614124;
+}
+#cancelButton{
+  background-color: #CC704B;
+}
+
+#cancelButton:hover{
+  background-color: #b85f3b;
 }
