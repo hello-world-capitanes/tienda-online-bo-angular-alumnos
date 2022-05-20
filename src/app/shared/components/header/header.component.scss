@@ -3,11 +3,18 @@
   margin-right: 15px;
 }
 
-.title {
+.headerTitle {
   text-decoration: none;
-  color: black;
+  color: #614124;
 }
 
 .spacer {
     flex: 1 1 auto;
+}
+mat-toolbar{
+  background-color : #E3F7D3;
+}
+
+mat-icon{
+  color:#614124;
 }
