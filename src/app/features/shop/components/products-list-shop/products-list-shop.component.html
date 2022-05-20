@@ -21,7 +21,7 @@
     "
   >
     <mat-list role="list" *ngFor="let productStock of showProducts">
-      <div class="divProduct" *ngIf="productStock.stock > 0">
+      <div class="divProduct">
         <div class="divImage">
           <img src="{{ productStock.product.image }}" />
         </div>
@@ -47,7 +47,7 @@
           </mat-form-field>
           <button
             mat-raised-button
-            (click)="changeStock(productStock, units.value, shop.id)"
+            (click)="$event.stopPropagation(); changeStock(productStock, units.value, shop.id)"
             value="product"
             class="stockButton"
             [attr.data-product-id]="'button_' + productStock.product.id"

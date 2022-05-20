@@ -2,7 +2,7 @@ import { Address } from 'src/app/core/models/address.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map, Observable } from 'rxjs';
+import { elementAt, map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/core/services/firestore.service';
 import { ProductStock } from 'src/app/features/product/models/product-stock.model';
 import { SnackBarMessageComponent } from 'src/app/shared/components/snack-bar-message/snack-bar-message.component';
@@ -50,31 +50,28 @@ export class ShopService extends FirestoreService {
       throw new Error('Shop has not been introduced');
     }
 
-    if (await this.shopExistsByName(shop)){
-
+    if (await this.shopExistsByName(shop)) {
       throw new Error();
-
     } else {
-
-    let newShop = {
-      id: this.firestore.createId(),
-      name: shop.name,
-      address: {
-        country : shop.address.country,
-        province : shop.address.province,
-        location : shop.address.location,
-        cp : shop.address.cp,
-        street : shop.address.street,
+      let newShop = {
+        id: this.firestore.createId(),
+        name: shop.name,
+        address: {
+          country: shop.address.country,
+          province: shop.address.province,
+          location: shop.address.location,
+          cp: shop.address.cp,
+          street: shop.address.street,
         },
-      active: shop.active,
-      products: shop.products,
-    }
-    return this.getCollection()
-      .doc(newShop.id)
-      .set(newShop)
-      .then(() => {
-        return newShop as Shop;
-      })
+        active: shop.active,
+        products: shop.products,
+      };
+      return this.getCollection()
+        .doc(newShop.id)
+        .set(newShop)
+        .then(() => {
+          return newShop as Shop;
+        });
     }
   }
 
@@ -140,7 +137,10 @@ export class ShopService extends FirestoreService {
     return this.getCollection().doc(shop.id).update({ active: true });
   }
 
-  private async applyStock(products: ProductShopFirebase[], id: string): Promise<any> {
+  private async updateProducts(
+    products: ProductShopFirebase[],
+    id: string
+  ): Promise<any> {
     if (!!products && !!id) {
       return this.getCollection().doc(id).update({ products: products });
     }
@@ -164,27 +164,25 @@ export class ShopService extends FirestoreService {
     this.selectedShopSeeProducts = value;
   }
 
-
-  async modifyShop(id: string, newShop: Shop){
-    if(!!id && id.length > 0 && !!newShop){
-      let address =  {
+  async modifyShop(id: string, newShop: Shop) {
+    if (!!id && id.length > 0 && !!newShop) {
+      let address = {
         country: newShop.address.country,
         province: newShop.address.province,
         location: newShop.address.location,
         cp: newShop.address.cp,
-        street: newShop.address.street
-      } as Address
-      return await this.getCollection().doc(id).update({'address': address});
+        street: newShop.address.street,
+      } as Address;
+      return await this.getCollection().doc(id).update({ address: address });
     }
     throw new Error('ID not valid');
   }
 
-
   private changeStock(products: ProductStock[], id: string, units: number) {
-    if (!!products && !!id && !!units) {
+    if (!!products && !!id && (!!units || units === 0)) {
       const p = products.find((prod) => prod.product.id === id);
       if (!!p) {
-        if (p.product.active || units < p.stock) {
+        if (p.product.active || (!p.product.active && units <= p.stock)) {
           p.stock = units;
           this.snackBar.openFromComponent(SnackBarMessageComponent, {
             data: 'Stock of ' + p.product.name + ' modificated',
@@ -203,7 +201,7 @@ export class ShopService extends FirestoreService {
   }
 
   async modifyStock(prod: ProductStock, units: number, id: string) {
-    if (prod && units && id) {
+    if (prod && (!!units || units === 0) && id) {
       let products: ProductStock[] = [];
       this.getShopProducts().then((prods) => {
         if (!!prods) {
@@ -216,10 +214,10 @@ export class ShopService extends FirestoreService {
             stock: prod.stock,
           } as ProductShopFirebase;
         });
-        this.applyStock(finalProducts, id);
+        this.updateProducts(finalProducts, id);
 
-        return finalProducts.find(finalProd => {
-          if(prod.product.id === finalProd.id) {
+        return finalProducts.find((finalProd) => {
+          if (prod.product.id === finalProd.id) {
             return prod.stock;
           }
           return -1;
@@ -232,5 +230,42 @@ export class ShopService extends FirestoreService {
       return await this.getCollection().ref.doc(id).delete();
     }
     throw new Error('Shop id is not valid or undefined');
+  }
+
+  async addProductToShop(prod: string[], id: string) {
+    if(prod.length === 0){
+      return;
+    }
+    if(!id){
+      throw Error('Invalid id of a shop');
+    }
+    let newProducts: ProductStock[] = [];
+    prod.forEach(element => {
+      if(!!element){
+        this.productService.findById(element).then(p => {
+          if(!p){
+            throw Error('Product undefined');
+          }
+          if(p.active){
+            newProducts.push(new ProductStock(p,0));
+          }
+          else{
+            this.snackBar.openFromComponent(SnackBarMessageComponent, {
+              data: 'Product ' + p?.name + ' is inactive',
+              duration: 1500,
+            });
+          }
+
+          const finalProducts = newProducts.map((prod) => {
+            return {
+              id: prod.product.id,
+              stock: prod.stock,
+            } as ProductShopFirebase;
+          });
+          this.updateProducts(finalProducts, id);
+        })
+      }
+    })
+    
   }
 }
