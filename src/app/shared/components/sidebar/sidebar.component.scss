@@ -3,13 +3,30 @@
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
-    color: black;
+
+    color: white;
     text-decoration: none;
     mat-icon {
         padding-right: 8px;
     }
 }
+.mat-list-item{
+  background-color: #94b67b;
+  border-radius: 7px;
 
-.mat-list-item:hover {
-    background-color: rgb(0, 0, 0, 0.05);
 }
+.mat-list-item:hover {
+    background-color: #84a86a;
+}
+
+.modulesContainer{
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+

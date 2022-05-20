@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -15,7 +16,8 @@ describe('SignInSidebarComponent', () => {
       imports: [RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
-        MatSnackBarModule],
+        MatSnackBarModule,
+        HttpClientModule],
       declarations: [ SignInSidebarComponent ]
     })
     .compileComponents();

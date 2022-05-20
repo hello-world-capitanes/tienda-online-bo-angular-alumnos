@@ -14,6 +14,10 @@
   }
 }
 
+mat-icon{
+  color: #614124;
+}
+
 mat-divider {
   margin: 0;
   padding: 0;
@@ -39,9 +43,23 @@ mat-divider {
   margin-left: 0 auto;
   flex: 1 1 auto;
   color: white;
-  background-color: #3f51b5;
+  background-color: #E8C07D;
 }
 
 .user {
   font-weight: bold;
+}
+
+h1{
+  color: #614124;
+}
+
+span{
+
+  color: #614124;
+
+}
+
+.containerProd{
+  margin-bottom: 10px;
 }

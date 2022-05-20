@@ -10,7 +10,7 @@
           >
             <mat-expansion-panel-header>
               <div class="info">
-                <button mat-raised-button class="userButton" color="primary" id="{{user.id}}EditActive" (click)="modifyUser(user)">
+                <button mat-raised-button class="userButton" color="primary" id="{{user.id}}EditActive" (click)="modifyUser(user)" [attr.data-user-id]="'modify_'+user.id">
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-raised-button class="deleteButton" (click)="deleteUser(user)">
@@ -40,7 +40,7 @@
       </div>
     </div>
   </ng-container>
-  <mat-divider></mat-divider>
+  <br><br>
   <h1>Inactive users</h1>
   <ng-container *ngFor="let user of users">
     <div *ngIf="user.active === false">
