@@ -39,6 +39,7 @@ export class AuthService extends FirestoreService{
     firestore: AngularFirestore,
     private authApiService:AuthApiService,
   ) {
+
     super(firestore);
     this.collection = this.CATEGORY_COLLECTION;
     this.afAuth.authState.subscribe((user) => {

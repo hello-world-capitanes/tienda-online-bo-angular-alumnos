@@ -248,6 +248,7 @@ export class ShopService extends FirestoreService {
           if(!p){
             throw Error('Product undefined');
           }
+
           if(p.active){
             newProducts.push(new ProductStock(p,0));
           }
