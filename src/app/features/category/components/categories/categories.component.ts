@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit, QueryList, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/features/category/services/category-service.service';
 import { Category } from './../../models/category.model';
@@ -15,26 +18,66 @@ import { ModifyCategoryComponent } from './modifyCategory/modify-category/modify
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
+  animations: [
+    trigger('detailExpand',[
+      state('collapsed', style({ height: '0', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+    ])
+  ]
 })
 export class CategoriesComponent implements OnInit {
   categoryForm: FormGroup;
   panelOpenState = false;
-  sub: Subscription;
-  categories!: Category[];
+  activeCategoryListSub: Subscription;
+  deActiveCategoryListSub: Subscription;
+
+  activeCategories!: Category[];
+  deActiveCategories !: Category[];
+  dataSourceActiveCategories!: MatTableDataSource<Category>;
+  dataSourceDeActiveCategories!: MatTableDataSource<Category>;
+
+  pageSize = 5;
+
+  categoryExpanded: Category | null = null;
+  columnsToDisplay: string[] = [ "edit", "active", "category-name", "expand"];
+  pageSizeOptionsActiveCategories: number[] = [5, 10, 20, 50];
+  pageSizeOptionsDeActiveCategories: number[] = [5, 10, 20, 50];
+
+  @ViewChild('matPaginatorActiveCategories') matPaginatorActiveCategories !: MatPaginator;
+  @ViewChild('matPaginatorDeactiveCategories') matPaginatorDeactiveCategories !: MatPaginator;
+
+  // MatPaginator Output
+  pageEventActiveCategories!: PageEvent;
+  pageEventDeActiveCategories!: PageEvent;
 
   constructor(
     private form: FormBuilder,
     public categoryService: CategoryService,
     private matDialog: MatDialog
   ) {
-    this.sub = this.categoryService
-      .getCategories()
+    this.activeCategoryListSub = this.categoryService
+      .getAllActiveCategories()
       .subscribe((categoriesFromApi) => {
-        this.categories =
+        this.activeCategories =
           !!categoriesFromApi && categoriesFromApi.length > 0
             ? categoriesFromApi
             : [];
-      });
+
+        this.dataSourceActiveCategories = new MatTableDataSource<Category>(this.activeCategories);
+        this.dataSourceActiveCategories.paginator = this.matPaginatorActiveCategories;
+    });
+
+    this.deActiveCategoryListSub = this.categoryService
+    .getAllDeActiveCategories()
+    .subscribe((categoriesFromApi) => {
+      this.deActiveCategories =
+        !!categoriesFromApi && categoriesFromApi.length > 0
+          ? categoriesFromApi
+          : [];
+      this.dataSourceDeActiveCategories = new MatTableDataSource<Category>(this.deActiveCategories);
+      this.dataSourceDeActiveCategories.paginator = this.matPaginatorDeactiveCategories;
+    });
 
     this.categoryForm = this.form.group({
       name: new FormControl(null, [
@@ -48,6 +91,10 @@ export class CategoriesComponent implements OnInit {
         Validators.maxLength(100),
       ]),
     });
+  }
+
+  toggleCollapse(row: Category) {
+    this.categoryExpanded = (this.categoryExpanded === row ? null: row);
   }
 
   ngOnInit(): void {}
@@ -106,7 +153,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.activeCategoryListSub.unsubscribe();
+    this.deActiveCategoryListSub.unsubscribe();
   }
 
   modifyCategory(id: string){

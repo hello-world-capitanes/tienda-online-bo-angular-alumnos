@@ -35,7 +35,7 @@ export class ProductComponent implements OnInit {
       this.products = (!!products && products.length > 0 ? products : [])
     })
 
-    this.categoryService.getCategories().subscribe(categories => {
+    this.categoryService.getAllCategories().subscribe(categories => {
       this.categories = (!!categories && categories.length > 0 ? categories : [])
     })
   }
