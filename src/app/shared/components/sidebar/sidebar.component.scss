@@ -13,20 +13,19 @@
 .mat-list-item{
   background-color: #94b67b;
   border-radius: 7px;
-
+  margin-top: 5px;
 }
+
 .mat-list-item:hover {
     background-color: #84a86a;
 }
 
 .modulesContainer{
-
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
 }
 
 
